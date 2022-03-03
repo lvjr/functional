@@ -1,0 +1,327 @@
+%  -*- coding: utf-8 -*-
+%%% ----------------------------------------------------------------------------
+%%% Functional: LaTeX2 functional interfaces to LaTeX3 programming layer
+%%% Copyright : 2022 (c) Jianrui Lyu <tolvjr@163.com>
+%%% Repository: https://github.com/lvjr/functional
+%%% License   : The LaTeX Project Public License 1.3c
+%%% ----------------------------------------------------------------------------
+
+\NeedsTeXFormat{LaTeX2e}[2018-04-01]
+
+\RequirePackage{expl3}
+\ProvidesExplPackage{functional}{2022-03-03}{2022@}
+  {^^JLaTeX2 functional interfaces to LaTeX3 programming layer}
+
+\cs_generate_variant:Nn \iow_log:n { V }
+\cs_generate_variant:Nn \tl_set:Nn { Ne }
+
+\int_new:N \l__fun_arg_count_int
+\tl_new:N \g__fun_result_tl
+\tl_new:N \l__fun_parameters_defined_tl % for holding #1 #2 #3
+\tl_const:Nn \c__fun_parameter_i_tl    { #1 }
+\tl_const:Nn \c__fun_parameter_ii_tl   { #1 #2 }
+\tl_const:Nn \c__fun_parameter_iii_tl  { #1 #2 #3 }
+\tl_const:Nn \c__fun_parameter_iv_tl   { #1 #2 #3 #4 }
+\tl_const:Nn \c__fun_parameter_v_tl    { #1 #2 #3 #4 #5 }
+\tl_const:Nn \c__fun_parameter_vi_tl   { #1 #2 #3 #4 #5 #6 }
+\tl_const:Nn \c__fun_parameter_vii_tl  { #1 #2 #3 #4 #5 #6 #7 }
+\tl_const:Nn \c__fun_parameter_viii_tl { #1 #2 #3 #4 #5 #6 #7 #8 }
+\tl_const:Nn \c__fun_parameter_ix_tl   { #1 #2 #3 #4 #5 #6 #7 #8 #9 }
+\tl_new:N \l__fun_argument_i_tl
+\tl_new:N \l__fun_argument_ii_tl
+\tl_new:N \l__fun_argument_iii_tl
+\tl_new:N \l__fun_argument_iv_tl
+\tl_new:N \l__fun_argument_v_tl
+\tl_new:N \l__fun_argument_vi_tl
+\tl_new:N \l__fun_argument_vii_tl
+\tl_new:N \l__fun_argument_viii_tl
+\tl_new:N \l__fun_argument_ix_tl
+
+%% #1: function name; #2: argument specification; #3 function body
+\cs_new_protected:Npn \FunNew #1 #2 #3
+  {
+    \int_set:Nn \l__fun_arg_count_int { \tl_count:n {#2} }
+    \tl_set_eq:Nc \l__fun_parameters_defined_tl
+      { c__fun_parameter_ \int_to_roman:n { \l__fun_arg_count_int } _tl }
+    \exp_last_unbraced:NcV \cs_new_protected:Npn
+      { __fun_defined_ \cs_to_str:N #1 : #2 }
+      \l__fun_parameters_defined_tl
+      {
+        \group_begin:
+        \tl_gclear:N \g__fun_result_tl
+        #3
+        \__fun_tracing_log:e { [O] ~ \g__fun_result_tl }
+        \group_end:
+      }
+    \use:c { __fun_new_with_arg_ \int_to_roman:n { \l__fun_arg_count_int } :NnV }
+      #1 {#2} \l__fun_parameters_defined_tl
+  }
+
+%% #1: function name; #2: argument specifications; #3 parameters tl defined
+\cs_new_protected:Npn \__fun_new_with_arg_i:Nnn #1 #2 #3
+  {
+    \cs_new_protected:Npn #1 #3
+      {
+        \tl_set:Nn \l__fun_argument_i_tl { ##1 }
+        \__fun_evaluate:Nn #1 {#2}
+      }
+  }
+\cs_generate_variant:Nn \__fun_new_with_arg_i:Nnn { NnV }
+
+%% #1: function name; #2: argument specifications; #3 parameters tl defined
+\cs_new_protected:Npn \__fun_new_with_arg_ii:Nnn #1 #2 #3
+  {
+    \cs_new_protected:Npn #1 #3
+      {
+        \tl_set:Nn \l__fun_argument_i_tl  { ##1 }
+        \tl_set:Nn \l__fun_argument_ii_tl { ##2 }
+        \__fun_evaluate:Nn #1 {#2}
+      }
+  }
+\cs_generate_variant:Nn \__fun_new_with_arg_ii:Nnn { NnV }
+
+%% #1: function name; #2: argument specifications; #3 parameters tl defined
+\cs_new_protected:Npn \__fun_new_with_arg_iii:Nnn #1 #2 #3
+  {
+    \cs_new_protected:Npn #1 #3
+      {
+        \tl_set:Nn \l__fun_argument_i_tl   { ##1 }
+        \tl_set:Nn \l__fun_argument_ii_tl  { ##2 }
+        \tl_set:Nn \l__fun_argument_iii_tl { ##3 }
+        \__fun_evaluate:Nn #1 {#2}
+      }
+  }
+\cs_generate_variant:Nn \__fun_new_with_arg_iii:Nnn { NnV }
+
+%% #1: function name; #2: argument specifications; #3 parameters tl defined
+\cs_new_protected:Npn \__fun_new_with_arg_iv:Nnn #1 #2 #3
+  {
+    \cs_new_protected:Npn #1 #3
+      {
+        \tl_set:Nn \l__fun_argument_i_tl   { ##1 }
+        \tl_set:Nn \l__fun_argument_ii_tl  { ##2 }
+        \tl_set:Nn \l__fun_argument_iii_tl { ##3 }
+        \tl_set:Nn \l__fun_argument_iv_tl  { ##4 }
+        \__fun_evaluate:Nn #1 {#2}
+      }
+  }
+\cs_generate_variant:Nn \__fun_new_with_arg_iv:Nnn { NnV }
+
+%% #1: function name; #2: argument specifications; #3 parameters tl defined
+\cs_new_protected:Npn \__fun_new_with_arg_v:Nnn #1 #2 #3
+  {
+    \cs_new_protected:Npn #1 #3
+      {
+        \tl_set:Nn \l__fun_argument_i_tl   { ##1 }
+        \tl_set:Nn \l__fun_argument_ii_tl  { ##2 }
+        \tl_set:Nn \l__fun_argument_iii_tl { ##3 }
+        \tl_set:Nn \l__fun_argument_iv_tl  { ##4 }
+        \tl_set:Nn \l__fun_argument_v_tl   { ##5 }
+        \__fun_evaluate:Nn #1 {#2}
+      }
+  }
+\cs_generate_variant:Nn \__fun_new_with_arg_v:Nnn { NnV }
+
+%% #1: function name; #2: argument specifications; #3 parameters tl defined
+\cs_new_protected:Npn \__fun_new_with_arg_vi:Nnn #1 #2 #3
+  {
+    \cs_new_protected:Npn #1 #3
+      {
+        \tl_set:Nn \l__fun_argument_i_tl   { ##1 }
+        \tl_set:Nn \l__fun_argument_ii_tl  { ##2 }
+        \tl_set:Nn \l__fun_argument_iii_tl { ##3 }
+        \tl_set:Nn \l__fun_argument_iv_tl  { ##4 }
+        \tl_set:Nn \l__fun_argument_v_tl   { ##5 }
+        \tl_set:Nn \l__fun_argument_vi_tl  { ##6 }
+        \__fun_evaluate:Nn #1 {#2}
+      }
+  }
+\cs_generate_variant:Nn \__fun_new_with_arg_vi:Nnn { NnV }
+
+%% #1: function name; #2: argument specifications; #3 parameters tl defined
+\cs_new_protected:Npn \__fun_new_with_arg_vii:Nnn #1 #2 #3
+  {
+    \cs_new_protected:Npn #1 #3
+      {
+        \tl_set:Nn \l__fun_argument_i_tl   { ##1 }
+        \tl_set:Nn \l__fun_argument_ii_tl  { ##2 }
+        \tl_set:Nn \l__fun_argument_iii_tl { ##3 }
+        \tl_set:Nn \l__fun_argument_iv_tl  { ##4 }
+        \tl_set:Nn \l__fun_argument_v_tl   { ##5 }
+        \tl_set:Nn \l__fun_argument_vi_tl  { ##6 }
+        \tl_set:Nn \l__fun_argument_vii_tl { ##7 }
+        \__fun_evaluate:Nn #1 {#2}
+      }
+  }
+\cs_generate_variant:Nn \__fun_new_with_arg_vii:Nnn { NnV }
+
+%% #1: function name; #2: argument specifications; #3 parameters tl defined
+\cs_new_protected:Npn \__fun_new_with_arg_viii:Nnn #1 #2 #3
+  {
+    \cs_new_protected:Npn #1 #3
+      {
+        \tl_set:Nn \l__fun_argument_i_tl    { ##1 }
+        \tl_set:Nn \l__fun_argument_ii_tl   { ##2 }
+        \tl_set:Nn \l__fun_argument_iii_tl  { ##3 }
+        \tl_set:Nn \l__fun_argument_iv_tl   { ##4 }
+        \tl_set:Nn \l__fun_argument_v_tl    { ##5 }
+        \tl_set:Nn \l__fun_argument_vi_tl   { ##6 }
+        \tl_set:Nn \l__fun_argument_vii_tl  { ##7 }
+        \tl_set:Nn \l__fun_argument_viii_tl { ##8 }
+        \__fun_evaluate:Nn #1 {#2}
+      }
+  }
+\cs_generate_variant:Nn \__fun_new_with_arg_viii:Nnn { NnV }
+
+%% #1: function name; #2: argument specifications; #3 parameters tl defined
+\cs_new_protected:Npn \__fun_new_with_arg_ix:Nnn #1 #2 #3
+  {
+    \cs_new_protected:Npn #1 #3
+      {
+        \tl_set:Nn \l__fun_argument_i_tl    { ##1 }
+        \tl_set:Nn \l__fun_argument_ii_tl   { ##2 }
+        \tl_set:Nn \l__fun_argument_iii_tl  { ##3 }
+        \tl_set:Nn \l__fun_argument_iv_tl   { ##4 }
+        \tl_set:Nn \l__fun_argument_v_tl    { ##5 }
+        \tl_set:Nn \l__fun_argument_vi_tl   { ##6 }
+        \tl_set:Nn \l__fun_argument_vii_tl  { ##7 }
+        \tl_set:Nn \l__fun_argument_viii_tl { ##8 }
+        \tl_set:Nn \l__fun_argument_ix_tl   { ##9 }
+        \__fun_evaluate:Nn #1 {#2}
+      }
+  }
+\cs_generate_variant:Nn \__fun_new_with_arg_ix:Nnn { NnV }
+
+\int_new:N \g__fun_nesting_level_int
+\tl_new:N \l__fun_narg_tl
+\cs_set_eq:NN \__fun_cs_temp:w \scan_stop:
+
+%% #1: function name; #2: argument specifications
+\cs_new_protected:Npn \__fun_evaluate:Nn #1 #2
+  {
+    \tl_set:Nn \l_tmpa_tl { #2 }
+    \int_zero:N \l_tmpa_int
+    \int_gincr:N \g__fun_nesting_level_int
+    \__fun_arguments_gclear:
+    \tl_map_inline:Nn \l_tmpa_tl
+      {
+        \int_incr:N \l_tmpa_int
+        \tl_if_eq:nnTF { ##1 } { N }
+          {
+            \__fun_arguments_gput:e
+              {
+                \use:c { l__fun_argument_ \int_to_roman:n { \l_tmpa_int } _tl }
+              }
+          }
+          {
+            \tl_set:Ne \l__fun_narg_tl
+              { \use:c { l__fun_argument_ \int_to_roman:n { \l_tmpa_int } _tl } }
+            \cs_set_eq:Nc \__fun_cs_temp:w
+              {
+                __fun_defined_
+                \exp_last_unbraced:Ne \cs_to_str:N { \tl_head:N \l__fun_narg_tl }
+                : #2
+              }
+            \cs_if_exist:NTF \__fun_cs_temp:w
+              {
+                \l__fun_narg_tl
+                \__fun_arguments_gput:e { { \g__fun_result_tl } }
+              }
+              {
+                \__fun_arguments_gput:e { { \l__fun_narg_tl } }
+              }
+          }
+      }
+    \__fun_arguments_log:N #1
+    \__fun_arguments_called:c { __fun_defined_ \cs_to_str:N #1 : #2 }
+    \int_gdecr:N \g__fun_nesting_level_int
+  }
+
+\cs_new_protected:Npn \__fun_arguments_called:N #1
+  {
+    \exp_last_unbraced:Nv
+      #1 { g__fun_arguments_ \int_use:N \g__fun_nesting_level_int _tl }
+  }
+\cs_generate_variant:Nn \__fun_arguments_called:N { c }
+
+\cs_new_protected:Npn \__fun_arguments_gclear:
+  {
+    \tl_gclear:c { g__fun_arguments_ \int_use:N \g__fun_nesting_level_int _tl }
+  }
+
+\cs_new_protected:Npn \__fun_arguments_log:N #1
+  {
+    \__fun_tracing_log:e
+    {
+      [I] ~ \token_to_str:N #1
+     \tl_use:c { g__fun_arguments_ \int_use:N \g__fun_nesting_level_int _tl }
+    }
+  }
+
+\cs_new_protected:Npn \__fun_arguments_gput:n #1
+  {
+    \tl_gput_right:cn
+      { g__fun_arguments_ \int_use:N \g__fun_nesting_level_int _tl } { #1 }
+  }
+\cs_generate_variant:Nn \__fun_arguments_gput:n { e }
+
+\cs_new_protected:Npn \__fun_put_result:n #1
+  {
+    \tl_gput_right:Nn \g__fun_result_tl { #1 }
+  }
+\cs_generate_variant:Nn \__fun_put_result:n { e, V }
+
+\cs_set_eq:NN \Result \__fun_put_result:n
+\cs_set_eq:NN \ExpResult \__fun_put_result:e
+\cs_set_eq:NN \ValResult \__fun_put_result:V
+
+\cs_new_protected:Npn \__fun_return_result:
+  {
+    \int_compare:nNnT { \g__fun_nesting_level_int } = { 1 }
+      { \tl_use:N \g__fun_result_tl }
+  }
+\cs_set_eq:NN \Return \__fun_return_result:
+
+\bool_new:N \l__fun_tracing_bool
+\tl_new:N \l__tracing_text_tl
+
+\cs_new_protected:Npn \__fun_tracing_log_on:n #1
+  {
+    \tl_set:Ne \l__tracing_text_tl
+      {
+        \prg_replicate:nn
+          { \int_eval:n { (\g__fun_nesting_level_int - 1) * 4 } } { ~ }
+      }
+    \tl_put_right:Nn \l__tracing_text_tl { #1 }
+    \iow_log:V \l__tracing_text_tl
+  }
+\cs_generate_variant:Nn \__fun_tracing_log_on:n { e, V }
+
+\cs_new_protected:Npn \__fun_tracing_log_off:n #1 { }
+\cs_generate_variant:Nn \__fun_tracing_log_off:n { e, V }
+
+\cs_set_eq:NN \__fun_tracing_log:n \__fun_tracing_log_off:n
+\cs_set_eq:NN \__fun_tracing_log:e \__fun_tracing_log_off:e
+\cs_set_eq:NN \__fun_tracing_log:V \__fun_tracing_log_off:V
+
+\keys_define:nn { functional }
+  {
+    tracing .bool_set:N = \l__fun_tracing_bool,
+  }
+
+\NewDocumentCommand \Functional { m }
+  {
+    \keys_set:nn { functional } { #1 }
+    \bool_if:NTF \l__fun_tracing_bool
+      {
+        \cs_set_eq:NN \__fun_tracing_log:n \__fun_tracing_log_on:n
+        \cs_set_eq:NN \__fun_tracing_log:e \__fun_tracing_log_on:e
+        \cs_set_eq:NN \__fun_tracing_log:V \__fun_tracing_log_on:V
+      }
+      {
+        \cs_set_eq:NN \__fun_tracing_log:n \__fun_tracing_log_off:n
+        \cs_set_eq:NN \__fun_tracing_log:e \__fun_tracing_log_off:e
+        \cs_set_eq:NN \__fun_tracing_log:V \__fun_tracing_log_off:V
+      }
+  }
+

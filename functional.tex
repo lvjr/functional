@@ -1,0 +1,36 @@
+%  -*- coding: utf-8 -*-
+
+\documentclass{article}
+
+\usepackage{functional}
+
+\Functional{tracing}
+
+\begin{document}
+
+\ExplSyntaxOn
+
+\FunNew \IntMathSquare { n }
+  {
+    \int_set:Nn \l_tmpa_int { \int_eval:n { #1 * #1 } }
+    \ExpResult { \int_use:N \l_tmpa_int }
+    \Return
+  }
+
+\FunNew \IntMathMult { n n }
+  {
+    \int_set:Nn \l_tmpa_int { \int_eval:n { #1 * #2 } }
+    \ExpResult { \int_use:N \l_tmpa_int }
+    \Return
+  }
+
+\ExplSyntaxOff
+
+\IntMathSquare{5}
+
+\IntMathMult{5}{4}
+
+\IntMathSquare{\IntMathSquare{5}}
+
+\end{document}
+
