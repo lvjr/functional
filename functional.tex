@@ -36,6 +36,18 @@
     \Return
   }
 
+\FunNew \UseFirstOfTwo { n n }
+  {
+    \GobbleOne { #2 } \UseOne { #1 }
+    \Return
+  }
+
+\FunNew \UseSecondOfTwo { n n }
+  {
+    \GobbleOne { #1 } \UseOne { #2 }
+    \Return
+  }
+
 \ExplSyntaxOff
 
 \IntMathSquare{5}
@@ -45,6 +57,8 @@
 \IntMathSquare{\IntMathSquare{5}}
 
 \GobbleOne{abc} \UseOne{uvw}
+
+\UseFirstOfTwo{abc}{uvw} \UseSecondOfTwo{abc}{uvw}
 
 \end{document}
 
