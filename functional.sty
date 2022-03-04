@@ -300,9 +300,25 @@
 \cs_new_protected:Npn \__fun_tracing_log_off:n #1 { }
 \cs_generate_variant:Nn \__fun_tracing_log_off:n { e, V }
 
-\cs_set_eq:NN \__fun_tracing_log:n \__fun_tracing_log_off:n
-\cs_set_eq:NN \__fun_tracing_log:e \__fun_tracing_log_off:e
-\cs_set_eq:NN \__fun_tracing_log:V \__fun_tracing_log_off:V
+\cs_new_protected:Npn \__fun_tracing_true:
+  {
+    \cs_set_eq:NN \__fun_tracing_log:n \__fun_tracing_log_on:n
+    \cs_set_eq:NN \__fun_tracing_log:e \__fun_tracing_log_on:e
+    \cs_set_eq:NN \__fun_tracing_log:V \__fun_tracing_log_on:V
+  }
+
+\cs_new_protected:Npn \__fun_tracing_false:
+  {
+    \cs_set_eq:NN \__fun_tracing_log:n \__fun_tracing_log_off:n
+    \cs_set_eq:NN \__fun_tracing_log:e \__fun_tracing_log_off:e
+    \cs_set_eq:NN \__fun_tracing_log:V \__fun_tracing_log_off:V
+  }
+
+\cs_new_protected:Npn \__fun_tracing_set:
+  {
+    \bool_if:NTF \l__fun_tracing_bool
+      { \__fun_tracing_true: } { \__fun_tracing_false: }
+  }
 
 \keys_define:nn { functional }
   {
@@ -312,16 +328,7 @@
 \NewDocumentCommand \Functional { m }
   {
     \keys_set:nn { functional } { #1 }
-    \bool_if:NTF \l__fun_tracing_bool
-      {
-        \cs_set_eq:NN \__fun_tracing_log:n \__fun_tracing_log_on:n
-        \cs_set_eq:NN \__fun_tracing_log:e \__fun_tracing_log_on:e
-        \cs_set_eq:NN \__fun_tracing_log:V \__fun_tracing_log_on:V
-      }
-      {
-        \cs_set_eq:NN \__fun_tracing_log:n \__fun_tracing_log_off:n
-        \cs_set_eq:NN \__fun_tracing_log:e \__fun_tracing_log_off:e
-        \cs_set_eq:NN \__fun_tracing_log:V \__fun_tracing_log_off:V
-      }
+    \__fun_tracing_set:
   }
 
+\Functional { tracing = false }
