@@ -10,14 +10,14 @@
 
 \ExplSyntaxOn
 
-\FunNew \IntMathSquare { n }
+\FunNew \IntMathSquare { m }
   {
     \int_set:Nn \l_tmpa_int { \int_eval:n { #1 * #1 } }
     \ExpResult { \int_use:N \l_tmpa_int }
     \Return
   }
 
-\FunNew \IntMathMult { n n }
+\FunNew \IntMathMult { m m }
   {
     \int_set:Nn \l_tmpa_int { \int_eval:n { #1 * #2 } }
     \ExpResult { \int_use:N \l_tmpa_int }
