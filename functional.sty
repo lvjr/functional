@@ -27,6 +27,7 @@
 \tl_const:Nn \c__fun_parameter_vii_tl  { #1 #2 #3 #4 #5 #6 #7 }
 \tl_const:Nn \c__fun_parameter_viii_tl { #1 #2 #3 #4 #5 #6 #7 #8 }
 \tl_const:Nn \c__fun_parameter_ix_tl   { #1 #2 #3 #4 #5 #6 #7 #8 #9 }
+\tl_new:N \l__fun_argument_tl
 \tl_new:N \l__fun_argument_i_tl
 \tl_new:N \l__fun_argument_ii_tl
 \tl_new:N \l__fun_argument_iii_tl
@@ -40,7 +41,7 @@
 %% #1: function name; #2: argument specification; #3 function body
 \cs_new_protected:Npn \FunNew #1 #2 #3
   {
-    \int_set:Nn \l__fun_arg_count_int { \tl_count:n {#2} }
+    \int_set:Nn \l__fun_arg_count_int { \tl_count:n {#2} } % spaces are ignored
     \tl_set_eq:Nc \l__fun_parameters_defined_tl
       { c__fun_parameter_ \int_to_roman:n { \l__fun_arg_count_int } _tl }
     \exp_last_unbraced:NcV \cs_new_protected:Npn
@@ -193,42 +194,54 @@
 \cs_generate_variant:Nn \__fun_new_with_arg_ix:Nnn { NnV }
 
 \int_new:N \g__fun_nesting_level_int
-\tl_new:N \l__fun_narg_tl
+\tl_const:Nn \c__fun_argtype_m_tl { m }
+\tl_const:Nn \c__fun_argtype_M_tl { M }
+\tl_const:Nn \c__fun_argtype_n_tl { n }
+\tl_const:Nn \c__fun_argtype_N_tl { N }
 \cs_set_eq:NN \__fun_cs_temp:w \scan_stop:
 
 %% #1: function name; #2: argument specifications
 \cs_new_protected:Npn \__fun_evaluate:Nn #1 #2
   {
-    \tl_set:Nn \l_tmpa_tl { #2 }
     \int_zero:N \l_tmpa_int
     \int_gincr:N \g__fun_nesting_level_int
     \__fun_arguments_gclear:
-    \tl_map_inline:Nn \l_tmpa_tl
+    \tl_map_variable:nNn { #2 } \l_tmpa_tl % spaces are ignored
       {
         \int_incr:N \l_tmpa_int
-        \tl_if_eq:nnTF { ##1 } { N }
+        \tl_set_eq:Nc \l__fun_argumnet_tl
+          { l__fun_argument_ \int_to_roman:n { \l_tmpa_int } _tl }
+        \tl_case:Nn \l_tmpa_tl
           {
-            \__fun_arguments_gput:e
+            \c__fun_argtype_m_tl
               {
-                \use:c { l__fun_argument_ \int_to_roman:n { \l_tmpa_int } _tl }
+                \cs_set_eq:Nc \__fun_cs_temp:w
+                  {
+                    __fun_defined_
+                    \exp_last_unbraced:Ne
+                      \cs_to_str:N { \tl_head:N \l__fun_argumnet_tl }
+                    : #2
+                  }
+                \cs_if_exist:NTF \__fun_cs_temp:w
+                  {
+                    \l__fun_argumnet_tl
+                    \__fun_arguments_gput:e { { \g__fun_result_tl } }
+                  }
+                  {
+                    \__fun_arguments_gput:e { { \l__fun_argumnet_tl } }
+                  }
               }
-          }
-          {
-            \tl_set:Ne \l__fun_narg_tl
-              { \use:c { l__fun_argument_ \int_to_roman:n { \l_tmpa_int } _tl } }
-            \cs_set_eq:Nc \__fun_cs_temp:w
+            \c__fun_argtype_M_tl
               {
-                __fun_defined_
-                \exp_last_unbraced:Ne \cs_to_str:N { \tl_head:N \l__fun_narg_tl }
-                : #2
+                \__fun_arguments_gput:e { \l__fun_argumnet_tl }
               }
-            \cs_if_exist:NTF \__fun_cs_temp:w
+            \c__fun_argtype_n_tl
               {
-                \l__fun_narg_tl
-                \__fun_arguments_gput:e { { \g__fun_result_tl } }
+                \__fun_arguments_gput:e { { \l__fun_argumnet_tl } }
               }
+            \c__fun_argtype_N_tl
               {
-                \__fun_arguments_gput:e { { \l__fun_narg_tl } }
+                \__fun_arguments_gput:e { \l__fun_argumnet_tl }
               }
           }
       }
