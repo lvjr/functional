@@ -24,6 +24,18 @@
     \Return
   }
 
+\FunNew \UseOne { n }
+  {
+    \Result { #1 }
+    \Return
+  }
+
+\FunNew \GobbleOne { n }
+  {
+    \Result { }
+    \Return
+  }
+
 \ExplSyntaxOff
 
 \IntMathSquare{5}
@@ -31,6 +43,8 @@
 \IntMathMult{5}{4}
 
 \IntMathSquare{\IntMathSquare{5}}
+
+\GobbleOne{abc} \UseOne{uvw}
 
 \end{document}
 
