@@ -47,11 +47,11 @@
       { __fun_defined_ \cs_to_str:N #1 : #2 }
       \l__fun_parameters_defined_tl
       {
-        \group_begin:
+        \__fun_group_begin:
         \tl_gclear:N \g__fun_result_tl
         #3
         \__fun_tracing_log:e { [O] ~ \g__fun_result_tl }
-        \group_end:
+        \__fun_group_end:
       }
     \use:c { __fun_new_with_arg_ \int_to_roman:n { \l__fun_arg_count_int } :NnV }
       #1 {#2} \l__fun_parameters_defined_tl
@@ -282,6 +282,26 @@
   }
 \cs_set_eq:NN \Return \__fun_return_result:
 
+\bool_new:N \l__fun_scoping_bool
+
+\cs_new_protected:Npn \__fun_scoping_true:
+  {
+    \cs_set_eq:NN \__fun_group_begin: \group_begin:
+    \cs_set_eq:NN \__fun_group_end: \group_end:
+  }
+
+\cs_new_protected:Npn \__fun_scoping_false:
+  {
+    \cs_set_eq:NN \__fun_group_begin: \scan_stop:
+    \cs_set_eq:NN \__fun_group_end: \scan_stop:
+  }
+
+\cs_new_protected:Npn \__fun_scoping_set:
+  {
+    \bool_if:NTF \l__fun_scoping_bool
+      { \__fun_scoping_true: } { \__fun_scoping_false: }
+  }
+
 \bool_new:N \l__fun_tracing_bool
 \tl_new:N \l__tracing_text_tl
 
@@ -322,13 +342,15 @@
 
 \keys_define:nn { functional }
   {
+    scoping .bool_set:N = \l__fun_scoping_bool,
     tracing .bool_set:N = \l__fun_tracing_bool,
   }
 
 \NewDocumentCommand \Functional { m }
   {
     \keys_set:nn { functional } { #1 }
+    \__fun_scoping_set:
     \__fun_tracing_set:
   }
 
-\Functional { tracing = false }
+\Functional { scoping = false, tracing = false }
