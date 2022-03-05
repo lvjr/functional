@@ -225,23 +225,23 @@
                 \cs_if_exist:NTF \__fun_cs_temp:w
                   {
                     \l__fun_argument_tl
-                    \__fun_arguments_gput:e { { \g__fun_result_tl } }
+                    \__fun_arguments_gput:e { { \exp_not:V \g__fun_result_tl } }
                   }
                   {
-                    \__fun_arguments_gput:e { { \l__fun_argument_tl } }
+                    \__fun_arguments_gput:e { { \exp_not:V \l__fun_argument_tl } }
                   }
               }
             \c__fun_argtype_M_tl
               {
-                \__fun_arguments_gput:e { \l__fun_argument_tl }
+                \__fun_arguments_gput:e { \exp_not:V \l__fun_argument_tl }
               }
             \c__fun_argtype_n_tl
               {
-                \__fun_arguments_gput:e { { \l__fun_argument_tl } }
+                \__fun_arguments_gput:e { { \exp_not:V \l__fun_argument_tl } }
               }
             \c__fun_argtype_N_tl
               {
-                \__fun_arguments_gput:e { \l__fun_argument_tl }
+                \__fun_arguments_gput:e { \exp_not:V \l__fun_argument_tl }
               }
           }
       }
