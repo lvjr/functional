@@ -209,7 +209,7 @@
     \tl_map_variable:nNn { #2 } \l_tmpa_tl % spaces are ignored
       {
         \int_incr:N \l_tmpa_int
-        \tl_set_eq:Nc \l__fun_argumnet_tl
+        \tl_set_eq:Nc \l__fun_argument_tl
           { l__fun_argument_ \int_to_roman:n { \l_tmpa_int } _tl }
         \tl_case:Nn \l_tmpa_tl
           {
@@ -219,29 +219,29 @@
                   {
                     __fun_defined_
                     \exp_last_unbraced:Ne
-                      \cs_to_str:N { \tl_head:N \l__fun_argumnet_tl }
+                      \cs_to_str:N { \tl_head:N \l__fun_argument_tl }
                     : #2
                   }
                 \cs_if_exist:NTF \__fun_cs_temp:w
                   {
-                    \l__fun_argumnet_tl
+                    \l__fun_argument_tl
                     \__fun_arguments_gput:e { { \g__fun_result_tl } }
                   }
                   {
-                    \__fun_arguments_gput:e { { \l__fun_argumnet_tl } }
+                    \__fun_arguments_gput:e { { \l__fun_argument_tl } }
                   }
               }
             \c__fun_argtype_M_tl
               {
-                \__fun_arguments_gput:e { \l__fun_argumnet_tl }
+                \__fun_arguments_gput:e { \l__fun_argument_tl }
               }
             \c__fun_argtype_n_tl
               {
-                \__fun_arguments_gput:e { { \l__fun_argumnet_tl } }
+                \__fun_arguments_gput:e { { \l__fun_argument_tl } }
               }
             \c__fun_argtype_N_tl
               {
-                \__fun_arguments_gput:e { \l__fun_argumnet_tl }
+                \__fun_arguments_gput:e { \l__fun_argument_tl }
               }
           }
       }
