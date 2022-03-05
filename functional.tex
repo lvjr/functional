@@ -10,6 +10,12 @@
 
 \ExplSyntaxOn
 
+\tl_new:N \lTmpaTl
+\tl_new:N \lTmpbTl
+\tl_new:N \lTmpcTl
+\cs_set_eq:NN \TlSet \tl_set:Nn
+\cs_set_eq:NN \TlGset \tl_gset:Nn
+
 \FunNew \IntMathSquare { m }
   {
     \int_set:Nn \l_tmpa_int { \int_eval:n { #1 * #1 } }
@@ -48,6 +54,14 @@
     \Return
   }
 
+\FunNew \TlIfEqTF { N N }
+  {
+    \tl_if_eq:NNTF #1 #2
+      { \Result { \UseFirstOfTwo } }
+      { \Result { \UseSecondOfTwo } }
+    \Return
+  }
+
 \ExplSyntaxOff
 
 \IntMathSquare{5}
@@ -59,6 +73,12 @@
 \GobbleOne{abc} \UseOne{uvw}
 
 \UseFirstOfTwo{abc}{uvw} \UseSecondOfTwo{abc}{uvw}
+
+\TlSet{\lTmpaTl}{abc}
+\TlSet{\lTmpbTl}{abc}
+\TlSet{\lTmpcTl}{xyz}
+\TlIfEqTF{\lTmpaTl}{\lTmpbTl}{first}{second}
+\TlIfEqTF{\lTmpaTl}{\lTmpcTl}{first}{second}
 
 \end{document}
 
