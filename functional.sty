@@ -248,6 +248,7 @@
     \__fun_arguments_log:N #1
     \__fun_arguments_called:c { __fun_defined_ \cs_to_str:N #1 : #2 }
     \int_gdecr:N \g__fun_nesting_level_int
+    \__fun_return_result:
   }
 
 \cs_new_protected:Npn \__fun_arguments_called:N #1
@@ -290,10 +291,11 @@
 
 \cs_new_protected:Npn \__fun_return_result:
   {
-    \int_compare:nNnT { \g__fun_nesting_level_int } = { 1 }
+    \int_compare:nNnT { \g__fun_nesting_level_int } = { 0 }
       { \tl_use:N \g__fun_result_tl }
   }
-\cs_set_eq:NN \Return \__fun_return_result:
+
+\cs_set_eq:NN \Return \scan_stop:
 
 \bool_new:N \l__fun_scoping_bool
 
