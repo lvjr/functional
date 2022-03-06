@@ -20,38 +20,32 @@
   {
     \int_set:Nn \l_tmpa_int { \int_eval:n { #1 * #1 } }
     \ExpResult { \int_use:N \l_tmpa_int }
-    \Return
   }
 
 \FunNew \IntMathMult { m m }
   {
     \int_set:Nn \l_tmpa_int { \int_eval:n { #1 * #2 } }
     \ExpResult { \int_use:N \l_tmpa_int }
-    \Return
   }
 
 \FunNew \UseOne { n }
   {
     \Result { #1 }
-    \Return
   }
 
 \FunNew \GobbleOne { n }
   {
     \Result { }
-    \Return
   }
 
 \FunNew \UseFirstOfTwo { n n }
   {
     \GobbleOne { #2 } \UseOne { #1 }
-    \Return
   }
 
 \FunNew \UseSecondOfTwo { n n }
   {
     \GobbleOne { #1 } \UseOne { #2 }
-    \Return
   }
 
 \FunNew \TlIfEqTF { N N }
@@ -59,7 +53,6 @@
     \tl_if_eq:NNTF #1 #2
       { \Result { \UseFirstOfTwo } }
       { \Result { \UseSecondOfTwo } }
-    \Return
   }
 
 \ExplSyntaxOff
