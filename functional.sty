@@ -39,7 +39,7 @@
 \tl_new:N \l__fun_argument_ix_tl
 
 %% #1: function name; #2: argument specification; #3 function body
-\cs_new_protected:Npn \FunNew #1 #2 #3
+\cs_new_protected:Npn \PrgNewFunction #1 #2 #3
   {
     \int_set:Nn \l__fun_arg_count_int { \tl_count:n {#2} } % spaces are ignored
     \tl_set_eq:Nc \l__fun_parameters_defined_tl

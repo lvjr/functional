@@ -16,64 +16,64 @@
 \cs_set_eq:NN \TlSet \tl_set:Nn
 \cs_set_eq:NN \TlGset \tl_gset:Nn
 
-\FunNew \IntMathSquare { m }
+\PrgNewFunction \IntMathSquare { m }
   {
     \int_set:Nn \l_tmpa_int { \int_eval:n { #1 * #1 } }
     \ExpResult { \int_use:N \l_tmpa_int }
   }
 
-\FunNew \IntMathAdd { m m }
+\PrgNewFunction \IntMathAdd { m m }
   {
     \int_set:Nn \l_tmpa_int { \int_eval:n { #1 + #2 } }
     \ExpResult { \int_use:N \l_tmpa_int }
   }
 
-\FunNew \IntMathSubtract { m m }
+\PrgNewFunction \IntMathSubtract { m m }
   {
     \int_set:Nn \l_tmpa_int { \int_eval:n { #1 - #2 } }
     \ExpResult { \int_use:N \l_tmpa_int }
   }
 
-\FunNew \IntMathMultiply { m m }
+\PrgNewFunction \IntMathMultiply { m m }
   {
     \int_set:Nn \l_tmpa_int { \int_eval:n { #1 * #2 } }
     \ExpResult { \int_use:N \l_tmpa_int }
   }
 
-\FunNew \IntMathDivide { m m }
+\PrgNewFunction \IntMathDivide { m m }
   {
     \int_set:Nn \l_tmpa_int { \int_eval:n { #1 / #2 } }
     \ExpResult { \int_use:N \l_tmpa_int }
   }
 
-\FunNew \UseOne { n }
+\PrgNewFunction \UseOne { n }
   {
     \Result { #1 }
   }
 
-\FunNew \GobbleOne { n }
+\PrgNewFunction \GobbleOne { n }
   {
     \Result { }
   }
 
-\FunNew \UseFirstOfTwo { n n }
+\PrgNewFunction \UseFirstOfTwo { n n }
   {
     \GobbleOne { #2 } \UseOne { #1 }
   }
 
-\FunNew \UseSecondOfTwo { n n }
+\PrgNewFunction \UseSecondOfTwo { n n }
   {
     \GobbleOne { #1 } \UseOne { #2 }
   }
 
-\FunNew \TlIfEqTF { N N }
+\PrgNewFunction \TlIfEqTF { N N }
   {
     \tl_if_eq:NNTF #1 #2
       { \Result { \UseFirstOfTwo } }
       { \Result { \UseSecondOfTwo } }
   }
 
-\FunNew \IntCompareTF { m N m }
+\PrgNewFunction \IntCompareTF { m N m }
   {
     \int_compare:nNnTF {#1} #2 {#3}
       { \Result { \UseFirstOfTwo } }
