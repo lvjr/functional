@@ -55,6 +55,13 @@
       { \Result { \UseSecondOfTwo } }
   }
 
+\FunNew \IntCompareTF { m N m }
+  {
+    \int_compare:nNnTF {#1} #2 {#3}
+      { \Result { \UseFirstOfTwo } }
+      { \Result { \UseSecondOfTwo } }
+  }
+
 \ExplSyntaxOff
 
 \IntMathSquare{5}
@@ -72,6 +79,9 @@
 \TlSet{\lTmpcTl}{xyz}
 \TlIfEqTF{\lTmpaTl}{\lTmpbTl}{first}{second}
 \TlIfEqTF{\lTmpaTl}{\lTmpcTl}{first}{second}
+
+\IntCompareTF{2}>{1}{first}{second}
+\IntCompareTF{2}>{3}{first}{second}
 
 \end{document}
 
