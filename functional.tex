@@ -33,13 +33,10 @@
 \ExplSyntaxOff
 
 \IntMathSquare{5}
-
-\IntMathAdd{7}{3}
-\IntMathSubtract{7}{3}
-\IntMathMultiply{7}{3}
-\IntMathDivide{7}{3}
-
 \IntMathSquare{\IntMathSquare{5}}
+
+\IntMathFactorial{0}
+\IntMathFactorial{4}
 
 \GobbleOne{abc} \UseOne{uvw}
 \UseGobble{abc}{uvw} \GobbleUse{abc}{uvw}
@@ -55,11 +52,13 @@
 \TlIfEqTF{\lTmpaTl}{\lTmpbTl}{\Result{first}}{\Result{second}}
 \TlIfEqTF{\lTmpaTl}{\lTmpcTl}{\Result{first}}{\Result{second}}
 
+\IntMathAdd{7}{3}
+\IntMathSubtract{7}{3}
+\IntMathMultiply{7}{3}
+\IntMathDivide{7}{3}
+
 \IntCompareTF{2}>{1}{\Result{first}}{\Result{second}}
 \IntCompareTF{2}>{3}{\Result{first}}{\Result{second}}
-
-\IntMathFactorial{0}
-\IntMathFactorial{4}
 
 \end{document}
 
