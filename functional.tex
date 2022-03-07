@@ -1,12 +1,18 @@
 %  -*- coding: utf-8 -*-
 
-\documentclass{article}
+\documentclass[oneside]{book}
+\usepackage[a4paper,margin=2.5cm]{geometry}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{4pt plus 1pt minus 1pt}
 
 \usepackage{functional}
 
 \Functional{scoping=false,tracing=true}
 
 \begin{document}
+
+\chapter{Overview of Features}
 
 \ExplSyntaxOn
 
@@ -38,11 +44,17 @@
 \IntMathFactorial{0}
 \IntMathFactorial{4}
 
+\chapter{Basic Definitions (\texttt{l3basics})}
+
 \GobbleOne{abc} \UseOne{uvw}
 \UseGobble{abc}{uvw} \GobbleUse{abc}{uvw}
 
+\chapter{Control Structures (\texttt{l3prg})}
+
 \BoolIfTF\cTrueBool{\Result{true}}{\Result{false}}
 \BoolIfTF\cFalseBool{\Result{true}}{\Result{false}}
+
+\chapter{Token Lists (\texttt{l3tl})}
 
 \TlSet{\lTmpiTl}{\IntMathSquare{4}}
 
@@ -51,6 +63,8 @@
 \TlSet{\lTmpcTl}{xyz}
 \TlIfEqTF{\lTmpaTl}{\lTmpbTl}{\Result{first}}{\Result{second}}
 \TlIfEqTF{\lTmpaTl}{\lTmpcTl}{\Result{first}}{\Result{second}}
+
+\chapter{Integers (\texttt{l3int})}
 
 \IntMathAdd{7}{3}
 \IntMathSubtract{7}{3}
