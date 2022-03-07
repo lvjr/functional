@@ -10,11 +10,10 @@
 
 \ExplSyntaxOn
 
-\tl_new:N \lTmpaTl
-\tl_new:N \lTmpbTl
-\tl_new:N \lTmpcTl
-\cs_set_eq:NN \TlSet \tl_set:Nn
-\cs_set_eq:NN \TlGset \tl_gset:Nn
+\PrgNewFunction \TlSet { M m }
+  {
+    \tl_set:Nn #1 {#2}
+  }
 
 \PrgNewFunction \IntMathSquare { m }
   {
@@ -102,6 +101,8 @@
 
 \BoolIfTF\cTrueBool{\Result{true}}{\Result{false}}
 \BoolIfTF\cFalseBool{\Result{true}}{\Result{false}}
+
+\TlSet{\lTmpiTl}{\IntMathSquare{4}}
 
 \TlSet{\lTmpaTl}{abc}
 \TlSet{\lTmpbTl}{abc}
