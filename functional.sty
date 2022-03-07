@@ -526,6 +526,12 @@
 
 \cs_set_eq:NN \IntNew \int_new:N
 
+\PrgNewFunction \IntSet { M m }
+  {
+    \__fun_if_global_variable:NTF #1
+      { \int_gset:Nn #1 {#2} } { \int_set:Nn #1 {#2} }
+  }
+
 \PrgNewFunction \IntMathAdd { m m }
   {
     \int_set:Nn \l@Funx@Int { \int_eval:n { #1 + #2 } }

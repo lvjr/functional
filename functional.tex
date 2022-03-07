@@ -18,14 +18,14 @@
 
 \PrgNewFunction \IntMathSquare { m }
   {
-    \int_set:Nn \l_tmpa_int { \int_eval:n { #1 * #1 } }
-    \Result { \Expand { \int_use:N \l_tmpa_int } }
+    \IntSet \lTmpaInt { \int_eval:n { #1 * #1 } }
+    \Result { \Expand { \int_use:N \lTmpaInt } }
   }
 
 \PrgNewFunction \IntMathCubic { m }
   {
-    \int_set:Nn \l_tmpa_int { \int_eval:n { #1 * #1 * #1 } }
-    \Result { \Value \l_tmpa_int }
+    \IntSet \lTmpaInt { \int_eval:n { #1 * #1 * #1 } }
+    \Result { \Value \lTmpaInt }
   }
 
 \PrgNewFunction \IntMathFactorial { m }
