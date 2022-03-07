@@ -467,6 +467,12 @@
 \bool_const:Nn \cTrueBool { \c_true_bool }
 \bool_const:Nn \cFalseBool { \c_false_bool }
 
+\bool_new:N \lTmpaBool   \bool_new:N \lTmpbBool   \bool_new:N \lTmpcBool
+\bool_new:N \lTmpiBool   \bool_new:N \lTmpjBool   \bool_new:N \lTmpkBool
+\bool_new:N \l@Funx@Bool \bool_new:N \l@Funy@Bool \bool_new:N \l@Funz@Bool
+
+\cs_set_eq:NN \BoolNew \bool_new:N
+
 \PrgNewConditional \BoolIf { N }
   {
     \Result { #1 }
@@ -476,8 +482,11 @@
 %%> \section{Interfaces for Token Lists (l3tl)}
 %%% --------------------------------------------------------
 
-\tl_new:N \lTmpaTl \tl_new:N \lTmpbTl \tl_new:N \lTmpcTl
-\tl_new:N \lTmpiTl \tl_new:N \lTmpjTl \tl_new:N \lTmpkTl
+\tl_new:N \lTmpaTl   \tl_new:N \lTmpbTl   \tl_new:N \lTmpcTl
+\tl_new:N \lTmpiTl   \tl_new:N \lTmpjTl   \tl_new:N \lTmpkTl
+\tl_new:N \l@Funx@Tl \tl_new:N \l@Funy@Tl \tl_new:N \l@Funz@Tl
+
+\cs_set_eq:NN \TlNew \tl_new:N
 
 \PrgNewFunction \TlSet { M m }
   {
@@ -498,6 +507,8 @@
 \int_new:N \lTmpaInt   \int_new:N \lTmpbInt   \int_new:N \lTmpcInt
 \int_new:N \lTmpiInt   \int_new:N \lTmpjInt   \int_new:N \lTmpkInt
 \int_new:N \l@Funx@Int \int_new:N \l@Funy@Int \int_new:N \l@Funz@Int
+
+\cs_set_eq:NN \IntNew \int_new:N
 
 \PrgNewFunction \IntMathAdd { m m }
   {
