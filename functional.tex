@@ -19,7 +19,13 @@
 \PrgNewFunction \IntMathSquare { m }
   {
     \int_set:Nn \l_tmpa_int { \int_eval:n { #1 * #1 } }
-    \ExpResult { \int_use:N \l_tmpa_int }
+    \Result { \Expand { \int_use:N \l_tmpa_int } }
+  }
+
+\PrgNewFunction \IntMathCubic { m }
+  {
+    \int_set:Nn \l_tmpa_int { \int_eval:n { #1 * #1 * #1 } }
+    \Result { \Value \l_tmpa_int }
   }
 
 \PrgNewFunction \IntMathFactorial { m }
@@ -32,7 +38,7 @@
             \IntMathMultiply { #1 }
               { \IntMathFactorial { \IntMathSubtract{#1}{1} } }
           }
-        \ExpResult { \tl_use:N \lTmpaTl }
+        \Result { \Value \lTmpaTl }
       }
   }
 
@@ -40,6 +46,9 @@
 
 \IntMathSquare{5}
 \IntMathSquare{\IntMathSquare{5}}
+
+\IntMathCubic{2}
+\IntMathCubic{\IntMathCubic{2}}
 
 \IntMathFactorial{0}
 \IntMathFactorial{4}

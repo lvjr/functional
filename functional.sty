@@ -346,8 +346,17 @@
     \__fun_put_result:n { #1 }
   }
 
-\cs_set_eq:NN \ExpResult \__fun_put_result:e
-\cs_set_eq:NN \ValResult \__fun_put_result:V
+\PrgNewFunction \Expand { n }
+  {
+    \__fun_put_result:e { #1 }
+  }
+\cs_set_eq:NN \UseExpand \Expand
+
+\PrgNewFunction \Value { N }
+  {
+    \__fun_put_result:V #1
+  }
+\cs_set_eq:NN \UseValue \Value
 
 \cs_new_protected:Npn \__fun_return_result:
   {
@@ -483,28 +492,30 @@
 %%> \section{Interfaces for Integers (l3int)}
 %%% --------------------------------------------------------
 
+\int_new:N \l@Funx@Int \int_new:N \l@Funy@Int \int_new:N \l@Funz@Int
+
 \PrgNewFunction \IntMathAdd { m m }
   {
-    \int_set:Nn \l_tmpa_int { \int_eval:n { #1 + #2 } }
-    \ExpResult { \int_use:N \l_tmpa_int }
+    \int_set:Nn \l@Funx@Int { \int_eval:n { #1 + #2 } }
+    \Result { \Value \l@Funx@Int }
   }
 
 \PrgNewFunction \IntMathSubtract { m m }
   {
-    \int_set:Nn \l_tmpa_int { \int_eval:n { #1 - #2 } }
-    \ExpResult { \int_use:N \l_tmpa_int }
+    \int_set:Nn \l@Funx@Int { \int_eval:n { #1 - #2 } }
+    \Result { \Value \l@Funx@Int }
   }
 
 \PrgNewFunction \IntMathMultiply { m m }
   {
-    \int_set:Nn \l_tmpa_int { \int_eval:n { #1 * #2 } }
-    \ExpResult { \int_use:N \l_tmpa_int }
+    \int_set:Nn \l@Funx@Int { \int_eval:n { #1 * #2 } }
+    \Result { \Value \l@Funx@Int }
   }
 
 \PrgNewFunction \IntMathDivide { m m }
   {
-    \int_set:Nn \l_tmpa_int { \int_eval:n { #1 / #2 } }
-    \ExpResult { \int_use:N \l_tmpa_int }
+    \int_set:Nn \l@Funx@Int { \int_eval:n { #1 / #2 } }
+    \Result { \Value \l@Funx@Int }
   }
 
 \PrgNewConditional \IntCompare { m N m }
