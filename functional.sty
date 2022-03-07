@@ -358,6 +358,9 @@
   }
 \cs_set_eq:NN \UseValue \Value
 
+\cs_set_eq:NN \ExpNot \exp_not:n
+\cs_set_eq:NN \ExpValue \exp_not:V
+
 \cs_new_protected:Npn \__fun_return_result:
   {
     \int_compare:nNnT { \g__fun_nesting_level_int } = { 0 }
