@@ -71,18 +71,18 @@
     \Result { #1 }
   }
 
-\PrgNewFunction \TlIfEqTF { N N }
+\PrgNewConditional \TlIfEq { N N }
   {
     \tl_if_eq:NNTF #1 #2
-      { \Result { \UseFirstOfTwo } }
-      { \Result { \UseSecondOfTwo } }
+      { \Result { \cTrueBool } }
+      { \Result { \cFalseBool } }
   }
 
-\PrgNewFunction \IntCompareTF { m N m }
+\PrgNewConditional \IntCompare { m N m }
   {
     \int_compare:nNnTF {#1} #2 {#3}
-      { \Result { \UseFirstOfTwo } }
-      { \Result { \UseSecondOfTwo } }
+      { \Result { \cTrueBool } }
+      { \Result { \cFalseBool } }
   }
 
 \ExplSyntaxOff
@@ -106,11 +106,11 @@
 \TlSet{\lTmpaTl}{abc}
 \TlSet{\lTmpbTl}{abc}
 \TlSet{\lTmpcTl}{xyz}
-\TlIfEqTF{\lTmpaTl}{\lTmpbTl}{first}{second}
-\TlIfEqTF{\lTmpaTl}{\lTmpcTl}{first}{second}
+\TlIfEqTF{\lTmpaTl}{\lTmpbTl}{\Result{first}}{\Result{second}}
+\TlIfEqTF{\lTmpaTl}{\lTmpcTl}{\Result{first}}{\Result{second}}
 
-\IntCompareTF{2}>{1}{first}{second}
-\IntCompareTF{2}>{3}{first}{second}
+\IntCompareTF{2}>{1}{\Result{first}}{\Result{second}}
+\IntCompareTF{2}>{3}{\Result{first}}{\Result{second}}
 
 \end{document}
 
