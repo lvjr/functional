@@ -84,6 +84,20 @@
       { \Result { \cFalseBool } }
   }
 
+\PrgNewFunction \IntMathFactorial { m }
+  {
+    \IntCompareTF { #1 } = { 0 }
+      { \Result { 1 } }
+      {
+        \TlSet \lTmpaTl
+          {
+            \IntMathMultiply { #1 }
+              { \IntMathFactorial { \IntMathSubtract{#1}{1} } }
+          }
+        \ExpResult { \tl_use:N \lTmpaTl }
+      }
+  }
+
 \ExplSyntaxOff
 
 \IntMathSquare{5}
@@ -112,6 +126,9 @@
 
 \IntCompareTF{2}>{1}{\Result{first}}{\Result{second}}
 \IntCompareTF{2}>{3}{\Result{first}}{\Result{second}}
+
+\IntMathFactorial{0}
+\IntMathFactorial{4}
 
 \end{document}
 
