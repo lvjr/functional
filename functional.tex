@@ -16,26 +16,6 @@
     \ExpResult { \int_use:N \l_tmpa_int }
   }
 
-\PrgNewFunction \UseOne { n }
-  {
-    \Result { #1 }
-  }
-
-\PrgNewFunction \GobbleOne { n }
-  {
-    \Result { }
-  }
-
-\PrgNewFunction \UseFirstOfTwo { n n }
-  {
-    \GobbleOne { #2 } \UseOne { #1 }
-  }
-
-\PrgNewFunction \UseSecondOfTwo { n n }
-  {
-    \GobbleOne { #1 } \UseOne { #2 }
-  }
-
 \PrgNewFunction \IntMathFactorial { m }
   {
     \IntCompareTF { #1 } = { 0 }
@@ -62,8 +42,7 @@
 \IntMathSquare{\IntMathSquare{5}}
 
 \GobbleOne{abc} \UseOne{uvw}
-
-\UseFirstOfTwo{abc}{uvw} \UseSecondOfTwo{abc}{uvw}
+\UseGobble{abc}{uvw} \GobbleUse{abc}{uvw}
 
 \BoolIfTF\cTrueBool{\Result{true}}{\Result{false}}
 \BoolIfTF\cFalseBool{\Result{true}}{\Result{false}}

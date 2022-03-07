@@ -422,6 +422,26 @@
 
 \Functional { scoping = false, tracing = false }
 
+\PrgNewFunction \UseOne { n }
+  {
+    \Result { #1 }
+  }
+
+\PrgNewFunction \GobbleOne { n }
+  {
+    \Result { }
+  }
+
+\PrgNewFunction \UseGobble { n n }
+  {
+    \UseOne { #1 }
+  }
+
+\PrgNewFunction \GobbleUse { n n }
+  {
+    \UseOne { #2 }
+  }
+
 %%% --------------------------------------------------------
 %%> \section{Interfaces for Control Structures (l3prg)}
 %%% --------------------------------------------------------
