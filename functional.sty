@@ -15,6 +15,9 @@
 \cs_generate_variant:Nn \iow_log:n { V }
 \cs_generate_variant:Nn \tl_set:Nn { Ne }
 
+\bool_const:Nn \cTrueBool { \c_true_bool }
+\bool_const:Nn \cFalseBool { \c_false_bool }
+
 \int_new:N \l__fun_arg_count_int
 \tl_new:N \g__fun_result_tl
 \tl_new:N \l__fun_parameters_defined_tl
@@ -27,6 +30,25 @@
 \tl_const:Nn \c__fun_parameter_defined_i_vii_tl  { #1 #2 #3 #4 #5 #6 #7 }
 \tl_const:Nn \c__fun_parameter_defined_i_viii_tl { #1 #2 #3 #4 #5 #6 #7 #8 }
 \tl_const:Nn \c__fun_parameter_defined_i_ix_tl   { #1 #2 #3 #4 #5 #6 #7 #8 #9 }
+\tl_new:N \l__fun_parameters_called_tl
+\tl_const:Nn \c__fun_parameter_called_i_i_tl   { {#1} }
+\tl_const:Nn \c__fun_parameter_called_i_ii_tl  { {#1}{#2} }
+\tl_const:Nn \c__fun_parameter_called_i_iii_tl { {#1}{#2}{#3} }
+\tl_const:Nn \c__fun_parameter_called_i_iv_tl  { {#1}{#2}{#3}{#4} }
+\tl_const:Nn \c__fun_parameter_called_i_v_tl   { {#1}{#2}{#3}{#4}{#5} }
+\tl_const:Nn \c__fun_parameter_called_i_vi_tl  { {#1}{#2}{#3}{#4}{#5}{#6} }
+\tl_const:Nn \c__fun_parameter_called_i_vii_tl { {#1}{#2}{#3}{#4}{#5}{#6}{#7} }
+\tl_new:N \l__fun_parameters_true_tl
+\tl_new:N \l__fun_parameters_false_tl
+\tl_const:Nn \c__fun_parameter_called_i_tl    { {#1} }
+\tl_const:Nn \c__fun_parameter_called_ii_tl   { {#2} }
+\tl_const:Nn \c__fun_parameter_called_iii_tl  { {#3} }
+\tl_const:Nn \c__fun_parameter_called_iv_tl   { {#4} }
+\tl_const:Nn \c__fun_parameter_called_v_tl    { {#5} }
+\tl_const:Nn \c__fun_parameter_called_vi_tl   { {#6} }
+\tl_const:Nn \c__fun_parameter_called_vii_tl  { {#7} }
+\tl_const:Nn \c__fun_parameter_called_viii_tl { {#8} }
+\tl_const:Nn \c__fun_parameter_called_ix_tl   { {#9} }
 \tl_new:N \l__fun_argument_tl
 \tl_new:N \l__fun_argument_i_tl
 \tl_new:N \l__fun_argument_ii_tl
@@ -39,7 +61,7 @@
 \tl_new:N \l__fun_argument_ix_tl
 
 %% #1: function name; #2: argument specification; #3 function body
-\cs_new_protected:Npn \PrgNewFunction #1 #2 #3
+\cs_new_protected:Npn \__fun_new_function:Nnn #1 #2 #3
   {
     \int_set:Nn \l__fun_arg_count_int { \tl_count:n {#2} } % spaces are ignored
     \tl_set_eq:Nc \l__fun_parameters_defined_tl
@@ -57,6 +79,37 @@
     \use:c { __fun_new_with_arg_ \int_to_roman:n { \l__fun_arg_count_int } :NnV }
       #1 {#2} \l__fun_parameters_defined_tl
   }
+\cs_generate_variant:Nn \__fun_new_function:Nnn { cne }
+
+\cs_set_eq:NN \PrgNewFunction \__fun_new_function:Nnn
+
+\tl_new:N \g__fun_last_result_tl
+
+%% #1: function name; #2: argument specification; #3 function body
+\cs_new_protected:Npn \__fun_new_conditional:Nnn #1 #2 #3
+  {
+    \__fun_new_function:Nnn #1 { #2 } { #3 }
+    \tl_set_eq:Nc \l__fun_parameters_called_tl
+      { c__fun_parameter_called_i_ \int_to_roman:n { \l__fun_arg_count_int } _tl }
+    \tl_set_eq:Nc \l__fun_parameters_true_tl
+      { c__fun_parameter_called_ \int_to_roman:n { \l__fun_arg_count_int + 1 } _tl }
+    \tl_set_eq:Nc \l__fun_parameters_false_tl
+      { c__fun_parameter_called_ \int_to_roman:n { \l__fun_arg_count_int + 2 } _tl }
+    \__fun_new_function:cne { \cs_to_str:N #1 TF } { #2 n n }
+      {
+        #1 \exp_not:V \l__fun_parameters_called_tl
+        \exp_not:n
+          {
+            \tl_set_eq:NN \g__fun_last_result_tl \g__fun_result_tl
+            \tl_gclear:N \g__fun_result_tl
+            \exp_last_unbraced:NV \bool_if:NTF \g__fun_last_result_tl
+          }
+        \exp_not:V \l__fun_parameters_true_tl
+        \exp_not:V \l__fun_parameters_false_tl
+      }
+  }
+
+\cs_set_eq:NN \PrgNewConditional \__fun_new_conditional:Nnn
 
 %% #1: function name; #2: argument specifications; #3 parameters tl defined
 \cs_new_protected:Npn \__fun_new_with_arg_i:Nnn #1 #2 #3

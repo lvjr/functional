@@ -66,6 +66,11 @@
     \GobbleOne { #1 } \UseOne { #2 }
   }
 
+\PrgNewConditional \BoolIf { N }
+  {
+    \Result { #1 }
+  }
+
 \PrgNewFunction \TlIfEqTF { N N }
   {
     \tl_if_eq:NNTF #1 #2
@@ -94,6 +99,9 @@
 \GobbleOne{abc} \UseOne{uvw}
 
 \UseFirstOfTwo{abc}{uvw} \UseSecondOfTwo{abc}{uvw}
+
+\BoolIfTF\cTrueBool{\Result{true}}{\Result{false}}
+\BoolIfTF\cFalseBool{\Result{true}}{\Result{false}}
 
 \TlSet{\lTmpaTl}{abc}
 \TlSet{\lTmpbTl}{abc}
