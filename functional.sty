@@ -367,6 +367,21 @@
       { \tl_use:N \gResultTl }
   }
 
+\tl_new:N \l__fun_variable_type_tl
+
+\prg_new_protected_conditional:Npnn \__fun_if_global_variable:N #1 { TF }
+  {
+    \tl_set:Ne \l__fun_variable_type_tl
+      { \exp_args:Ne \tl_head:n { \cs_to_str:N #1 } }
+    \str_if_eq:VnTF \l__fun_variable_type_tl { g }
+      { \prg_return_true: }
+      {
+        \str_if_eq:VnTF \l__fun_variable_type_tl { c }
+          { \prg_return_true: }
+          { \prg_return_false: }
+      }
+  }
+
 \bool_new:N \l__fun_scoping_bool
 
 \cs_new_protected:Npn \__fun_scoping_true:
@@ -490,7 +505,8 @@
 
 \PrgNewFunction \TlSet { M m }
   {
-    \tl_set:Nn #1 {#2}
+    \__fun_if_global_variable:NTF #1
+      { \tl_gset:Nn #1 {#2} } { \tl_set:Nn #1 {#2} }
   }
 
 \PrgNewConditional \TlIfEq { N N }
