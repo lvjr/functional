@@ -67,7 +67,7 @@
     \tl_set_eq:Nc \l__fun_parameters_defined_tl
       { c__fun_parameter_defined_i_ \int_to_roman:n { \l__fun_arg_count_int } _tl }
     \exp_last_unbraced:NcV \cs_new_protected:Npn
-      { __fun_defined_ \cs_to_str:N #1 : #2 }
+      { __fun_defined_ \cs_to_str:N #1 : w }
       \l__fun_parameters_defined_tl
       {
         \__fun_group_begin:
@@ -273,7 +273,7 @@
                     __fun_defined_
                     \exp_last_unbraced:Ne
                       \cs_to_str:N { \tl_head:N \l__fun_argument_tl }
-                    : #2
+                    : w
                   }
                 \cs_if_exist:NTF \__fun_cs_temp:w
                   {
@@ -299,7 +299,7 @@
           }
       }
     \__fun_arguments_log:N #1
-    \__fun_arguments_called:c { __fun_defined_ \cs_to_str:N #1 : #2 }
+    \__fun_arguments_called:c { __fun_defined_ \cs_to_str:N #1 : w }
     \int_gdecr:N \g__fun_nesting_level_int
     \__fun_return_result:
   }
