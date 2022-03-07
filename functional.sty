@@ -19,8 +19,8 @@
 \cs_generate_variant:Nn \iow_log:n { V }
 \cs_generate_variant:Nn \tl_set:Nn { Ne }
 
+\tl_new:N \gResultTl
 \int_new:N \l__fun_arg_count_int
-\tl_new:N \g__fun_result_tl
 \tl_new:N \l__fun_parameters_defined_tl
 \tl_const:Nn \c__fun_parameter_defined_i_i_tl    { #1 }
 \tl_const:Nn \c__fun_parameter_defined_i_ii_tl   { #1 #2 }
@@ -72,9 +72,9 @@
       \l__fun_parameters_defined_tl
       {
         \__fun_group_begin:
-        \tl_gclear:N \g__fun_result_tl
+        \tl_gclear:N \gResultTl
         #3
-        \__fun_tracing_log:e { [O] ~ \g__fun_result_tl }
+        \__fun_tracing_log:e { [O] ~ \gResultTl }
         \__fun_group_end:
       }
     \use:c { __fun_new_with_arg_ \int_to_roman:n { \l__fun_arg_count_int } :NnV }
@@ -101,8 +101,8 @@
         #1 \exp_not:V \l__fun_parameters_called_tl
         \exp_not:n
           {
-            \tl_set_eq:NN \g__fun_last_result_tl \g__fun_result_tl
-            \tl_gclear:N \g__fun_result_tl
+            \tl_set_eq:NN \g__fun_last_result_tl \gResultTl
+            \tl_gclear:N \gResultTl
             \exp_last_unbraced:NV \bool_if:NTF \g__fun_last_result_tl
           }
         \exp_not:V \l__fun_parameters_true_tl
@@ -281,7 +281,7 @@
                 \cs_if_exist:NTF \__fun_cs_temp:w
                   {
                     \l__fun_argument_tl
-                    \__fun_arguments_gput:e { { \exp_not:V \g__fun_result_tl } }
+                    \__fun_arguments_gput:e { { \exp_not:V \gResultTl } }
                   }
                   {
                     \__fun_arguments_gput:e { { \exp_not:V \l__fun_argument_tl } }
@@ -337,7 +337,7 @@
 
 \cs_new_protected:Npn \__fun_put_result:n #1
   {
-    \tl_gput_right:Nn \g__fun_result_tl { #1 }
+    \tl_gput_right:Nn \gResultTl { #1 }
   }
 \cs_generate_variant:Nn \__fun_put_result:n { e, V }
 
@@ -364,7 +364,7 @@
 \cs_new_protected:Npn \__fun_return_result:
   {
     \int_compare:nNnT { \g__fun_nesting_level_int } = { 0 }
-      { \tl_use:N \g__fun_result_tl }
+      { \tl_use:N \gResultTl }
   }
 
 \bool_new:N \l__fun_scoping_bool
