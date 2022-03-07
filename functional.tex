@@ -18,13 +18,13 @@
 
 \PrgNewFunction \IntMathSquare { m }
   {
-    \IntSet \lTmpaInt { \int_eval:n { #1 * #1 } }
+    \IntSet \lTmpaInt { \IntEval { #1 * #1 } }
     \Result { \Expand { \int_use:N \lTmpaInt } }
   }
 
 \PrgNewFunction \IntMathCubic { m }
   {
-    \IntSet \lTmpaInt { \int_eval:n { #1 * #1 * #1 } }
+    \IntSet \lTmpaInt { \IntEval { #1 * #1 * #1 } }
     \Result { \Value \lTmpaInt }
   }
 
