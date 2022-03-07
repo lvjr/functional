@@ -339,7 +339,11 @@
   }
 \cs_generate_variant:Nn \__fun_put_result:n { e, V }
 
-\cs_set_eq:NN \Result \__fun_put_result:n
+\PrgNewFunction \Result { m }
+  {
+    \__fun_put_result:n { #1 }
+  }
+
 \cs_set_eq:NN \ExpResult \__fun_put_result:e
 \cs_set_eq:NN \ValResult \__fun_put_result:V
 
