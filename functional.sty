@@ -17,16 +17,16 @@
 
 \int_new:N \l__fun_arg_count_int
 \tl_new:N \g__fun_result_tl
-\tl_new:N \l__fun_parameters_defined_tl % for holding #1 #2 #3
-\tl_const:Nn \c__fun_parameter_i_tl    { #1 }
-\tl_const:Nn \c__fun_parameter_ii_tl   { #1 #2 }
-\tl_const:Nn \c__fun_parameter_iii_tl  { #1 #2 #3 }
-\tl_const:Nn \c__fun_parameter_iv_tl   { #1 #2 #3 #4 }
-\tl_const:Nn \c__fun_parameter_v_tl    { #1 #2 #3 #4 #5 }
-\tl_const:Nn \c__fun_parameter_vi_tl   { #1 #2 #3 #4 #5 #6 }
-\tl_const:Nn \c__fun_parameter_vii_tl  { #1 #2 #3 #4 #5 #6 #7 }
-\tl_const:Nn \c__fun_parameter_viii_tl { #1 #2 #3 #4 #5 #6 #7 #8 }
-\tl_const:Nn \c__fun_parameter_ix_tl   { #1 #2 #3 #4 #5 #6 #7 #8 #9 }
+\tl_new:N \l__fun_parameters_defined_tl
+\tl_const:Nn \c__fun_parameter_defined_i_i_tl    { #1 }
+\tl_const:Nn \c__fun_parameter_defined_i_ii_tl   { #1 #2 }
+\tl_const:Nn \c__fun_parameter_defined_i_iii_tl  { #1 #2 #3 }
+\tl_const:Nn \c__fun_parameter_defined_i_iv_tl   { #1 #2 #3 #4 }
+\tl_const:Nn \c__fun_parameter_defined_i_v_tl    { #1 #2 #3 #4 #5 }
+\tl_const:Nn \c__fun_parameter_defined_i_vi_tl   { #1 #2 #3 #4 #5 #6 }
+\tl_const:Nn \c__fun_parameter_defined_i_vii_tl  { #1 #2 #3 #4 #5 #6 #7 }
+\tl_const:Nn \c__fun_parameter_defined_i_viii_tl { #1 #2 #3 #4 #5 #6 #7 #8 }
+\tl_const:Nn \c__fun_parameter_defined_i_ix_tl   { #1 #2 #3 #4 #5 #6 #7 #8 #9 }
 \tl_new:N \l__fun_argument_tl
 \tl_new:N \l__fun_argument_i_tl
 \tl_new:N \l__fun_argument_ii_tl
@@ -43,7 +43,7 @@
   {
     \int_set:Nn \l__fun_arg_count_int { \tl_count:n {#2} } % spaces are ignored
     \tl_set_eq:Nc \l__fun_parameters_defined_tl
-      { c__fun_parameter_ \int_to_roman:n { \l__fun_arg_count_int } _tl }
+      { c__fun_parameter_defined_i_ \int_to_roman:n { \l__fun_arg_count_int } _tl }
     \exp_last_unbraced:NcV \cs_new_protected:Npn
       { __fun_defined_ \cs_to_str:N #1 : #2 }
       \l__fun_parameters_defined_tl
