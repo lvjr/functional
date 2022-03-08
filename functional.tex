@@ -35,8 +35,8 @@
       {
         \TlSet \lTmpaTl
           {
-            \IntMathMultiply { #1 }
-              { \IntMathFactorial { \IntMathSubtract{#1}{1} } }
+            \IntMathMult { #1 }
+              { \IntMathFactorial { \IntMathSub{#1}{1} } }
           }
         \Result { \Value \lTmpaTl }
       }
@@ -121,9 +121,9 @@
 \IntUse\lTmpaInt
 
 \IntMathAdd{7}{3}
-\IntMathSubtract{7}{3}
-\IntMathMultiply{7}{3}
-\IntMathDivide{7}{3}
+\IntMathSub{7}{3}
+\IntMathMult{7}{3}
+\IntMathDiv{7}{3}
 
 \IntCompareTF{2}>{1}{\Result{first}}{\Result{second}}
 \IntCompareTF{2}>{3}{\Result{first}}{\Result{second}}
