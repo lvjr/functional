@@ -53,9 +53,13 @@
   \end{minipage}\par\nopagebreak\vspace{4pt}
 }
 
+\NewDocumentEnvironment{texnote}{}{}{}
+
 \NewDocumentCommand\cs{m}{\texttt{\bfseries\color{purple3}\expandafter\string\csname#1\endcsname}}
 \NewDocumentCommand\meta{m}{\textsl{$\langle$\ignorespaces#1\unskip$\rangle$}}
 \NewDocumentCommand\Arg{m}{\texttt{\{}\textsl{$\langle$\ignorespaces#1\unskip$\rangle$}\texttt{\}}}
+
+\let\tn=\cs
 
 \usepackage{hyperref}
 \hypersetup{
@@ -251,43 +255,224 @@ contain and the category codes of those characters). For example
 
 \chapter{Integers (\texttt{l3int})}
 
-\IntSet\lTmpaInt{5}
-\IntUse\lTmpaInt
+\section{Scratch Variables of Integers}
 
+\begin{variable}{\lTmpaInt,\lTmpbInt,\lTmpcInt,\lTmpiInt,\lTmpjInt,\lTmpkInt}
+Scratch integer for local assignment. These are never used by
+the \verb!functional! package, and so are safe for use with any
+function. However, they may be overwritten by other
+code and so should only be used for short-term storage.
+\end{variable}
+
+\begin{variable}{\gTmpaInt,\gTmpbInt,\gTmpcInt,\gTmpiInt,\gTmpjInt,\gTmpkInt}
+Scratch integer for global assignment. These are never used by
+the \verb!functional! package, and so are safe for use with any
+function. However, they may be overwritten by other
+code and so should only be used for short-term storage.
+\end{variable}
+
+\section{Public Functions for Integers}
+
+\begin{function}{\IntEval}
+\begin{syntax}
+\cs{IntEval} \Arg{integer expression}
+\end{syntax}
+Evaluates the \meta{integer expression} and returns the result:
+for positive results an
+explicit sequence of decimal digits not starting with~\texttt{0},
+for negative results \texttt{-}~followed by such a sequence, and
+\texttt{0}~for zero. For example
+\begin{demo}
+\IntEval{(1+4)*(2-3)/5}
+\end{demo}
+\end{function}
+
+\begin{function}{\IntMathAdd}
+\begin{syntax}
+\cs{IntMathAdd} \Arg{integer expression_1} \Arg{integer expression_2}
+\end{syntax}
+Adds \Arg{integer expression_1} and \Arg{integer expression_2},
+and returns the result. For example
+\begin{demo}
+\IntMathAdd{7}{3}
+\end{demo}
+\end{function}
+
+\begin{function}{\IntMathSub}
+\begin{syntax}
+\cs{IntMathSub} \Arg{integer expression_1} \Arg{integer expression_2}
+\end{syntax}
+Subtracts \Arg{integer expression_1} from \Arg{integer expression_2},
+and returns the result. For example
+\begin{demo}
+\IntMathSub{7}{3}
+\end{demo}
+\end{function}
+
+\begin{function}{\IntMathMult}
+\begin{syntax}
+\cs{IntMathMult} \Arg{integer expression_1} \Arg{integer expression_2}
+\end{syntax}
+Multiplies \Arg{integer expression_1} by \Arg{integer expression_2},
+and returns the result. For example
+\begin{demo}
+\IntMathMult{7}{3}
+\end{demo}
+\end{function}
+
+\begin{function}{\IntMathDiv}
+\begin{syntax}
+\cs{IntMathDiv} \Arg{integer expression_1} \Arg{integer expression_2}
+\end{syntax}
+Divides \Arg{integer expression_1} by \Arg{integer expression_2},
+and returns the result. For example
+\begin{demo}
+\IntMathDiv{7}{3}
+\end{demo}
+\end{function}
+
+\begin{function}{\IntNew}
+\begin{syntax}
+\cs{IntNew} \meta{integer}
+\end{syntax}
+Creates a new \meta{integer} or raises an error if the name is
+already taken. The declaration is global. The \meta{integer} is
+initially equal to $0$.
+\end{function}
+
+\begin{function}{\IntUse}
+\begin{syntax}
+\cs{IntUse} \meta{integer}
+\end{syntax}
+Recovers the content of an \meta{integer} and return the value.
+An error is raised if the variable does
+not exist or if it is invalid. Can be omitted in places where an
+\meta{integer} is required (such as in the first and third arguments
+of \cs{IntCompareTF}).%
+%\begin{texnote}
+%\cs{IntUse} is the \TeX{} primitive \tn{the}: this is one of
+%several \verb!functional! names for this primitive.
+%\end{texnote}
+\end{function}
+
+\begin{function}{\IntSet}
+\begin{syntax}
+\cs{IntSet} \meta{integer} \Arg{integer expression}
+\end{syntax}
+Sets \meta{integer} to the value of \meta{integer expression},
+which must evaluate to an integer (as described for \cs{IntEval}).
+For example
+\begin{demo}
+\IntSet\lTmpaInt{3+5}
+\IntUse\lTmpaInt
+\end{demo}
+\end{function}
+
+\begin{function}{\IntZero}
+\begin{syntax}
+\cs{IntZero} \meta{integer}
+\end{syntax}
+Sets \meta{integer} to $0$. For example
+\begin{demo}
 \IntSet\lTmpaInt{5}
 \IntZero\lTmpaInt
 \IntUse\lTmpaInt
+\end{demo}
+\end{function}
 
+\begin{function}{\IntIncr}
+\begin{syntax}
+\cs{IntIncr} \meta{integer}
+\end{syntax}
+Increases the value stored in \meta{integer} by $1$.
+For example
+\begin{demo}
 \IntSet\lTmpaInt{5}
 \IntIncr\lTmpaInt
 \IntUse\lTmpaInt
+\end{demo}
+\end{function}
 
+\begin{function}{\IntDecr}
+\begin{syntax}
+\cs{IntDecr} \meta{integer}
+\end{syntax}
+Decreases the value stored in \meta{integer} by $1$.
+For example
+\begin{demo}
 \IntSet\lTmpaInt{5}
 \IntDecr\lTmpaInt
 \IntUse\lTmpaInt
+\end{demo}
+\end{function}
 
+\begin{function}{\IntAdd}
+\begin{syntax}
+\cs{IntAdd} \meta{integer} \Arg{integer expression}
+\end{syntax}
+Adds the result of the \meta{integer expression} to the current
+content of the \meta{integer}. For example
+\begin{demo}
 \IntSet\lTmpaInt{5}
 \IntAdd\lTmpaInt{2}
 \IntUse\lTmpaInt
+\end{demo}
+\end{function}
 
+\begin{function}{\IntSub}
+\begin{syntax}
+\cs{IntSub} \meta{integer} \Arg{integer expression}
+\end{syntax}
+Subtracts the result of the \meta{integer expression} from the
+current content of the \meta{integer}. For example
+\begin{demo}
 \IntSet\lTmpaInt{5}
 \IntSub\lTmpaInt{3}
 \IntUse\lTmpaInt
+\end{demo}
+\end{function}
 
-\IntMathAdd{7}{3}
-\IntMathSub{7}{3}
-\IntMathMult{7}{3}
-\IntMathDiv{7}{3}
-
+\begin{function}{\IntStepVariable}
+\begin{syntax}
+\cs{IntStepVariable} \Arg{initial value} \Arg{step} \Arg{final value} \meta{tl~var} \Arg{code}
+\end{syntax}
+This function first evaluates the \meta{initial value}, \meta{step}
+and \meta{final value}, all of which should be integer expressions.
+Then for each \meta{value} from the \meta{initial value} to the
+\meta{final value} in turn (using \meta{step} between each
+\meta{value}), the \meta{code} is evaluated,
+with the \meta{tl~var} defined as the current \meta{value}.  Thus
+the \meta{code} should make use of the \meta{tl~var}.
+For example
+\begin{demo}
 \TlClear\lTmpaTl
 \IntStepVariable{1}{3}{30}\lTmpiTl{
   \TlPutRight\lTmpaTl{\Value\lTmpiTl}
-  \TlPutRight\lTmpaTl{+}
+  \TlPutRight\lTmpaTl{ }
 }
 \Result{\Value\lTmpaTl}
+\end{demo}
+\end{function}
 
-\IntCompareTF{2}>{1}{\Result{first}}{\Result{second}}
-\IntCompareTF{2}>{3}{\Result{first}}{\Result{second}}
+\begin{function}{\IntCompare,\IntCompareTF}
+\begin{syntax}
+\cs{IntCompare} \Arg{intexpr_1} \meta{relation} \Arg{intexpr_2}
+\cs{IntCompareTF} \Arg{intexpr_1} \meta{relation} \Arg{intexpr_2} \Arg{true code} \Arg{false code}
+\end{syntax}
+This function first evaluates each of the \meta{integer expressions}
+as described for \cs{IntEval}. The two results are then
+compared using the \meta{relation}:\par
+{\centering\begin{tabular}{ll}
+Equal        & \texttt{=} \\
+Greater than & \texttt{>} \\
+Less than    & \texttt{<} \\
+\end{tabular}\par}
+For example
+\begin{demo}
+\IntCompareTF{2}>{1}{\Result{Greater}}{\Result{Less}}
+\IntCompareTF{2}>{3}{\Result{Greater}}{\Result{Less}}
+\end{demo}
+\end{function}
 
 \end{document}
 
