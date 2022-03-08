@@ -70,6 +70,9 @@
 \TlSet{\lTmpaTl}{abc}
 \TlSet{\lTmpbTl}{abc}
 \TlSet{\lTmpcTl}{xyz}
+
+\TlUse{\lTmpaTl}
+
 \TlIfEqTF{\lTmpaTl}{\lTmpbTl}{\Result{first}}{\Result{second}}
 \TlIfEqTF{\lTmpaTl}{\lTmpcTl}{\Result{first}}{\Result{second}}
 
