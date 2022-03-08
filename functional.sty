@@ -515,6 +515,12 @@
 
 \cs_set_eq:NN \TlNew \tl_new:N
 
+\PrgNewFunction \TlClear { M }
+  {
+    \__fun_if_global_variable:NTF #1
+      { \tl_gclear:N #1 } { \tl_clear:N #1 }
+  }
+
 \PrgNewFunction \TlSet { M m }
   {
     \__fun_if_global_variable:NTF #1

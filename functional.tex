@@ -71,10 +71,16 @@
 \chapter{Token Lists (\texttt{l3tl})}
 
 \TlSet{\lTmpiTl}{\IntMathSquare{4}}
+\TlUse{\lTmpiTl}
 
 \TlSet{\lTmpaTl}{abc}
 \TlSet{\lTmpbTl}{abc}
 \TlSet{\lTmpcTl}{xyz}
+
+\TlClear{\lTmpcTl}
+\TlUse{\lTmpcTl}
+\TlSet{\lTmpcTl}{uvw}
+\TlUse{\lTmpcTl}
 
 \TlUse{\lTmpaTl}
 
