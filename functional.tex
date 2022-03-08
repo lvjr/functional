@@ -121,13 +121,64 @@
 
 \chapter{Control Structures (\texttt{l3prg})}
 
-\BoolIfTF\cTrueBool{\Result{true}}{\Result{false}}
-\BoolIfTF\cFalseBool{\Result{true}}{\Result{false}}
+\section{Scratch Variables of Booleans}
 
+\begin{variable}{\lTmpaBool,\lTmpbBool,\lTmpcBool,\lTmpiBool,\lTmpjBool,\lTmpkBool}
+Scratch booleans for local assignment. These are never used by
+the \verb!functional! package, and so are safe for use with any
+function. However, they may be overwritten by other
+code and so should only be used for short-term storage.
+\end{variable}
+
+\begin{variable}{\gTmpaBool,\gTmpbBool,\gTmpcBool,\gTmpiBool,\gTmpjBool,\gTmpkBool}
+Scratch booleans for global assignment. These are never used by
+the \verb!functional! package, and so are safe for use with any
+function. However, they may be overwritten by other
+code and so should only be used for short-term storage.
+\end{variable}
+
+%\BoolIfTF\cTrueBool{\Result{true}}{\Result{false}}
+%\BoolIfTF\cFalseBool{\Result{true}}{\Result{false}}
+
+\section{Public Functions for Booleans}
+
+\begin{function}{\BoolNew}
+\begin{syntax}
+\cs{BoolNew} \meta{boolean}
+\end{syntax}
+Creates a new \meta{boolean} or raises an error if the
+name is already taken. The declaration is global. The
+\meta{boolean} is initially \texttt{false}.
+\end{function}
+
+\begin{function}{\BoolSetTrue}
+\begin{syntax}
+\cs{BoolSetTrue} \meta{boolean}
+\end{syntax}
+Sets \meta{boolean} logically \texttt{true}.
+\end{function}
+
+\begin{function}{\BoolSetFalse}
+\begin{syntax}
+\cs{BoolSetFalse} \meta{boolean}
+\end{syntax}
+Sets \meta{boolean} logically \texttt{false}.
+\end{function}
+
+\begin{function}{\BoolIf,\BoolIfTF}
+\begin{syntax}
+\cs{BoolIfTF} \meta{boolean}
+\cs{BoolIfTFTF} \meta{boolean} \Arg{true code} \Arg{false code}
+\end{syntax}
+Tests the current truth of \meta{boolean}, and continues evaluation
+based on this result. For example
+\begin{demo}
 \BoolSetTrue\lTmpaBool
-\BoolIfTF\lTmpaBool{\Result{true}}{\Result{false}}
+\BoolIfTF\lTmpaBool{\Result{True!}}{\Result{False!}}
 \BoolSetFalse\lTmpaBool
-\BoolIfTF\lTmpaBool{\Result{true}}{\Result{false}}
+\BoolIfTF\lTmpaBool{\Result{True!}}{\Result{False!}}
+\end{demo}
+\end{function}
 
 \chapter{Token Lists (\texttt{l3tl})}
 
