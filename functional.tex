@@ -73,17 +73,20 @@
 \TlSet{\lTmpiTl}{\IntMathSquare{4}}
 \TlUse{\lTmpiTl}
 
+\TlSet{\lTmpjTl}{ijk}
+\TlClear{\lTmpjTl}
+\TlUse{\lTmpjTl}
+\TlSet{\lTmpjTl}{uvw}
+\TlUse{\lTmpjTl}
+
+\TlSet{\lTmpkTl}{Functional}
+\TlPutLeft{\lTmpkTl}{Hello}
+\TlPutRight{\lTmpkTl}{World}
+\TlUse{\lTmpkTl}
+
 \TlSet{\lTmpaTl}{abc}
 \TlSet{\lTmpbTl}{abc}
 \TlSet{\lTmpcTl}{xyz}
-
-\TlClear{\lTmpcTl}
-\TlUse{\lTmpcTl}
-\TlSet{\lTmpcTl}{uvw}
-\TlUse{\lTmpcTl}
-
-\TlUse{\lTmpaTl}
-
 \TlIfEqTF{\lTmpaTl}{\lTmpbTl}{\Result{first}}{\Result{second}}
 \TlIfEqTF{\lTmpaTl}{\lTmpcTl}{\Result{first}}{\Result{second}}
 

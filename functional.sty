@@ -527,6 +527,18 @@
       { \tl_gset:Nn #1 {#2} } { \tl_set:Nn #1 {#2} }
   }
 
+\PrgNewFunction \TlPutLeft { M m }
+  {
+    \__fun_if_global_variable:NTF #1
+      { \tl_gput_left:Nn #1 {#2} } { \tl_put_left:Nn #1 {#2} }
+  }
+
+\PrgNewFunction \TlPutRight { M m }
+  {
+    \__fun_if_global_variable:NTF #1
+      { \tl_gput_right:Nn #1 {#2} } { \tl_put_right:Nn #1 {#2} }
+  }
+
 \PrgNewFunction \TlUse { M }
   {
     \Result { \Value #1 }
