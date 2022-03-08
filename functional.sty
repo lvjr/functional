@@ -568,6 +568,21 @@
 
 \cs_set_eq:NN \IntNew \int_new:N
 
+\PrgNewFunction \IntZero { M }
+  {
+    \__fun_if_global_variable:NTF #1 { \int_gzero:N #1 } { \int_zero:N #1 }
+  }
+
+\PrgNewFunction \IntIncr { M }
+  {
+    \__fun_if_global_variable:NTF #1 { \int_gincr:N #1 } { \int_incr:N #1 }
+  }
+
+\PrgNewFunction \IntDecr { M }
+  {
+    \__fun_if_global_variable:NTF #1 { \int_gdecr:N #1 } { \int_decr:N #1 }
+  }
+
 \PrgNewFunction \IntSet { M m }
   {
     \__fun_if_global_variable:NTF #1
