@@ -635,6 +635,11 @@
     \Result { \Value \l@Funx@Int }
   }
 
+\PrgNewFunction \IntStepVariable { m m m M n }
+  {
+    \int_step_variable:nnnNn { #1 } { #2 } { #3 } #4 { #5 }
+  }
+
 \PrgNewConditional \IntCompare { m N m }
   {
     \int_compare:nNnTF {#1} #2 {#3}

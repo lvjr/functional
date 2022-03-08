@@ -124,6 +124,13 @@
 \IntMathMult{7}{3}
 \IntMathDiv{7}{3}
 
+\TlClear\lTmpaTl
+\IntStepVariable{1}{3}{30}\lTmpiTl{
+  \TlPutRight\lTmpaTl{\Value\lTmpiTl}
+  \TlPutRight\lTmpaTl{+}
+}
+\Result{\Value\lTmpaTl}
+
 \IntCompareTF{2}>{1}{\Result{first}}{\Result{second}}
 \IntCompareTF{2}>{3}{\Result{first}}{\Result{second}}
 
