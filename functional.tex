@@ -19,7 +19,7 @@
 \PrgNewFunction \IntMathSquare { m }
   {
     \IntSet \lTmpaInt { \IntEval { #1 * #1 } }
-    \Result { \Expand { \int_use:N \lTmpaInt } }
+    \Result { \IntUse \lTmpaInt }
   }
 
 \PrgNewFunction \IntMathCubic { m }
