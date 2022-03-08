@@ -589,6 +589,18 @@
       { \int_gset:Nn #1 {#2} } { \int_set:Nn #1 {#2} }
   }
 
+\PrgNewFunction \IntAdd { M m }
+  {
+    \__fun_if_global_variable:NTF #1
+      { \int_gadd:Nn #1 {#2} } { \int_add:Nn #1 {#2} }
+  }
+
+\PrgNewFunction \IntSub { M m }
+  {
+    \__fun_if_global_variable:NTF #1
+      { \int_gsub:Nn #1 {#2} } { \int_sub:Nn #1 {#2} }
+  }
+
 \PrgNewFunction \IntUse { M }
   {
     \Result { \Value #1 }
