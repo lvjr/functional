@@ -162,8 +162,8 @@ name is already taken. The declaration is global. The
 \begin{syntax}
 \cs{TlUse} \meta{tl~var}
 \end{syntax}
-Recovers the content of a \meta{tl~var} and places it
-directly in the input stream. An error is raised if the variable
+Recovers the content of a \meta{tl~var} and return the value.
+An error is raised if the variable
 does not exist or if it is invalid. Note that it is possible to use
 a \meta{tl~var} directly without an accessor function.
 \end{function}
