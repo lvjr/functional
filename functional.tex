@@ -16,27 +16,26 @@
 
 \ExplSyntaxOn
 
-\PrgNewFunction \IntMathSquare { m }
+\PrgNewFunction \MathSquare { m }
   {
     \IntSet \lTmpaInt { \IntEval { #1 * #1 } }
     \Result { \IntUse \lTmpaInt }
   }
 
-\PrgNewFunction \IntMathCubic { m }
+\PrgNewFunction \MathCubic { m }
   {
     \IntSet \lTmpaInt { \IntEval { #1 * #1 * #1 } }
     \Result { \Value \lTmpaInt }
   }
 
-\PrgNewFunction \IntMathFactorial { m }
+\PrgNewFunction \Factorial { m }
   {
     \IntCompareTF { #1 } = { 0 }
       { \Result { 1 } }
       {
         \TlSet \lTmpaTl
           {
-            \IntMathMult { #1 }
-              { \IntMathFactorial { \IntMathSub{#1}{1} } }
+            \IntMathMult { #1 } { \Factorial { \IntMathSub{#1}{1} } }
           }
         \Result { \Value \lTmpaTl }
       }
@@ -44,14 +43,14 @@
 
 \ExplSyntaxOff
 
-\IntMathSquare{5}
-\IntMathSquare{\IntMathSquare{5}}
+\MathSquare{5}
+\MathSquare{\MathSquare{5}}
 
-\IntMathCubic{2}
-\IntMathCubic{\IntMathCubic{2}}
+\MathCubic{2}
+\MathCubic{\MathCubic{2}}
 
-\IntMathFactorial{0}
-\IntMathFactorial{4}
+\Factorial{0}
+\Factorial{4}
 
 \chapter{Basic Definitions (\texttt{l3basics})}
 
@@ -70,7 +69,7 @@
 
 \chapter{Token Lists (\texttt{l3tl})}
 
-\TlSet{\lTmpiTl}{\IntMathSquare{4}}
+\TlSet{\lTmpiTl}{\IntMathMult{4}{5}}
 \TlUse{\lTmpiTl}
 
 \TlSet{\lTmpjTl}{ijk}
