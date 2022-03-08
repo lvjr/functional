@@ -63,6 +63,11 @@
 \BoolIfTF\cTrueBool{\Result{true}}{\Result{false}}
 \BoolIfTF\cFalseBool{\Result{true}}{\Result{false}}
 
+\BoolSetTrue\lTmpaBool
+\BoolIfTF\lTmpaBool{\Result{true}}{\Result{false}}
+\BoolSetFalse\lTmpaBool
+\BoolIfTF\lTmpaBool{\Result{true}}{\Result{false}}
+
 \chapter{Token Lists (\texttt{l3tl})}
 
 \TlSet{\lTmpiTl}{\IntMathSquare{4}}

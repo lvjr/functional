@@ -488,6 +488,18 @@
 
 \cs_set_eq:NN \BoolNew \bool_new:N
 
+\PrgNewFunction \BoolSetTrue { M }
+  {
+    \__fun_if_global_variable:NTF #1
+      { \bool_gset_true:N #1 } { \bool_set_true:N #1 }
+  }
+
+\PrgNewFunction \BoolSetFalse { M }
+  {
+    \__fun_if_global_variable:NTF #1
+      { \bool_gset_false:N #1 } { \bool_set_false:N #1 }
+  }
+
 \PrgNewConditional \BoolIf { N }
   {
     \Result { #1 }
