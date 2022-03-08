@@ -6,6 +6,64 @@
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{4pt plus 1pt minus 1pt}
 
+\usepackage{codehigh}
+
+\colorlet{highback}{azure9}
+\CodeHigh{language=latex/latex2,style/main=highback,style/code=highback,lite}
+\NewCodeHighEnv{code}{style/main=gray9,style/code=gray9}
+\NewCodeHighEnv{demo}{style/main=gray9,style/code=gray9,demo}
+
+\let\_=_
+\catcode`\_=\active
+\def_#1{$\_#1$}%
+
+\ExplSyntaxOn
+\NewDocumentCommand\PrintVarList{m}{
+  \clist_set:Nn \l_tmpa_clist {#1}
+  \clist_map_inline:Nn \l_tmpa_clist
+    {
+      \token_to_str:N ##1 ~
+    }
+}
+\ExplSyntaxOff
+
+\NewDocumentEnvironment{variable}{m}{
+  \vspace{5pt}
+  \begin{minipage}{\linewidth}
+  \hrule\vspace{4pt}\obeylines%
+  \begingroup
+  \ttfamily\bfseries\color{olive3}
+  \PrintVarList{#1}
+  \endgroup
+  \par\vspace{4pt}\hrule
+  \end{minipage}\par\nopagebreak\vspace{4pt}
+}{%
+  \vspace{5pt}%
+}
+
+\NewDocumentEnvironment{function}{m}{
+  \vspace{5pt}%
+}{\vspace{5pt}}
+
+\NewDocumentEnvironment{syntax}{}{%
+  \begin{minipage}{\linewidth}
+  \hrule\vspace{4pt}\obeylines%
+}{%
+  \par\vspace{4pt}\hrule
+  \end{minipage}\par\nopagebreak\vspace{4pt}
+}
+
+\NewDocumentCommand\cs{m}{\texttt{\bfseries\color{purple3}\expandafter\string\csname#1\endcsname}}
+\NewDocumentCommand\meta{m}{\textsl{$\langle$\ignorespaces#1\unskip$\rangle$}}
+\NewDocumentCommand\Arg{m}{\texttt{\{}\textsl{$\langle$\ignorespaces#1\unskip$\rangle$}\texttt{\}}}
+
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks=true,
+  urlcolor=blue3,
+  linkcolor=blue3,
+}
+
 \usepackage{functional}
 
 \Functional{scoping=false,tracing=true}
@@ -69,30 +127,127 @@
 
 \chapter{Token Lists (\texttt{l3tl})}
 
-\TlSet{\lTmpiTl}{\IntMathMult{4}{5}}
-\TlUse{\lTmpiTl}
+\section{Scratch Variables of Token Lists}
 
-\TlSet{\lTmpjTl}{ijk}
-\TlClear{\lTmpjTl}
-\TlUse{\lTmpjTl}
-\TlSet{\lTmpjTl}{uvw}
-\TlUse{\lTmpjTl}
+\begin{variable}{\lTmpaTl,\lTmpbTl,\lTmpcTl,\lTmpiTl,\lTmpjTl,\lTmpkTl}
+Scratch token lists for local assignment. These are never used by
+the \verb!functional! package, and so are safe for use with any
+function. However, they may be overwritten by other
+code and so should only be used for short-term storage.
+\end{variable}
 
-\TlSet{\lTmpkTl}{Functional}
-\TlPutLeft{\lTmpkTl}{Hello}
-\TlPutRight{\lTmpkTl}{World}
-\TlUse{\lTmpkTl}
+\begin{variable}{\gTmpaTl,\gTmpbTl,\gTmpcTl,\gTmpiTl,\gTmpjTl,\gTmpkTl}
+Scratch token lists for global assignment. These are never used by
+the \verb!functional! package, and so are safe for use with any
+function. However, they may be overwritten by other
+code and so should only be used for short-term storage.
+\end{variable}
 
+\section{Public Functions for Token Lists}
+
+\begin{function}{\TlNew}
+\begin{syntax}
+\cs{TlNew} \meta{tl~var}
+\end{syntax}
+Creates a new \meta{tl~var} or raises an error if the
+name is already taken. The declaration is global. The
+\meta{tl~var} is initially empty.
+\end{function}
+
+\begin{function}{\TlUse}
+\begin{syntax}
+\cs{TlUse} \meta{tl~var}
+\end{syntax}
+Recovers the content of a \meta{tl~var} and places it
+directly in the input stream. An error is raised if the variable
+does not exist or if it is invalid. Note that it is possible to use
+a \meta{tl~var} directly without an accessor function.
+\end{function}
+
+\begin{function}{\TlSet}
+\begin{syntax}
+\cs{TlSet} \meta{tl~var} \Arg{tokens}
+\end{syntax}
+Sets \meta{tl~var} to contain \meta{tokens},
+removing any previous content from the variable. For example
+\begin{demo}
+\TlSet\lTmpiTl{\IntMathMult{4}{5}}
+\TlUse\lTmpiTl
+\end{demo}
+\end{function}
+
+\begin{function}{\TlClear}
+\begin{syntax}
+\cs{TlClear} \meta{tl~var}
+\end{syntax}
+Clears all entries from the \meta{tl~var}. For example
+\begin{demo}
+\TlSet\lTmpjTl{One}
+\TlClear\lTmpjTl
+\TlSet\lTmpjTl{Two}
+\TlUse\lTmpjTl
+\end{demo}
+\end{function}
+
+\begin{function}{\TlPutLeft}
+\begin{syntax}
+\cs{TlPutLeft} \meta{tl~var} \Arg{tokens}
+\end{syntax}
+Appends \meta{tokens} to the left side of the current content of
+\meta{tl~var}. For example
+\begin{demo}
+\TlSet\lTmpkTl{Functional}
+\TlPutLeft\lTmpkTl{Hello}
+\TlUse\lTmpkTl
+\end{demo}
+\end{function}
+
+\begin{function}{\TlPutRight}
+\begin{syntax}
+\cs{TlPutRight} \meta{tl~var} \Arg{tokens}
+\end{syntax}
+Appends \meta{tokens} to the right side of the current content of
+\meta{tl~var}. For example
+\begin{demo}
+\TlSet\lTmpkTl{Functional}
+\TlPutRight\lTmpkTl{World}
+\TlUse\lTmpkTl
+\end{demo}
+\end{function}
+
+\begin{function}{\TlIfEmpty,\TlIfEmptyTF}
+\begin{syntax}
+\cs{TlIfEmpty} \meta{tl~var}
+\cs{TlIfEmptyTF} \meta{tl~var} \Arg{true code} \Arg{false code}
+\end{syntax}
+Tests if the \meta{token list variable} is entirely empty
+(\emph{i.e.}~contains no tokens at all). For example
+\begin{demo}
 \TlSet\lTmpaTl{abc}
-\TlIfEmptyTF\lTmpaTl{\Result{empty}}{\Result{nonempty}}
+\TlIfEmptyTF\lTmpaTl{\Result{Empty}}{\Result{NonEmpty}}
 \TlClear\lTmpaTl
-\TlIfEmptyTF\lTmpaTl{\Result{empty}}{\Result{nonempty}}
+\TlIfEmptyTF\lTmpaTl{\Result{Empty}}{\Result{NonEmpty}}
+\end{demo}
+\end{function}
 
-\TlSet{\lTmpaTl}{abc}
-\TlSet{\lTmpbTl}{abc}
-\TlSet{\lTmpcTl}{xyz}
-\TlIfEqTF{\lTmpaTl}{\lTmpbTl}{\Result{first}}{\Result{second}}
-\TlIfEqTF{\lTmpaTl}{\lTmpcTl}{\Result{first}}{\Result{second}}
+\begin{function}{\TlIfEq,\TlIfEqTF}
+\begin{syntax}
+\cs{TlIfEq} \meta{tl~var_1} \meta{tl~var_2}
+\cs{TlIfEqTF} \meta{tl~var_1} \meta{tl~var_2} \Arg{true code} \Arg{false code}
+\end{syntax}
+Compares the content of two \meta{token list variables} and
+is logically \texttt{true} if the two contain the same list of
+tokens (\emph{i.e.}~identical in both the list of characters they
+contain and the category codes of those characters). For example
+\begin{demo}
+\TlSet\lTmpaTl{abc}
+\TlSet\lTmpbTl{abc}
+\TlSet\lTmpcTl{xyz}
+\TlIfEqTF\lTmpaTl\lTmpbTl{\Result{Yes}}{\Result{No}}
+\TlIfEqTF\lTmpaTl\lTmpcTl{\Result{Yes}}{\Result{No}}
+\end{demo}
+%See also \cs{StrIfEqTF} for a comparison that ignores category codes.
+\end{function}
 
 \chapter{Integers (\texttt{l3int})}
 
