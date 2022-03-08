@@ -84,6 +84,11 @@
 \TlPutRight{\lTmpkTl}{World}
 \TlUse{\lTmpkTl}
 
+\TlSet\lTmpaTl{abc}
+\TlIfEmptyTF\lTmpaTl{\Result{empty}}{\Result{nonempty}}
+\TlClear\lTmpaTl
+\TlIfEmptyTF\lTmpaTl{\Result{empty}}{\Result{nonempty}}
+
 \TlSet{\lTmpaTl}{abc}
 \TlSet{\lTmpbTl}{abc}
 \TlSet{\lTmpcTl}{xyz}

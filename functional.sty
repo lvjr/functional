@@ -544,6 +544,13 @@
     \Result { \Value #1 }
   }
 
+\PrgNewConditional \TlIfEmpty { N }
+  {
+    \tl_if_empty:NTF #1
+      { \Result { \cTrueBool } }
+      { \Result { \cFalseBool } }
+  }
+
 \PrgNewConditional \TlIfEq { N N }
   {
     \tl_if_eq:NNTF #1 #2
