@@ -71,6 +71,10 @@
 
 \let\tn=\cs
 
+\RenewDocumentCommand\emph{m}{%
+  \underline{\textsl{#1}}%
+}
+
 \usepackage{hyperref}
 \hypersetup{
   colorlinks=true,
@@ -79,50 +83,296 @@
 }
 
 \usepackage{functional}
-
-\Functional{scoping=false,tracing=true}
+%\Functional{scoping=false,tracing=true}
 
 \begin{document}
 
 \chapter{Overview of Features}
 
+\section{Evaluation from Inside to Outside}
+
+We will compare our first example with a similar \verb!Lua! example:
+
+\begin{code}
+-- lua code --
+function MathSquare (arg)
+  local lTmpaInt = arg * arg
+  return lTmpaInt
+end
+print(MathSquare(5))
+print(MathSquare(MathSquare(5)))
+\end{code}
+
+\begin{codehigh}
+%% function code
 \ExplSyntaxOn
-
-\PrgNewFunction \MathSquare { m }
-  {
-    \IntSet \lTmpaInt { \IntEval { #1 * #1 } }
-    \Result { \IntUse \lTmpaInt }
-  }
-
-\PrgNewFunction \MathCubic { m }
-  {
-    \IntSet \lTmpaInt { \IntEval { #1 * #1 * #1 } }
-    \Result { \Value \lTmpaInt }
-  }
-
-\PrgNewFunction \Factorial { m }
-  {
-    \IntCompareTF { #1 } = { 0 }
-      { \Result { 1 } }
-      {
-        \TlSet \lTmpaTl
-          {
-            \IntMathMult { #1 } { \Factorial { \IntMathSub{#1}{1} } }
-          }
-        \Result { \Value \lTmpaTl }
-      }
-  }
-
+\PrgNewFunction \MathSquare { m } {
+  \IntSet \lTmpaInt { \IntEval { #1 * #1 } }
+  \Result { \Value \lTmpaInt }
+}
 \ExplSyntaxOff
-
 \MathSquare{5}
 \MathSquare{\MathSquare{5}}
+\end{codehigh}
 
-\MathCubic{2}
-\MathCubic{\MathCubic{2}}
+%\ExplSyntaxOn
+%\PrgNewFunction \MathSquare { m }{
+%  \IntSet \lTmpaInt { \IntEval { #1 * #1 } }
+%  \Result { \Value \lTmpaInt }
+%}
+%\ExplSyntaxOff
+%\MathSquare{5}
+%\MathSquare{\MathSquare{5}}
 
-\Factorial{0}
+%\ExplSyntaxOn
+%\PrgNewFunction \MathCubic { m }
+%  {
+%    \IntSet \lTmpaInt { \IntEval { #1 * #1 * #1 } }
+%    \Result { \Value \lTmpaInt }
+%  }
+%\ExplSyntaxOff
+%\MathCubic{2}
+%\MathCubic{\MathCubic{2}}
+
+Both examples calculate first the square of $5$ and produce $25$,
+then calculate the square of $25$ and produce $625$.
+In contrast to \verb!expl3!, This \verb!functional! package
+does evaluation of functions from inside to outside,
+which means composition of functions works like othe programming languages
+such as \verb!Lua! or \verb!JavsScript!.
+
+You can define new functions with \cs{PrgNewFunction} command.
+To make composition of functions work as expected,
+every function \emph{must not} insert directly any token to the input stream.
+Instead, a function \emph{must} pass the result (if any) to \verb!functional! package
+with \cs{Result} command. And \verb!functional! package is responsible for
+inserting result tokens to the input stream at the appropriate time.
+
+To remove space tokens inside function code in defining functions,
+you'd better put function definitions inside \verb!\ExplSyntaxOn! and
+\verb!\ExplSyntaxOff! block. Within this block, \verb!~! is used to input a space.
+
+At the end of this section,
+we will compare our factorial example with a similar \verb!Lua! example:
+
+\begin{code}
+-- lua code --
+function Factorial (n)
+  if n == 0 then
+    return 1
+  else
+    return n * Factorial(n-1)
+  end
+end
+print(Factorial(4))
+\end{code}
+
+\begin{codehigh}
+\ExplSyntaxOn
+\PrgNewFunction \Factorial { m } {
+  \IntCompareTF {#1} = {0} {
+    \Result {1}
+  }{
+    \Result { \IntMathMult {#1} { \Factorial { \IntMathSub{#1}{1} } } }
+  }
+}
+\ExplSyntaxOff
 \Factorial{4}
+\end{codehigh}
+
+%\ExplSyntaxOn
+%\PrgNewFunction \Factorial { m } {
+%  \IntCompareTF {#1} = {0} {
+%    \Result {1}
+%  }{
+%    \Result { \IntMathMult {#1} { \Factorial { \IntMathSub{#1}{1} } } }
+%  }
+%}
+%\ExplSyntaxOff
+%\Factorial{0}
+%\Factorial{4}
+
+\section{Group Scoping of Functions}
+
+In \verb!Lua! language, a function or a condition expression makes a block,
+and the values of local variables will be reset after a block.
+For example
+
+\begin{code}
+-- lua code --
+local a = 1
+print(a)          ---- 1
+function SomeFun()
+  local a = 2
+  print(a)        ---- 2
+  if 1 > 0 then
+    local a = 3
+    print(a)      ---- 3
+  end
+  print(a)        ---- 2
+end
+SomeFun()
+print(a)          ---- 1
+\end{code}
+
+In \verb!functional! package, a condition expression is in fact a function,
+and you can make every function become a group by setting
+\verb!\Functional{scoping=true}!. For example
+
+\begin{codehigh}
+\Functional{scoping=true}
+\ExplSyntaxOn
+\IntSet \lTmpaInt {1}
+\IntLog \lTmpaInt             % ---- 1
+\PrgNewFunction \SomeFun { } {
+  \IntSet \lTmpaInt {2}
+  \IntLog \lTmpaInt           % ---- 2
+  \IntCompareTF {1} > {0} {
+    \IntSet \lTmpaInt {3}
+    \IntLog \lTmpaInt         % ---- 3
+  }{ }
+  \IntLog \lTmpaInt           % ---- 2
+}
+\SomeFun
+\IntLog \lTmpaInt             % ---- 1
+\ExplSyntaxOff
+\end{codehigh}
+
+Same as \verb!expl3!, the names of local variables \emph{must} start with \verb!l!,
+while names of global variables \emph{must} start with \verb!g!.
+The difference is that \verb!functional! package provides only one function for setting
+both local and global varianbles of the same type,
+by checking leading letters of their names. So for integer variables, you can write
+\verb!\IntSet\lTmpaInt{1}! and \verb!\IntSet\gTmpbInt{2}!.
+
+The previous example will produce different result
+if we change variable from \verb!\lTmpaInt! to \verb!\gTmpaInt!.
+
+\begin{codehigh}
+\Functional{scoping=true}
+\IntSet \gTmpaInt {1}
+\IntLog \gTmpaInt             % ---- 1
+\PrgNewFunction \SomeFun { } {
+  \IntSet \gTmpaInt {2}
+  \IntLog \gTmpaInt           % ---- 2
+  \IntCompareTF {1} > {0} {
+    \IntSet \gTmpaInt {3}
+    \IntLog \gTmpaInt         % ---- 3
+  }{ }
+  \IntLog \gTmpaInt           % ---- 3
+}
+\SomeFun
+\IntLog \gTmpaInt             % ---- 3
+\end{codehigh}
+
+As you can see, the values of global variables will never be reset after a group.
+
+\section{Tracing Evaluation of Functions}
+
+Since every function in \verb!functional! package will pass its return value to
+the package, it is quite easy to debug your code.
+You can turn on the tracing by setting \verb!\Functional{tracing=true}!.
+For example, the tracing log of the first example in this chapter will be the following:
+
+% FIXME: spaces at the first line will be removed
+%\begin{codehigh}[]
+%    [I] \MathSquare{5}
+%            [I] \IntEval{5*5}
+%                    [I] \Expand{\int_eval:n {5*5}}
+%                    [O] 25
+%                [I] \Result{25}
+%                [O] 25
+%            [O] 25
+%        [I] \IntSet\lTmpaInt {25}
+%        [O]
+%            [I] \Value\lTmpaInt
+%            [O] 25
+%        [I] \Result{25}
+%        [O] 25
+%    [O] 25
+%\end{codehigh}
+\begin{codehigh}[]
+[I] \MathSquare{5}
+        [I] \IntEval{5*5}
+                [I] \Expand{\int_eval:n {5*5}}
+                [O] 25
+            [I] \Result{25}
+            [O] 25
+        [O] 25
+    [I] \IntSet\lTmpaInt {25}
+    [O]
+        [I] \Value\lTmpaInt
+        [O] 25
+    [I] \Result{25}
+    [O] 25
+[O] 25
+[I] \MathSquare{25}
+        [I] \IntEval{25*25}
+                [I] \Expand{\int_eval:n {25*25}}
+                [O] 625
+            [I] \Result{625}
+            [O] 625
+        [O] 625
+    [I] \IntSet\lTmpaInt {625}
+    [O]
+        [I] \Value\lTmpaInt
+        [O] 625
+    [I] \Result{625}
+    [O] 625
+[O] 625
+\end{codehigh}
+
+\section{Definitions of Functions}
+
+Within \verb!expl3!, there are eight commands for defining new functions,
+which is good for power users.
+
+\begin{code}
+\cs_new:Npn
+\cs_new_nopar:Npn
+\cs_new_protected:Npn
+\cs_new_protected_nopar:Npn
+\cs_new:Nn
+\cs_new_nopar:Nn
+\cs_new_protected:Nn
+\cs_new_protected_nopar:Nn
+\end{code}
+
+Within \verb!functional! package, there is only one command (\cs{PrgNewFunction})
+for defining new functions, which is good for normal users.
+The created functions are always protected and accept \verb!\par! in their arguments.
+
+Since \verb!functional! package gets the results of functions by evaluation
+(including expansion and execution by \TeX), it is natural to protect all functions.
+
+\section{Variants of Arguments}
+
+Within \verb!expl3!, there are several expansion variants for arguments,
+and many expansion functions for expanding them, which are necessary for power users.
+
+\begin{code}
+\module_foo:c
+\module_bar:e
+\module_bar:x
+\module_bar:f
+\module_bar:o
+\module_bar:V
+\module_bar:v
+\end{code}
+
+\begin{code}
+\exp_args:Nc
+\exp_args:Ne
+\exp_args:Nx
+\exp_args:Nf
+\exp_args:No
+\exp_args:NV
+\exp_args:Nv
+\end{code}
+
+Within \verb!functional! package, there are only three variants
+(\verb!c!, \verb!e!, \verb!V!) are provided, and these variants are defined as functions,
+which are easier to use for normal users.
 
 \chapter{Basic Definitions (\texttt{l3basics})}
 
