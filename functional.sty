@@ -266,7 +266,6 @@
 \tl_const:Nn \c__fun_argtype_M_tl { M }
 \tl_const:Nn \c__fun_argtype_n_tl { n }
 \tl_const:Nn \c__fun_argtype_N_tl { N }
-\cs_set_eq:NN \__fun_cs_temp:w \scan_stop:
 
 %% #1: function name; #2: argument specifications
 \cs_new_protected:Npn \__fun_evaluate:Nn #1 #2
@@ -283,25 +282,11 @@
           {
             \c__fun_argtype_m_tl
               {
-                \cs_set_eq:Nc \__fun_cs_temp:w
-                  {
-                    __fun_defined_
-                    \exp_last_unbraced:Ne
-                      \cs_to_str:N { \tl_head:N \l__fun_argument_tl }
-                    : w
-                  }
-                \cs_if_exist:NTF \__fun_cs_temp:w
-                  {
-                    \l__fun_argument_tl
-                    \__fun_arguments_gput:e { { \exp_not:V \gResultTl } }
-                  }
-                  {
-                    \__fun_arguments_gput:e { { \exp_not:V \l__fun_argument_tl } }
-                  }
+                \__fun_evaluate_and_put_argument:N \l__fun_argument_tl
               }
             \c__fun_argtype_M_tl
               {
-                \__fun_arguments_gput:e { \exp_not:V \l__fun_argument_tl }
+                \__fun_evaluate_and_put_argument:N \l__fun_argument_tl
               }
             \c__fun_argtype_n_tl
               {
@@ -317,6 +302,24 @@
     \__fun_arguments_called:c { __fun_defined_ \cs_to_str:N #1 : w }
     \int_gdecr:N \g__fun_nesting_level_int
     \__fun_return_result:
+  }
+
+\cs_set_eq:NN \__fun_cs_temp:w \scan_stop:
+
+\cs_new_protected:Npn \__fun_evaluate_and_put_argument:N #1
+  {
+    \cs_set_eq:Nc \__fun_cs_temp:w
+      {
+        __fun_defined_ \exp_last_unbraced:Ne \cs_to_str:N { \tl_head:N #1 } : w
+      }
+    \cs_if_exist:NTF \__fun_cs_temp:w
+      {
+        #1
+        \__fun_arguments_gput:e { { \exp_not:V \gResultTl } }
+      }
+      {
+        \__fun_arguments_gput:e { { \exp_not:V #1 } }
+      }
   }
 
 \cs_new_protected:Npn \__fun_arguments_called:N #1
