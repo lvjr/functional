@@ -12,7 +12,7 @@
 
 \usepackage{codehigh}
 
-\colorlet{highback}{azure9}
+\colorlet{highback}{blue9}
 %\CodeHigh{lite}
 \CodeHigh{language=latex/latex2,style/main=highback,style/code=highback}
 \NewCodeHighEnv{code}{style/main=gray9,style/code=gray9}
@@ -39,7 +39,7 @@
   \begin{minipage}{\linewidth}
   \hrule\vspace{4pt}\obeylines%
   \begingroup
-  \ttfamily\bfseries\color{olive3}
+  \ttfamily\bfseries\color{azure3}
   \PrintVarList{#1}
   \endgroup
   \par\vspace{4pt}\hrule
@@ -354,7 +354,7 @@ For example, the tracing log of the first example in this chapter will be the fo
 Within \verb!expl3!, there are eight commands for defining new functions,
 which is good for power users.
 
-\begin{code}
+\begin{code}[language=latex/latex3]
 \cs_new:Npn
 \cs_new_nopar:Npn
 \cs_new_protected:Npn
@@ -377,7 +377,7 @@ Since \verb!functional! package gets the results of functions by evaluation
 Within \verb!expl3!, there are several expansion variants for arguments,
 and many expansion functions for expanding them, which are necessary for power users.
 
-\begin{code}
+\begin{code}[language=latex/latex3]
 \module_foo:c
 \module_bar:e
 \module_bar:x
@@ -387,7 +387,7 @@ and many expansion functions for expanding them, which are necessary for power u
 \module_bar:v
 \end{code}
 
-\begin{code}
+\begin{code}[language=latex/latex3]
 \exp_args:Nc
 \exp_args:Ne
 \exp_args:Nx
