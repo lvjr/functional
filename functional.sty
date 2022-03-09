@@ -394,6 +394,14 @@
       }
   }
 
+%% We must not put an assignment inside a group
+\cs_new_protected:Npn \__fun_do_assignment:Nnn #1 #2 #3
+  {
+    \__fun_group_end:
+    \__fun_if_global_variable:NTF #1 { #2 } { #3 }
+    \__fun_group_begin:
+  }
+
 \bool_new:N \l__fun_scoping_bool
 
 \cs_new_protected:Npn \__fun_scoping_true:
@@ -507,14 +515,12 @@
 
 \PrgNewFunction \BoolSetTrue { M }
   {
-    \__fun_if_global_variable:NTF #1
-      { \bool_gset_true:N #1 } { \bool_set_true:N #1 }
+    \__fun_do_assignment:Nnn #1 { \bool_gset_true:N #1 } { \bool_set_true:N #1 }
   }
 
 \PrgNewFunction \BoolSetFalse { M }
   {
-    \__fun_if_global_variable:NTF #1
-      { \bool_gset_false:N #1 } { \bool_set_false:N #1 }
+    \__fun_do_assignment:Nnn #1 { \bool_gset_false:N #1 } { \bool_set_false:N #1 }
   }
 
 \PrgNewConditional \BoolIf { N }
@@ -539,25 +545,23 @@
 
 \PrgNewFunction \TlClear { M }
   {
-    \__fun_if_global_variable:NTF #1
-      { \tl_gclear:N #1 } { \tl_clear:N #1 }
+    \__fun_do_assignment:Nnn #1 { \tl_gclear:N #1 } { \tl_clear:N #1 }
   }
 
 \PrgNewFunction \TlSet { M m }
   {
-    \__fun_if_global_variable:NTF #1
-      { \tl_gset:Nn #1 {#2} } { \tl_set:Nn #1 {#2} }
+    \__fun_do_assignment:Nnn #1 { \tl_gset:Nn #1 {#2} } { \tl_set:Nn #1 {#2} }
   }
 
 \PrgNewFunction \TlPutLeft { M m }
   {
-    \__fun_if_global_variable:NTF #1
+    \__fun_do_assignment:Nnn #1
       { \tl_gput_left:Nn #1 {#2} } { \tl_put_left:Nn #1 {#2} }
   }
 
 \PrgNewFunction \TlPutRight { M m }
   {
-    \__fun_if_global_variable:NTF #1
+    \__fun_do_assignment:Nnn #1
       { \tl_gput_right:Nn #1 {#2} } { \tl_put_right:Nn #1 {#2} }
   }
 
@@ -597,35 +601,32 @@
 
 \PrgNewFunction \IntZero { M }
   {
-    \__fun_if_global_variable:NTF #1 { \int_gzero:N #1 } { \int_zero:N #1 }
+    \__fun_do_assignment:Nnn #1 { \int_gzero:N #1 } { \int_zero:N #1 }
   }
 
 \PrgNewFunction \IntIncr { M }
   {
-    \__fun_if_global_variable:NTF #1 { \int_gincr:N #1 } { \int_incr:N #1 }
+    \__fun_do_assignment:Nnn #1 { \int_gincr:N #1 } { \int_incr:N #1 }
   }
 
 \PrgNewFunction \IntDecr { M }
   {
-    \__fun_if_global_variable:NTF #1 { \int_gdecr:N #1 } { \int_decr:N #1 }
+    \__fun_do_assignment:Nnn #1 { \int_gdecr:N #1 } { \int_decr:N #1 }
   }
 
 \PrgNewFunction \IntSet { M m }
   {
-    \__fun_if_global_variable:NTF #1
-      { \int_gset:Nn #1 {#2} } { \int_set:Nn #1 {#2} }
+    \__fun_do_assignment:Nnn #1 { \int_gset:Nn #1 {#2} } { \int_set:Nn #1 {#2} }
   }
 
 \PrgNewFunction \IntAdd { M m }
   {
-    \__fun_if_global_variable:NTF #1
-      { \int_gadd:Nn #1 {#2} } { \int_add:Nn #1 {#2} }
+    \__fun_do_assignment:Nnn #1 { \int_gadd:Nn #1 {#2} } { \int_add:Nn #1 {#2} }
   }
 
 \PrgNewFunction \IntSub { M m }
   {
-    \__fun_if_global_variable:NTF #1
-      { \int_gsub:Nn #1 {#2} } { \int_sub:Nn #1 {#2} }
+    \__fun_do_assignment:Nnn #1 { \int_gsub:Nn #1 {#2} } { \int_sub:Nn #1 {#2} }
   }
 
 \PrgNewFunction \IntUse { M }
