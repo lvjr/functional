@@ -397,10 +397,37 @@ and many expansion functions for expanding them, which are necessary for power u
 \end{code}
 
 Within \verb!functional! package, there are only three variants
-(\verb!c!, \verb!e!, \verb!V!) are provided, and these variants are defined as functions,
+(\verb!c!, \verb!e!, \verb!V!) are provided, and these variants are defined
+as functions (\cs{Name}, \cs{Expand}, \cs{Value}, respetively),
 which are easier to use for normal users.
 
+\begin{demohigh}
+\newcommand\test{uvw}
+\Name{test}
+\end{demohigh}
+
+\begin{demohigh}
+\newcommand\test{uvw}
+\Expand{111\test222}
+\end{demohigh}
+
+\begin{demohigh}
+\IntSet\lTmpaInt{123}
+\Value\lTmpaInt
+\end{demohigh}
+
+The most interesting feature is that you can composite these functions.
+For example, you can easily get the \verb!v! variant of \verb!expl3! by
+simply composite \cs{Name} and \cs{Value} functions:
+
+\begin{demohigh}
+\IntSet\lTmpaInt{123}
+\Value{\Name{lTmpaInt}}
+\end{demohigh}
+
 \chapter{Basic Definitions (\texttt{l3basics})}
+
+\section{Deﬁning Functions and Conditionals}
 
 \begin{function}{\PrgNewFunction}
 \begin{syntax}
@@ -450,13 +477,33 @@ Appends \meta{tokens} to \verb!\gResultTl!, which holds the returned value of cu
 This function is normally used in the \meta{code} of \cs{PrgNewFunction} and \cs{PrgNewConditional}.
 \end{function}
 
+\section{Expanding and Using Tokens}
+
+\begin{function}{\Name}
+\begin{syntax}
+\cs{Name} \Arg{control sequence name}
+\end{syntax}
+Expands the \meta{control sequence name} until only characters
+remain, then converts this into a control sequence and returns it.
+The \meta{control sequence name} must consist of character tokens %,
+%typically a mixture of category code $10$ (space), $11$ (letter) and $12$ (other).
+when exhaustively expanded.%
+%\begin{texnote}
+%Protected macros that appear in a \texttt{c}-type argument are
+%expanded despite being protected; \cs{exp_not:n} also has no
+%effect.  An internal error occurs if non-characters or active
+%characters remain after full expansion, as the conversion to a
+%control sequence is not possible.
+%\end{texnote}
+\end{function}
+
 \begin{function}{\Value}
 \begin{syntax}
 \cs{Value} \meta{variable}
 \end{syntax}
 Recovers the content of a \meta{variable} and returns the value.
 An error is raised if the variable does not exist or if it is invalid.
-Note that it is the same as \cs{TlUse} for \meta{tl var}, and \cs{IntUse} for \meta{int var}.
+Note that it is the same as \cs{TlUse} for \meta{tl var}, or \cs{IntUse} for \meta{int var}.
 \end{function}
 
 \begin{function}{\Expand}
