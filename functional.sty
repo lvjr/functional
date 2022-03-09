@@ -358,6 +358,12 @@
     \__fun_put_result:n { #1 }
   }
 
+\PrgNewFunction \Name { m }
+  {
+    \exp_args:Nc \__fun_put_result:n { #1 }
+  }
+\cs_set_eq:NN \UseName \Name
+
 \PrgNewFunction \Expand { m }
   {
     \__fun_put_result:e { #1 }
