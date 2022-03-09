@@ -136,7 +136,7 @@ print(MathSquare(MathSquare(5)))
 
 Both examples calculate first the square of $5$ and produce $25$,
 then calculate the square of $25$ and produce $625$.
-In contrast to \verb!expl3!, This \verb!functional! package
+In contrast to \verb!expl3!, this \verb!functional! package
 does evaluation of functions from inside to outside,
 which means composition of functions works like othe programming languages
 such as \verb!Lua! or \verb!JavsScript!.
@@ -479,9 +479,9 @@ The function \cs{UseOne} absorbs one argument and returns it.
 %\emph{etc.}
 %\end{texnote}
 For example
-\begin{demo}
+\begin{demohigh}
 \UseOne{abc}\GobbleOne{ijk}\UseOne{xyz}
-\end{demo}
+\end{demohigh}
 \end{function}
 
 \begin{function}{\UseGobble,\GobbleUse}
@@ -499,9 +499,9 @@ and returns the content of the second argument.
 %\tn{@secondoftwo}.
 %\end{texnote}
 For example
-\begin{demo}
+\begin{demohigh}
 \UseGobble{abc}{uvw}\GobbleUse{abc}{uvw}
-\end{demo}
+\end{demohigh}
 \end{function}
 
 \chapter{Control Structures (\texttt{l3prg})}
@@ -557,12 +557,12 @@ Sets \meta{boolean} logically \texttt{false}.
 \end{syntax}
 Tests the current truth of \meta{boolean}, and continues evaluation
 based on this result. For example
-\begin{demo}
+\begin{demohigh}
 \BoolSetTrue\lTmpaBool
 \BoolIfTF\lTmpaBool{\Result{True!}}{\Result{False!}}
 \BoolSetFalse\lTmpaBool
 \BoolIfTF\lTmpaBool{\Result{True!}}{\Result{False!}}
-\end{demo}
+\end{demohigh}
 \end{function}
 
 \chapter{Token Lists (\texttt{l3tl})}
@@ -610,10 +610,10 @@ a \meta{tl~var} directly without an accessor function.
 \end{syntax}
 Sets \meta{tl~var} to contain \meta{tokens},
 removing any previous content from the variable. For example
-\begin{demo}
+\begin{demohigh}
 \TlSet\lTmpiTl{\IntMathMult{4}{5}}
 \TlUse\lTmpiTl
-\end{demo}
+\end{demohigh}
 \end{function}
 
 \begin{function}{\TlClear}
@@ -621,12 +621,12 @@ removing any previous content from the variable. For example
 \cs{TlClear} \meta{tl~var}
 \end{syntax}
 Clears all entries from the \meta{tl~var}. For example
-\begin{demo}
+\begin{demohigh}
 \TlSet\lTmpjTl{One}
 \TlClear\lTmpjTl
 \TlSet\lTmpjTl{Two}
 \TlUse\lTmpjTl
-\end{demo}
+\end{demohigh}
 \end{function}
 
 \begin{function}{\TlPutLeft}
@@ -635,11 +635,11 @@ Clears all entries from the \meta{tl~var}. For example
 \end{syntax}
 Appends \meta{tokens} to the left side of the current content of
 \meta{tl~var}. For example
-\begin{demo}
+\begin{demohigh}
 \TlSet\lTmpkTl{Functional}
 \TlPutLeft\lTmpkTl{Hello}
 \TlUse\lTmpkTl
-\end{demo}
+\end{demohigh}
 \end{function}
 
 \begin{function}{\TlPutRight}
@@ -648,11 +648,11 @@ Appends \meta{tokens} to the left side of the current content of
 \end{syntax}
 Appends \meta{tokens} to the right side of the current content of
 \meta{tl~var}. For example
-\begin{demo}
+\begin{demohigh}
 \TlSet\lTmpkTl{Functional}
 \TlPutRight\lTmpkTl{World}
 \TlUse\lTmpkTl
-\end{demo}
+\end{demohigh}
 \end{function}
 
 \begin{function}{\TlIfEmpty,\TlIfEmptyTF}
@@ -662,12 +662,12 @@ Appends \meta{tokens} to the right side of the current content of
 \end{syntax}
 Tests if the \meta{token list variable} is entirely empty
 (\emph{i.e.}~contains no tokens at all). For example
-\begin{demo}
+\begin{demohigh}
 \TlSet\lTmpaTl{abc}
 \TlIfEmptyTF\lTmpaTl{\Result{Empty}}{\Result{NonEmpty}}
 \TlClear\lTmpaTl
 \TlIfEmptyTF\lTmpaTl{\Result{Empty}}{\Result{NonEmpty}}
-\end{demo}
+\end{demohigh}
 \end{function}
 
 \begin{function}{\TlIfEq,\TlIfEqTF}
@@ -679,13 +679,13 @@ Compares the content of two \meta{token list variables} and
 is logically \texttt{true} if the two contain the same list of
 tokens (\emph{i.e.}~identical in both the list of characters they
 contain and the category codes of those characters). For example
-\begin{demo}
+\begin{demohigh}
 \TlSet\lTmpaTl{abc}
 \TlSet\lTmpbTl{abc}
 \TlSet\lTmpcTl{xyz}
 \TlIfEqTF\lTmpaTl\lTmpbTl{\Result{Yes}}{\Result{No}}
 \TlIfEqTF\lTmpaTl\lTmpcTl{\Result{Yes}}{\Result{No}}
-\end{demo}
+\end{demohigh}
 %See also \cs{StrIfEqTF} for a comparison that ignores category codes.
 \end{function}
 
@@ -718,9 +718,9 @@ for positive results an
 explicit sequence of decimal digits not starting with~\texttt{0},
 for negative results \texttt{-}~followed by such a sequence, and
 \texttt{0}~for zero. For example
-\begin{demo}
+\begin{demohigh}
 \IntEval{(1+4)*(2-3)/5}
-\end{demo}
+\end{demohigh}
 \end{function}
 
 \begin{function}{\IntMathAdd}
@@ -729,9 +729,9 @@ for negative results \texttt{-}~followed by such a sequence, and
 \end{syntax}
 Adds \Arg{integer expression_1} and \Arg{integer expression_2},
 and returns the result. For example
-\begin{demo}
+\begin{demohigh}
 \IntMathAdd{7}{3}
-\end{demo}
+\end{demohigh}
 \end{function}
 
 \begin{function}{\IntMathSub}
@@ -740,9 +740,9 @@ and returns the result. For example
 \end{syntax}
 Subtracts \Arg{integer expression_1} from \Arg{integer expression_2},
 and returns the result. For example
-\begin{demo}
+\begin{demohigh}
 \IntMathSub{7}{3}
-\end{demo}
+\end{demohigh}
 \end{function}
 
 \begin{function}{\IntMathMult}
@@ -751,9 +751,9 @@ and returns the result. For example
 \end{syntax}
 Multiplies \Arg{integer expression_1} by \Arg{integer expression_2},
 and returns the result. For example
-\begin{demo}
+\begin{demohigh}
 \IntMathMult{7}{3}
-\end{demo}
+\end{demohigh}
 \end{function}
 
 \begin{function}{\IntMathDiv}
@@ -762,9 +762,9 @@ and returns the result. For example
 \end{syntax}
 Divides \Arg{integer expression_1} by \Arg{integer expression_2},
 and returns the result. For example
-\begin{demo}
+\begin{demohigh}
 \IntMathDiv{7}{3}
-\end{demo}
+\end{demohigh}
 \end{function}
 
 \begin{function}{\IntNew}
@@ -798,10 +798,10 @@ of \cs{IntCompareTF}).%
 Sets \meta{integer} to the value of \meta{integer expression},
 which must evaluate to an integer (as described for \cs{IntEval}).
 For example
-\begin{demo}
+\begin{demohigh}
 \IntSet\lTmpaInt{3+5}
 \IntUse\lTmpaInt
-\end{demo}
+\end{demohigh}
 \end{function}
 
 \begin{function}{\IntZero}
@@ -809,11 +809,11 @@ For example
 \cs{IntZero} \meta{integer}
 \end{syntax}
 Sets \meta{integer} to $0$. For example
-\begin{demo}
+\begin{demohigh}
 \IntSet\lTmpaInt{5}
 \IntZero\lTmpaInt
 \IntUse\lTmpaInt
-\end{demo}
+\end{demohigh}
 \end{function}
 
 \begin{function}{\IntIncr}
@@ -822,11 +822,11 @@ Sets \meta{integer} to $0$. For example
 \end{syntax}
 Increases the value stored in \meta{integer} by $1$.
 For example
-\begin{demo}
+\begin{demohigh}
 \IntSet\lTmpaInt{5}
 \IntIncr\lTmpaInt
 \IntUse\lTmpaInt
-\end{demo}
+\end{demohigh}
 \end{function}
 
 \begin{function}{\IntDecr}
@@ -835,11 +835,11 @@ For example
 \end{syntax}
 Decreases the value stored in \meta{integer} by $1$.
 For example
-\begin{demo}
+\begin{demohigh}
 \IntSet\lTmpaInt{5}
 \IntDecr\lTmpaInt
 \IntUse\lTmpaInt
-\end{demo}
+\end{demohigh}
 \end{function}
 
 \begin{function}{\IntAdd}
@@ -848,11 +848,11 @@ For example
 \end{syntax}
 Adds the result of the \meta{integer expression} to the current
 content of the \meta{integer}. For example
-\begin{demo}
+\begin{demohigh}
 \IntSet\lTmpaInt{5}
 \IntAdd\lTmpaInt{2}
 \IntUse\lTmpaInt
-\end{demo}
+\end{demohigh}
 \end{function}
 
 \begin{function}{\IntSub}
@@ -861,11 +861,11 @@ content of the \meta{integer}. For example
 \end{syntax}
 Subtracts the result of the \meta{integer expression} from the
 current content of the \meta{integer}. For example
-\begin{demo}
+\begin{demohigh}
 \IntSet\lTmpaInt{5}
 \IntSub\lTmpaInt{3}
 \IntUse\lTmpaInt
-\end{demo}
+\end{demohigh}
 \end{function}
 
 \begin{function}{\IntStepVariable}
@@ -880,14 +880,14 @@ Then for each \meta{value} from the \meta{initial value} to the
 with the \meta{tl~var} defined as the current \meta{value}.  Thus
 the \meta{code} should make use of the \meta{tl~var}.
 For example
-\begin{demo}
+\begin{demohigh}
 \TlClear\lTmpaTl
 \IntStepVariable{1}{3}{30}\lTmpiTl{
   \TlPutRight\lTmpaTl{\Value\lTmpiTl}
   \TlPutRight\lTmpaTl{ }
 }
 \Result{\Value\lTmpaTl}
-\end{demo}
+\end{demohigh}
 \end{function}
 
 \begin{function}{\IntCompare,\IntCompareTF}
@@ -904,10 +904,10 @@ Greater than & \texttt{>} \\
 Less than    & \texttt{<} \\
 \end{tabular}\par}
 For example
-\begin{demo}
+\begin{demohigh}
 \IntCompareTF{2}>{1}{\Result{Greater}}{\Result{Less}}
 \IntCompareTF{2}>{3}{\Result{Greater}}{\Result{Less}}
-\end{demo}
+\end{demohigh}
 \end{function}
 
 \end{document}
