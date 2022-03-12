@@ -276,12 +276,10 @@ case occurs exactly if one or both operands is \nan{} or is a tuple,
 unless they are equal tuples.  Note that a \nan{} is distinct from
 any value, even another \nan{}, hence $x=x$ is not true for
 a \nan{}.  To test if a value is \nan{}, compare it to an arbitrary
-number with the \enquote{not ordered} relation.
-\begin{codehigh}
-\fp_compare:nNnTF { <value> } ? { 0 }
-{ } <value> is nan
-{ } <value> is not nan
-\end{codehigh}
+number with the \enquote{not ordered} relation.\par
+%\begin{demohigh}
+%\FpCompareTF{0/0}?{0}{\Result{Is~a~Nan}}{\Result{Isn't~a~NaN}}
+%\end{demohigh}
 Tuples are equal if they have the same number of items and items
 compare equal (in particular there must be no \nan{}).
 At present any other comparison with tuples yields \verb|?| (not ordered).
