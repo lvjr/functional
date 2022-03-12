@@ -693,3 +693,115 @@
       { \Result { \cFalseBool } }
   }
 
+%%% --------------------------------------------------------
+%%> \section{Interfaces for Floating Point Numbers (Fp)}
+%%% --------------------------------------------------------
+
+\fp_new:N \lTmpaFp   \fp_new:N \lTmpbFp   \fp_new:N \lTmpcFp
+\fp_new:N \lTmpiFp   \fp_new:N \lTmpjFp   \fp_new:N \lTmpkFp
+\fp_new:N \l@Funx@Fp \fp_new:N \l@Funy@Fp \fp_new:N \l@Funz@Fp
+
+\fp_new:N \gTmpaFp   \fp_new:N \gTmpbFp   \fp_new:N \gTmpcFp
+\fp_new:N \gTmpiFp   \fp_new:N \gTmpjFp   \fp_new:N \gTmpkFp
+\fp_new:N \g@Funx@Fp \fp_new:N \g@Funy@Fp \fp_new:N \g@Funz@Fp
+
+\cs_set_eq:NN \FpNew \fp_new:N
+\cs_set_eq:NN \FpLog \fp_log:N
+\cs_set_eq:NN \FpShow \fp_show:N
+
+\PrgNewFunction \FpEval { m }
+  {
+    \Result { \Expand { \fp_eval:n { #1 } } }
+  }
+
+\PrgNewFunction \FpMathAdd { m m }
+  {
+    \fp_set:Nn \l@Funx@Fp { \fp_eval:n { (#1) + (#2) } }
+    \Result { \FpUse \l@Funx@Fp }
+  }
+
+\PrgNewFunction \FpMathSub { m m }
+  {
+    \fp_set:Nn \l@Funx@Fp { \fp_eval:n { (#1) - (#2) } }
+    \Result { \FpUse \l@Funx@Fp }
+  }
+
+\PrgNewFunction \FpMathMult { m m }
+  {
+    \fp_set:Nn \l@Funx@Fp { \fp_eval:n { (#1) * (#2) } }
+    \Result { \FpUse \l@Funx@Fp }
+  }
+
+\PrgNewFunction \FpMathDiv { m m }
+  {
+    \fp_set:Nn \l@Funx@Fp { \fp_eval:n { (#1) / (#2) } }
+    \Result { \FpUse \l@Funx@Fp }
+  }
+
+\PrgNewFunction \FpMathSign { m }
+  {
+    \Result { \Expand { \fp_sign:n { #1 } } }
+  }
+
+\PrgNewFunction \FpMathAbs { m }
+  {
+    \Result { \Expand { \fp_abs:n { #1 } } }
+  }
+
+\PrgNewFunction \FpMathMax { m m }
+  {
+    \Result { \Expand { \fp_max:nn { #1 } { #2 } } }
+  }
+
+\PrgNewFunction \FpMathMin { m m }
+  {
+    \Result { \Expand { \fp_min:nn { #1 } { #2 } } }
+  }
+
+\PrgNewFunction \FpUse { M }
+  {
+    \Result { \Expand { \fp_use:N #1 } }
+  }
+
+\PrgNewFunction \FpConst { M m }
+  {
+    \fp_const:Nn #1 {#2}
+  }
+
+\PrgNewFunction \FpSet { M m }
+  {
+    \__fun_do_assignment:Nnn #1 { \fp_gset:Nn #1 {#2} } { \fp_set:Nn #1 {#2} }
+  }
+
+\PrgNewFunction \FpZero { M }
+  {
+    \__fun_do_assignment:Nnn #1 { \fp_gzero:N #1 } { \fp_zero:N #1 }
+  }
+
+\PrgNewFunction \FpAdd { M m }
+  {
+    \__fun_do_assignment:Nnn #1 { \fp_gadd:Nn #1 {#2} } { \fp_add:Nn #1 {#2} }
+  }
+
+\PrgNewFunction \FpSub { M m }
+  {
+    \__fun_do_assignment:Nnn #1 { \fp_gsub:Nn #1 {#2} } { \fp_sub:Nn #1 {#2} }
+  }
+
+\PrgNewFunction \FpStepVariable { m m m M n }
+  {
+    \fp_step_variable:nnnNn { #1 } { #2 } { #3 } #4 { #5 }
+  }
+
+\PrgNewConditional \FpIfExist { M }
+  {
+    \fp_if_exist:NTF #1 { \Result { \cTrueBool } } { \Result { \cFalseBool } }
+  }
+
+\PrgNewConditional \FpCompare { m N m }
+  {
+    \fp_compare:nNnTF {#1} #2 {#3}
+      { \Result { \cTrueBool } }
+      { \Result { \cFalseBool } }
+  }
+
