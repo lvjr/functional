@@ -659,25 +659,25 @@
 
 \PrgNewFunction \IntMathAdd { m m }
   {
-    \int_set:Nn \l@Funx@Int { \int_eval:n { #1 + #2 } }
+    \int_set:Nn \l@Funx@Int { \int_eval:n { (#1) + (#2) } }
     \Result { \Value \l@Funx@Int }
   }
 
 \PrgNewFunction \IntMathSub { m m }
   {
-    \int_set:Nn \l@Funx@Int { \int_eval:n { #1 - #2 } }
+    \int_set:Nn \l@Funx@Int { \int_eval:n { (#1) - (#2) } }
     \Result { \Value \l@Funx@Int }
   }
 
 \PrgNewFunction \IntMathMult { m m }
   {
-    \int_set:Nn \l@Funx@Int { \int_eval:n { #1 * #2 } }
+    \int_set:Nn \l@Funx@Int { \int_eval:n { (#1) * (#2) } }
     \Result { \Value \l@Funx@Int }
   }
 
 \PrgNewFunction \IntMathDiv { m m }
   {
-    \int_set:Nn \l@Funx@Int { \int_eval:n { #1 / #2 } }
+    \int_set:Nn \l@Funx@Int { \int_eval:n { (#1) / (#2) } }
     \Result { \Value \l@Funx@Int }
   }
 
