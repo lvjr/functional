@@ -1,0 +1,134 @@
+% -*- coding: utf-8 -*-
+% !TEX program = lualatex
+\documentclass[oneside]{book}
+
+\input{manual.sty}
+\CodeHigh{lite}
+
+\begin{document}
+
+\chapter{Token Lists (\texttt{l3tl})}
+
+\section{Scratch Variables of Token Lists}
+
+\begin{variable}{\lTmpaTl,\lTmpbTl,\lTmpcTl,\lTmpiTl,\lTmpjTl,\lTmpkTl}
+Scratch token lists for local assignment. These are never used by
+the \verb!functional! package, and so are safe for use with any
+function. However, they may be overwritten by other
+code and so should only be used for short-term storage.
+\end{variable}
+
+\begin{variable}{\gTmpaTl,\gTmpbTl,\gTmpcTl,\gTmpiTl,\gTmpjTl,\gTmpkTl}
+Scratch token lists for global assignment. These are never used by
+the \verb!functional! package, and so are safe for use with any
+function. However, they may be overwritten by other
+code and so should only be used for short-term storage.
+\end{variable}
+
+\section{Public Functions for Token Lists}
+
+\begin{function}{\TlNew}
+\begin{syntax}
+\cs{TlNew} \meta{tl~var}
+\end{syntax}
+Creates a new \meta{tl~var} or raises an error if the
+name is already taken. The declaration is global. The
+\meta{tl~var} is initially empty.
+\end{function}
+
+\begin{function}{\TlUse}
+\begin{syntax}
+\cs{TlUse} \meta{tl~var}
+\end{syntax}
+Recovers the content of a \meta{tl~var} and returns the value.
+An error is raised if the variable
+does not exist or if it is invalid. Note that it is possible to use
+a \meta{tl~var} directly without an accessor function.
+\end{function}
+
+\begin{function}{\TlSet}
+\begin{syntax}
+\cs{TlSet} \meta{tl~var} \Arg{tokens}
+\end{syntax}
+Sets \meta{tl~var} to contain \meta{tokens},
+removing any previous content from the variable. For example
+\begin{demohigh}
+\TlSet\lTmpiTl{\IntMathMult{4}{5}}
+\TlUse\lTmpiTl
+\end{demohigh}
+\end{function}
+
+\begin{function}{\TlClear}
+\begin{syntax}
+\cs{TlClear} \meta{tl~var}
+\end{syntax}
+Clears all entries from the \meta{tl~var}. For example
+\begin{demohigh}
+\TlSet\lTmpjTl{One}
+\TlClear\lTmpjTl
+\TlSet\lTmpjTl{Two}
+\TlUse\lTmpjTl
+\end{demohigh}
+\end{function}
+
+\begin{function}{\TlPutLeft}
+\begin{syntax}
+\cs{TlPutLeft} \meta{tl~var} \Arg{tokens}
+\end{syntax}
+Appends \meta{tokens} to the left side of the current content of
+\meta{tl~var}. For example
+\begin{demohigh}
+\TlSet\lTmpkTl{Functional}
+\TlPutLeft\lTmpkTl{Hello}
+\TlUse\lTmpkTl
+\end{demohigh}
+\end{function}
+
+\begin{function}{\TlPutRight}
+\begin{syntax}
+\cs{TlPutRight} \meta{tl~var} \Arg{tokens}
+\end{syntax}
+Appends \meta{tokens} to the right side of the current content of
+\meta{tl~var}. For example
+\begin{demohigh}
+\TlSet\lTmpkTl{Functional}
+\TlPutRight\lTmpkTl{World}
+\TlUse\lTmpkTl
+\end{demohigh}
+\end{function}
+
+\begin{function}{\TlIfEmpty,\TlIfEmptyTF}
+\begin{syntax}
+\cs{TlIfEmpty} \meta{tl~var}
+\cs{TlIfEmptyTF} \meta{tl~var} \Arg{true code} \Arg{false code}
+\end{syntax}
+Tests if the \meta{token list variable} is entirely empty
+(\emph{i.e.}~contains no tokens at all). For example
+\begin{demohigh}
+\TlSet\lTmpaTl{abc}
+\TlIfEmptyTF\lTmpaTl{\Result{Empty}}{\Result{NonEmpty}}
+\TlClear\lTmpaTl
+\TlIfEmptyTF\lTmpaTl{\Result{Empty}}{\Result{NonEmpty}}
+\end{demohigh}
+\end{function}
+
+\begin{function}{\TlIfEq,\TlIfEqTF}
+\begin{syntax}
+\cs{TlIfEq} \meta{tl~var_1} \meta{tl~var_2}
+\cs{TlIfEqTF} \meta{tl~var_1} \meta{tl~var_2} \Arg{true code} \Arg{false code}
+\end{syntax}
+Compares the content of two \meta{token list variables} and
+is logically \texttt{true} if the two contain the same list of
+tokens (\emph{i.e.}~identical in both the list of characters they
+contain and the category codes of those characters). For example
+\begin{demohigh}
+\TlSet\lTmpaTl{abc}
+\TlSet\lTmpbTl{abc}
+\TlSet\lTmpcTl{xyz}
+\TlIfEqTF\lTmpaTl\lTmpbTl{\Result{Yes}}{\Result{No}}
+\TlIfEqTF\lTmpaTl\lTmpcTl{\Result{Yes}}{\Result{No}}
+\end{demohigh}
+%See also \cs{StrIfEqTF} for a comparison that ignores category codes.
+\end{function}
+
+\end{document}
