@@ -292,7 +292,7 @@
 %% #1: function name; #2: argument specifications
 \cs_new_protected:Npn \__fun_evaluate:Nn #1 #2
   {
-    \__fun_argtype_index_clear:
+    \__fun_argtype_index_zero:
     \__fun_arguments_gclear:
     \tl_map_variable:nNn { #2 } \l__fun_argtype_tl % spaces are ignored
       {
@@ -374,7 +374,7 @@
 \int_new:c  { g__fun_argtype_index_ 4 _int }
 \int_new:c  { g__fun_argtype_index_ 5 _int }
 
-\cs_new_protected:Npn \__fun_argtype_index_clear:
+\cs_new_protected:Npn \__fun_argtype_index_zero:
   {
     \int_zero_new:c
       { g__fun_argtype_index_ \int_use:N \g__fun_nesting_level_int _int }
