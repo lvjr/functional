@@ -292,11 +292,11 @@
 %% #1: function name; #2: argument specifications
 \cs_new_protected:Npn \__fun_evaluate:Nn #1 #2
   {
-    \__fun_argtype_index_zero:
+    \__fun_argtype_index_gzero:
     \__fun_arguments_gclear:
     \tl_map_variable:nNn { #2 } \l__fun_argtype_tl % spaces are ignored
       {
-        \__fun_argtype_index_incr:
+        \__fun_argtype_index_gincr:
         \__fun_one_argument_get:eN { \__fun_argtype_index_use: } \l__fun_argument_tl
         \tl_case:Nn \l__fun_argtype_tl
           {
@@ -371,15 +371,16 @@
 \int_new:c  { g__fun_argtype_index_ 4 _int }
 \int_new:c  { g__fun_argtype_index_ 5 _int }
 
-\cs_new_protected:Npn \__fun_argtype_index_zero:
+\cs_new_protected:Npn \__fun_argtype_index_gzero:
   {
-    \int_zero_new:c
+    \int_gzero_new:c
       { g__fun_argtype_index_ \int_use:N \g__fun_nesting_level_int _int }
   }
 
-\cs_new_protected:Npn \__fun_argtype_index_incr:
+\cs_new_protected:Npn \__fun_argtype_index_gincr:
   {
-    \int_incr:c { g__fun_argtype_index_ \int_use:N \g__fun_nesting_level_int _int }
+    \int_gincr:c
+      { g__fun_argtype_index_ \int_use:N \g__fun_nesting_level_int _int }
   }
 
 \cs_new:Npn \__fun_argtype_index_use:
