@@ -34,13 +34,13 @@
 }
 \ExplSyntaxOff
 
-\NewDocumentEnvironment{variable}{m}{
+\NewDocumentEnvironment{variable}{om}{
   \vspace{5pt}
   \begin{minipage}{\linewidth}
   \hrule\vspace{4pt}\obeylines%
   \begingroup
   \ttfamily\bfseries\color{azure3}
-  \PrintVarList{#1}
+  \PrintVarList{#2}
   \endgroup
   \par\vspace{4pt}\hrule
   \end{minipage}\par\nopagebreak\vspace{4pt}
@@ -48,7 +48,7 @@
   \vspace{5pt}%
 }
 
-\NewDocumentEnvironment{function}{m}{
+\NewDocumentEnvironment{function}{om}{
   \vspace{5pt}%
 }{\vspace{5pt}}
 
