@@ -25,32 +25,32 @@ print(MathSquare(MathSquare(5)))
 
 \begin{codehigh}
 %% function code
-\ExplSyntaxOn
+\IgnoreSpacesOn
 \PrgNewFunction \MathSquare { m } {
   \IntSet \lTmpaInt { \IntEval { #1 * #1 } }
   \Result { \Value \lTmpaInt }
 }
-\ExplSyntaxOff
+\IgnoreSpacesOff
 \MathSquare{5}
 \MathSquare{\MathSquare{5}}
 \end{codehigh}
 
-%\ExplSyntaxOn
+%\IgnoreSpacesOn
 %\PrgNewFunction \MathSquare { m }{
 %  \IntSet \lTmpaInt { \IntEval { #1 * #1 } }
 %  \Result { \Value \lTmpaInt }
 %}
-%\ExplSyntaxOff
+%\IgnoreSpacesOff
 %\MathSquare{5}
 %\MathSquare{\MathSquare{5}}
 
-%\ExplSyntaxOn
+%\IgnoreSpacesOn
 %\PrgNewFunction \MathCubic { m }
 %  {
 %    \IntSet \lTmpaInt { \IntEval { #1 * #1 * #1 } }
 %    \Result { \Value \lTmpaInt }
 %  }
-%\ExplSyntaxOff
+%\IgnoreSpacesOff
 %\MathCubic{2}
 %\MathCubic{\MathCubic{2}}
 
@@ -69,8 +69,8 @@ with \cs{Result} command. And \verb!functional! package is responsible for
 inserting result tokens to the input stream at the appropriate time.
 
 To remove space tokens inside function code in defining functions,
-you'd better put function definitions inside \verb!\ExplSyntaxOn! and
-\verb!\ExplSyntaxOff! block. Within this block, \verb!~! is used to input a space.
+you'd better put function definitions inside \verb!\IgnoreSpacesOn! and
+\verb!\IgnoreSpacesOff! block. Within this block, \verb!~! is used to input a space.
 
 At the end of this section,
 we will compare our factorial example with a similar \verb!Lua! example:
@@ -88,7 +88,7 @@ print(Factorial(4))
 \end{code}
 
 \begin{codehigh}
-\ExplSyntaxOn
+\IgnoreSpacesOn
 \PrgNewFunction \Factorial { m } {
   \IntCompareTF {#1} = {0} {
     \Result {1}
@@ -96,11 +96,11 @@ print(Factorial(4))
     \Result { \IntMathMult {#1} { \Factorial { \IntMathSub{#1}{1} } } }
   }
 }
-\ExplSyntaxOff
+\IgnoreSpacesOff
 \Factorial{4}
 \end{codehigh}
 
-%\ExplSyntaxOn
+%\IgnoreSpacesOn
 %\PrgNewFunction \Factorial { m } {
 %  \IntCompareTF {#1} = {0} {
 %    \Result {1}
@@ -108,7 +108,7 @@ print(Factorial(4))
 %    \Result { \IntMathMult {#1} { \Factorial { \IntMathSub{#1}{1} } } }
 %  }
 %}
-%\ExplSyntaxOff
+%\IgnoreSpacesOff
 %\Factorial{0}
 %\Factorial{4}
 
@@ -141,7 +141,7 @@ and you can make every function become a group by setting
 
 \begin{codehigh}
 \Functional{scoping=true}
-\ExplSyntaxOn
+\IgnoreSpacesOn
 \IntSet \lTmpaInt {1}
 \IntLogVar \lTmpaInt          % ---- 1
 \PrgNewFunction \SomeFun { } {
@@ -155,7 +155,7 @@ and you can make every function become a group by setting
 }
 \SomeFun
 \IntLogVar \lTmpaInt          % ---- 1
-\ExplSyntaxOff
+\IgnoreSpacesOff
 \end{codehigh}
 
 Same as \verb!expl3!, the names of local variables \emph{must} start with \verb!l!,
@@ -170,6 +170,7 @@ if we change variable from \verb!\lTmpaInt! to \verb!\gTmpaInt!.
 
 \begin{codehigh}
 \Functional{scoping=true}
+\IgnoreSpacesOn
 \IntSet \gTmpaInt {1}
 \IntLogVar \gTmpaInt          % ---- 1
 \PrgNewFunction \SomeFun { } {
@@ -183,6 +184,7 @@ if we change variable from \verb!\lTmpaInt! to \verb!\gTmpaInt!.
 }
 \SomeFun
 \IntLogVar \gTmpaInt          % ---- 3
+\IgnoreSpacesOff
 \end{codehigh}
 
 As you can see, the values of global variables will never be reset after a group.
