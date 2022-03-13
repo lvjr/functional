@@ -558,8 +558,13 @@
 \tl_new:N \gTmpiTl   \tl_new:N \gTmpjTl   \tl_new:N \gTmpkTl
 \tl_new:N \g@Funx@Tl \tl_new:N \g@Funy@Tl \tl_new:N \g@Funz@Tl
 
-\cs_set_eq:NN \TlNew \tl_new:N
-\cs_set_eq:NN \TlLog \tl_log:N
+\PrgNewFunction \TlNew { M } { \tl_new:N #1 }
+
+\PrgNewFunction \TlLogVar { M } { \tl_log:N #1 }
+
+\PrgNewFunction \TlShowVar { M } { \tl_show:N #1 }
+
+\PrgNewFunction \TlUse { M } { \Result { \Value #1 } }
 
 \PrgNewFunction \TlClear { M }
   {
@@ -583,23 +588,14 @@
       { \tl_gput_right:Nn #1 {#2} } { \tl_put_right:Nn #1 {#2} }
   }
 
-\PrgNewFunction \TlUse { M }
+\PrgNewConditional \TlIfEmpty { M }
   {
-    \Result { \Value #1 }
+    \tl_if_empty:NTF #1 { \Result { \cTrueBool } }  { \Result { \cFalseBool } }
   }
 
-\PrgNewConditional \TlIfEmpty { N }
+\PrgNewConditional \TlIfEq { m m }
   {
-    \tl_if_empty:NTF #1
-      { \Result { \cTrueBool } }
-      { \Result { \cFalseBool } }
-  }
-
-\PrgNewConditional \TlIfEq { N N }
-  {
-    \tl_if_eq:NNTF #1 #2
-      { \Result { \cTrueBool } }
-      { \Result { \cFalseBool } }
+    \tl_if_eq:nnTF {#1} {#2} { \Result { \cTrueBool } } { \Result { \cFalseBool } }
   }
 
 %%% --------------------------------------------------------

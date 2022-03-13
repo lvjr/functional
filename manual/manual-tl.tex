@@ -114,21 +114,24 @@ Tests if the \meta{token list variable} is entirely empty
 
 \begin{function}{\TlIfEq,\TlIfEqTF}
 \begin{syntax}
-\cs{TlIfEq} \meta{tl~var_1} \meta{tl~var_2}
-\cs{TlIfEqTF} \meta{tl~var_1} \meta{tl~var_2} \Arg{true code} \Arg{false code}
+\cs{TlIfEq} \Arg{token list_1} \Arg{token list_2}
+\cs{TlIfEqTF} \Arg{token list_1} \Arg{token list_2} \Arg{true code} \Arg{false code}
 \end{syntax}
-Compares the content of two \meta{token list variables} and
-is logically \texttt{true} if the two contain the same list of
-tokens (\emph{i.e.}~identical in both the list of characters they
-contain and the category codes of those characters). For example
+Tests if \meta{token list_1} and \meta{token list_2} contain the
+same list of tokens, both in respect of character codes and category
+codes. See \cs{StrIfEq} if category codes are not important.
+For example
+\begin{demohigh}
+\TlIfEqTF{abc}{abc}{\Result{Yes}}{\Result{No}}
+\TlIfEqTF{abc}{xyz}{\Result{Yes}}{\Result{No}}
+\end{demohigh}
 \begin{demohigh}
 \TlSet\lTmpaTl{abc}
 \TlSet\lTmpbTl{abc}
 \TlSet\lTmpcTl{xyz}
-\TlIfEqTF\lTmpaTl\lTmpbTl{\Result{Yes}}{\Result{No}}
-\TlIfEqTF\lTmpaTl\lTmpcTl{\Result{Yes}}{\Result{No}}
+\TlIfEqTF{\TlUse\lTmpaTl}{\TlUse\lTmpbTl}{\Result{Yes}}{\Result{No}}
+\TlIfEqTF{\TlUse\lTmpaTl}{\TlUse\lTmpcTl}{\Result{Yes}}{\Result{No}}
 \end{demohigh}
-%See also \cs{StrIfEqTF} for a comparison that ignores category codes.
 \end{function}
 
 \end{document}
