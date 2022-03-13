@@ -514,7 +514,7 @@
   }
 
 %%% --------------------------------------------------------
-%%> \section{Interfaces for Control Structures (l3prg)}
+%%> \section{Interfaces for Control Structures (Bool)}
 %%% --------------------------------------------------------
 
 \bool_const:Nn \cTrueBool { \c_true_bool }
@@ -528,8 +528,11 @@
 \bool_new:N \gTmpiBool   \bool_new:N \gTmpjBool   \bool_new:N \gTmpkBool
 \bool_new:N \g@Funx@Bool \bool_new:N \g@Funy@Bool \bool_new:N \g@Funz@Bool
 
-\cs_set_eq:NN \BoolNew \bool_new:N
-\cs_set_eq:NN \BoolLog \bool_log:N
+\PrgNewFunction \BoolNew { M } { \bool_new:N #1 }
+
+\PrgNewFunction \BoolLogVar { M } { \bool_log:N #1 }
+
+\PrgNewFunction \BoolShowVar { M } { \bool_show:N #1 }
 
 \PrgNewFunction \BoolSetTrue { M }
   {
