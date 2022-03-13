@@ -364,7 +364,7 @@
   {
     \tl_log:e
       {
-        #2 ~ level ~ \int_use:N \g__fun_nesting_level_int \space arg ~ #1 ~ = ~
+        #2 ~ level _ \int_use:N \g__fun_nesting_level_int _ arg _ #1 ~ = ~
         \exp_not:v
           { g__fun_one_argument_ \int_use:N \g__fun_nesting_level_int _#1_tl }
       }
