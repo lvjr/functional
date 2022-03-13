@@ -322,15 +322,12 @@
     \__fun_arguments_called:c { __fun_defined_ \cs_to_str:N #1 : w }
   }
 
-\cs_set_eq:NN \__fun_cs_temp:w \scan_stop:
-
 \cs_new_protected:Npn \__fun_evaluate_and_put_argument:N #1
   {
-    \cs_set_eq:Nc \__fun_cs_temp:w
+    \cs_if_exist:cTF
       {
         __fun_defined_ \exp_last_unbraced:Ne \cs_to_str:N { \tl_head:N #1 } : w
       }
-    \cs_if_exist:NTF \__fun_cs_temp:w
       {
         #1
         \__fun_arguments_gput:e { { \exp_not:V \gResultTl } }
