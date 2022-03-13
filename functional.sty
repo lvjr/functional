@@ -17,6 +17,7 @@
   {^^JLaTeX2 functional interfaces to LaTeX3 programming layer}
 
 \cs_generate_variant:Nn \iow_log:n { V }
+\cs_generate_variant:Nn \tl_log:n { e }
 \cs_generate_variant:Nn \tl_set:Nn { Ne }
 
 \tl_new:N \gResultTl
@@ -51,16 +52,6 @@
 \tl_const:Nn \c__fun_parameter_called_vii_tl  { {#7} }
 \tl_const:Nn \c__fun_parameter_called_viii_tl { {#8} }
 \tl_const:Nn \c__fun_parameter_called_ix_tl   { {#9} }
-\tl_new:N \l__fun_argument_tl
-\tl_new:N \l__fun_argument_i_tl
-\tl_new:N \l__fun_argument_ii_tl
-\tl_new:N \l__fun_argument_iii_tl
-\tl_new:N \l__fun_argument_iv_tl
-\tl_new:N \l__fun_argument_v_tl
-\tl_new:N \l__fun_argument_vi_tl
-\tl_new:N \l__fun_argument_vii_tl
-\tl_new:N \l__fun_argument_viii_tl
-\tl_new:N \l__fun_argument_ix_tl
 
 %% #1: function name; #2: argument specification; #3 function body
 \cs_new_protected:Npn \__fun_new_function:Nnn #1 #2 #3
@@ -113,13 +104,18 @@
 
 \cs_set_eq:NN \PrgNewConditional \__fun_new_conditional:Nnn
 
+\int_new:N \g__fun_nesting_level_int
+
 %% #1: function name; #2: argument specifications; #3 parameters tl defined
 %% Some times we need to create a function without arguments
 \cs_new_protected:Npn \__fun_new_with_arg_:Nnn #1 #2 #3
   {
     \cs_new_protected:Npn #1 #3
       {
+        \int_gincr:N \g__fun_nesting_level_int
         \__fun_evaluate:Nn #1 {#2}
+        \int_gdecr:N \g__fun_nesting_level_int
+        \__fun_return_result:
       }
   }
 \cs_generate_variant:Nn \__fun_new_with_arg_:Nnn { NnV }
@@ -129,8 +125,11 @@
   {
     \cs_new_protected:Npn #1 #3
       {
-        \tl_set:Nn \l__fun_argument_i_tl { ##1 }
+        \int_gincr:N \g__fun_nesting_level_int
+        \__fun_one_argument_gset:nn { 1 } { ##1 }
         \__fun_evaluate:Nn #1 {#2}
+        \int_gdecr:N \g__fun_nesting_level_int
+        \__fun_return_result:
       }
   }
 \cs_generate_variant:Nn \__fun_new_with_arg_i:Nnn { NnV }
@@ -140,9 +139,12 @@
   {
     \cs_new_protected:Npn #1 #3
       {
-        \tl_set:Nn \l__fun_argument_i_tl  { ##1 }
-        \tl_set:Nn \l__fun_argument_ii_tl { ##2 }
+        \int_gincr:N \g__fun_nesting_level_int
+        \__fun_one_argument_gset:nn { 1 } { ##1 }
+        \__fun_one_argument_gset:nn { 2 } { ##2 }
         \__fun_evaluate:Nn #1 {#2}
+        \int_gdecr:N \g__fun_nesting_level_int
+        \__fun_return_result:
       }
   }
 \cs_generate_variant:Nn \__fun_new_with_arg_ii:Nnn { NnV }
@@ -152,10 +154,13 @@
   {
     \cs_new_protected:Npn #1 #3
       {
-        \tl_set:Nn \l__fun_argument_i_tl   { ##1 }
-        \tl_set:Nn \l__fun_argument_ii_tl  { ##2 }
-        \tl_set:Nn \l__fun_argument_iii_tl { ##3 }
+        \int_gincr:N \g__fun_nesting_level_int
+        \__fun_one_argument_gset:nn { 1 } { ##1 }
+        \__fun_one_argument_gset:nn { 2 } { ##2 }
+        \__fun_one_argument_gset:nn { 3 } { ##3 }
         \__fun_evaluate:Nn #1 {#2}
+        \int_gdecr:N \g__fun_nesting_level_int
+        \__fun_return_result:
       }
   }
 \cs_generate_variant:Nn \__fun_new_with_arg_iii:Nnn { NnV }
@@ -165,11 +170,14 @@
   {
     \cs_new_protected:Npn #1 #3
       {
-        \tl_set:Nn \l__fun_argument_i_tl   { ##1 }
-        \tl_set:Nn \l__fun_argument_ii_tl  { ##2 }
-        \tl_set:Nn \l__fun_argument_iii_tl { ##3 }
-        \tl_set:Nn \l__fun_argument_iv_tl  { ##4 }
+        \int_gincr:N \g__fun_nesting_level_int
+        \__fun_one_argument_gset:nn { 1 } { ##1 }
+        \__fun_one_argument_gset:nn { 2 } { ##2 }
+        \__fun_one_argument_gset:nn { 3 } { ##3 }
+        \__fun_one_argument_gset:nn { 4 } { ##4 }
         \__fun_evaluate:Nn #1 {#2}
+        \int_gdecr:N \g__fun_nesting_level_int
+        \__fun_return_result:
       }
   }
 \cs_generate_variant:Nn \__fun_new_with_arg_iv:Nnn { NnV }
@@ -179,12 +187,15 @@
   {
     \cs_new_protected:Npn #1 #3
       {
-        \tl_set:Nn \l__fun_argument_i_tl   { ##1 }
-        \tl_set:Nn \l__fun_argument_ii_tl  { ##2 }
-        \tl_set:Nn \l__fun_argument_iii_tl { ##3 }
-        \tl_set:Nn \l__fun_argument_iv_tl  { ##4 }
-        \tl_set:Nn \l__fun_argument_v_tl   { ##5 }
+        \int_gincr:N \g__fun_nesting_level_int
+        \__fun_one_argument_gset:nn { 1 } { ##1 }
+        \__fun_one_argument_gset:nn { 2 } { ##2 }
+        \__fun_one_argument_gset:nn { 3 } { ##3 }
+        \__fun_one_argument_gset:nn { 4 } { ##4 }
+        \__fun_one_argument_gset:nn { 5 } { ##5 }
         \__fun_evaluate:Nn #1 {#2}
+        \int_gdecr:N \g__fun_nesting_level_int
+        \__fun_return_result:
       }
   }
 \cs_generate_variant:Nn \__fun_new_with_arg_v:Nnn { NnV }
@@ -194,13 +205,16 @@
   {
     \cs_new_protected:Npn #1 #3
       {
-        \tl_set:Nn \l__fun_argument_i_tl   { ##1 }
-        \tl_set:Nn \l__fun_argument_ii_tl  { ##2 }
-        \tl_set:Nn \l__fun_argument_iii_tl { ##3 }
-        \tl_set:Nn \l__fun_argument_iv_tl  { ##4 }
-        \tl_set:Nn \l__fun_argument_v_tl   { ##5 }
-        \tl_set:Nn \l__fun_argument_vi_tl  { ##6 }
+        \int_gincr:N \g__fun_nesting_level_int
+        \__fun_one_argument_gset:nn { 1 } { ##1 }
+        \__fun_one_argument_gset:nn { 2 } { ##2 }
+        \__fun_one_argument_gset:nn { 3 } { ##3 }
+        \__fun_one_argument_gset:nn { 4 } { ##4 }
+        \__fun_one_argument_gset:nn { 5 } { ##5 }
+        \__fun_one_argument_gset:nn { 6 } { ##6 }
         \__fun_evaluate:Nn #1 {#2}
+        \int_gdecr:N \g__fun_nesting_level_int
+        \__fun_return_result:
       }
   }
 \cs_generate_variant:Nn \__fun_new_with_arg_vi:Nnn { NnV }
@@ -210,14 +224,17 @@
   {
     \cs_new_protected:Npn #1 #3
       {
-        \tl_set:Nn \l__fun_argument_i_tl   { ##1 }
-        \tl_set:Nn \l__fun_argument_ii_tl  { ##2 }
-        \tl_set:Nn \l__fun_argument_iii_tl { ##3 }
-        \tl_set:Nn \l__fun_argument_iv_tl  { ##4 }
-        \tl_set:Nn \l__fun_argument_v_tl   { ##5 }
-        \tl_set:Nn \l__fun_argument_vi_tl  { ##6 }
-        \tl_set:Nn \l__fun_argument_vii_tl { ##7 }
+        \int_gincr:N \g__fun_nesting_level_int
+        \__fun_one_argument_gset:nn { 1 } { ##1 }
+        \__fun_one_argument_gset:nn { 2 } { ##2 }
+        \__fun_one_argument_gset:nn { 3 } { ##3 }
+        \__fun_one_argument_gset:nn { 4 } { ##4 }
+        \__fun_one_argument_gset:nn { 5 } { ##5 }
+        \__fun_one_argument_gset:nn { 6 } { ##6 }
+        \__fun_one_argument_gset:nn { 7 } { ##7 }
         \__fun_evaluate:Nn #1 {#2}
+        \int_gdecr:N \g__fun_nesting_level_int
+        \__fun_return_result:
       }
   }
 \cs_generate_variant:Nn \__fun_new_with_arg_vii:Nnn { NnV }
@@ -227,15 +244,18 @@
   {
     \cs_new_protected:Npn #1 #3
       {
-        \tl_set:Nn \l__fun_argument_i_tl    { ##1 }
-        \tl_set:Nn \l__fun_argument_ii_tl   { ##2 }
-        \tl_set:Nn \l__fun_argument_iii_tl  { ##3 }
-        \tl_set:Nn \l__fun_argument_iv_tl   { ##4 }
-        \tl_set:Nn \l__fun_argument_v_tl    { ##5 }
-        \tl_set:Nn \l__fun_argument_vi_tl   { ##6 }
-        \tl_set:Nn \l__fun_argument_vii_tl  { ##7 }
-        \tl_set:Nn \l__fun_argument_viii_tl { ##8 }
+        \int_gincr:N \g__fun_nesting_level_int
+        \__fun_one_argument_gset:nn { 1 } { ##1 }
+        \__fun_one_argument_gset:nn { 2 } { ##2 }
+        \__fun_one_argument_gset:nn { 3 } { ##3 }
+        \__fun_one_argument_gset:nn { 4 } { ##4 }
+        \__fun_one_argument_gset:nn { 5 } { ##5 }
+        \__fun_one_argument_gset:nn { 6 } { ##6 }
+        \__fun_one_argument_gset:nn { 7 } { ##7 }
+        \__fun_one_argument_gset:nn { 8 } { ##8 }
         \__fun_evaluate:Nn #1 {#2}
+        \int_gdecr:N \g__fun_nesting_level_int
+        \__fun_return_result:
       }
   }
 \cs_generate_variant:Nn \__fun_new_with_arg_viii:Nnn { NnV }
@@ -245,39 +265,41 @@
   {
     \cs_new_protected:Npn #1 #3
       {
-        \tl_set:Nn \l__fun_argument_i_tl    { ##1 }
-        \tl_set:Nn \l__fun_argument_ii_tl   { ##2 }
-        \tl_set:Nn \l__fun_argument_iii_tl  { ##3 }
-        \tl_set:Nn \l__fun_argument_iv_tl   { ##4 }
-        \tl_set:Nn \l__fun_argument_v_tl    { ##5 }
-        \tl_set:Nn \l__fun_argument_vi_tl   { ##6 }
-        \tl_set:Nn \l__fun_argument_vii_tl  { ##7 }
-        \tl_set:Nn \l__fun_argument_viii_tl { ##8 }
-        \tl_set:Nn \l__fun_argument_ix_tl   { ##9 }
+        \int_gincr:N \g__fun_nesting_level_int
+        \__fun_one_argument_gset:nn { 1 } { ##1 }
+        \__fun_one_argument_gset:nn { 2 } { ##2 }
+        \__fun_one_argument_gset:nn { 3 } { ##3 }
+        \__fun_one_argument_gset:nn { 4 } { ##4 }
+        \__fun_one_argument_gset:nn { 5 } { ##5 }
+        \__fun_one_argument_gset:nn { 6 } { ##6 }
+        \__fun_one_argument_gset:nn { 7 } { ##7 }
+        \__fun_one_argument_gset:nn { 8 } { ##8 }
+        \__fun_one_argument_gset:nn { 9 } { ##9 }
         \__fun_evaluate:Nn #1 {#2}
+        \int_gdecr:N \g__fun_nesting_level_int
+        \__fun_return_result:
       }
   }
 \cs_generate_variant:Nn \__fun_new_with_arg_ix:Nnn { NnV }
 
-\int_new:N \g__fun_nesting_level_int
 \int_new:N \l__fun_argtype_number_int
 \tl_new:N \l__fun_argtype_tl
 \tl_const:Nn \c__fun_argtype_m_tl { m }
 \tl_const:Nn \c__fun_argtype_M_tl { M }
 \tl_const:Nn \c__fun_argtype_n_tl { n }
 \tl_const:Nn \c__fun_argtype_N_tl { N }
+\tl_new:N \l__fun_argument_tl
 
 %% #1: function name; #2: argument specifications
 \cs_new_protected:Npn \__fun_evaluate:Nn #1 #2
   {
     \int_zero:N \l__fun_argtype_number_int
-    \int_gincr:N \g__fun_nesting_level_int
     \__fun_arguments_gclear:
     \tl_map_variable:nNn { #2 } \l__fun_argtype_tl % spaces are ignored
       {
         \int_incr:N \l__fun_argtype_number_int
-        \tl_set_eq:Nc \l__fun_argument_tl
-          { l__fun_argument_ \int_to_roman:n { \l__fun_argtype_number_int } _tl }
+        \__fun_one_argument_get:eN
+          { \int_use:N \l__fun_argtype_number_int } \l__fun_argument_tl
         \tl_case:Nn \l__fun_argtype_tl
           {
             \c__fun_argtype_m_tl
@@ -300,8 +322,6 @@
       }
     \__fun_arguments_log:N #1
     \__fun_arguments_called:c { __fun_defined_ \cs_to_str:N #1 : w }
-    \int_gdecr:N \g__fun_nesting_level_int
-    \__fun_return_result:
   }
 
 \cs_set_eq:NN \__fun_cs_temp:w \scan_stop:
@@ -319,6 +339,34 @@
       }
       {
         \__fun_arguments_gput:e { { \exp_not:V #1 } }
+      }
+  }
+
+%% #1: argument number; #2: token lists
+\cs_new_protected:Npn \__fun_one_argument_gset:nn #1 #2
+  {
+    \tl_gset:cn
+      { g__fun_one_argument_ \int_use:N \g__fun_nesting_level_int _#1_tl } { #2 }
+    %\__fun_one_argument_log:nn { #1 } { set }
+  }
+
+%% #1: argument number; #2: variable of token lists
+\cs_new_protected:Npn \__fun_one_argument_get:nN #1 #2
+  {
+    \tl_set_eq:Nc
+      #2 { g__fun_one_argument_ \int_use:N \g__fun_nesting_level_int _ #1 _tl }
+    %\__fun_one_argument_log:nn { #1 } { get }
+  }
+\cs_generate_variant:Nn \__fun_one_argument_get:nN { eN }
+
+%% #1: argument number; #2: get or set
+\cs_new_protected:Npn \__fun_one_argument_log:nn #1 #2
+  {
+    \tl_log:e
+      {
+        #2 ~ level ~ \int_use:N \g__fun_nesting_level_int \space arg ~ #1 ~ = ~
+        \exp_not:v
+          { g__fun_one_argument_ \int_use:N \g__fun_nesting_level_int _#1_tl }
       }
   }
 
