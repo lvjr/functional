@@ -753,10 +753,6 @@
 \fp_new:N \gTmpiFp   \fp_new:N \gTmpjFp   \fp_new:N \gTmpkFp
 \fp_new:N \g@Funx@Fp \fp_new:N \g@Funy@Fp \fp_new:N \g@Funz@Fp
 
-\cs_set_eq:NN \FpNew \fp_new:N
-\cs_set_eq:NN \FpLog \fp_log:N
-\cs_set_eq:NN \FpShow \fp_show:N
-
 \PrgNewFunction \FpEval { m }
   {
     \Result { \Expand { \fp_eval:n { #1 } } }
@@ -806,10 +802,13 @@
     \Result { \Expand { \fp_min:nn { #1 } { #2 } } }
   }
 
-\PrgNewFunction \FpUse { M }
-  {
-    \Result { \Expand { \fp_use:N #1 } }
-  }
+\PrgNewFunction \FpNew { M } { \fp_new:N #1 }
+
+\PrgNewFunction \FpLogVar { M } { \fp_log:N #1 }
+
+\PrgNewFunction \FpShowVar { M } { \fp_show:N #1 }
+
+\PrgNewFunction \FpUse { M } { \Result { \Expand { \fp_use:N #1 } } }
 
 \PrgNewFunction \FpConst { M m }
   {
