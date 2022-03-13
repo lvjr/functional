@@ -143,18 +143,18 @@ and you can make every function become a group by setting
 \Functional{scoping=true}
 \ExplSyntaxOn
 \IntSet \lTmpaInt {1}
-\IntLog \lTmpaInt             % ---- 1
+\IntLogVar \lTmpaInt          % ---- 1
 \PrgNewFunction \SomeFun { } {
   \IntSet \lTmpaInt {2}
-  \IntLog \lTmpaInt           % ---- 2
+  \IntLogVar \lTmpaInt        % ---- 2
   \IntCompareTF {1} > {0} {
     \IntSet \lTmpaInt {3}
-    \IntLog \lTmpaInt         % ---- 3
+    \IntLogVar \lTmpaInt      % ---- 3
   }{ }
-  \IntLog \lTmpaInt           % ---- 2
+  \IntLogVar \lTmpaInt        % ---- 2
 }
 \SomeFun
-\IntLog \lTmpaInt             % ---- 1
+\IntLogVar \lTmpaInt          % ---- 1
 \ExplSyntaxOff
 \end{codehigh}
 
@@ -171,18 +171,18 @@ if we change variable from \verb!\lTmpaInt! to \verb!\gTmpaInt!.
 \begin{codehigh}
 \Functional{scoping=true}
 \IntSet \gTmpaInt {1}
-\IntLog \gTmpaInt             % ---- 1
+\IntLogVar \gTmpaInt          % ---- 1
 \PrgNewFunction \SomeFun { } {
   \IntSet \gTmpaInt {2}
-  \IntLog \gTmpaInt           % ---- 2
+  \IntLogVar \gTmpaInt        % ---- 2
   \IntCompareTF {1} > {0} {
     \IntSet \gTmpaInt {3}
-    \IntLog \gTmpaInt         % ---- 3
+    \IntLogVar \gTmpaInt      % ---- 3
   }{ }
-  \IntLog \gTmpaInt           % ---- 3
+  \IntLogVar \gTmpaInt        % ---- 3
 }
 \SomeFun
-\IntLog \gTmpaInt             % ---- 3
+\IntLogVar \gTmpaInt          % ---- 3
 \end{codehigh}
 
 As you can see, the values of global variables will never be reset after a group.

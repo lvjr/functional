@@ -651,7 +651,7 @@
   }
 
 %%% --------------------------------------------------------
-%%> \section{Interfaces for Integers (l3int)}
+%%> \section{Interfaces for Integers (Int)}
 %%% --------------------------------------------------------
 
 \int_new:N \lTmpaInt   \int_new:N \lTmpbInt   \int_new:N \lTmpcInt
@@ -661,44 +661,6 @@
 \int_new:N \gTmpaInt   \int_new:N \gTmpbInt   \int_new:N \gTmpcInt
 \int_new:N \gTmpiInt   \int_new:N \gTmpjInt   \int_new:N \gTmpkInt
 \int_new:N \g@Funx@Int \int_new:N \g@Funy@Int \int_new:N \g@Funz@Int
-
-\cs_set_eq:NN \IntNew \int_new:N
-\cs_set_eq:NN \IntLog \int_log:N
-
-\PrgNewFunction \IntZero { M }
-  {
-    \__fun_do_assignment:Nnn #1 { \int_gzero:N #1 } { \int_zero:N #1 }
-  }
-
-\PrgNewFunction \IntIncr { M }
-  {
-    \__fun_do_assignment:Nnn #1 { \int_gincr:N #1 } { \int_incr:N #1 }
-  }
-
-\PrgNewFunction \IntDecr { M }
-  {
-    \__fun_do_assignment:Nnn #1 { \int_gdecr:N #1 } { \int_decr:N #1 }
-  }
-
-\PrgNewFunction \IntSet { M m }
-  {
-    \__fun_do_assignment:Nnn #1 { \int_gset:Nn #1 {#2} } { \int_set:Nn #1 {#2} }
-  }
-
-\PrgNewFunction \IntAdd { M m }
-  {
-    \__fun_do_assignment:Nnn #1 { \int_gadd:Nn #1 {#2} } { \int_add:Nn #1 {#2} }
-  }
-
-\PrgNewFunction \IntSub { M m }
-  {
-    \__fun_do_assignment:Nnn #1 { \int_gsub:Nn #1 {#2} } { \int_sub:Nn #1 {#2} }
-  }
-
-\PrgNewFunction \IntUse { M }
-  {
-    \Result { \Value #1 }
-  }
 
 \PrgNewFunction \IntEval { m }
   {
@@ -727,6 +689,44 @@
   {
     \int_set:Nn \l@Funx@Int { \int_eval:n { (#1) / (#2) } }
     \Result { \Value \l@Funx@Int }
+  }
+
+\PrgNewFunction \IntNew { M } { \int_new:N #1 }
+
+\PrgNewFunction \IntLogVar { M } { \int_log:N #1 }
+
+\PrgNewFunction \IntShowVar { M } { \int_show:N #1 }
+
+\PrgNewFunction \IntUse { M } { \Result { \Value #1 } }
+
+\PrgNewFunction \IntSet { M m }
+  {
+    \__fun_do_assignment:Nnn #1 { \int_gset:Nn #1 {#2} } { \int_set:Nn #1 {#2} }
+  }
+
+\PrgNewFunction \IntZero { M }
+  {
+    \__fun_do_assignment:Nnn #1 { \int_gzero:N #1 } { \int_zero:N #1 }
+  }
+
+\PrgNewFunction \IntIncr { M }
+  {
+    \__fun_do_assignment:Nnn #1 { \int_gincr:N #1 } { \int_incr:N #1 }
+  }
+
+\PrgNewFunction \IntDecr { M }
+  {
+    \__fun_do_assignment:Nnn #1 { \int_gdecr:N #1 } { \int_decr:N #1 }
+  }
+
+\PrgNewFunction \IntAdd { M m }
+  {
+    \__fun_do_assignment:Nnn #1 { \int_gadd:Nn #1 {#2} } { \int_add:Nn #1 {#2} }
+  }
+
+\PrgNewFunction \IntSub { M m }
+  {
+    \__fun_do_assignment:Nnn #1 { \int_gsub:Nn #1 {#2} } { \int_sub:Nn #1 {#2} }
   }
 
 \PrgNewFunction \IntStepVariable { m m m M n }
