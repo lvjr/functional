@@ -253,18 +253,18 @@ and you can make every function become a group by setting
 \Functional{scoping=true}
 \ExplSyntaxOn
 \IntSet \lTmpaInt {1}
-\IntLog \lTmpaInt             % ---- 1
+\IntLogVar \lTmpaInt          % ---- 1
 \PrgNewFunction \SomeFun { } {
   \IntSet \lTmpaInt {2}
-  \IntLog \lTmpaInt           % ---- 2
+  \IntLogVar \lTmpaInt        % ---- 2
   \IntCompareTF {1} > {0} {
     \IntSet \lTmpaInt {3}
-    \IntLog \lTmpaInt         % ---- 3
+    \IntLogVar \lTmpaInt      % ---- 3
   }{ }
-  \IntLog \lTmpaInt           % ---- 2
+  \IntLogVar \lTmpaInt        % ---- 2
 }
 \SomeFun
-\IntLog \lTmpaInt             % ---- 1
+\IntLogVar \lTmpaInt          % ---- 1
 \ExplSyntaxOff
 \end{codehigh}
 
@@ -281,18 +281,18 @@ if we change variable from \verb!\lTmpaInt! to \verb!\gTmpaInt!.
 \begin{codehigh}
 \Functional{scoping=true}
 \IntSet \gTmpaInt {1}
-\IntLog \gTmpaInt             % ---- 1
+\IntLogVar \gTmpaInt          % ---- 1
 \PrgNewFunction \SomeFun { } {
   \IntSet \gTmpaInt {2}
-  \IntLog \gTmpaInt           % ---- 2
+  \IntLogVar \gTmpaInt        % ---- 2
   \IntCompareTF {1} > {0} {
     \IntSet \gTmpaInt {3}
-    \IntLog \gTmpaInt         % ---- 3
+    \IntLogVar \gTmpaInt      % ---- 3
   }{ }
-  \IntLog \gTmpaInt           % ---- 3
+  \IntLogVar \gTmpaInt        % ---- 3
 }
 \SomeFun
-\IntLog \gTmpaInt             % ---- 3
+\IntLogVar \gTmpaInt          % ---- 3
 \end{codehigh}
 
 As you can see, the values of global variables will never be reset after a group.
@@ -429,7 +429,7 @@ simply composing \cs{Name} and \cs{Value} functions:
 \Value{\Name{lTmpaInt}}
 \end{demohigh}
 
-\chapter{Basic Definitions (\texttt{l3basics})}
+\chapter{Basic Definitions (\texttt{Prg} and \texttt{Use})}
 
 \section{Deﬁning Functions and Conditionals}
 
@@ -581,7 +581,7 @@ For example
 \end{demohigh}
 \end{function}
 
-\chapter{Control Structures (\texttt{l3prg})}
+\chapter{Control Structures (\texttt{Bool})}
 
 \section{Scratch Variables of Booleans}
 
@@ -642,7 +642,7 @@ based on this result. For example
 \end{demohigh}
 \end{function}
 
-\chapter{Token Lists (\texttt{l3tl})}
+\chapter{Token Lists (\texttt{Tl})}
 
 \section{Scratch Variables of Token Lists}
 
@@ -749,24 +749,27 @@ Tests if the \meta{token list variable} is entirely empty
 
 \begin{function}{\TlIfEq,\TlIfEqTF}
 \begin{syntax}
-\cs{TlIfEq} \meta{tl~var_1} \meta{tl~var_2}
-\cs{TlIfEqTF} \meta{tl~var_1} \meta{tl~var_2} \Arg{true code} \Arg{false code}
+\cs{TlIfEq} \Arg{token list_1} \Arg{token list_2}
+\cs{TlIfEqTF} \Arg{token list_1} \Arg{token list_2} \Arg{true code} \Arg{false code}
 \end{syntax}
-Compares the content of two \meta{token list variables} and
-is logically \texttt{true} if the two contain the same list of
-tokens (\emph{i.e.}~identical in both the list of characters they
-contain and the category codes of those characters). For example
+Tests if \meta{token list_1} and \meta{token list_2} contain the
+same list of tokens, both in respect of character codes and category
+codes. See \cs{StrIfEq} if category codes are not important.
+For example
+\begin{demohigh}
+\TlIfEqTF{abc}{abc}{\Result{Yes}}{\Result{No}}
+\TlIfEqTF{abc}{xyz}{\Result{Yes}}{\Result{No}}
+\end{demohigh}
 \begin{demohigh}
 \TlSet\lTmpaTl{abc}
 \TlSet\lTmpbTl{abc}
 \TlSet\lTmpcTl{xyz}
-\TlIfEqTF\lTmpaTl\lTmpbTl{\Result{Yes}}{\Result{No}}
-\TlIfEqTF\lTmpaTl\lTmpcTl{\Result{Yes}}{\Result{No}}
+\TlIfEqTF{\TlUse\lTmpaTl}{\TlUse\lTmpbTl}{\Result{Yes}}{\Result{No}}
+\TlIfEqTF{\TlUse\lTmpaTl}{\TlUse\lTmpcTl}{\Result{Yes}}{\Result{No}}
 \end{demohigh}
-%See also \cs{StrIfEqTF} for a comparison that ignores category codes.
 \end{function}
 
-\chapter{Integers (\texttt{l3int})}
+\chapter{Integers (\texttt{Int})}
 
 \section{Scratch Variables of Integers}
 
@@ -1101,16 +1104,16 @@ already taken. The declaration is global. The \meta{fp~var} is
 initially $+0$.
 \end{function}
 
-\begin{function}{\FpLog}
+\begin{function}{\FpLogVar}
 \begin{syntax}
-\cs{FpLog} \meta{fp var}
+\cs{FpLogVar} \meta{fp var}
 \end{syntax}
 Writes the value of \meta{fp var} in the log file.
 \end{function}
 
-\begin{function}{\FpShow}
+\begin{function}{\FpShowVar}
 \begin{syntax}
-\cs{FpShow} \meta{fp var}
+\cs{FpShowVar} \meta{fp var}
 \end{syntax}
 Displays the value of \meta{fp var} in the terminal.
 \end{function}
@@ -1256,12 +1259,10 @@ case occurs exactly if one or both operands is \nan{} or is a tuple,
 unless they are equal tuples.  Note that a \nan{} is distinct from
 any value, even another \nan{}, hence $x=x$ is not true for
 a \nan{}.  To test if a value is \nan{}, compare it to an arbitrary
-number with the \enquote{not ordered} relation.
-\begin{codehigh}
-\fp_compare:nNnTF { <value> } ? { 0 }
-{ } <value> is nan
-{ } <value> is not nan
-\end{codehigh}
+number with the \enquote{not ordered} relation.\par
+%\begin{demohigh}
+%\FpCompareTF{0/0}?{0}{\Result{Is~a~Nan}}{\Result{Isn't~a~NaN}}
+%\end{demohigh}
 Tuples are equal if they have the same number of items and items
 compare equal (in particular there must be no \nan{}).
 At present any other comparison with tuples yields \verb|?| (not ordered).
