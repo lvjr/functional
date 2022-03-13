@@ -603,6 +603,58 @@
   }
 
 %%% --------------------------------------------------------
+%%> \section{Interfaces for Strings (Str)}
+%%% --------------------------------------------------------
+
+\str_new:N \lTmpaStr   \str_new:N \lTmpbStr   \str_new:N \lTmpcStr
+\str_new:N \lTmpiStr   \str_new:N \lTmpjStr   \str_new:N \lTmpkStr
+\str_new:N \l@Funx@Str \str_new:N \l@Funy@Str \str_new:N \l@Funz@Str
+
+\str_new:N \gTmpaStr   \str_new:N \gTmpbStr   \str_new:N \gTmpcStr
+\str_new:N \gTmpiStr   \str_new:N \gTmpjStr   \str_new:N \gTmpkStr
+\str_new:N \g@Funx@Str \str_new:N \g@Funy@Str \str_new:N \g@Funz@Str
+
+\PrgNewFunction \StrNew { M } { \str_new:N #1 }
+
+\PrgNewFunction \StrLogVar { M } { \str_log:N #1 }
+
+\PrgNewFunction \StrShowVar { M } { \str_show:N #1 }
+
+\PrgNewFunction \StrUse { M } { \Result { \Value #1 } }
+
+\PrgNewFunction \StrClear { M }
+  {
+    \__fun_do_assignment:Nnn #1 { \str_gclear:N #1 } { \str_clear:N #1 }
+  }
+
+\PrgNewFunction \StrSet { M m }
+  {
+    \__fun_do_assignment:Nnn #1 { \str_gset:Nn #1 {#2} } { \str_set:Nn #1 {#2} }
+  }
+
+\PrgNewFunction \StrPutLeft { M m }
+  {
+    \__fun_do_assignment:Nnn #1
+      { \str_gput_left:Nn #1 {#2} } { \str_put_left:Nn #1 {#2} }
+  }
+
+\PrgNewFunction \StrPutRight { M m }
+  {
+    \__fun_do_assignment:Nnn #1
+      { \str_gput_right:Nn #1 {#2} } { \str_put_right:Nn #1 {#2} }
+  }
+
+\PrgNewConditional \StrIfEmpty { M }
+  {
+    \str_if_empty:NTF #1 { \Result { \cTrueBool } } { \Result { \cFalseBool } }
+  }
+
+\PrgNewConditional \StrIfEq { m m }
+  {
+    \str_if_eq:nnTF {#1} {#2} { \Result { \cTrueBool } } { \Result { \cFalseBool } }
+  }
+
+%%% --------------------------------------------------------
 %%> \section{Interfaces for Integers (l3int)}
 %%% --------------------------------------------------------
 
