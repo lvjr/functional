@@ -1021,7 +1021,7 @@ and returns the result. For example
 \begin{syntax}
 \cs{IntMathSub} \Arg{integer expression_1} \Arg{integer expression_2}
 \end{syntax}
-Subtracts \Arg{integer expression_1} from \Arg{integer expression_2},
+Subtracts \Arg{integer expression_2} from \Arg{integer expression_1},
 and returns the result. For example
 \begin{demohigh}
 \IntMathSub{7}{3}
@@ -1064,14 +1064,7 @@ initially equal to $0$.
 \cs{IntUse} \meta{integer}
 \end{syntax}
 Recovers the content of an \meta{integer} and returns the value.
-An error is raised if the variable does
-not exist or if it is invalid. Can be omitted in places where an
-\meta{integer} is required (such as in the first and third arguments
-of \cs{IntCompareTF}).%
-%\begin{texnote}
-%\cs{IntUse} is the \TeX{} primitive \tn{the}: this is one of
-%several \verb!functional! names for this primitive.
-%\end{texnote}
+An error is raised if the variable does not exist or if it is invalid.
 \end{function}
 
 \begin{function}{\IntSet}
@@ -1252,7 +1245,7 @@ and returns the result. For example
 \begin{syntax}
 \cs{FpMathSub} \Arg{fpexpr_1} \Arg{fpexpr_2}
 \end{syntax}
-Subtracts \Arg{fpexpr_1} from \Arg{fpexpr_2},
+Subtracts \Arg{fpexpr_2} from \Arg{fpexpr_1},
 and returns the result. For example
 \begin{demohigh}
 \FpMathSub{2.8}{3.7}
