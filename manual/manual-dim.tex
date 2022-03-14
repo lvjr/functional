@@ -400,11 +400,11 @@ For example
 \IgnoreSpacesOn
 \DimSet\lTmpaDim{5pt}
 \DimCaseF{2\lTmpaDim}{
-  {5pt}     {Small}
-  {4pt+6pt} {Medium}
-  {-10pt}   {Negative}
+  {5pt}     {\Result{Small}}
+  {4pt+6pt} {\Result{Medium}}
+  {-10pt}   {\Result{Negative}}
 }{
-  No Match!
+  \Result{No Match}
 }
 \IgnoreSpacesOff
 \end{demohigh}
@@ -435,13 +435,13 @@ match then the \meta{false code} is inserted.
 %\IgnoreSpacesOn
 %\DimSet\lTmpaDim{5pt}
 %\DimCaseTF{2\lTmpaDim}{
-%  {5pt}     {Small}
-%  {4pt+6pt} {Medium}
-%  {-10pt}   {Negative}
+%  {5pt}     {\Result{Small}}
+%  {4pt+6pt} {\Result{Medium}}
+%  {-10pt}   {\Result{Negative}}
 %}{
-%  [Some Match!]
+%  \Result{[Some Match]}
 %}{
-%  [No Match!]
+%  \Result{[No Match]}
 %}
 %\IgnoreSpacesOff
 %\end{demohigh}
