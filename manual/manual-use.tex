@@ -7,59 +7,9 @@
 
 \begin{document}
 
-\chapter{Basic Definitions (\texttt{Prg} and \texttt{Use})}
+\chapter{Argument Using (\texttt{Use})}
 
-\section{Deﬁning Functions and Conditionals}
-
-\begin{function}{\PrgNewFunction}
-\begin{syntax}
-\cs{PrgNewFunction} \meta{function} \Arg{argument specification} \Arg{code}
-\end{syntax}
-Creates protected \meta{function} for evaluating the \meta{code}.
-Within the \meta{code}, the parameters (\verb|#1|, \verb|#2|,
-\emph{etc.}) will be replaced by those absorbed by the function.
-The returned value \emph{must} be passed with \cs{Result} function.
-The definition is global and an error results if the
-\meta{function} is already defined.\par
-The \Arg{argument specification} in a list of letters,
-where each letter is one of the following argument specifiers
-(nearly all of them are \texttt{M} or \texttt{m} for functions provided by this package):\par
-{\centering\begin{tabular}{ll}
-%\hline
-  \texttt{M} & single-token argument, which will be manipulated first \\
-  \texttt{m} & multi-token argument, which will be manipulated first \\
-  \texttt{N} & single-token argument, which will not be manipulated first \\
-  \texttt{n} & multi-token argument, which will not be manipulated first \\
-%\hline
-\end{tabular}\par}
-The argument manipulation for argument type \texttt{M} or \texttt{m}
-is: if the argument starts with a function defined with \cs{PrgNewFunction},
-the argument will be evaluated and replaced with the returned value.
-\end{function}
-
-\begin{function}{\PrgNewConditional}
-\begin{syntax}
-\cs{PrgNewConditional} \meta{function} \Arg{argument specification} \Arg{code}
-\end{syntax}
-Creates protected conditional \meta{function} for evaluating the \meta{code}.
-The returned value of the \meta{function} \emph{must} be either \verb!\cTrueBool!
-or \verb!\cFalseBool! and be passed with \cs{Result} function..
-The definition is global and an error results if the \meta{function} is already defined.
-\par
-Assume the \meta{function} is \verb!\FooIfBar!, then another function \verb!\FooIfBarTF!
-will be created at the same time. \verb!\FooIfBarTF! function has two extra arguments
-which are \Arg{true code} and \Arg{false code}.\par
-\end{function}
-
-\begin{function}{\Result}
-\begin{syntax}
-\cs{Result} \Arg{tokens}
-\end{syntax}
-Appends \meta{tokens} to \verb!\gResultTl!, which holds the returned value of current function.
-This function is normally used in the \meta{code} of \cs{PrgNewFunction} and \cs{PrgNewConditional}.
-\end{function}
-
-\section{Expanding and Using Tokens}
+\section{Expanding Tokens}
 
 \begin{function}{\Name}
 \begin{syntax}
@@ -118,6 +68,8 @@ The argument of \cs{ExpNot} \emph{must} be surrounded by braces.
 Recovers the content of the \meta{variable}, then prevents expansion
 of this material inside the argument of \cs{Expand} function.
 \end{function}
+
+\section{Using Tokens}
 
 \begin{function}{\UseOne,\GobbleOne}
 \begin{syntax}

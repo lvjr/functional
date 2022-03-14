@@ -431,7 +431,7 @@ simply composing \cs{Name} and \cs{Value} functions:
 \Value{\Name{lTmpaInt}}
 \end{demohigh}
 
-\chapter{Basic Definitions (\texttt{Prg} and \texttt{Use})}
+\chapter{Functional Progarmming (\texttt{Prg})}
 
 \section{Deﬁning Functions and Conditionals}
 
@@ -475,6 +475,8 @@ will be created at the same time. \verb!\FooIfBarTF! function has two extra argu
 which are \Arg{true code} and \Arg{false code}.\par
 \end{function}
 
+\section{Collecting Returned Values}
+
 \begin{function}{\Result}
 \begin{syntax}
 \cs{Result} \Arg{tokens}
@@ -483,7 +485,9 @@ Appends \meta{tokens} to \verb!\gResultTl!, which holds the returned value of cu
 This function is normally used in the \meta{code} of \cs{PrgNewFunction} and \cs{PrgNewConditional}.
 \end{function}
 
-\section{Expanding and Using Tokens}
+\chapter{Argument Using (\texttt{Use})}
+
+\section{Expanding Tokens}
 
 \begin{function}{\Name}
 \begin{syntax}
@@ -542,6 +546,8 @@ The argument of \cs{ExpNot} \emph{must} be surrounded by braces.
 Recovers the content of the \meta{variable}, then prevents expansion
 of this material inside the argument of \cs{Expand} function.
 \end{function}
+
+\section{Using Tokens}
 
 \begin{function}{\UseOne,\GobbleOne}
 \begin{syntax}
