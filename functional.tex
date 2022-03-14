@@ -1164,12 +1164,14 @@ with the \meta{tl~var} defined as the current \meta{value}.  Thus
 the \meta{code} should make use of the \meta{tl~var}.
 For example
 \begin{demohigh}
+\IgnoreSpacesOn
 \TlClear\lTmpaTl
 \IntStepVariable{1}{3}{30}\lTmpiTl{
   \TlPutRight\lTmpaTl{\Value\lTmpiTl}
-  \TlPutRight\lTmpaTl{ }
+  \TlPutRight\lTmpaTl{~}
 }
 \Result{\Value\lTmpaTl}
+\IgnoreSpacesOff
 \end{demohigh}
 \end{function}
 
@@ -1423,10 +1425,10 @@ For example
 \TlClear\lTmpaTl
 \FpStepVariable{1}{0.1}{1.5}\lTmpiTl{
   \TlPutRight\lTmpaTl{\Value\lTmpiTl}
-  \TlPutRight\lTmpaTl{ ~ }
+  \TlPutRight\lTmpaTl{~}
 }
-\IgnoreSpacesOff
 \Result{\Value\lTmpaTl}
+\IgnoreSpacesOff
 \end{demohigh}
 \end{function}
 
