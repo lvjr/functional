@@ -657,7 +657,7 @@
       { \tl_gput_right:Nn #1 {#2} } { \tl_put_right:Nn #1 {#2} }
   }
 
-\PrgNewConditional \TlIfEmpty { M }
+\PrgNewConditional \TlIfVarEmpty { M }
   {
     \tl_if_empty:NTF #1 { \Result { \cTrueBool } }  { \Result { \cFalseBool } }
   }
@@ -665,6 +665,11 @@
 \PrgNewConditional \TlIfEq { m m }
   {
     \tl_if_eq:nnTF {#1} {#2} { \Result { \cTrueBool } } { \Result { \cFalseBool } }
+  }
+
+\PrgNewConditional \TlIfVarEq { M M }
+  {
+    \tl_if_eq:NNTF #1 #2 { \Result { \cTrueBool } } { \Result { \cFalseBool } }
   }
 
 %%% --------------------------------------------------------
@@ -709,7 +714,7 @@
       { \str_gput_right:Nn #1 {#2} } { \str_put_right:Nn #1 {#2} }
   }
 
-\PrgNewConditional \StrIfEmpty { M }
+\PrgNewConditional \StrIfVarEmpty { M }
   {
     \str_if_empty:NTF #1 { \Result { \cTrueBool } } { \Result { \cFalseBool } }
   }
@@ -717,6 +722,11 @@
 \PrgNewConditional \StrIfEq { m m }
   {
     \str_if_eq:nnTF {#1} {#2} { \Result { \cTrueBool } } { \Result { \cFalseBool } }
+  }
+
+\PrgNewConditional \StrIfVarEq { M M }
+  {
+    \str_if_eq:NNTF #1 #2 { \Result { \cTrueBool } } { \Result { \cFalseBool } }
   }
 
 %%% --------------------------------------------------------

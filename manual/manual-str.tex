@@ -118,18 +118,18 @@ var} are not automatically converted to a string. For example
 \end{demohigh}
 \end{function}
 
-\begin{function}{\StrIfEmpty,\StrIfEmptyTF}
+\begin{function}{\StrIfVarEmpty,\StrIfVarEmptyTF}
 \begin{syntax}
-\cs{StrIfEmpty} \meta{str var}
-\cs{StrIfEmptyTF} \meta{str var} \Arg{true code} \Arg{false code}
+\cs{StrIfVarEmpty} \meta{str var}
+\cs{StrIfVarEmptyTF} \meta{str var} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests if the \meta{string variable} is entirely empty
 (\emph{i.e.} contains no characters at all). For example
 \begin{demohigh}
 \StrSet\lTmpaStr{abc}
-\StrIfEmptyTF\lTmpaStr{\Result{Empty}}{\Result{NonEmpty}}
+\StrIfVarEmptyTF\lTmpaStr{\Result{Empty}}{\Result{NonEmpty}}
 \StrClear\lTmpaStr
-\StrIfEmptyTF\lTmpaStr{\Result{Empty}}{\Result{NonEmpty}}
+\StrIfVarEmptyTF\lTmpaStr{\Result{Empty}}{\Result{NonEmpty}}
 \end{demohigh}
 \end{function}
 
@@ -154,14 +154,32 @@ For example
 \StrIfEqTF{abc}{abc}{\Result{Yes}}{\Result{No}}
 \StrIfEqTF{abc}{xyz}{\Result{Yes}}{\Result{No}}
 \end{demohigh}
+%\begin{demohigh}
+%\StrSet\lTmpaStr{abc}
+%\StrSet\lTmpbStr{abc}
+%\StrSet\lTmpcStr{xyz}
+%\StrIfEqTF{\lTmpaStr}{\lTmpbStr}{\Result{Yes}}{\Result{No}}
+%\StrIfEqTF{\lTmpaStr}{\lTmpcStr}{\Result{Yes}}{\Result{No}}
+%\StrIfEqTF{\StrUse\lTmpaStr}{\StrUse\lTmpbStr}{\Result{Yes}}{\Result{No}}
+%\StrIfEqTF{\StrUse\lTmpaStr}{\StrUse\lTmpcStr}{\Result{Yes}}{\Result{No}}
+%\end{demohigh}
+\end{function}
+
+\begin{function}{\StrIfVarEq,\StrIfVarEqTF}
+\begin{syntax}
+\cs{StrIfVarEq} \meta{str var_1} \meta{str var_2}
+\cs{StrIfVarEqTF} \meta{str var_1} \meta{str var_2} \Arg{true code} \Arg{false code}
+\end{syntax}
+Compares the content of two \meta{str variables} and
+is logically \texttt{true} if the two contain the same characters
+in the same order.  See \cs{TlIfVarEq} to compare tokens
+(including their category codes) rather than characters.
 \begin{demohigh}
 \StrSet\lTmpaStr{abc}
 \StrSet\lTmpbStr{abc}
 \StrSet\lTmpcStr{xyz}
-\StrIfEqTF{\lTmpaStr}{\lTmpbStr}{\Result{Yes}}{\Result{No}}
-\StrIfEqTF{\lTmpaStr}{\lTmpcStr}{\Result{Yes}}{\Result{No}}
-\StrIfEqTF{\StrUse\lTmpaStr}{\StrUse\lTmpbStr}{\Result{Yes}}{\Result{No}}
-\StrIfEqTF{\StrUse\lTmpaStr}{\StrUse\lTmpcStr}{\Result{Yes}}{\Result{No}}
+\StrIfVarEqTF\lTmpaStr\lTmpbStr{\Result{Yes}}{\Result{No}}
+\StrIfVarEqTF\lTmpaStr\lTmpcStr{\Result{Yes}}{\Result{No}}
 \end{demohigh}
 \end{function}
 
