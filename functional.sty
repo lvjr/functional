@@ -929,3 +929,125 @@
       { \Result { \cFalseBool } }
   }
 
+%%% --------------------------------------------------------
+%%> \section{Interfaces for Dimensions (Dim)}
+%%% --------------------------------------------------------
+
+\dim_new:N \lTmpaDim   \dim_new:N \lTmpbDim   \dim_new:N \lTmpcDim
+\dim_new:N \lTmpiDim   \dim_new:N \lTmpjDim   \dim_new:N \lTmpkDim
+\dim_new:N \l@Funx@Dim \dim_new:N \l@Funy@Dim \dim_new:N \l@Funz@Dim
+
+\dim_new:N \gTmpaDim   \dim_new:N \gTmpbDim   \dim_new:N \gTmpcDim
+\dim_new:N \gTmpiDim   \dim_new:N \gTmpjDim   \dim_new:N \gTmpkDim
+\dim_new:N \g@Funx@Dim \dim_new:N \g@Funy@Dim \dim_new:N \g@Funz@Dim
+
+\dim_const:Nn \cMaxDim { \c_max_dim }
+\dim_const:Nn \cZeroDim { \c_zero_dim }
+
+\PrgNewFunction \DimEval { m }
+  {
+    \Result { \Expand { \dim_eval:n { #1 } } }
+  }
+
+\PrgNewFunction \DimMathAdd { m m }
+  {
+    \dim_set:Nn \l@Funx@Dim { \dim_eval:n { (#1) + (#2) } }
+    \Result { \Value \l@Funx@Dim }
+  }
+
+\PrgNewFunction \DimMathSub { m m }
+  {
+    \dim_set:Nn \l@Funx@Dim { \dim_eval:n { (#1) - (#2) } }
+    \Result { \Value \l@Funx@Dim }
+  }
+
+\PrgNewFunction \DimMathSign { m }
+  {
+    \Result { \Expand { \dim_sign:n { #1 } } }
+  }
+
+\PrgNewFunction \DimMathAbs { m }
+  {
+    \Result { \Expand { \dim_abs:n { #1 } } }
+  }
+
+\PrgNewFunction \DimMathMax { m m }
+  {
+    \Result { \Expand { \dim_max:nn { #1 } { #2 } } }
+  }
+
+\PrgNewFunction \DimMathMin { m m }
+  {
+    \Result { \Expand { \dim_min:nn { #1 } { #2 } } }
+  }
+
+\PrgNewFunction \DimMathRatio { m m }
+  {
+    \Result { \Expand { \dim_ratio:nn { #1 } { #2 } } }
+  }
+
+\PrgNewFunction \DimNew { M } { \dim_new:N #1 }
+
+\PrgNewFunction \DimLog { m } { \dim_log:n { #1 } }
+
+\PrgNewFunction \DimLogVar { M } { \dim_log:N #1 }
+
+\PrgNewFunction \DimShow { m } { \dim_show:n { #1 } }
+
+\PrgNewFunction \DimShowVar { M } { \dim_show:N #1 }
+
+\PrgNewFunction \DimUse { M } { \Result { \Value #1 } }
+
+\PrgNewFunction \DimConst { M m } { \dim_const:Nn #1 {#2} }
+
+\PrgNewFunction \DimSet { M m }
+  {
+    \__fun_do_assignment:Nnn #1 { \dim_gset:Nn #1 {#2} } { \dim_set:Nn #1 {#2} }
+  }
+
+\PrgNewFunction \DimSetEq { M M }
+  {
+    \__fun_do_assignment:Nnn #1 { \dim_gset_eq:NN #1 #2 } { \dim_set_eq:NN #1 #2 }
+  }
+
+\PrgNewFunction \DimZero { M }
+  {
+    \__fun_do_assignment:Nnn #1 { \dim_gzero:N #1 } { \dim_zero:N #1 }
+  }
+
+\PrgNewFunction \DimZeroNew { M }
+  {
+    \__fun_do_assignment:Nnn #1 { \dim_gzero_new:N #1 } { \dim_zero_new:N #1 }
+  }
+
+\PrgNewFunction \DimAdd { M m }
+  {
+    \__fun_do_assignment:Nnn #1 { \dim_gadd:Nn #1 {#2} } { \dim_add:Nn #1 {#2} }
+  }
+
+\PrgNewFunction \DimSub { M m }
+  {
+    \__fun_do_assignment:Nnn #1 { \dim_gsub:Nn #1 {#2} } { \dim_sub:Nn #1 {#2} }
+  }
+
+\PrgNewFunction \DimStepVariable { m m m M n }
+  {
+    \dim_step_variable:nnnNn { #1 } { #2 } { #3 } #4 { #5 }
+  }
+
+\PrgNewConditional \DimIfExist { M }
+  {
+    \dim_if_exist:NTF #1 { \Result { \cTrueBool } } { \Result { \cFalseBool } }
+  }
+
+\PrgNewConditional \DimCompare { m N m }
+  {
+    \dim_compare:nNnTF {#1} #2 {#3}
+      { \Result { \cTrueBool } } { \Result { \cFalseBool } }
+  }
+
+\PrgNewFunction \DimCase   { m m }     { \dim_case:nn {#1} {#2} }
+\PrgNewFunction \DimCaseT  { m m n }   { \dim_case:nnT {#1} {#2} {#3} }
+\PrgNewFunction \DimCaseF  { m m n }   { \dim_case:nnF {#1} {#2} {#3} }
+\PrgNewFunction \DimCaseTF { m m n n } { \dim_case:nnTF {#1} {#2} {#3} {#4} }
+
