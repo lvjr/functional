@@ -1081,3 +1081,135 @@
 \PrgNewFunction \DimCaseF  { m m n }   { \dim_case:nnF {#1} {#2} {#3} }
 \PrgNewFunction \DimCaseTF { m m n n } { \dim_case:nnTF {#1} {#2} {#3} {#4} }
 
+%%% --------------------------------------------------------
+%%> \section{Interfaces for Comma Separated Lists (Clist)}
+%%% --------------------------------------------------------
+
+\clist_new:N \lTmpaClist   \clist_new:N \lTmpbClist   \clist_new:N \lTmpcClist
+\clist_new:N \lTmpiClist   \clist_new:N \lTmpjClist   \clist_new:N \lTmpkClist
+\clist_new:N \l@Funx@Clist \clist_new:N \l@Funy@Clist \clist_new:N \l@Funz@Clist
+
+\clist_new:N \gTmpaClist   \clist_new:N \gTmpbClist   \clist_new:N \gTmpcClist
+\clist_new:N \gTmpiClist   \clist_new:N \gTmpjClist   \clist_new:N \gTmpkClist
+\clist_new:N \g@Funx@Clist \clist_new:N \g@Funy@Clist \clist_new:N \g@Funz@Clist
+
+\clist_set_eq:NN \cEmptyClist \c_empty_clist
+
+\PrgNewFunction \ClistNew { M } { \clist_new:N #1 }
+
+\PrgNewFunction \ClistLog { m } { \clist_log:n { #1 } }
+
+\PrgNewFunction \ClistVarLog { M } { \clist_log:N #1 }
+
+\PrgNewFunction \ClistShow { m } { \clist_show:n { #1 } }
+
+\PrgNewFunction \ClistVarShow { M } { \clist_show:N #1 }
+
+\PrgNewFunction \ClistUse { M m }
+  {
+    \Expand { \clist_use:Nn #1 { #2 } }
+  }
+
+\PrgNewFunction \ClistUseExtended { M m m m }
+  {
+    \Expand { \clist_use:Nnnn #1 { #2 } { #3 } { #4 } }
+  }
+
+\PrgNewFunction \ClistConst { M m } { \clist_const:Nn #1 { #2 } }
+
+\PrgNewFunction \ClistSet { M m }
+  {
+    \__fun_do_assignment:Nnn #1
+      { \clist_gset:Nn #1 {#2} } { \clist_set:Nn #1 {#2} }
+  }
+
+\PrgNewFunction \ClistSetEq { M M }
+  {
+    \__fun_do_assignment:Nnn #1
+      { \clist_gset_eq:NN #1 #2 } { \clist_set_eq:NN #1 #2 }
+  }
+
+\PrgNewFunction \ClistSetFromSeq { M M }
+  {
+    \__fun_do_assignment:Nnn #1
+      { \clist_gset_from_seq:NN #1 #2 } { \clist_set_from_seq:NN #1 #2 }
+  }
+
+\PrgNewFunction \ClistConcat { M M M }
+  {
+    \__fun_do_assignment:Nnn #1
+      { \clist_gconcat:NNN #1 #2 #3 } { \clist_concat:NNN #1 #2 #3 }
+  }
+
+\PrgNewFunction \ClistClear { M }
+  {
+    \__fun_do_assignment:Nnn #1 { \clist_gclear:N #1 } { \clist_clear:N #1 }
+  }
+
+\PrgNewFunction \ClistClearNew { M }
+  {
+    \__fun_do_assignment:Nnn #1 { \clist_gclear_new:N #1 } { \clist_clear_new:N #1 }
+  }
+
+\PrgNewFunction \ClistPutLeft { M m }
+  {
+    \__fun_do_assignment:Nnn #1
+      { \clist_gput_left:Nn #1 {#2} } { \clist_put_left:Nn #1 {#2} }
+  }
+
+\PrgNewFunction \ClistPutRight { M m }
+  {
+    \__fun_do_assignment:Nnn #1
+      { \clist_gput_right:Nn #1 {#2} } { \clist_put_right:Nn #1 {#2} }
+  }
+
+\PrgNewFunction \ClistRemoveDuplicates { M }
+  {
+    \__fun_do_assignment:Nnn #1
+      { \clist_gremove_duplicates:N #1 } { \clist_remove_duplicates:N #1 }
+  }
+
+\PrgNewFunction \ClistRemoveAll { M m }
+  {
+    \__fun_do_assignment:Nnn #1
+      { \clist_gremove_all:Nn #1 {#2} } { \clist_remove_all:Nn #1 {#2} }
+  }
+
+\PrgNewFunction \ClistReverse { M }
+  {
+    \__fun_do_assignment:Nnn #1 { \clist_greverse:N #1 } { \clist_reverse:N #1 }
+  }
+
+\PrgNewFunction \ClistSort { M m }
+  {
+    \__fun_do_assignment:Nnn #1
+      { \clist_gsort:Nn #1 {#2} } { \clist_sort:Nn #1 {#2} }
+  }
+
+\PrgNewConditional \ClistIfExist { M }
+  {
+    \clist_if_exist:NTF #1 { \Result { \cTrueBool } }  { \Result { \cFalseBool } }
+  }
+
+\PrgNewConditional \ClistIfEmpty { m }
+  {
+    \clist_if_empty:nTF {#1} { \Result { \cTrueBool } }  { \Result { \cFalseBool } }
+  }
+
+\PrgNewConditional \ClistVarIfEmpty { m }
+  {
+    \clist_if_empty:NTF #1 { \Result { \cTrueBool } }  { \Result { \cFalseBool } }
+  }
+
+\PrgNewConditional \ClistIfIn { m m }
+  {
+    \clist_if_in:nnTF {#1} {#2}
+      { \Result { \cTrueBool } }  { \Result { \cFalseBool } }
+  }
+
+\PrgNewConditional \ClistVarIfIn { M m }
+  {
+    \clist_if_in:NnTF #1 {#2}
+      { \Result { \cTrueBool } }  { \Result { \cFalseBool } }
+  }
+
