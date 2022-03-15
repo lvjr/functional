@@ -594,9 +594,9 @@
 
 \PrgNewFunction \BoolNew { M } { \bool_new:N #1 }
 
-\PrgNewFunction \BoolLogVar { M } { \bool_log:N #1 }
+\PrgNewFunction \BoolVarLog { M } { \bool_log:N #1 }
 
-\PrgNewFunction \BoolShowVar { M } { \bool_show:N #1 }
+\PrgNewFunction \BoolVarShow { M } { \bool_show:N #1 }
 
 \PrgNewFunction \BoolSetTrue { M }
   {
@@ -633,11 +633,11 @@
 
 \PrgNewFunction \TlLog { m } { \tl_log:n { #1 } }
 
-\PrgNewFunction \TlLogVar { M } { \tl_log:N #1 }
+\PrgNewFunction \TlVarLog { M } { \tl_log:N #1 }
 
 \PrgNewFunction \TlShow { m } { \tl_show:n { #1 } }
 
-\PrgNewFunction \TlShowVar { M } { \tl_show:N #1 }
+\PrgNewFunction \TlVarShow { M } { \tl_show:N #1 }
 
 \PrgNewFunction \TlUse { M } { \Result { \Value #1 } }
 
@@ -680,7 +680,7 @@
     \tl_if_exist:NTF #1 { \Result { \cTrueBool } }  { \Result { \cFalseBool } }
   }
 
-\PrgNewConditional \TlIfVarEmpty { M }
+\PrgNewConditional \TlVarIfEmpty { M }
   {
     \tl_if_empty:NTF #1 { \Result { \cTrueBool } }  { \Result { \cFalseBool } }
   }
@@ -690,7 +690,7 @@
     \tl_if_eq:nnTF {#1} {#2} { \Result { \cTrueBool } } { \Result { \cFalseBool } }
   }
 
-\PrgNewConditional \TlIfVarEq { M M }
+\PrgNewConditional \TlVarIfEq { M M }
   {
     \tl_if_eq:NNTF #1 #2 { \Result { \cTrueBool } } { \Result { \cFalseBool } }
   }
@@ -709,9 +709,9 @@
 
 \PrgNewFunction \StrNew { M } { \str_new:N #1 }
 
-\PrgNewFunction \StrLogVar { M } { \str_log:N #1 }
+\PrgNewFunction \StrVarLog { M } { \str_log:N #1 }
 
-\PrgNewFunction \StrShowVar { M } { \str_show:N #1 }
+\PrgNewFunction \StrVarShow { M } { \str_show:N #1 }
 
 \PrgNewFunction \StrUse { M } { \Result { \Value #1 } }
 
@@ -737,7 +737,7 @@
       { \str_gput_right:Nn #1 {#2} } { \str_put_right:Nn #1 {#2} }
   }
 
-\PrgNewConditional \StrIfVarEmpty { M }
+\PrgNewConditional \StrVarIfEmpty { M }
   {
     \str_if_empty:NTF #1 { \Result { \cTrueBool } } { \Result { \cFalseBool } }
   }
@@ -747,7 +747,7 @@
     \str_if_eq:nnTF {#1} {#2} { \Result { \cTrueBool } } { \Result { \cFalseBool } }
   }
 
-\PrgNewConditional \StrIfVarEq { M M }
+\PrgNewConditional \StrVarIfEq { M M }
   {
     \str_if_eq:NNTF #1 #2 { \Result { \cTrueBool } } { \Result { \cFalseBool } }
   }
@@ -795,9 +795,9 @@
 
 \PrgNewFunction \IntNew { M } { \int_new:N #1 }
 
-\PrgNewFunction \IntLogVar { M } { \int_log:N #1 }
+\PrgNewFunction \IntVarLog { M } { \int_log:N #1 }
 
-\PrgNewFunction \IntShowVar { M } { \int_show:N #1 }
+\PrgNewFunction \IntVarShow { M } { \int_show:N #1 }
 
 \PrgNewFunction \IntUse { M } { \Result { \Value #1 } }
 
@@ -906,9 +906,9 @@
 
 \PrgNewFunction \FpNew { M } { \fp_new:N #1 }
 
-\PrgNewFunction \FpLogVar { M } { \fp_log:N #1 }
+\PrgNewFunction \FpVarLog { M } { \fp_log:N #1 }
 
-\PrgNewFunction \FpShowVar { M } { \fp_show:N #1 }
+\PrgNewFunction \FpVarShow { M } { \fp_show:N #1 }
 
 \PrgNewFunction \FpUse { M } { \Result { \Expand { \fp_use:N #1 } } }
 
@@ -954,10 +954,10 @@
       { \Result { \cFalseBool } }
   }
 
-\PrgNewFunction \TlCaseVar   { M m }     { \tl_case:Nn {#1} {#2} }
-\PrgNewFunction \TlCaseVarT  { M m n }   { \tl_case:NnT {#1} {#2} {#3} }
-\PrgNewFunction \TlCaseVarF  { M m n }   { \tl_case:NnF {#1} {#2} {#3} }
-\PrgNewFunction \TlCaseVarTF { M m n n } { \tl_case:NnTF {#1} {#2} {#3} {#4} }
+\PrgNewFunction \TlVarCase   { M m }     { \tl_case:Nn {#1} {#2} }
+\PrgNewFunction \TlVarCaseT  { M m n }   { \tl_case:NnT {#1} {#2} {#3} }
+\PrgNewFunction \TlVarCaseF  { M m n }   { \tl_case:NnF {#1} {#2} {#3} }
+\PrgNewFunction \TlVarCaseTF { M m n n } { \tl_case:NnTF {#1} {#2} {#3} {#4} }
 
 %%% --------------------------------------------------------
 %%> \section{Interfaces for Dimensions (Dim)}
@@ -1020,11 +1020,11 @@
 
 \PrgNewFunction \DimLog { m } { \dim_log:n { #1 } }
 
-\PrgNewFunction \DimLogVar { M } { \dim_log:N #1 }
+\PrgNewFunction \DimVarLog { M } { \dim_log:N #1 }
 
 \PrgNewFunction \DimShow { m } { \dim_show:n { #1 } }
 
-\PrgNewFunction \DimShowVar { M } { \dim_show:N #1 }
+\PrgNewFunction \DimVarShow { M } { \dim_show:N #1 }
 
 \PrgNewFunction \DimUse { M } { \Result { \Value #1 } }
 

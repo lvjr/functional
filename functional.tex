@@ -740,18 +740,18 @@ Appends \meta{tokens} to the right side of the current content of
 \end{demohigh}
 \end{function}
 
-\begin{function}{\TlIfVarEmpty,\TlIfVarEmptyTF}
+\begin{function}{\TlVarIfEmpty,\TlVarIfEmptyTF}
 \begin{syntax}
-\cs{TlIfVarEmpty} \meta{tl~var}
-\cs{TlIfVarEmptyTF} \meta{tl~var} \Arg{true code} \Arg{false code}
+\cs{TlVarIfEmpty} \meta{tl~var}
+\cs{TlVarIfEmptyTF} \meta{tl~var} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests if the \meta{token list variable} is entirely empty
 (\emph{i.e.}~contains no tokens at all). For example
 \begin{demohigh}
 \TlSet\lTmpaTl{abc}
-\TlIfVarEmptyTF\lTmpaTl{\Result{Empty}}{\Result{NonEmpty}}
+\TlVarIfEmptyTF\lTmpaTl{\Result{Empty}}{\Result{NonEmpty}}
 \TlClear\lTmpaTl
-\TlIfVarEmptyTF\lTmpaTl{\Result{Empty}}{\Result{NonEmpty}}
+\TlVarIfEmptyTF\lTmpaTl{\Result{Empty}}{\Result{NonEmpty}}
 \end{demohigh}
 \end{function}
 
@@ -777,10 +777,10 @@ For example
 %\end{demohigh}
 \end{function}
 
-\begin{function}{\TlIfVarEq,\TlIfVarEqTF}
+\begin{function}{\TlVarIfEq,\TlVarIfEqTF}
 \begin{syntax}
-\cs{TlIfVarEq} \meta{tl var_1} \meta{tl var_2}
-\cs{TlIfVarEqTF} \meta{tl var_1} \meta{tl var_2} \Arg{true code} \Arg{false code}
+\cs{TlVarIfEq} \meta{tl var_1} \meta{tl var_2}
+\cs{TlVarIfEqTF} \meta{tl var_1} \meta{tl var_2} \Arg{true code} \Arg{false code}
 \end{syntax}
 Compares the content of two \meta{token list variables} and
 is logically \texttt{true} if the two contain the same list of
@@ -790,10 +790,10 @@ contain and the category codes of those characters). For example
 \TlSet\lTmpaTl{abc}
 \TlSet\lTmpbTl{abc}
 \TlSet\lTmpcTl{xyz}
-\TlIfVarEqTF\lTmpaTl\lTmpbTl{\Result{Yes}}{\Result{No}}
-\TlIfVarEqTF\lTmpaTl\lTmpcTl{\Result{Yes}}{\Result{No}}
+\TlVarIfEqTF\lTmpaTl\lTmpbTl{\Result{Yes}}{\Result{No}}
+\TlVarIfEqTF\lTmpaTl\lTmpcTl{\Result{Yes}}{\Result{No}}
 \end{demohigh}
-See also \cs{StrIfVarEq} for a comparison that ignores category codes.
+See also \cs{StrVarIfEq} for a comparison that ignores category codes.
 \end{function}
 
 \chapter{Strings (\texttt{Str})}
@@ -825,21 +825,21 @@ already taken. The declaration is global. The \meta{str var} is
 initially empty.
 \end{function}
 
-\begin{function}{\StrLogVar}
+\begin{function}{\StrVarLog}
 \begin{syntax}
-\cs{StrLogVar} \meta{str var}
+\cs{StrVarLog} \meta{str var}
 \end{syntax}
 Writes the content of the \meta{str var} in the log file.
 For example
 \begin{codehigh}
 \StrSet\lTmpiStr{1234\abcd5678}
-\StrLogVar\lTmpiStr
+\StrVarLog\lTmpiStr
 \end{codehigh}
 \end{function}
 
-\begin{function}{\StrShowVar}
+\begin{function}{\StrVarShow}
 \begin{syntax}
-\cs{StrShowVar} \meta{str var}
+\cs{StrVarShow} \meta{str var}
 \end{syntax}
 Displays the content of the \meta{str var} on the terminal.
 \end{function}
@@ -907,18 +907,18 @@ var} are not automatically converted to a string. For example
 \end{demohigh}
 \end{function}
 
-\begin{function}{\StrIfVarEmpty,\StrIfVarEmptyTF}
+\begin{function}{\StrVarIfEmpty,\StrVarIfEmptyTF}
 \begin{syntax}
-\cs{StrIfVarEmpty} \meta{str var}
-\cs{StrIfVarEmptyTF} \meta{str var} \Arg{true code} \Arg{false code}
+\cs{StrVarIfEmpty} \meta{str var}
+\cs{StrVarIfEmptyTF} \meta{str var} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests if the \meta{string variable} is entirely empty
 (\emph{i.e.} contains no characters at all). For example
 \begin{demohigh}
 \StrSet\lTmpaStr{abc}
-\StrIfVarEmptyTF\lTmpaStr{\Result{Empty}}{\Result{NonEmpty}}
+\StrVarIfEmptyTF\lTmpaStr{\Result{Empty}}{\Result{NonEmpty}}
 \StrClear\lTmpaStr
-\StrIfVarEmptyTF\lTmpaStr{\Result{Empty}}{\Result{NonEmpty}}
+\StrVarIfEmptyTF\lTmpaStr{\Result{Empty}}{\Result{NonEmpty}}
 \end{demohigh}
 \end{function}
 
@@ -954,21 +954,21 @@ For example
 %\end{demohigh}
 \end{function}
 
-\begin{function}{\StrIfVarEq,\StrIfVarEqTF}
+\begin{function}{\StrVarIfEq,\StrVarIfEqTF}
 \begin{syntax}
-\cs{StrIfVarEq} \meta{str var_1} \meta{str var_2}
-\cs{StrIfVarEqTF} \meta{str var_1} \meta{str var_2} \Arg{true code} \Arg{false code}
+\cs{StrVarIfEq} \meta{str var_1} \meta{str var_2}
+\cs{StrVarIfEqTF} \meta{str var_1} \meta{str var_2} \Arg{true code} \Arg{false code}
 \end{syntax}
 Compares the content of two \meta{str variables} and
 is logically \texttt{true} if the two contain the same characters
-in the same order.  See \cs{TlIfVarEq} to compare tokens
+in the same order.  See \cs{TlVarIfEq} to compare tokens
 (including their category codes) rather than characters.
 \begin{demohigh}
 \StrSet\lTmpaStr{abc}
 \StrSet\lTmpbStr{abc}
 \StrSet\lTmpcStr{xyz}
-\StrIfVarEqTF\lTmpaStr\lTmpbStr{\Result{Yes}}{\Result{No}}
-\StrIfVarEqTF\lTmpaStr\lTmpcStr{\Result{Yes}}{\Result{No}}
+\StrVarIfEqTF\lTmpaStr\lTmpbStr{\Result{Yes}}{\Result{No}}
+\StrVarIfEqTF\lTmpaStr\lTmpcStr{\Result{Yes}}{\Result{No}}
 \end{demohigh}
 \end{function}
 
@@ -1302,16 +1302,16 @@ already taken. The declaration is global. The \meta{fp~var} is
 initially $+0$.
 \end{function}
 
-\begin{function}{\FpLogVar}
+\begin{function}{\FpVarLog}
 \begin{syntax}
-\cs{FpLogVar} \meta{fp var}
+\cs{FpVarLog} \meta{fp var}
 \end{syntax}
 Writes the value of \meta{fp var} in the log file.
 \end{function}
 
-\begin{function}{\FpShowVar}
+\begin{function}{\FpVarShow}
 \begin{syntax}
-\cs{FpShowVar} \meta{fp var}
+\cs{FpVarShow} \meta{fp var}
 \end{syntax}
 Displays the value of \meta{fp var} in the terminal.
 \end{function}
@@ -1618,13 +1618,13 @@ in the log file. For example
 \end{codehigh}
 \end{function}
 
-\begin{function}{\DimLogVar}
+\begin{function}{\DimVarLog}
 \begin{syntax}
-\cs{DimLogVar} \meta{dimension}
+\cs{DimVarLog} \meta{dimension}
 \end{syntax}
 Writes the value of the \meta{dimension} in the log file. For example
 \begin{codehigh}
-\DimLogVar\lFooSomeDim
+\DimVarLog\lFooSomeDim
 \end{codehigh}
 \end{function}
 
@@ -1639,13 +1639,13 @@ on the terminal. For example
 \end{codehigh}
 \end{function}
 
-\begin{function}{\DimShowVar}
+\begin{function}{\DimVarShow}
 \begin{syntax}
-\cs{DimShowVar} \meta{dimension}
+\cs{DimVarShow} \meta{dimension}
 \end{syntax}
 Displays the value of the \meta{dimension} on the terminal. For example
 \begin{codehigh}
-\DimShowVar\lFooSomeDim
+\DimVarShow\lFooSomeDim
 \end{codehigh}
 \end{function}
 

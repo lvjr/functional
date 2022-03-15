@@ -36,21 +36,21 @@ already taken. The declaration is global. The \meta{str var} is
 initially empty.
 \end{function}
 
-\begin{function}{\StrLogVar}
+\begin{function}{\StrVarLog}
 \begin{syntax}
-\cs{StrLogVar} \meta{str var}
+\cs{StrVarLog} \meta{str var}
 \end{syntax}
 Writes the content of the \meta{str var} in the log file.
 For example
 \begin{codehigh}
 \StrSet\lTmpiStr{1234\abcd5678}
-\StrLogVar\lTmpiStr
+\StrVarLog\lTmpiStr
 \end{codehigh}
 \end{function}
 
-\begin{function}{\StrShowVar}
+\begin{function}{\StrVarShow}
 \begin{syntax}
-\cs{StrShowVar} \meta{str var}
+\cs{StrVarShow} \meta{str var}
 \end{syntax}
 Displays the content of the \meta{str var} on the terminal.
 \end{function}
@@ -118,18 +118,18 @@ var} are not automatically converted to a string. For example
 \end{demohigh}
 \end{function}
 
-\begin{function}{\StrIfVarEmpty,\StrIfVarEmptyTF}
+\begin{function}{\StrVarIfEmpty,\StrVarIfEmptyTF}
 \begin{syntax}
-\cs{StrIfVarEmpty} \meta{str var}
-\cs{StrIfVarEmptyTF} \meta{str var} \Arg{true code} \Arg{false code}
+\cs{StrVarIfEmpty} \meta{str var}
+\cs{StrVarIfEmptyTF} \meta{str var} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests if the \meta{string variable} is entirely empty
 (\emph{i.e.} contains no characters at all). For example
 \begin{demohigh}
 \StrSet\lTmpaStr{abc}
-\StrIfVarEmptyTF\lTmpaStr{\Result{Empty}}{\Result{NonEmpty}}
+\StrVarIfEmptyTF\lTmpaStr{\Result{Empty}}{\Result{NonEmpty}}
 \StrClear\lTmpaStr
-\StrIfVarEmptyTF\lTmpaStr{\Result{Empty}}{\Result{NonEmpty}}
+\StrVarIfEmptyTF\lTmpaStr{\Result{Empty}}{\Result{NonEmpty}}
 \end{demohigh}
 \end{function}
 
@@ -165,21 +165,21 @@ For example
 %\end{demohigh}
 \end{function}
 
-\begin{function}{\StrIfVarEq,\StrIfVarEqTF}
+\begin{function}{\StrVarIfEq,\StrVarIfEqTF}
 \begin{syntax}
-\cs{StrIfVarEq} \meta{str var_1} \meta{str var_2}
-\cs{StrIfVarEqTF} \meta{str var_1} \meta{str var_2} \Arg{true code} \Arg{false code}
+\cs{StrVarIfEq} \meta{str var_1} \meta{str var_2}
+\cs{StrVarIfEqTF} \meta{str var_1} \meta{str var_2} \Arg{true code} \Arg{false code}
 \end{syntax}
 Compares the content of two \meta{str variables} and
 is logically \texttt{true} if the two contain the same characters
-in the same order.  See \cs{TlIfVarEq} to compare tokens
+in the same order.  See \cs{TlVarIfEq} to compare tokens
 (including their category codes) rather than characters.
 \begin{demohigh}
 \StrSet\lTmpaStr{abc}
 \StrSet\lTmpbStr{abc}
 \StrSet\lTmpcStr{xyz}
-\StrIfVarEqTF\lTmpaStr\lTmpbStr{\Result{Yes}}{\Result{No}}
-\StrIfVarEqTF\lTmpaStr\lTmpcStr{\Result{Yes}}{\Result{No}}
+\StrVarIfEqTF\lTmpaStr\lTmpbStr{\Result{Yes}}{\Result{No}}
+\StrVarIfEqTF\lTmpaStr\lTmpcStr{\Result{Yes}}{\Result{No}}
 \end{demohigh}
 \end{function}
 

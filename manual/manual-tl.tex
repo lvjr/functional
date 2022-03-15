@@ -97,18 +97,18 @@ Appends \meta{tokens} to the right side of the current content of
 \end{demohigh}
 \end{function}
 
-\begin{function}{\TlIfVarEmpty,\TlIfVarEmptyTF}
+\begin{function}{\TlVarIfEmpty,\TlVarIfEmptyTF}
 \begin{syntax}
-\cs{TlIfVarEmpty} \meta{tl~var}
-\cs{TlIfVarEmptyTF} \meta{tl~var} \Arg{true code} \Arg{false code}
+\cs{TlVarIfEmpty} \meta{tl~var}
+\cs{TlVarIfEmptyTF} \meta{tl~var} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests if the \meta{token list variable} is entirely empty
 (\emph{i.e.}~contains no tokens at all). For example
 \begin{demohigh}
 \TlSet\lTmpaTl{abc}
-\TlIfVarEmptyTF\lTmpaTl{\Result{Empty}}{\Result{NonEmpty}}
+\TlVarIfEmptyTF\lTmpaTl{\Result{Empty}}{\Result{NonEmpty}}
 \TlClear\lTmpaTl
-\TlIfVarEmptyTF\lTmpaTl{\Result{Empty}}{\Result{NonEmpty}}
+\TlVarIfEmptyTF\lTmpaTl{\Result{Empty}}{\Result{NonEmpty}}
 \end{demohigh}
 \end{function}
 
@@ -134,10 +134,10 @@ For example
 %\end{demohigh}
 \end{function}
 
-\begin{function}{\TlIfVarEq,\TlIfVarEqTF}
+\begin{function}{\TlVarIfEq,\TlVarIfEqTF}
 \begin{syntax}
-\cs{TlIfVarEq} \meta{tl var_1} \meta{tl var_2}
-\cs{TlIfVarEqTF} \meta{tl var_1} \meta{tl var_2} \Arg{true code} \Arg{false code}
+\cs{TlVarIfEq} \meta{tl var_1} \meta{tl var_2}
+\cs{TlVarIfEqTF} \meta{tl var_1} \meta{tl var_2} \Arg{true code} \Arg{false code}
 \end{syntax}
 Compares the content of two \meta{token list variables} and
 is logically \texttt{true} if the two contain the same list of
@@ -147,10 +147,10 @@ contain and the category codes of those characters). For example
 \TlSet\lTmpaTl{abc}
 \TlSet\lTmpbTl{abc}
 \TlSet\lTmpcTl{xyz}
-\TlIfVarEqTF\lTmpaTl\lTmpbTl{\Result{Yes}}{\Result{No}}
-\TlIfVarEqTF\lTmpaTl\lTmpcTl{\Result{Yes}}{\Result{No}}
+\TlVarIfEqTF\lTmpaTl\lTmpbTl{\Result{Yes}}{\Result{No}}
+\TlVarIfEqTF\lTmpaTl\lTmpcTl{\Result{Yes}}{\Result{No}}
 \end{demohigh}
-See also \cs{StrIfVarEq} for a comparison that ignores category codes.
+See also \cs{StrVarIfEq} for a comparison that ignores category codes.
 \end{function}
 
 \end{document}
