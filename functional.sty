@@ -1193,6 +1193,68 @@
       { \clist_gsort:Nn #1 {#2} } { \clist_sort:Nn #1 {#2} }
   }
 
+\PrgNewFunction \ClistCount { m }
+  {
+    \Result { \Expand { \clist_count:n { #1 } } }
+  }
+
+\PrgNewFunction \ClistVarCount { m }
+  {
+    \Result { \Expand { \clist_count:N #1 } }
+  }
+
+\PrgNewFunction \ClistGet   { M M }     { \clist_get:NN #1 #2 }
+\PrgNewFunction \ClistGetT  { M M n }   { \clist_get:NNT #1 #2 {#3} }
+\PrgNewFunction \ClistGetF  { M M n }   { \clist_get:NNF #1 #2 {#3} }
+\PrgNewFunction \ClistGetTF { M M n n } { \clist_get:NNTF #1 #2 {#3} {#4} }
+
+\PrgNewFunction \ClistPop { M M }
+  {
+    \__fun_do_assignment:Nnn #1
+      { \clist_gpop:NN #1 #2 } { \clist_pop:NN #1 #2 }
+  }
+\PrgNewFunction \ClistPopT { M M n }
+  {
+    \__fun_do_assignment:Nnn #1
+      { \clist_gpop:NNT #1 #2 {#3} } { \clist_pop:NNT #1 #2 {#3} }
+  }
+\PrgNewFunction \ClistPopF { M M n }
+  {
+    \__fun_do_assignment:Nnn #1
+      { \clist_gpop:NNF #1 #2 {#3} } { \clist_pop:NNF #1 #2 {#3} }
+  }
+\PrgNewFunction \ClistPopTF { M M n n }
+  {
+    \__fun_do_assignment:Nnn #1
+      { \clist_gpop:NNTF #1 #2 {#3} {#4} } { \clist_pop:NNTF #1 #2 {#3} {#4} }
+  }
+
+\PrgNewFunction \ClistPush { M m }
+  {
+    \__fun_do_assignment:Nnn #1
+      { \clist_gpush:Nn #1 {#2} } { \clist_push:Nn #1 {#2} }
+  }
+
+\PrgNewFunction \ClistItem { m m } { \Expand { \clist_item:nn {#1} {#2} } }
+
+\PrgNewFunction \ClistVarItem { M m } { \Expand { \clist_item:Nn #1 {#2} } }
+
+\PrgNewFunction \ClistRandItem { m } { \Expand { \clist_rand_item:n {#1} } }
+
+\PrgNewFunction \ClistVarRandItem { M } { \Expand { \clist_rand_item:N #1 } }
+
+\PrgNewFunction \ClistMapVariable { m M n }
+  {
+    \clist_map_variable:nNn {#1} #2 {#3}
+  }
+
+\PrgNewFunction \ClistVarMapVariable { M M n }
+  {
+    \clist_map_variable:NNn #1 #2 {#3}
+  }
+
+\cs_set_eq:NN \ClistMapBreak \clist_map_break:
+
 \PrgNewConditional \ClistIfExist { M }
   {
     \clist_if_exist:NTF #1 { \Result { \cTrueBool } }  { \Result { \cFalseBool } }
