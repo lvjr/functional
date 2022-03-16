@@ -598,6 +598,13 @@
 
 \PrgNewFunction \BoolVarShow { M } { \bool_show:N #1 }
 
+\PrgNewFunction \BoolConst { M m } { \bool_const:Nn #1 { #2 } }
+
+\PrgNewFunction \BoolSet { M m } {
+  \__fun_do_assignment:Nnn #1
+    { \bool_gset:Nn #1 { #2 } } { \bool_set:Nn #1 { #2 } }
+}
+
 \PrgNewFunction \BoolSetTrue { M }
   {
     \__fun_do_assignment:Nnn #1 { \bool_gset_true:N #1 } { \bool_set_true:N #1 }
@@ -608,9 +615,41 @@
     \__fun_do_assignment:Nnn #1 { \bool_gset_false:N #1 } { \bool_set_false:N #1 }
   }
 
-\PrgNewConditional \BoolIf { N }
+\PrgNewFunction \BoolSetEq { M M }
   {
-    \Result { #1 }
+    \__fun_do_assignment:Nnn #1
+      { \bool_gset_eq:NN #1 #2 } { \bool_set_eq:NN #1 #2 }
+  }
+
+\PrgNewConditional \BoolIfExist { M }
+  {
+    \bool_if_exist:NTF #1 { \Result { \cTrueBool } } { \Result { \cFalseBool } }
+  }
+
+\PrgNewConditional \BoolVarIf { M } { \Result { #1 } }
+
+\PrgNewConditional \BoolVarNot { M }
+  {
+    \bool_if:NTF #1
+      { \Result { \cFalseBool } } { \Result { \cTrueBool } }
+  }
+
+\PrgNewConditional \BoolVarAnd { M M }
+  {
+    \bool_lazy_and:nnTF {#1} {#2}
+      { \Result { \cTrueBool } } { \Result { \cFalseBool } }
+  }
+
+\PrgNewConditional \BoolVarOr { M M }
+  {
+    \bool_lazy_or:nnTF {#1} {#2}
+      { \Result { \cTrueBool } } { \Result { \cFalseBool } }
+  }
+
+\PrgNewConditional \BoolVarXor { M M }
+  {
+    \bool_xor:nnTF {#1} {#2}
+      { \Result { \cTrueBool } } { \Result { \cFalseBool } }
   }
 
 %%% --------------------------------------------------------
