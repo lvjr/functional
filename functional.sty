@@ -656,6 +656,10 @@
 %%> \section{Interfaces for Token Lists (Tl)}
 %%% --------------------------------------------------------
 
+\tl_set_eq:NN \cEmptyTl \c_empty_tl
+\tl_set_eq:NN \cSpaceTl \c_space_tl
+\tl_set_eq:NN \cNoValueTl \c_novalue_tl
+
 \tl_new:N \lTmpaTl   \tl_new:N \lTmpbTl   \tl_new:N \lTmpcTl
 \tl_new:N \lTmpiTl   \tl_new:N \lTmpjTl   \tl_new:N \lTmpkTl
 \tl_new:N \l@Funx@Tl \tl_new:N \l@Funy@Tl \tl_new:N \l@Funz@Tl
@@ -663,10 +667,6 @@
 \tl_new:N \gTmpaTl   \tl_new:N \gTmpbTl   \tl_new:N \gTmpcTl
 \tl_new:N \gTmpiTl   \tl_new:N \gTmpjTl   \tl_new:N \gTmpkTl
 \tl_new:N \g@Funx@Tl \tl_new:N \g@Funy@Tl \tl_new:N \g@Funz@Tl
-
-\tl_set_eq:NN \cEmptyTl \c_empty_tl
-\tl_set_eq:NN \cSpaceTl \c_space_tl
-\tl_set_eq:NN \cNoValueTl \c_novalue_tl
 
 \PrgNewFunction \TlNew { M } { \tl_new:N #1 }
 
@@ -680,6 +680,10 @@
 
 \PrgNewFunction \TlUse { M } { \Result { \Value #1 } }
 
+\PrgNewFunction \TlToStr { m } { \Expand { \tl_to_str:n { #1 } } }
+
+\PrgNewFunction \TlVarToStr { M } { \Expand { \tl_to_str:N #1 } }
+
 \PrgNewFunction \TlConst { M m } { \tl_const:Nn #1 { #2 } }
 
 \PrgNewFunction \TlSet { M m }
@@ -690,6 +694,12 @@
 \PrgNewFunction \TlSetEq { M M }
   {
     \__fun_do_assignment:Nnn #1 { \tl_gset_eq:NN #1 {#2} } { \tl_set_eq:NN #1 {#2} }
+  }
+
+\PrgNewFunction \TlConcat { M M M }
+  {
+    \__fun_do_assignment:Nnn #1
+      { \tl_gconcat:NNN #1 #2 #3 } { \tl_concat:NNN #1 #2 #3 }
   }
 
 \PrgNewFunction \TlClear { M }
@@ -714,14 +724,90 @@
       { \tl_gput_right:Nn #1 {#2} } { \tl_put_right:Nn #1 {#2} }
   }
 
+\PrgNewFunction \TlReplaceOnce { M m m }
+  {
+    \__fun_do_assignment:Nnn #1
+      { \tl_greplace_once:Nnn #1 {#2} {#3} } { \tl_replace_once:Nnn #1 {#2} {#3} }
+  }
+
+\PrgNewFunction \TlReplaceAll { M m m }
+  {
+    \__fun_do_assignment:Nnn #1
+      { \tl_greplace_all:Nnn #1 {#2} {#3} } { \tl_replace_all:Nnn #1 {#2} {#3} }
+  }
+
+\PrgNewFunction \TlRemoveOnce { M m }
+  {
+    \__fun_do_assignment:Nnn #1
+      { \tl_gremove_once:Nn #1 {#2} } { \tl_remove_once:Nn #1 {#2} }
+  }
+
+\PrgNewFunction \TlRemoveAll { M m }
+  {
+    \__fun_do_assignment:Nnn #1
+      { \tl_gremove_all:Nn #1 {#2} } { \tl_remove_all:Nn #1 {#2} }
+  }
+
+\PrgNewFunction \TlTrimSpaces { m } { \Expand { \tl_trim_spaces:n { #1 } } }
+
+\PrgNewFunction \TlVarTrimSpaces { M }
+  {
+    \__fun_do_assignment:Nnn #1 { \tl_gtrim_spaces:N #1 } { \tl_trim_spaces:N #1 }
+  }
+
+\PrgNewFunction \TlCount { m } { \Expand { \tl_count:n { #1 } } }
+
+\PrgNewFunction \TlVarCount { M } { \Expand { \tl_count:N #1 } }
+
+\PrgNewFunction \TlHead { m } { \Expand { \tl_head:n { #1 } } }
+
+\PrgNewFunction \TlVarHead { M } { \Expand { \tl_head:N #1 } }
+
+\PrgNewFunction \TlTail { m } { \Expand { \tl_tail:n { #1 } } }
+
+\PrgNewFunction \TlVarTail { M } { \Expand { \tl_tail:N #1 } }
+
+\PrgNewFunction \TlItem { m m } { \Expand { \tl_item:nn {#1} {#2} } }
+
+\PrgNewFunction \TlVarItem { M m } { \Expand { \tl_item:Nn #1 {#2} } }
+
+\PrgNewFunction \TlRandItem { m } { \Expand { \tl_rand_item:n {#1} } }
+
+\PrgNewFunction \TlVarRandItem { M } { \Expand { \tl_rand_item:N #1 } }
+
+\PrgNewFunction \TlVarCase   { M m }     { \tl_case:Nn {#1} {#2} }
+\PrgNewFunction \TlVarCaseT  { M m n }   { \tl_case:NnT {#1} {#2} {#3} }
+\PrgNewFunction \TlVarCaseF  { M m n }   { \tl_case:NnF {#1} {#2} {#3} }
+\PrgNewFunction \TlVarCaseTF { M m n n } { \tl_case:NnTF {#1} {#2} {#3} {#4} }
+
+\PrgNewFunction \TlMapVariable { m M n }
+  {
+    \tl_map_variable:nNn {#1} #2 {#3}
+  }
+
+\PrgNewFunction \TlVarMapVariable { M M n }
+  {
+    \tl_map_variable:NNn #1 #2 {#3}
+  }
+
 \PrgNewConditional \TlIfExist { M }
   {
     \tl_if_exist:NTF #1 { \Result { \cTrueBool } }  { \Result { \cFalseBool } }
   }
 
+\PrgNewConditional \TlIfEmpty { m }
+  {
+    \tl_if_empty:nTF {#1} { \Result { \cTrueBool } }  { \Result { \cFalseBool } }
+  }
+
 \PrgNewConditional \TlVarIfEmpty { M }
   {
     \tl_if_empty:NTF #1 { \Result { \cTrueBool } }  { \Result { \cFalseBool } }
+  }
+
+\PrgNewConditional \TlIfBlank { m }
+  {
+    \tl_if_blank:nTF {#1} { \Result { \cTrueBool } }  { \Result { \cFalseBool } }
   }
 
 \PrgNewConditional \TlIfEq { m m }
@@ -732,6 +818,26 @@
 \PrgNewConditional \TlVarIfEq { M M }
   {
     \tl_if_eq:NNTF #1 #2 { \Result { \cTrueBool } } { \Result { \cFalseBool } }
+  }
+
+\PrgNewConditional \TlIfIn { m m }
+  {
+    \tl_if_in:nnTF {#1} {#2} { \Result { \cTrueBool } } { \Result { \cFalseBool } }
+  }
+
+\PrgNewConditional \TlVarIfIn { M m }
+  {
+    \tl_if_in:NnTF #1 {#2} { \Result { \cTrueBool } } { \Result { \cFalseBool } }
+  }
+
+\PrgNewConditional \TlIfSingle { m }
+  {
+    \tl_if_single:nTF {#1} { \Result { \cTrueBool } } { \Result { \cFalseBool } }
+  }
+
+\PrgNewConditional \TlVarIfSingle { M }
+  {
+    \tl_if_single:NTF #1 { \Result { \cTrueBool } } { \Result { \cFalseBool } }
   }
 
 %%% --------------------------------------------------------
@@ -992,11 +1098,6 @@
       { \Result { \cTrueBool } }
       { \Result { \cFalseBool } }
   }
-
-\PrgNewFunction \TlVarCase   { M m }     { \tl_case:Nn {#1} {#2} }
-\PrgNewFunction \TlVarCaseT  { M m n }   { \tl_case:NnT {#1} {#2} {#3} }
-\PrgNewFunction \TlVarCaseF  { M m n }   { \tl_case:NnF {#1} {#2} {#3} }
-\PrgNewFunction \TlVarCaseTF { M m n n } { \tl_case:NnTF {#1} {#2} {#3} {#4} }
 
 %%% --------------------------------------------------------
 %%> \section{Interfaces for Dimensions (Dim)}
