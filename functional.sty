@@ -1112,14 +1112,24 @@
 
 \PrgNewFunction \ClistVarShow { M } { \clist_show:N #1 }
 
-\PrgNewFunction \ClistUse { M m }
+\PrgNewFunction \ClistVarJoin { M m }
   {
     \Expand { \clist_use:Nn #1 { #2 } }
   }
 
-\PrgNewFunction \ClistUseExtended { M m m m }
+\PrgNewFunction \ClistVarJoinExtended { M m m m }
   {
     \Expand { \clist_use:Nnnn #1 { #2 } { #3 } { #4 } }
+  }
+
+\PrgNewFunction \ClistJoin { m m }
+  {
+    \Expand { \clist_use:nn { #1 } { #2 } }
+  }
+
+\PrgNewFunction \ClistJoinExtended { m m m m }
+  {
+    \Expand { \clist_use:nnnn { #1 } { #2 } { #3 } { #4 } }
   }
 
 \PrgNewFunction \ClistConst { M m } { \clist_const:Nn #1 { #2 } }
