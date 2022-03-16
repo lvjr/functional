@@ -1,0 +1,599 @@
+% -*- coding: utf-8 -*-
+% !TEX program = lualatex
+\documentclass[oneside]{book}
+
+\input{manual.sty}
+\CodeHigh{lite}
+
+\begin{document}
+
+\chapter{Comma Separated Lists (\texttt{Clist})}
+
+\section{Scratch and Constant Comma Lists}
+
+\begin{variable}{\lTmpaClist,\lTmpbClist,\lTmpcClist,\lTmpiClist,\lTmpjClist,\lTmpkClist}
+Scratch comma lists for local assignment. These are never used by
+the \verb!functional! package, and so are safe for use with any
+function. However, they may be overwritten by other
+code and so should only be used for short-term storage.
+\end{variable}
+
+\begin{variable}{\gTmpaClist,\gTmpbClist,\gTmpcClist,\gTmpiClist,\gTmpjClist,\gTmpkClist}
+Scratch comma lists for global assignment. These are never used by
+the \verb!functional! package, and so are safe for use with any
+function. However, they may be overwritten by other
+code and so should only be used for short-term storage.
+\end{variable}
+
+\begin{variable}{\cEmptyClist}
+Constant that is always empty.
+\end{variable}
+
+\section{Creating and Using Comma Lists}
+
+\begin{function}{\ClistNew}
+\begin{syntax}
+\cs{ClistNew} \meta{comma list}
+\end{syntax}
+Creates a new \meta{comma list} or raises an error if the name is
+already taken. The declaration is global. The \meta{comma list}
+initially contains no items.
+\end{function}
+ 
+\begin{function}{\ClistConst}
+\begin{syntax}
+\cs{ClistConst} \meta{clist var} \Arg{comma list}
+\end{syntax}
+Creates a new constant \meta{clist var} or raises an error
+if the name is already taken. The value of the
+\meta{clist var} is set globally to the
+\meta{comma list}.
+\end{function}
+
+\begin{function}{\ClistClear}
+\begin{syntax}
+\cs{ClistClear} \meta{comma list}
+\end{syntax}
+Clears all items from the \meta{comma list}.
+\end{function}
+ 
+\begin{function}{\ClistClearNew}
+\begin{syntax}
+\cs{ClistClearNew} \meta{comma list}
+\end{syntax}
+Ensures that the \meta{comma list} exists globally by applying
+\cs{ClistNew} if necessary, then applies \cs{ClistClear} to leave
+the list empty.
+\end{function}
+ 
+\begin{function}{\ClistSetEq}
+\begin{syntax}
+\cs{ClistSetEq} \meta{comma list_1} \meta{comma list_2}
+\end{syntax}
+Sets the content of \meta{comma list_1} equal to that of
+\meta{comma list_2}.  To set a token list variable equal to a comma
+list variable, use \cs{TlSetEq}.  Conversely, setting a comma
+list variable to a token list is unadvisable unless one checks
+space-trimming and related issues.
+\end{function}
+ 
+\begin{function}{\ClistSetFromSeq}
+\begin{syntax}
+\cs{ClistSetFromSeq} \meta{comma list} \meta{sequence}
+\end{syntax}
+Converts the data in the \meta{sequence} into a \meta{comma list}:
+the original \meta{sequence} is unchanged.
+Items which contain either spaces or commas are surrounded by braces.
+\end{function}
+ 
+\begin{function}{\ClistConcat}
+\begin{syntax}
+\cs{ClistConcat} \meta{comma list_1} \meta{comma list_2} \meta{comma list_3}
+\end{syntax}
+Concatenates the content of \meta{comma list_2} and \meta{comma list_3}
+together and saves the result in \meta{comma list_1}. The items in
+\meta{comma list_2} are placed at the left side of the new comma list.
+\end{function}
+
+\begin{function}{\ClistCount,\ClistVarCount}
+\begin{syntax}
+\cs{ClistCount} \Arg{comma list}
+\cs{ClistVarCount} \meta{comma list}
+\end{syntax}
+Returns the number of items in the \meta{comma list}
+as an \meta{integer denotation}. The total number of items
+in a \meta{comma list} includes those which are duplicates,
+\emph{i.e.} every item in a \meta{comma list} is counted.
+\end{function}
+ 
+\begin{function}{\ClistVarJoin}
+\begin{syntax}
+\cs{ClistVarJoin} \meta{clist var} \Arg{separator}
+\end{syntax}
+Returns the contents of the \meta{clist var},
+with the \meta{separator} between the items.
+%If the comma list has a single item, it is placed in the input stream,
+%and a comma list with no items produces no output.
+%An error is raised if the variable does not exist or if it is invalid.
+For example,
+\begin{demohigh}
+\ClistSet \lTmpaClist { a , b , , c , {de} , f }
+\ClistVarJoin \lTmpaClist { and }
+\end{demohigh}
+%\begin{texnote}
+%The result is returned within the \tn{unexpanded}
+%primitive (\cs{exp_not:n}), which means that the \meta{items}
+%do not expand further when appearing in an \texttt{x}-type
+%or \texttt{e}-type argument expansion.
+%\end{texnote}
+\end{function}
+
+\begin{function}{\ClistVarJoinExtended}
+\begin{syntax}
+\cs{ClistVarJoinExtended} \meta{clist var} \Arg{separator between two} \Arg{separator between more than two} \Arg{separator between final two}
+\end{syntax}
+Returns the contents of the \meta{clist var},
+with the appropriate \meta{separator} between the items. Namely, if
+the comma list has more than two items, the \meta{separator between
+more than two} is placed between each pair of items except the
+last, for which the \meta{separator between final two} is used.  If
+the comma list has exactly two items, then they are joined with
+the \meta{separator between two} and returns.
+%If the comma list has a single item, it is placed in the input stream,
+%and a comma list with no items produces no output.
+%An error is raised if the variable does not exist or if it is invalid.
+For example,
+\begin{demohigh}
+\ClistSet \lTmpaClist { a , b , , c , {de} , f }
+\ClistVarJoinExtended \lTmpaClist { and } {, } {, and }
+\end{demohigh}
+The first separator argument is not used in this case
+because the comma list has more than $2$ items.
+%\begin{texnote}
+%The result is returned within the \tn{unexpanded}
+%primitive (\cs{exp_not:n}), which means that the \meta{items}
+%do not expand further when appearing in an \texttt{x}-type
+%or \texttt{e}-type argument expansion.
+%\end{texnote}
+\end{function}
+
+\begin{function}{\ClistJoin,\ClistJoinExtended}
+\begin{syntax}
+\cs{ClistJoin} \meta{comma list} \Arg{separator}
+\cs{ClistJoinExtended} \meta{comma list} \Arg{separator between two} \Arg{separator between more than two} \Arg{separator between final two}
+\end{syntax}
+Returns the contents of the \meta{comma list},
+with the appropriate \meta{separator} between the items. As for
+\cs{ClistSet}, blank items are omitted, spaces are removed from
+both sides of each item, then a set of braces is removed if the
+resulting space-trimmed item is braced.  The \meta{separators} are
+then inserted in the same way as for \cs{ClistVarJoin} and
+\cs{ClistVarJoinExtended}, respectively.
+%\begin{texnote}
+%The result is returned within the \tn{unexpanded}
+%primitive (\cs{exp_not:n}), which means that the \meta{items}
+%do not expand further when appearing in an \texttt{x}-type
+%or \texttt{e}-type argument expansion.
+%\end{texnote}
+\end{function}
+
+\section{Adding Data to Comma Lists}
+ 
+\begin{function}{\ClistSet}
+\begin{syntax}
+\cs{ClistSet} \meta{comma list} \verb|{|\meta{item_1},\ldots{},\meta{item_n}\verb|}|
+\end{syntax}
+Sets \meta{comma list} to contain the \meta{items},
+removing any previous content from the variable.
+Blank items are omitted, spaces are removed from both sides of each
+item, then a set of braces is removed if the resulting space-trimmed
+item is braced.
+To store some \meta{tokens} as a single \meta{item} even if the
+\meta{tokens} contain commas or spaces, add a set of braces:
+\cs{ClistSet} \meta{comma list} \verb|{| \Arg{tokens} \verb|}|.
+\end{function}
+ 
+\begin{function}{\ClistPutLeft}
+\begin{syntax}
+\cs{ClistPutLeft} \meta{comma list} \verb|{|\meta{item_1},\ldots{},\meta{item_n}\verb|}|
+\end{syntax}
+Appends the \meta{items} to the left of the \meta{comma list}.
+Blank items are omitted, spaces are removed from both sides of each
+item, then a set of braces is removed if the resulting space-trimmed
+item is braced.
+To append some \meta{tokens} as a single \meta{item} even if the
+\meta{tokens} contain commas or spaces, add a set of braces:
+\cs{ClistPutLeft} \meta{comma list} \verb|{| \Arg{tokens} \verb|}|.
+\end{function}
+ 
+\begin{function}{\ClistPutRight}
+\begin{syntax}
+\cs{ClistPutRight} \meta{comma list} \verb|{|\meta{item_1},\ldots{},\meta{item_n}\verb|}|
+\end{syntax}
+Appends the \meta{items} to the right of the \meta{comma list}.
+Blank items are omitted, spaces are removed from both sides of each
+item, then a set of braces is removed if the resulting space-trimmed
+item is braced.
+To append some \meta{tokens} as a single \meta{item} even if the
+\meta{tokens} contain commas or spaces, add a set of braces:
+\cs{ClistPutRight} \meta{comma list} \verb|{| \Arg{tokens} \verb|}|.
+\end{function}
+ 
+\section{Modifying Comma Lists}
+ 
+While comma lists are normally used as ordered lists, it may be
+necessary to modify the content. The functions here may be used
+to update comma lists, while retaining the order of the unaffected
+entries.
+ 
+\begin{function}{\ClistRemoveDuplicates}
+\begin{syntax}
+\cs{ClistRemoveDuplicates} \meta{comma list}
+\end{syntax}
+Removes duplicate items from the \meta{comma list}, leaving the
+left most copy of each item in the \meta{comma list}.  The \meta{item}
+comparison takes place on a token basis, as for \cs{TlIfEqTF}.
+\begin{texnote}
+This function iterates through every item in the \meta{comma list} and
+does a comparison with the \meta{items} already checked. It is therefore
+relatively slow with large comma lists.
+Furthermore, it may fail if any of the items in the
+\meta{comma list} contains \verb|{|, \verb|}|, or \verb|#|
+(assuming the usual \TeX{} category codes apply).
+\end{texnote}
+\end{function}
+ 
+\begin{function}{\ClistRemoveAll}
+\begin{syntax}
+\cs{ClistRemoveAll} \meta{comma list} \Arg{item}
+\end{syntax}
+Removes every occurrence of \meta{item} from the \meta{comma list}.
+The \meta{item} comparison takes place on a token basis, as for
+\cs{TlIfEqTF}.
+\begin{texnote}
+The function may fail if the \meta{item} contains \verb|{|, \verb|}|, or \verb|#|
+(assuming the usual \TeX{} category codes apply).
+\end{texnote}
+\end{function}
+ 
+\begin{function}{\ClistReverse}
+\begin{syntax}
+\cs{ClistReverse} \meta{comma list}
+\end{syntax}
+Reverses the order of items stored in the \meta{comma list}.
+\end{function}
+ 
+%\begin{function}{\ClistSort}
+%\begin{syntax}
+%\cs{ClistSort} \meta{clist var} \Arg{comparison code}
+%\end{syntax}
+%Sorts the items in the \meta{clist var} according to the
+%\meta{comparison code}, and assigns the result to
+%\meta{clist var}. The details of sorting comparison are
+%described in Section \ref{sec:l3sort:mech}.
+%\end{function}
+
+\section{Using a Single Item}
+
+\begin{function}{\ClistItem}
+\begin{syntax}
+\cs{ClistItem} \Arg{comma list} \Arg{integer expression}
+\end{syntax}
+Indexing items in the \meta{comma list} from $1$ at the top (left), this
+function evaluates the \meta{integer expression} and returns the
+appropriate item from the comma list. If the
+\meta{integer expression} is negative, indexing occurs from the
+bottom (right) of the comma list. When the \meta{integer expression}
+is larger than the number of items in the \meta{comma list} (as
+calculated by \cs{ClistCount}) then the function returns nothing.
+%\begin{texnote}
+%The result is returned within the \tn{unexpanded}
+%primitive (\cs{exp_not:n}), which means that the \meta{item}
+%does not expand further when appearing in an \texttt{x}-type
+%or \texttt{e}-type argument expansion.
+%\end{texnote}
+\end{function}
+ 
+\begin{function}{\ClistVarItem}
+\begin{syntax}
+\cs{ClistVarItem} \meta{comma list} \Arg{integer expression}
+\end{syntax}
+Indexing items in the \meta{comma list} from $1$ at the top (left), this
+function evaluates the \meta{integer expression} and returns the
+appropriate item from the comma list. If the
+\meta{integer expression} is negative, indexing occurs from the
+bottom (right) of the comma list. When the \meta{integer expression}
+is larger than the number of items in the \meta{comma list} (as
+calculated by \cs{ClistVarCount}) then the function returns nothing.
+%\begin{texnote}
+%The result is returned within the \tn{unexpanded}
+%primitive (\cs{exp_not:n}), which means that the \meta{item}
+%does not expand further when appearing in an \texttt{x}-type
+%or \texttt{e}-type argument expansion.
+%\end{texnote}
+\end{function}
+ 
+\begin{function}{\ClistRandItem,\ClistVarRandItem}
+\begin{syntax}
+\cs{ClistRandItem} \Arg{comma list}
+\cs{ClistVarRandItem} \meta{clist var}
+\end{syntax}
+Selects a pseudo-random item of the \meta{comma list}.
+If the \meta{comma list} has no item, the result is empty.
+%\begin{texnote}
+%The result is returned within the \tn{unexpanded}
+%primitive (\cs{exp_not:n}), which means that the \meta{item}
+%does not expand further when appearing in an \texttt{x}-type
+%or \texttt{e}-type argument expansion.
+%\end{texnote}
+\end{function}
+
+\section{Comma Lists as Stacks}
+ 
+Comma lists can be used as stacks, where data is pushed to and popped
+from the top of the comma list. (The left of a comma list is the top, for
+performance reasons.) The stack functions for comma lists are not
+intended to be mixed with the general ordered data functions detailed
+in the previous section: a comma list should either be used as an
+ordered data type or as a stack, but not in both ways.
+ 
+\begin{function}{\ClistGet,\ClistGetTF}
+\begin{syntax}
+\cs{ClistGet} \meta{comma list} \meta{token list variable}
+\cs{ClistGetT} \meta{comma list} \meta{token list variable} \meta{true code}
+\cs{ClistGetF} \meta{comma list} \meta{token list variable} \meta{false code}
+\cs{ClistGetTF} \meta{comma list} \meta{token list variable} \meta{true code} \meta{false code}
+\end{syntax}
+Stores the left-most item from a \meta{comma list} in the
+\meta{token list variable} without removing it from the
+\meta{comma list}. The \meta{token list variable} is assigned locally.
+%In the non-branching version, if the \meta{comma list} is empty the
+%\meta{token list variable} is set to the marker value \cs{qNoValue}.
+\end{function}
+ 
+\begin{function}{\ClistPop,\ClistPopT,\ClistPopF,\ClistPopTF}
+\begin{syntax}
+\cs{ClistPop} \meta{comma list} \meta{token list variable}
+\cs{ClistPopT} \meta{comma list} \meta{token list variable} \Arg{true code}
+\cs{ClistPopF} \meta{comma list} \meta{token list variable} \Arg{false code}
+\cs{ClistPopTF} \meta{comma list} \meta{token list variable} \Arg{true code} \Arg{false code}
+\end{syntax}
+Pops the left-most item from a \meta{comma list} into the
+\meta{token list variable}, \emph{i.e.} removes the item from the
+comma list and stores it in the \meta{token list variable}.
+The assignment of the \meta{token list variable} is local.
+If the \meta{comma list} is empty,
+the value of the \meta{token list variable} is
+not defined in this case and should not be relied upon. 
+\end{function}
+ 
+\begin{function}{\ClistPush}
+\begin{syntax}
+\cs{ClistPush} \meta{comma list} \Arg{items}
+\end{syntax}
+Adds the \Arg{items} to the top of the \meta{comma list}.
+Spaces are removed from both sides of each item as for any
+\texttt{n}-type comma list.
+\end{function}
+
+\section{Viewing Comma Lists}
+
+\begin{function}{\ClistLog}
+\begin{syntax}
+\cs{ClistLog} \Arg{tokens}
+\end{syntax}
+Writes the entries in the comma list in the log file. See also
+\cs{ClistShow} which displays the result in the terminal.
+\end{function}
+
+\begin{function}{\ClistVarLog}
+\begin{syntax}
+\cs{ClistVarLog} \meta{comma list}
+\end{syntax}
+Writes the entries in the \meta{comma list} in the log file. See
+also \cs{ClistVarShow} which displays the result in the terminal.
+\end{function}
+ 
+\begin{function}{\ClistShow}
+\begin{syntax}
+\cs{ClistShow} \Arg{tokens}
+\end{syntax}
+Displays the entries in the comma list in the terminal.
+\end{function}
+ 
+\begin{function}{\ClistVarShow}
+\begin{syntax}
+\cs{ClistVarShow} \meta{comma list}
+\end{syntax}
+Displays the entries in the \meta{comma list} in the terminal.
+\end{function}
+
+\section{Mapping over Comma Lists}
+ 
+%The functions described in this section apply a specified function
+%to each item of a comma list.
+%All mappings are done at the current group level, \emph{i.e.} any
+%local assignments made by the \meta{function} or \meta{code} discussed
+%below remain in effect after the loop.
+ 
+When the comma list is given explicitly, %as an \texttt{n}-type argument,
+spaces are trimmed around each item.
+If the result of trimming spaces is empty, the item is ignored.
+Otherwise, if the item is surrounded by braces, one set is removed,
+and the result is passed to the mapped function. Thus, if the
+comma list that is being mapped is \verb*|{a , {{b} }, ,{}, {c},}|
+then the arguments passed to the mapped function are
+`\verb*|a|', `\verb*|{b} |', an empty argument, and `\verb*|c|'.
+ 
+When the comma list is given as a variable, spaces
+have already been trimmed on input, and items are simply stripped
+of one set of braces if any. This case is more efficient than using
+explicit comma lists.
+
+%\begin{function}{\ClistMapFunction,\ClistVarMapFunction}
+%\begin{syntax}
+%\cs{ClistMapFunction} \Arg{comma list} \meta{function}
+%\cs{ClistVarMapFunction} \meta{comma list} \meta{function}
+%\end{syntax}
+%Applies \meta{function} to every \meta{item} stored in the
+%\meta{comma list}. The \meta{function} receives one argument for
+%each iteration. The \meta{items} are returned from left to right.
+%The function \cs{ClistMapInline} is in general more efficient
+%than \cs{ClistMapFunction}.
+%\end{function}
+% 
+%\begin{function}{\ClistMapInline,\ClistVarMapInline}
+%\begin{syntax}
+%\cs{ClistMapInline} \Arg{comma list} \Arg{inline function}
+%\cs{ClistVarMapInline} \meta{comma list} \Arg{inline function}
+%\end{syntax}
+%Applies \meta{inline function} to every \meta{item} stored
+%within the \meta{comma list}. The \meta{inline function} should
+%consist of code which receives the \meta{item} as \verb|#1|.
+%The \meta{items} are returned from left to right.
+%\end{function}
+
+\begin{function}{\ClistMapVariable,\ClistVarMapVariable}
+\begin{syntax}
+\cs{ClistMapVariable} \Arg{comma list} \meta{variable} \Arg{code}
+\cs{ClistVarMapVariable} \meta{comma list} \meta{variable} \Arg{code}
+\end{syntax}
+Stores each \meta{item} of the \meta{comma list} in turn in the
+(token list) \meta{variable} and applies the \meta{code}.  The
+\meta{code} will usually make use of the \meta{variable}, but this
+is not enforced.  The assignments to the \meta{variable} are local.
+Its value after the loop is the last \meta{item} in the \meta{comma
+list}, or its original value if there were no \meta{item}.  The
+\meta{items} are returned from left to right.
+\end{function}
+ 
+%\begin{function}{\ClistMapTokens,\ClistVarMapTokens}
+%\begin{syntax}
+%\cs{ClistMapTokens} \Arg{comma list} \Arg{code}
+%\cs{ClistVarMapTokens} \meta{clist var} \Arg{code}
+%\end{syntax}
+%Calls \meta{code} \Arg{item} for every \meta{item} stored in the
+%\meta{comma list}. The \meta{code} receives each \meta{item} as a
+%trailing brace group.  If the \meta{code} consists of a single
+%function this is equivalent to \cs{ClistMapFunction} or \cs{ClistVarMapFunction}.
+%\end{function}
+ 
+%\begin{function}{\ClistMapBreak}
+%\begin{syntax}
+%\cs{ClistMapBreak}
+%\end{syntax}
+%Used to terminate a clist map function before all
+%entries in the \meta{comma list} have been processed. This
+%normally takes place within a conditional statement, for example
+%\begin{verbatim}
+%\clist_map_inline:Nn \l_my_clist
+%{
+%\str_if_eq:nnTF { #1 } { bingo }
+%{ \clist_map_break: }
+%{
+%Do something useful
+%}
+%}
+%\end{verbatim}
+%Use outside of a clist map scenario leads to low
+%level \TeX{} errors.
+%\begin{texnote}
+%When the mapping is broken, additional tokens may be inserted
+%before further items are taken
+%from the input stream. This depends on the design of the mapping
+%function.
+%\end{texnote}
+%\end{function}
+% 
+%\begin{function}{\ClistMapBreakDo}
+%\begin{syntax}
+%\cs{ClistMapBreakDo} \Arg{code}
+%\end{syntax}
+%Used to terminate a clist map  function before all
+%entries in the \meta{comma list} have been processed, inserting
+%the \meta{code} after the mapping has ended. This
+%normally takes place within a conditional statement, for example
+%\begin{verbatim}
+%\clist_map_inline:Nn \l_my_clist
+%{
+%\str_if_eq:nnTF { #1 } { bingo }
+%{ \clist_map_break:n { <code> } }
+%{
+%Do something useful
+%}
+%}
+%\end{verbatim}
+%Use outside of a clist map scenario leads to low
+%level \TeX{} errors.
+%\begin{texnote}
+%When the mapping is broken, additional tokens may be inserted
+%before the \meta{code} is
+%inserted into the input stream.
+%This depends on the design of the mapping function.
+%\end{texnote}
+%\end{function}
+
+\section{Comma List Conditionals}
+
+\begin{function}{\ClistIfExist,\ClistIfExistTF}
+\begin{syntax}
+\cs{ClistIfExist} \meta{comma list}
+\cs{ClistIfExistTF} \meta{comma list} \Arg{true code} \Arg{false code}
+\end{syntax}
+Tests whether the \meta{comma list} is currently defined.  This does
+not check that the \meta{comma list} really is a comma list.
+\end{function}
+
+\begin{function}{\ClistIfEmpty,\ClistIfEmptyTF}
+\begin{syntax}
+\cs{ClistIfEmpty} \Arg{comma list}
+\cs{ClistIfEmptyTF} \Arg{comma list} \Arg{true code} \Arg{false code}
+\end{syntax}
+Tests if the \meta{comma list} is empty (containing no items).
+The rules for space trimming are as for other \texttt{n}-type
+comma-list functions, hence the comma list \verb|{ , ,, }| (without
+outer braces) is empty, while \verb|{ ,{},}| (without outer braces)
+contains one element, which happens to be empty: the comma-list
+is not empty.
+\end{function}
+
+\begin{function}{\ClistVarIfEmpty,\ClistVarIfEmptyTF}
+\begin{syntax}
+\cs{ClistVarIfEmpty} \meta{comma list}
+\cs{ClistVarIfEmptyTF} \meta{comma list} \Arg{true code} \Arg{false code}
+\end{syntax}
+Tests if the \meta{comma list} is empty (containing no items).
+\end{function}
+ 
+\begin{function}{\ClistIfIn,\ClistIfInTF}
+\begin{syntax}
+\cs{ClistIfIn} \Arg{comma list} \Arg{item}
+\cs{ClistIfInTF} \Arg{comma list} \Arg{item} \Arg{true code} \Arg{false code}
+\end{syntax}
+Tests if the \meta{item} is present in the \meta{comma list}.
+In the case of an \texttt{n}-type \meta{comma list}, the usual rules
+of space trimming and brace stripping apply. For example
+\begin{demohigh}
+\ClistIfInTF { a , {b}  , {b} , c } {b} {Yes} {No}
+\end{demohigh}
+%\begin{texnote}
+%The function may fail if the \meta{item} contains \verb|{|, \verb|}|, or \verb|#|
+%(assuming the usual \TeX{} category codes apply).
+%\end{texnote}
+\end{function}
+
+\begin{function}{\ClistVarIfIn,\ClistVarIfInTF}
+\begin{syntax}
+\cs{ClistVarIfIn} \meta{comma list} \Arg{item}
+\cs{ClistVarIfInTF} \meta{comma list} \Arg{item} \Arg{true code} \Arg{false code}
+\end{syntax}
+Tests if the \meta{item} is present in the \meta{comma list}.
+In the case of an \texttt{n}-type \meta{comma list}, the usual rules
+of space trimming and brace stripping apply.
+%\begin{texnote}
+%The function may fail if the \meta{item} contains \verb|{|, \verb|}|, or \verb|#|
+%(assuming the usual \TeX{} category codes apply).
+%\end{texnote}
+\end{function}
+
+\end{document}
