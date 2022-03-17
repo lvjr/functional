@@ -9,7 +9,32 @@
 
 \chapter{Token Lists (\texttt{Tl})}
 
-\section{Scratch Variables of Token Lists}
+\section{Constant and Scratch Token Lists}
+
+\begin{variable}{\cSpaceTl}
+An explicit space character contained in a token list%
+%(compare this with \cs{c_space_token})
+. For use where an explicit space is required.
+\end{variable}
+
+\begin{variable}{\cEmptyTl}
+Constant that is always empty.
+\end{variable}
+
+%\begin{variable}{\cNoValueTl}
+%A marker for the absence of an argument. This constant \verb|tl| can safely
+%be typeset (\emph{cf.}~\cs{qNil}), with the result being \verb|-NoValue-|.
+%It is important to note that \cs{cNoValueTl} is constructed such that it
+%will \emph{not} match the simple text input \verb|-NoValue-|, \emph{i.e.}
+%that
+%\begin{demohigh}
+%\TlIfEqTF {\TlUse\cNoValueTl} {-NoValue-} {Result{Yes}} {\Result{No}}
+%\end{demohigh}
+%The \cs{cNoValueTl} marker is intended for
+%use in creating document-level interfaces, where it serves as an indicator
+%that an (optional) argument was omitted. In particular, it is distinct
+%from a simple empty \verb|tl|.
+%\end{variable}
 
 \begin{variable}{\lTmpaTl,\lTmpbTl,\lTmpcTl,\lTmpiTl,\lTmpjTl,\lTmpkTl}
 Scratch token lists for local assignment. These are never used by
@@ -25,15 +50,24 @@ function. However, they may be overwritten by other
 code and so should only be used for short-term storage.
 \end{variable}
 
-\section{Public Functions for Token Lists}
+\section{Creating and Using Token Lists}
 
 \begin{function}{\TlNew}
 \begin{syntax}
-\cs{TlNew} \meta{tl~var}
+\cs{TlNew} \meta{tl var}
 \end{syntax}
-Creates a new \meta{tl~var} or raises an error if the
+Creates a new \meta{tl var} or raises an error if the
 name is already taken. The declaration is global. The
 \meta{tl~var} is initially empty.
+\end{function}
+
+\begin{function}{\TlConst}
+\begin{syntax}
+\cs{TlConst} \meta{tl var} \Arg{token list}
+\end{syntax}
+Creates a new constant \meta{tl var} or raises an error
+if the name is already taken. The value of the
+\meta{tl var} is set globally to the \meta{token list}.
 \end{function}
 
 \begin{function}{\TlUse}
@@ -46,6 +80,57 @@ does not exist or if it is invalid. Note that it is possible to use
 a \meta{tl~var} directly without an accessor function.
 \end{function}
 
+\begin{function}{\TlToStr}
+\begin{syntax}
+\cs{TlToStr} \Arg{token list}
+\end{syntax}
+Converts the \meta{token list} to a \meta{string}, returning the
+resulting character tokens. A \meta{string}
+is a series of tokens with category code $12$ (other) with the exception
+of spaces, which retain category code $10$ (space).
+%This function requires only a single expansion.
+%Its argument \emph{must} be braced.
+%\begin{texnote}
+%This is the \eTeX{} primitive \tn{detokenize}.
+%Converting a \meta{token list} to a \meta{string} yields a
+%concatenation of the string representations of every token in the
+%\meta{token list}.
+%The string representation of a control sequence is
+%\begin{itemize}
+%\item an escape character, whose character code is given by the
+%internal parameter \tn{escapechar}, absent if the
+%\tn{escapechar} is negative or greater than the largest
+%character code;
+%\item the control sequence name, as defined by \cs{cs_to_str:N};
+%\item a space, unless the control sequence name is a single
+%character whose category at the time of expansion of
+%\cs{tl_to_str:n} is not \enquote{letter}.
+%\end{itemize}
+%The string representation of an explicit character token is that
+%character, doubled in the case of (explicit) macro parameter
+%characters (normally \verb|#|).
+%In particular, the string representation of a token list may
+%depend on the category codes in effect when it is evaluated, and
+%the value of the \tn{escapechar}: for instance |\tl_to_str:n {\a}|
+%normally produces the three character \enquote{backslash},
+%\enquote{lower-case a}, \enquote{space}, but it may also produce a
+%single \enquote{lower-case a} if the escape character is negative
+%and \texttt{a} is currently not a letter.
+%\end{texnote}
+\end{function}
+
+\begin{function}{\TlVarToStr}
+\begin{syntax}
+\cs{TlVarToStr} \meta{tl var}
+\end{syntax}
+Converts the content of the \meta{tl var} to a string, returning the
+resulting character tokens. A \meta{string}
+is a series of tokens with category code $12$ (other) with the exception
+of spaces, which retain category code $10$ (space).
+\end{function}
+
+\section{Setting and Adding Data to Token List Variables}
+
 \begin{function}{\TlSet}
 \begin{syntax}
 \cs{TlSet} \meta{tl~var} \Arg{tokens}
@@ -53,8 +138,8 @@ a \meta{tl~var} directly without an accessor function.
 Sets \meta{tl~var} to contain \meta{tokens},
 removing any previous content from the variable. For example
 \begin{demohigh}
-\TlSet\lTmpiTl{\IntMathMult{4}{5}}
-\TlUse\lTmpiTl
+\TlSet \lTmpiTl {\IntMathMult{4}{5}}
+\TlUse \lTmpiTl
 \end{demohigh}
 \end{function}
 
@@ -64,11 +149,37 @@ removing any previous content from the variable. For example
 \end{syntax}
 Clears all entries from the \meta{tl~var}. For example
 \begin{demohigh}
-\TlSet\lTmpjTl{One}
-\TlClear\lTmpjTl
-\TlSet\lTmpjTl{Two}
-\TlUse\lTmpjTl
+\TlSet \lTmpjTl {One}
+\TlClear \lTmpjTl
+\TlSet \lTmpjTl {Two}
+\TlUse \lTmpjTl
 \end{demohigh}
+\end{function}
+
+\begin{function}{\TlClearNew}
+\begin{syntax}
+\cs{TlClearNew} \meta{tl var}
+\end{syntax}
+Ensures that the \meta{tl var} exists globally by applying
+\cs{TlNew} if necessary, then applies \cs{TlClear} to leave
+the \meta{tl var} empty.
+\end{function}
+
+\begin{function}{\TlSetEq}
+\begin{syntax}
+\cs{TlSetEq} \meta{tl var_1} \meta{tl var_2}
+\end{syntax}
+Sets the content of \meta{tl var_1} equal to that of
+\meta{tl var_2}.
+\end{function}
+
+\begin{function}{\TlConcat}
+\begin{syntax}
+\cs{TlConcat} \meta{tl var_1} \meta{tl var_2} \meta{tl var_3}
+\end{syntax}
+Concatenates the content of \meta{tl var_2} and \meta{tl var_3}
+together and saves the result in \meta{tl var_1}. The \meta{tl var_2}
+is placed at the left side of the new token list.
 \end{function}
 
 \begin{function}{\TlPutLeft}
@@ -78,9 +189,9 @@ Clears all entries from the \meta{tl~var}. For example
 Appends \meta{tokens} to the left side of the current content of
 \meta{tl~var}. For example
 \begin{demohigh}
-\TlSet\lTmpkTl{Functional}
-\TlPutLeft\lTmpkTl{Hello}
-\TlUse\lTmpkTl
+\TlSet \lTmpkTl {Functional}
+\TlPutLeft \lTmpkTl {Hello}
+\TlUse \lTmpkTl
 \end{demohigh}
 \end{function}
 
@@ -91,9 +202,509 @@ Appends \meta{tokens} to the left side of the current content of
 Appends \meta{tokens} to the right side of the current content of
 \meta{tl~var}. For example
 \begin{demohigh}
-\TlSet\lTmpkTl{Functional}
-\TlPutRight\lTmpkTl{World}
-\TlUse\lTmpkTl
+\TlSet \lTmpkTl {Functional}
+\TlPutRight \lTmpkTl {World}
+\TlUse \lTmpkTl
+\end{demohigh}
+\end{function}
+
+\section{Replacing Tokens}
+
+Within token lists, replacement takes place at the top level: there is
+no recursion into brace groups (more precisely, within a group defined by
+a categroy code $1$/$2$ pair).
+
+\begin{function}{\TlReplaceOnce}
+\begin{syntax}
+\cs{TlReplaceOnce} \meta{tl var} \Arg{old tokens} \Arg{new tokens}
+\end{syntax}
+Replaces the first (leftmost) occurrence of \meta{old tokens} in the
+\meta{tl var} with \meta{new tokens}. \meta{Old tokens}
+cannot contain \verb|{|, \verb|}| or \verb|#|
+(more precisely, explicit character tokens with category code $1$
+(begin-group) or $2$ (end-group), and tokens with category code $6$).
+\end{function}
+
+\begin{function}{\TlReplaceAll}
+\begin{syntax}
+\cs{TlReplaceAll} \meta{tl var} \Arg{old tokens} \Arg{new tokens}
+\end{syntax}
+Replaces all occurrences of \meta{old tokens} in the
+\meta{tl var} with \meta{new tokens}. \meta{Old tokens}
+cannot contain \verb|{|, \verb|}| or \verb|#|
+(more precisely, explicit character tokens with category code $1$
+(begin-group) or $2$ (end-group), and tokens with category code $6$).
+As this function
+operates from left to right, the pattern \meta{old tokens}
+may remain after the replacement (see \cs{TlRemoveAll}
+for an example).
+\end{function}
+
+\begin{function}{\TlRemoveOnce}
+\begin{syntax}
+\cs{TlRemoveOnce} \meta{tl var} \Arg{tokens}
+\end{syntax}
+Removes the first (leftmost) occurrence of \meta{tokens} from the
+\meta{tl var}. \meta{Tokens} cannot contain \verb|{|, \verb|}| or \verb|#|
+(more precisely, explicit character tokens with category code $1$
+(begin-group) or $2$ (end-group), and tokens with category code $6$).
+\end{function}
+
+\begin{function}{\TlRemoveAll}
+\begin{syntax}
+\cs{TlRemoveAll} \meta{tl var} \Arg{tokens}
+\end{syntax}
+Removes all occurrences of \meta{tokens} from the
+\meta{tl var}. \meta{Tokens} cannot contain \verb|{|, \verb|}| or \verb|#|
+(more precisely, explicit character tokens with category code $1$
+(begin-group) or $2$ (end-group), and tokens with category code $6$).
+As this function
+operates from left to right, the pattern \meta{tokens}
+may remain after the removal, for instance,
+\begin{demohigh}
+\TlSet \lTmpaTl {abbccd}
+\TlRemoveAll \lTmpaTl {bc}
+\TlUse \lTmpaTl
+\end{demohigh}
+\end{function}
+
+\begin{function}{\TlTrimSpaces}
+\begin{syntax}
+\cs{TlTrimSpaces} \Arg{token list}
+\end{syntax}
+Removes any leading and trailing explicit space characters
+(explicit tokens with character code $32$ and category code $10$)
+from the \meta{token list} and returns the result.
+%\begin{texnote}
+%The result is returned within \tn{unexpanded}, which means that the token
+%list does not expand further when appearing in an \texttt{x}-type
+%or \texttt{e}-type argument expansion.
+%\end{texnote}
+\end{function}
+
+\begin{function}{\TlVarTrimSpaces}
+\begin{syntax}
+\cs{TlVarTrimSpaces} \meta{tl var}
+\end{syntax}
+Sets the \meta{tl var} to contain the result of removing any leading
+and trailing explicit space characters (explicit tokens with
+character code $32$ and category code $10$) from its contents.
+\end{function}
+
+\section{ Working with the Content of Token Lists}
+
+\begin{function}{\TlCount}
+\begin{syntax}
+\cs{TlCount} \Arg{tokens}
+\end{syntax}
+Counts the number of \meta{items} in \meta{tokens} and returns this information.
+Unbraced tokens count as one element as do each token group (\verb|{|$\cdots$\verb|}|).
+This process ignores any unprotected spaces within \meta{tokens}. %See also \cs{TlVarCount}.
+%This function requires three expansions, giving an \meta{integer denotation}.
+\end{function}
+
+\begin{function}{\TlVarCount}
+\begin{syntax}
+\cs{TlVarCount} \meta{tl var}
+\end{syntax}
+Counts the number of \meta{items} in the \meta{tl var} and returns this information.
+Unbraced tokens count as one element as do each token group (\verb|{|$\cdots$\verb|}|).
+This process ignores any unprotected spaces within the \meta{tl var}. %See also \cs{TlCount}.
+%This function requires three expansions, giving an \meta{integer denotation}.
+\end{function}
+
+\begin{function}{\TlHead}
+\begin{syntax}
+\cs{TlHead} \Arg{token list}
+\end{syntax}
+Returns the first \meta{item} in the \meta{token list},
+discarding the rest of the \meta{token list}.
+All leading explicit space characters
+(explicit tokens with character code $32$ and category code $10$)
+are discarded; for example
+\begin{demohigh}
+\fbox{1\TlHead{ abc }2}
+\fbox{1\TlHead{   abc }2}
+\end{demohigh}
+If the \enquote{head} is a brace group, rather than a single token,
+the braces are removed, and so
+\begin{codehigh}
+\TlHead {   {   ab } c }
+\end{codehigh}
+yields \verb*| ab|.
+A blank \meta{token list} (see \cs{TlIfBlank}) results in
+\cs{TlHead} returning nothing.
+%\begin{texnote}
+%The result is returned within \cs{exp_not:n}, which means that the token
+%list does not expand further when appearing in an \texttt{x}-type
+%or \texttt{e}-type argument expansion.
+%\end{texnote}
+\end{function}
+
+\begin{function}{\TlVarHead}
+\begin{syntax}
+\cs{TlVarHead} \meta{tl var}
+\end{syntax}
+Returns the first \meta{item} in the \meta{tl var},
+discarding the rest of the \meta{tl var}.
+All leading explicit space characters
+(explicit tokens with character code $32$ and category code $10$)
+are discarded.
+\end{function}
+
+\begin{function}{\TlTail}
+\begin{syntax}
+\cs{TlTail} \Arg{token list}
+\end{syntax}
+Discards all leading explicit space characters
+(explicit tokens with character code $32$ and category code $10$)
+and the first \meta{item} in the \meta{token list}, and returns the
+remaining tokens. Thus for example
+\begin{codehigh}
+\TlTail { a   {bc} d }
+\end{codehigh}
+and
+\begin{codehigh}
+\TlTail {   a   {bc} d }
+\end{codehigh}
+both return \verb*| {bc}d|.  A blank \meta{token list} (see \cs{TlIfBlank})
+results in \cs{TlTail} returning nothing.
+%\begin{texnote}
+%The result is returned within \cs{exp_not:n}, which means that the
+%token list does not expand further when appearing in an \texttt{x}-type
+%or \texttt{e}-type argument expansion.
+%\end{texnote}
+\end{function}
+
+\begin{function}{\TlVarTail}
+\begin{syntax}
+\cs{TlVarTail} \meta{tl var}
+\end{syntax}
+Discards all leading explicit space characters
+(explicit tokens with character code $32$ and category code $10$)
+and the first \meta{item} in the \meta{tl var}, and returns the
+remaining tokens.
+\end{function}
+
+\begin{function}{\TlItem,\TlVarItem}
+\begin{syntax}
+\cs{TlItem} \Arg{token list} \Arg{integer expression}
+\cs{TlVarItem} \meta{tl var} \Arg{integer expression}
+\end{syntax}
+Indexing items in the \meta{token list} from $1$ on the left, this
+function evaluates the \meta{integer expression} and returns the
+appropriate item from the \meta{token list}.
+If the \meta{integer expression} is negative, indexing occurs from
+the right of the token list, starting at $-1$ for the right-most item.
+If the index is out of bounds, then the function returns nothing.
+%\begin{texnote}
+%The result is returned within the \tn{unexpanded}
+%primitive (\cs{exp_not:n}), which means that the \meta{item}
+%does not expand further when appearing in an \texttt{x}-type
+%or \texttt{e}-type argument expansion.
+%\end{texnote}
+\end{function}
+
+\begin{function}{\TlRandItem,\TlVarRandItem}
+\begin{syntax}
+\cs{TlRandItem} \Arg{token list}
+\cs{TlVarRandItem} \meta{tl var}
+\end{syntax}
+Selects and returns a pseudo-random item of the \meta{token list}.
+If the \meta{token list} is blank, the result is empty.
+%This is not available in older versions of \XeTeX{}.
+%\begin{texnote}
+%The result is returned within the \tn{unexpanded}
+%primitive (\cs{exp_not:n}), which means that the \meta{item}
+%does not expand further when appearing in an \texttt{x}-type
+%or \texttt{e}-type argument expansion.
+%\end{texnote}
+\end{function}
+
+\section{Case Functions for Token Lists}
+
+\begin{function}{\TlVarCase}
+\begin{syntax}
+\cs{TlVarCase} \meta{test token list variable}
+~ ~ \verb"{"
+~ ~ ~ ~ \meta{token list variable case_1} \Arg{code case_1}
+~ ~ ~ ~ \meta{token list variable case_2} \Arg{code case_2}
+~ ~ ~ ~ $\cdots$
+~ ~ ~ ~ \meta{token list variable case_n} \Arg{code case_n}
+~ ~ \verb"}"
+\end{syntax}
+This function compares the \meta{test token list variable} in turn
+with each of the \meta{token list variable cases}. If the two
+are equal (as described for \cs{TlVarIfEq})
+then the associated \meta{code} is left in the input
+stream and other cases are discarded. The function
+does nothing if there is no match.
+\end{function}
+
+\begin{function}{\TlVarCaseT}
+\begin{syntax}
+\cs{TlVarCaseT} \meta{test token list variable}
+~ ~ \verb"{"
+~ ~ ~ ~ \meta{token list variable case_1} \Arg{code case_1}
+~ ~ ~ ~ \meta{token list variable case_2} \Arg{code case_2}
+~ ~ ~ ~ $\cdots$
+~ ~ ~ ~ \meta{token list variable case_n} \Arg{code case_n}
+~ ~ \verb"}"
+~ ~ \Arg{true code}
+\end{syntax}
+This function compares the \meta{test token list variable} in turn
+with each of the \meta{token list variable cases}. If the two
+are equal (as described for \cs{TlVarIfEq})
+then the associated \meta{code} is left in the input
+stream and other cases are discarded. If any of the
+cases are matched, the \meta{true code} is also inserted into the
+input stream (after the code for the appropriate case).
+\end{function}
+
+\begin{function}{\TlVarCaseF}
+\begin{syntax}
+\cs{TlVarCaseF} \meta{test token list variable}
+~ ~ \verb"{"
+~ ~ ~ ~ \meta{token list variable case_1} \Arg{code case_1}
+~ ~ ~ ~ \meta{token list variable case_2} \Arg{code case_2}
+~ ~ ~ ~ $\cdots$
+~ ~ ~ ~ \meta{token list variable case_n} \Arg{code case_n}
+~ ~ \verb"}"
+~ ~ \Arg{false code}
+\end{syntax}
+This function compares the \meta{test token list variable} in turn
+with each of the \meta{token list variable cases}. If the two
+are equal (as described for \cs{TlVarIfEq})
+then the associated \meta{code} is left in the input
+stream and other cases are discarded. If none
+match then the \meta{false code} is inserted into the input stream
+ (after the code for the appropriate case).
+\end{function}
+
+\begin{function}{\TlVarCaseTF}
+\begin{syntax}
+\cs{TlVarCaseTF} \meta{test token list variable}
+~ ~ \verb"{"
+~ ~ ~ ~ \meta{token list variable case_1} \Arg{code case_1}
+~ ~ ~ ~ \meta{token list variable case_2} \Arg{code case_2}
+~ ~ ~ ~ $\cdots$
+~ ~ ~ ~ \meta{token list variable case_n} \Arg{code case_n}
+~ ~ \verb"}"
+~ ~ \Arg{true code}
+~ ~ \Arg{false code}
+\end{syntax}
+This function compares the \meta{test token list variable} in turn
+with each of the \meta{token list variable cases}. If the two
+are equal (as described for \cs{TlVarIfEq})
+then the associated \meta{code} is left in the input
+stream and other cases are discarded. If any of the
+cases are matched, the \meta{true code} is also inserted into the
+input stream (after the code for the appropriate case), while if none
+match then the \meta{false code} is inserted. The function
+\cs{TlVarCase}, which does nothing if there is no match, is also
+available.
+\end{function}
+
+\section{Viewing Token Lists}
+
+\begin{function}{\TlLog}
+\begin{syntax}
+\cs{TlLog} \Arg{token list}
+\end{syntax}
+Writes the \meta{token list} in the log file. See also
+\cs{TlShow} which displays the result in the terminal.
+\end{function}
+
+\begin{function}{\TlVarLog}
+\begin{syntax}
+\cs{TlVarLog} \meta{tl var}
+\end{syntax}
+Writes the content of the \meta{tl var} in the log file. See also
+\cs{TlVarShow} which displays the result in the terminal.
+\end{function}
+
+\begin{function}{\TlShow}
+\begin{syntax}
+\cs{TlShow} \Arg{token list}
+\end{syntax}
+Displays the \meta{token list} on the terminal.
+%\begin{texnote}
+%This is similar to the \eTeX{} primitive \tn{showtokens}, wrapped
+%to a fixed number of characters per line.
+%\end{texnote}
+\end{function}
+
+\begin{function}{\TlVarShow}
+\begin{syntax}
+\cs{TlVarShow} \meta{tl var}
+\end{syntax}
+Displays the content of the \meta{tl var} on the terminal.
+\begin{texnote}
+This is similar to the \TeX{} primitive \tn{show}, wrapped to a
+fixed number of characters per line.
+\end{texnote}
+\end{function}
+
+\section{Mapping over Token Lists}
+
+All mappings are done at the current group level, \emph{i.e.} any
+local assignments made by the \meta{function} or \meta{code} discussed
+below remain in effect after the loop.
+
+%\begin{function}{\TlMapFunction}
+%\begin{syntax}
+%\cs{TlMapFunction} \Arg{token list} \meta{function}
+%\end{syntax}
+%Applies \meta{function} to every \meta{item} in the \meta{token list},
+%The \meta{function} receives one argument for each iteration.
+%This may be a number of tokens if the \meta{item} was stored within
+%braces. Hence the \meta{function} should anticipate receiving
+%\texttt{n}-type arguments.
+%\end{function}
+%
+%\begin{function}{\TlVarMapFunction}
+%\begin{syntax}
+%\cs{TlVarMapFunction} \meta{tl var} \meta{function}
+%\end{syntax}
+%Applies \meta{function} to every \meta{item} in the \meta{tl var}.
+%The \meta{function} receives one argument for each iteration.
+%This may be a number of tokens if the \meta{item} was stored within
+%braces. Hence the \meta{function} should anticipate receiving
+%\texttt{n}-type arguments.
+%\end{function}
+
+\begin{function}{\TlMapInline}
+\begin{syntax}
+\cs{TlMapInline} \Arg{token list} \Arg{inline function}
+\end{syntax}
+Applies the \meta{inline function} to every \meta{item} stored within the
+\meta{token list}. The \meta{inline function}  should consist of code which
+receives the \meta{item} as \verb|#1|.
+\end{function}
+
+\begin{function}{\TlVarMapInline}
+\begin{syntax}
+\cs{TlVarMapInline} \meta{tl var} \Arg{inline function}
+\end{syntax}
+Applies the \meta{inline function} to every \meta{item} stored within the
+\meta{tl var}. The \meta{inline function} should consist of code which
+receives the \meta{item} as \verb|#1|.
+\end{function}
+
+%\begin{function}{\TlMapTokens,\TlVarMapTokens}
+%\begin{syntax}
+%\cs{TlMapTokens} \Arg{tokens} \Arg{code}
+%\cs{TlVarMapTokens} \meta{tl var} \Arg{code}
+%\end{syntax}
+%Analogue of \cs{tl_map_function:NN} which maps several tokens
+%instead of a single function.  The \meta{code} receives each \meta{item} in
+%the \meta{tl var} or in \meta{tokens} as a trailing brace group. For
+%instance,
+%\begin{verbatim}
+%\tl_map_tokens:Nn \l_my_tl { \prg_replicate:nn { 2 } }
+%\end{verbatim}
+%expands to twice each \meta{item} in the \meta{tl var}: for each \meta{item} in
+%\cs{l_my_tl} the function \cs{prg_replicate:nn} receives |2| and
+%\meta{item} as its two arguments.  The function
+%\cs{tl_map_inline:Nn} is typically faster but is not expandable.
+%\end{function}
+
+\begin{function}{\TlMapVariable}
+\begin{syntax}
+\cs{TlMapVariable} \Arg{token list} \meta{variable} \Arg{code}
+\end{syntax}
+Stores each \meta{item} of the \meta{token list} in turn in the
+(token list) \meta{variable} and applies the \meta{code}.  The
+\meta{code} will usually make use of the \meta{variable}, but this
+is not enforced.  The assignments to the \meta{variable} are local.
+Its value after the loop is the last \meta{item} in the
+\meta{tl var}, or its original value if the \meta{tl var} is blank.
+\end{function}
+
+\begin{function}{\TlVarMapVariable}
+\begin{syntax}
+\cs{TlVarMapVariable} \meta{tl var} \meta{variable} \Arg{code}
+\end{syntax}
+Stores each \meta{item} of the \meta{tl var} in turn in the (token
+list) \meta{variable} and applies the \meta{code}.  The \meta{code}
+will usually make use of the \meta{variable}, but this is not
+enforced.  The assignments to the \meta{variable} are local.  Its
+value after the loop is the last \meta{item} in the \meta{tl var},
+or its original value if the \meta{tl var} is blank.
+\end{function}
+
+%\begin{function}{\TlMapBreak}
+%\begin{syntax}
+%\cs{TlMapBreak}
+%\end{syntax}
+%Used to terminate a tl map function before all
+%entries in the \meta{token list variable} have been processed. This
+%normally takes place within a conditional statement, for example
+%\begin{verbatim}
+%\tl_map_inline:Nn \l_my_tl
+%{
+%\str_if_eq:nnT { #1 } { bingo } { \tl_map_break: }
+%Do something useful
+%}
+%\end{verbatim}
+%See also \cs{tl_map_break:n}.
+%Use outside of a tl map scenario leads to low
+%level \TeX{} errors.
+%\begin{texnote}
+%When the mapping is broken, additional tokens may be inserted
+%before the \meta{tokens} are
+%inserted into the input stream.
+%This depends on the design of the mapping function.
+%\end{texnote}
+%\end{function}
+%
+%\begin{function}{\TlMapBreakDo}
+%\begin{syntax}
+%\cs{TlMapBreakDo} \Arg{code}
+%\end{syntax}
+%Used to terminate a tl map function before all
+%entries in the \meta{token list variable} have been processed, inserting
+%the \meta{code} after the mapping has ended. This
+%normally takes place within a conditional statement, for example
+%\begin{verbatim}
+%\tl_map_inline:Nn \l_my_tl
+%{
+%\str_if_eq:nnT { #1 } { bingo }
+%{ \tl_map_break:n { <code> } }
+%Do something useful
+%}
+%\end{verbatim}
+%Use outside of a tl map scenario leads to low
+%level \TeX{} errors.
+%\begin{texnote}
+%When the mapping is broken, additional tokens may be inserted
+%before the \meta{code} is
+%inserted into the input stream.
+%This depends on the design of the mapping function.
+%\end{texnote}
+%\end{function}
+
+\section{Token List Conditional}
+
+\begin{function}{\TlIfExist,\TlIfExistTF}
+\begin{syntax}
+\cs{TlIfExist} \meta{tl var}
+\cs{TlIfExistTF} \meta{tl var} \Arg{true code} \Arg{false code}
+\end{syntax}
+Tests whether the \meta{tl var} is currently defined.  This does not
+check that the \meta{tl var} really is a token list variable.
+\end{function}
+
+\begin{function}{\TlIfEmpty,\TlIfEmptyTF}
+\begin{syntax}
+\cs{TlIfEmpty} \Arg{token list}
+\cs{TlIfEmptyTF} \Arg{token list} \Arg{true code} \Arg{false code}
+\end{syntax}
+Tests if the \meta{token list} is entirely empty
+(\emph{i.e.}~contains no tokens at all). For example
+\begin{demohigh}
+\TlIfEmptyTF {abc} {\Result{Empty}} {\Result{NonEmpty}}
+\TlIfEmptyTF {} {\Result{Empty}} {\Result{NonEmpty}}
 \end{demohigh}
 \end{function}
 
@@ -105,11 +716,23 @@ Appends \meta{tokens} to the right side of the current content of
 Tests if the \meta{token list variable} is entirely empty
 (\emph{i.e.}~contains no tokens at all). For example
 \begin{demohigh}
-\TlSet\lTmpaTl{abc}
-\TlVarIfEmptyTF\lTmpaTl{\Result{Empty}}{\Result{NonEmpty}}
-\TlClear\lTmpaTl
-\TlVarIfEmptyTF\lTmpaTl{\Result{Empty}}{\Result{NonEmpty}}
+\TlSet \lTmpaTl {abc}
+\TlVarIfEmptyTF \lTmpaTl {\Result{Empty}} {\Result{NonEmpty}}
+\TlClear \lTmpaTl
+\TlVarIfEmptyTF \lTmpaTl {\Result{Empty}} {\Result{NonEmpty}}
 \end{demohigh}
+\end{function}
+
+\begin{function}{\TlIfBlank}
+\begin{syntax}
+\cs{TlIfBlank} \Arg{token list}
+\cs{TlIfBlankTF} \Arg{token list} \Arg{true code} \Arg{false code}
+\end{syntax}
+Tests if the \meta{token list} consists only of blank spaces
+(\emph{i.e.} contains no item). The test is \texttt{true} if
+\meta{token list} is zero or more explicit space characters
+(explicit tokens with character code $32$ and category code $10$),
+and is \texttt{false} otherwise.
 \end{function}
 
 \begin{function}{\TlIfEq,\TlIfEqTF}
@@ -122,8 +745,8 @@ same list of tokens, both in respect of character codes and category
 codes. See \cs{StrIfEq} if category codes are not important.
 For example
 \begin{demohigh}
-\TlIfEqTF{abc}{abc}{\Result{Yes}}{\Result{No}}
-\TlIfEqTF{abc}{xyz}{\Result{Yes}}{\Result{No}}
+\TlIfEqTF {abc} {abc} {\Result{Yes}} {\Result{No}}
+\TlIfEqTF {abc} {xyz} {\Result{Yes}} {\Result{No}}
 \end{demohigh}
 %\begin{demohigh}
 %\TlSet\lTmpaTl{abc}
@@ -144,13 +767,61 @@ is logically \texttt{true} if the two contain the same list of
 tokens (\emph{i.e.}~identical in both the list of characters they
 contain and the category codes of those characters). For example
 \begin{demohigh}
-\TlSet\lTmpaTl{abc}
-\TlSet\lTmpbTl{abc}
-\TlSet\lTmpcTl{xyz}
-\TlVarIfEqTF\lTmpaTl\lTmpbTl{\Result{Yes}}{\Result{No}}
-\TlVarIfEqTF\lTmpaTl\lTmpcTl{\Result{Yes}}{\Result{No}}
+\TlSet \lTmpaTl {abc}
+\TlSet \lTmpbTl {abc}
+\TlSet \lTmpcTl {xyz}
+\TlVarIfEqTF \lTmpaTl \lTmpbTl {\Result{Yes}} {\Result{No}}
+\TlVarIfEqTF \lTmpaTl \lTmpcTl {\Result{Yes}} {\Result{No}}
 \end{demohigh}
 See also \cs{StrVarIfEq} for a comparison that ignores category codes.
+\end{function}
+
+\begin{function}{\TlIfIn,\TlIfInTF}
+\begin{syntax}
+\cs{TlIfIn} \Arg{token list_1} \Arg{token list_2}
+\cs{TlIfInTF} \Arg{token list_1} \Arg{token list_2} \Arg{true code} \Arg{false code}
+\end{syntax}
+Tests if \meta{token list_2} is found inside \meta{token list_1}.
+The \meta{token list_2} cannot contain the tokens \verb|{|, \verb|}| or \verb|#|
+(more precisely, explicit character tokens with category code $1$
+(begin-group) or $2$ (end-group), and tokens with category code $6$).
+The search does \emph{not} enter brace (category code $1$/$2$) groups.
+\end{function}
+
+\begin{function}{\TlVarIfIn,\TlVarIfInTF}
+\begin{syntax}
+\cs{TlVarIfIn} \meta{tl var} \Arg{token list}
+\cs{TlVarIfInTF} \meta{tl var} \Arg{token list} \Arg{true code} \Arg{false code}
+\end{syntax}
+Tests if the \meta{token list} is found in the content of the
+\meta{tl var}. The \meta{token list} cannot contain
+the tokens \verb|{|, \verb|}| or \verb|#|
+(more precisely, explicit character tokens with category code $1$
+(begin-group) or $2$ (end-group), and tokens with category code $6$).
+\end{function}
+
+\begin{function}{\TlIfSingle,\TlIfSingleTF}
+\begin{syntax}
+\cs{TlIfSingle} \Arg{token list}
+\cs{TlIfSingleTF} \Arg{token list} \Arg{true code} \Arg{false code}
+\end{syntax}
+Tests if the \meta{token list} has exactly one \meta{item}, \emph{i.e.} is
+a single normal token (neither an explicit space character nor a
+begin-group character) or a single brace group, surrounded by
+optional spaces on both sides. In other words, such a token list has
+token count $1$ according to \cs{TlCount}.
+\end{function}
+
+\begin{function}{\TlVarIfSingle,\TlVarIfSingleTF}
+\begin{syntax}
+\cs{TlVarIfSingle} \meta{tl var}
+\cs{TlVarIfSingleTF} \meta{tl var} \Arg{true code} \Arg{false code}
+\end{syntax}
+Tests if the content of the \meta{tl var} consists of a single \meta{item},
+\emph{i.e.} is a single normal token (neither an explicit space
+character nor a begin-group character) or a single brace group,
+surrounded by optional spaces on both sides. In other words, such a
+token list has token count $1$ according to \cs{TlVarCount}.
 \end{function}
 
 \end{document}
