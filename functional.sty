@@ -1181,6 +1181,15 @@
 %%> \section{Interfaces for Floating Point Numbers (Fp)}
 %%% --------------------------------------------------------
 
+\fp_set_eq:NN \cZeroFp      \c_zero_fp
+\fp_set_eq:NN \cMinusZeroFp \c_minus_zero_fp
+\fp_set_eq:NN \cOneFp       \c_one_fp
+\fp_set_eq:NN \cInfFp       \c_inf_fp
+\fp_set_eq:NN \cMinusInfFp  \c_minus_inf_fp
+\fp_set_eq:NN \cEFp         \c_e_fp
+\fp_set_eq:NN \cPiFp        \c_pi_fp
+\fp_set_eq:NN \cOneDegreeFp \c_one_degree_fp
+
 \fp_new:N \lTmpaFp   \fp_new:N \lTmpbFp   \fp_new:N \lTmpcFp
 \fp_new:N \lTmpiFp   \fp_new:N \lTmpjFp   \fp_new:N \lTmpkFp
 \fp_new:N \l@Funx@Fp \fp_new:N \l@Funy@Fp \fp_new:N \l@Funz@Fp
@@ -1240,25 +1249,36 @@
 
 \PrgNewFunction \FpNew { M } { \fp_new:N #1 }
 
-\PrgNewFunction \FpVarLog { M } { \fp_log:N #1 }
-
-\PrgNewFunction \FpVarShow { M } { \fp_show:N #1 }
+\PrgNewFunction \FpConst { M m } { \fp_const:Nn #1 {#2} }
 
 \PrgNewFunction \FpUse { M } { \Result { \Expand { \fp_use:N #1 } } }
 
-\PrgNewFunction \FpConst { M m }
-  {
-    \fp_const:Nn #1 {#2}
-  }
+\PrgNewFunction \FpLog { m } { \fp_log:n { #1 } }
+
+\PrgNewFunction \FpVarLog { M } { \fp_log:N #1 }
+
+\PrgNewFunction \FpShow { m } { \fp_show:n { #1 } }
+
+\PrgNewFunction \FpVarShow { M } { \fp_show:N #1 }
 
 \PrgNewFunction \FpSet { M m }
   {
     \__fun_do_assignment:Nnn #1 { \fp_gset:Nn #1 {#2} } { \fp_set:Nn #1 {#2} }
   }
 
+\PrgNewFunction \FpSetEq { M M }
+  {
+    \__fun_do_assignment:Nnn #1 { \fp_gset_eq:NN #1 #2 } { \fp_set_eq:NN #1 #2 }
+  }
+
 \PrgNewFunction \FpZero { M }
   {
     \__fun_do_assignment:Nnn #1 { \fp_gzero:N #1 } { \fp_zero:N #1 }
+  }
+
+\PrgNewFunction \FpZeroNew { M }
+  {
+    \__fun_do_assignment:Nnn #1 { \fp_gzero_new:N #1 } { \fp_zero_new:N #1 }
   }
 
 \PrgNewFunction \FpAdd { M m }
@@ -1269,6 +1289,11 @@
 \PrgNewFunction \FpSub { M m }
   {
     \__fun_do_assignment:Nnn #1 { \fp_gsub:Nn #1 {#2} } { \fp_sub:Nn #1 {#2} }
+  }
+
+\PrgNewFunction \FpStepInline { m m m n }
+  {
+    \fp_step_inline:nnnn { #1 } { #2 } { #3 } { #4 }
   }
 
 \PrgNewFunction \FpStepVariable { m m m M n }
