@@ -1253,90 +1253,6 @@ If the \meta{token list} is blank, the result is empty.
 %\end{texnote}
 \end{function}
 
-\section{Case Functions for Token Lists}
-
-\begin{function}{\TlVarCase}
-\begin{syntax}
-\cs{TlVarCase} \meta{test token list variable}
-~ ~ \verb"{"
-~ ~ ~ ~ \meta{token list variable case_1} \Arg{code case_1}
-~ ~ ~ ~ \meta{token list variable case_2} \Arg{code case_2}
-~ ~ ~ ~ $\cdots$
-~ ~ ~ ~ \meta{token list variable case_n} \Arg{code case_n}
-~ ~ \verb"}"
-\end{syntax}
-This function compares the \meta{test token list variable} in turn
-with each of the \meta{token list variable cases}. If the two
-are equal (as described for \cs{TlVarIfEq})
-then the associated \meta{code} is left in the input
-stream and other cases are discarded. The function
-does nothing if there is no match.
-\end{function}
-
-\begin{function}{\TlVarCaseT}
-\begin{syntax}
-\cs{TlVarCaseT} \meta{test token list variable}
-~ ~ \verb"{"
-~ ~ ~ ~ \meta{token list variable case_1} \Arg{code case_1}
-~ ~ ~ ~ \meta{token list variable case_2} \Arg{code case_2}
-~ ~ ~ ~ $\cdots$
-~ ~ ~ ~ \meta{token list variable case_n} \Arg{code case_n}
-~ ~ \verb"}"
-~ ~ \Arg{true code}
-\end{syntax}
-This function compares the \meta{test token list variable} in turn
-with each of the \meta{token list variable cases}. If the two
-are equal (as described for \cs{TlVarIfEq})
-then the associated \meta{code} is left in the input
-stream and other cases are discarded. If any of the
-cases are matched, the \meta{true code} is also inserted into the
-input stream (after the code for the appropriate case).
-\end{function}
-
-\begin{function}{\TlVarCaseF}
-\begin{syntax}
-\cs{TlVarCaseF} \meta{test token list variable}
-~ ~ \verb"{"
-~ ~ ~ ~ \meta{token list variable case_1} \Arg{code case_1}
-~ ~ ~ ~ \meta{token list variable case_2} \Arg{code case_2}
-~ ~ ~ ~ $\cdots$
-~ ~ ~ ~ \meta{token list variable case_n} \Arg{code case_n}
-~ ~ \verb"}"
-~ ~ \Arg{false code}
-\end{syntax}
-This function compares the \meta{test token list variable} in turn
-with each of the \meta{token list variable cases}. If the two
-are equal (as described for \cs{TlVarIfEq})
-then the associated \meta{code} is left in the input
-stream and other cases are discarded. If none
-match then the \meta{false code} is inserted into the input stream
- (after the code for the appropriate case).
-\end{function}
-
-\begin{function}{\TlVarCaseTF}
-\begin{syntax}
-\cs{TlVarCaseTF} \meta{test token list variable}
-~ ~ \verb"{"
-~ ~ ~ ~ \meta{token list variable case_1} \Arg{code case_1}
-~ ~ ~ ~ \meta{token list variable case_2} \Arg{code case_2}
-~ ~ ~ ~ $\cdots$
-~ ~ ~ ~ \meta{token list variable case_n} \Arg{code case_n}
-~ ~ \verb"}"
-~ ~ \Arg{true code}
-~ ~ \Arg{false code}
-\end{syntax}
-This function compares the \meta{test token list variable} in turn
-with each of the \meta{token list variable cases}. If the two
-are equal (as described for \cs{TlVarIfEq})
-then the associated \meta{code} is left in the input
-stream and other cases are discarded. If any of the
-cases are matched, the \meta{true code} is also inserted into the
-input stream (after the code for the appropriate case), while if none
-match then the \meta{false code} is inserted. The function
-\cs{TlVarCase}, which does nothing if there is no match, is also
-available.
-\end{function}
-
 \section{Mapping over Token Lists}
 
 All mappings are done at the current group level, \emph{i.e.} any
@@ -1476,7 +1392,7 @@ or its original value if the \meta{tl var} is blank.
 %\end{texnote}
 %\end{function}
 
-\section{Token List Conditional}
+\section{Token List Conditionals}
 
 \begin{function}{\TlIfExist,\TlIfExistTF}
 \begin{syntax}
@@ -1616,9 +1532,98 @@ surrounded by optional spaces on both sides. In other words, such a
 token list has token count $1$ according to \cs{TlVarCount}.
 \end{function}
 
+\section{Case Functions for Token Lists}
+
+\begin{function}{\TlVarCase}
+\begin{syntax}
+\cs{TlVarCase} \meta{test token list variable}
+~ ~ \verb"{"
+~ ~ ~ ~ \meta{token list variable case_1} \Arg{code case_1}
+~ ~ ~ ~ \meta{token list variable case_2} \Arg{code case_2}
+~ ~ ~ ~ $\cdots$
+~ ~ ~ ~ \meta{token list variable case_n} \Arg{code case_n}
+~ ~ \verb"}"
+\end{syntax}
+This function compares the \meta{test token list variable} in turn
+with each of the \meta{token list variable cases}. If the two
+are equal (as described for \cs{TlVarIfEq})
+then the associated \meta{code} is left in the input
+stream and other cases are discarded. The function
+does nothing if there is no match.
+\end{function}
+
+\begin{function}{\TlVarCaseT}
+\begin{syntax}
+\cs{TlVarCaseT} \meta{test token list variable}
+~ ~ \verb"{"
+~ ~ ~ ~ \meta{token list variable case_1} \Arg{code case_1}
+~ ~ ~ ~ \meta{token list variable case_2} \Arg{code case_2}
+~ ~ ~ ~ $\cdots$
+~ ~ ~ ~ \meta{token list variable case_n} \Arg{code case_n}
+~ ~ \verb"}"
+~ ~ \Arg{true code}
+\end{syntax}
+This function compares the \meta{test token list variable} in turn
+with each of the \meta{token list variable cases}. If the two
+are equal (as described for \cs{TlVarIfEq})
+then the associated \meta{code} is left in the input
+stream and other cases are discarded. If any of the
+cases are matched, the \meta{true code} is also inserted into the
+input stream (after the code for the appropriate case).
+\end{function}
+
+\begin{function}{\TlVarCaseF}
+\begin{syntax}
+\cs{TlVarCaseF} \meta{test token list variable}
+~ ~ \verb"{"
+~ ~ ~ ~ \meta{token list variable case_1} \Arg{code case_1}
+~ ~ ~ ~ \meta{token list variable case_2} \Arg{code case_2}
+~ ~ ~ ~ $\cdots$
+~ ~ ~ ~ \meta{token list variable case_n} \Arg{code case_n}
+~ ~ \verb"}"
+~ ~ \Arg{false code}
+\end{syntax}
+This function compares the \meta{test token list variable} in turn
+with each of the \meta{token list variable cases}. If the two
+are equal (as described for \cs{TlVarIfEq})
+then the associated \meta{code} is left in the input
+stream and other cases are discarded. If none
+match then the \meta{false code} is inserted into the input stream
+ (after the code for the appropriate case).
+\end{function}
+
+\begin{function}{\TlVarCaseTF}
+\begin{syntax}
+\cs{TlVarCaseTF} \meta{test token list variable}
+~ ~ \verb"{"
+~ ~ ~ ~ \meta{token list variable case_1} \Arg{code case_1}
+~ ~ ~ ~ \meta{token list variable case_2} \Arg{code case_2}
+~ ~ ~ ~ $\cdots$
+~ ~ ~ ~ \meta{token list variable case_n} \Arg{code case_n}
+~ ~ \verb"}"
+~ ~ \Arg{true code}
+~ ~ \Arg{false code}
+\end{syntax}
+This function compares the \meta{test token list variable} in turn
+with each of the \meta{token list variable cases}. If the two
+are equal (as described for \cs{TlVarIfEq})
+then the associated \meta{code} is left in the input
+stream and other cases are discarded. If any of the
+cases are matched, the \meta{true code} is also inserted into the
+input stream (after the code for the appropriate case), while if none
+match then the \meta{false code} is inserted. The function
+\cs{TlVarCase}, which does nothing if there is no match, is also
+available.
+\end{function}
+
 \chapter{Strings (\texttt{Str})}
 
-\section{Scratch Variables of Strings}
+\section{Constant and Scratch Strings}
+
+\begin{variable}{\cAmpersandStr,\cAtsignStr,\cBackslashStr,\cLeftBraceStr,\cRightBraceStr,
+\cCircumflexStr,\cColonStr,\cDollarStr,\cHashStr,\cPercentStr,\cTildeStr,\cUnderscoreStr,\cZeroStr}
+Constant strings, containing a single character token, with category code $12$.
+\end{variable}
 
 \begin{variable}{\lTmpaStr,\lTmpbStr,\lTmpcStr,\lTmpiStr,\lTmpjStr,\lTmpkStr}
 Scratch strings for local assignment. These are never used by
@@ -1634,7 +1639,7 @@ function. However, they may be overwritten by other
 code and so should only be used for short-term storage.
 \end{variable}
 
-\section{Public Functions for Strings}
+\section{Creating and Using Strings}
 
 \begin{function}{\StrNew}
 \begin{syntax}
@@ -1645,23 +1650,13 @@ already taken. The declaration is global. The \meta{str var} is
 initially empty.
 \end{function}
 
-\begin{function}{\StrVarLog}
+\begin{function}{\StrConst}
 \begin{syntax}
-\cs{StrVarLog} \meta{str var}
+\cs{StrConst} \meta{str var} \Arg{token list}
 \end{syntax}
-Writes the content of the \meta{str var} in the log file.
-For example
-\begin{codehigh}
-\StrSet\lTmpiStr{1234\abcd5678}
-\StrVarLog\lTmpiStr
-\end{codehigh}
-\end{function}
-
-\begin{function}{\StrVarShow}
-\begin{syntax}
-\cs{StrVarShow} \meta{str var}
-\end{syntax}
-Displays the content of the \meta{str var} on the terminal.
+Creates a new constant \meta{str var} or raises an error if the name
+is already taken.  The value of the \meta{str var} is set
+globally to the \meta{token list}, converted to a string.
 \end{function}
 
 \begin{function}{\StrUse}
@@ -1674,6 +1669,43 @@ does not exist or if it is invalid. Note that it is possible to use
 a \meta{str} directly without an accessor function.
 \end{function}
 
+\section{Viewing Strings}
+
+\begin{function}{\StrLog}
+\begin{syntax}
+\cs{StrLog} \Arg{token list}
+\end{syntax}
+Writes \meta{token list} in the log file.
+\end{function}
+
+\begin{function}{\StrVarLog}
+\begin{syntax}
+\cs{StrVarLog} \meta{str var}
+\end{syntax}
+Writes the content of the \meta{str var} in the log file.
+For example
+\begin{codehigh}
+\StrSet \lTmpiStr {1234\abcd5678}
+\StrVarLog \lTmpiStr
+\end{codehigh}
+\end{function}
+
+\begin{function}{\StrShow}
+\begin{syntax}
+\cs{StrShow} \Arg{token list}
+\end{syntax}
+Displays \meta{token list} on the terminal.
+\end{function}
+
+\begin{function}{\StrVarShow}
+\begin{syntax}
+\cs{StrVarShow} \meta{str var}
+\end{syntax}
+Displays the content of the \meta{str var} on the terminal.
+\end{function}
+
+\section{Setting String Variables}
+
 \begin{function}{\StrSet}
 \begin{syntax}
 \cs{StrSet} \meta{str var} \Arg{token list}
@@ -1681,8 +1713,8 @@ a \meta{str} directly without an accessor function.
 Converts the \meta{token list} to a \meta{string}, and stores the
 result in \meta{str var}. For example
 \begin{demohigh}
-\StrSet\lTmpiStr{\IntMathMult{4}{5}}
-\StrUse\lTmpiStr
+\StrSet \lTmpiStr {\IntMathMult{4}{5}}
+\StrUse \lTmpiStr
 \end{demohigh}
 \end{function}
 
@@ -1692,11 +1724,39 @@ result in \meta{str var}. For example
 \end{syntax}
 Clears the content of the \meta{str var}. For example
 \begin{demohigh}
-\StrSet\lTmpjStr{One}
-\StrClear\lTmpjStr
-\StrSet\lTmpjStr{Two}
-\StrUse\lTmpjStr
+\StrSet \lTmpjStr {One}
+\StrClear \lTmpjStr
+\StrSet \lTmpjStr {Two}
+\StrUse \lTmpjStr
 \end{demohigh}
+\end{function}
+
+\begin{function}{\StrClearNew}
+\begin{syntax}
+\cs{StrClearNew} \meta{str var}
+\end{syntax}
+Ensures that the \meta{str var} exists globally by applying
+\cs{StrNew} if necessary, then applies \cs{StrClear} to leave
+the \meta{str var} empty.
+\end{function}
+
+\begin{function}{\StrSetEq}
+\begin{syntax}
+\cs{StrSetEq} \meta{str var_1} \meta{str var_2}
+\end{syntax}
+Sets the content of \meta{str var_1} equal to that of
+\meta{str var_2}.
+\end{function}
+
+\begin{function}{\StrConcat}
+\begin{syntax}
+\cs{StrConcat} \meta{str var_1} \meta{str var_2} \meta{str var_3}
+\end{syntax}
+Concatenates the content of \meta{str var_2} and \meta{str var_3}
+together and saves the result in \meta{str var_1}. The \meta{str var_2}
+is placed at the left side of the new string variable.
+The \meta{str var_2} and \meta{str var_3} must indeed be strings, as
+this function does not convert their contents to a string.
 \end{function}
 
 \begin{function}{\StrPutLeft}
@@ -1707,9 +1767,9 @@ Converts the \meta{token list} to a \meta{string}, and prepends the
 result to \meta{str var}.  The current contents of the \meta{str
 var} are not automatically converted to a string. For example
 \begin{demohigh}
-\StrSet\lTmpkStr{Functional}
-\StrPutLeft\lTmpkStr{Hello}
-\StrUse\lTmpkStr
+\StrSet \lTmpkStr {Functional}
+\StrPutLeft \lTmpkStr {Hello}
+\StrUse \lTmpkStr
 \end{demohigh}
 \end{function}
 
@@ -1721,10 +1781,264 @@ Converts the \meta{token list} to a \meta{string}, and appends the
 result to \meta{str var}.  The current contents of the \meta{str
 var} are not automatically converted to a string. For example
 \begin{demohigh}
-\StrSet\lTmpkStr{Functional}
-\StrPutRight\lTmpkStr{World}
-\StrUse\lTmpkStr
+\StrSet \lTmpkStr {Functional}
+\StrPutRight \lTmpkStr {World}
+\StrUse \lTmpkStr
 \end{demohigh}
+\end{function}
+
+\section{Modifying String Variables}
+
+\begin{function}{\StrReplaceOnce}
+\begin{syntax}
+\cs{StrReplaceOnce} \meta{str var} \Arg{old} \Arg{new}
+\end{syntax}
+Converts the \meta{old} and \meta{new} token lists to strings, then
+replaces the first (leftmost) occurrence of \meta{old string} in the
+\meta{str var} with \meta{new string}.
+\end{function}
+
+\begin{function}{\StrReplaceAll}
+\begin{syntax}
+\cs{StrReplaceAll} \meta{str var} \Arg{old} \Arg{new}
+\end{syntax}
+Converts the \meta{old} and \meta{new} token lists to strings, then
+replaces all occurrences of \meta{old string} in the
+\meta{str var} with \meta{new string}.
+As this function
+operates from left to right, the pattern \meta{old string}
+may remain after the replacement.
+\end{function}
+
+\begin{function}{\StrRemoveOnce}
+\begin{syntax}
+\cs{StrRemoveOnce} \meta{str var} \Arg{token list}
+\end{syntax}
+Converts the \meta{token list} to a \meta{string} then
+removes the first (leftmost) occurrence of \meta{string} from the
+\meta{str var}.
+\end{function}
+
+\begin{function}{\StrRemoveAll}
+\begin{syntax}
+\cs{StrRemoveAll} \meta{str var} \Arg{token list}
+\end{syntax}
+Converts the \meta{token list} to a \meta{string} then
+removes all occurrences of \meta{string} from the \meta{str var}.
+As this function operates from left to right,
+the pattern \meta{string} may remain after the removal, for instance,
+\begin{demohigh}
+\StrSet \lTmpaStr {abbccd}
+\StrRemoveAll \lTmpaStr {bc}
+\TlUse \lTmpaStr
+\end{demohigh}
+\end{function}
+
+\section{Working with the Content of Strings}
+
+\begin{function}{\StrCount}
+\begin{syntax}
+\cs{StrCount} \Arg{token list}
+\end{syntax}
+Returns the number of characters in the string representation of \meta{token list},
+as an integer denotation. All characters including spaces are counted.
+\end{function}
+
+\begin{function}{\StVarCount}
+\begin{syntax}
+\cs{StrVarCount} \meta{tl var}
+\end{syntax}
+Returns the number of characters in the string representation of the \meta{tl var},
+as an integer denotation. All characters including spaces are counted.
+\end{function}
+
+\begin{function}{\StrHead}
+\begin{syntax}
+\cs{StrHead} \Arg{token list}
+\end{syntax}
+Converts the \meta{token list} into a \meta{string}.
+The first character in the \meta{string} is then returned,
+with category code \enquote{other}. If the first character is a space,
+it returns a space token with category code $10$ (blank space).
+If the \meta{string} is empty, then nothing is returned.
+\end{function}
+
+\begin{function}{\StrVarHead}
+\begin{syntax}
+\cs{StrVarHead} \meta{tl var}
+\end{syntax}
+Converts the \meta{tl var} into a \meta{string}.
+The first character in the \meta{string} is then returned,
+with category code \enquote{other}. If the first character is a space,
+it returns a space token with category code $10$ (blank space).
+If the \meta{string} is empty, then nothing is returned.
+\end{function}
+
+\begin{function}{\StrTail}
+\begin{syntax}
+\cs{StrTail} \Arg{token list}
+\end{syntax}
+Converts the \meta{token list} to a \meta{string}, removes the first
+character, and returns the remaining characters (if any)
+with category codes $12$ and $10$ (for spaces).
+If the first character is a space, it only trims that space.
+If the \meta{token list} is empty,
+then nothing is left on the input stream.
+\end{function}
+
+\begin{function}{\StrVarTail}
+\begin{syntax}
+\cs{StrVarTail} \meta{tl var}
+\end{syntax}
+Converts the \meta{tl var} to a \meta{string}, removes the first
+character, and returns the remaining characters (if any)
+with category codes $12$ and $10$ (for spaces).
+If the first character is a space, it only trims that space.
+If the \meta{token list} is empty,
+then nothing is left on the input stream.
+\end{function}
+
+\begin{function}{\StrItem}
+\begin{syntax}
+\cs{StrItem} \Arg{token list} \Arg{integer expression}
+\end{syntax}
+Converts the \meta{token list} to a \meta{string},
+and returns the character in position \meta{integer expression} of
+the \meta{string}, starting at $1$ for the first (left-most)
+character. All characters including spaces are taken into account.
+If the \meta{integer expression} is negative,
+characters are counted from the end of the \meta{string}. Hence,
+$-1$ is the right-most character, \emph{etc.}
+\end{function}
+
+\begin{function}{\StrVarItem}
+\begin{syntax}
+\cs{StrVarItem} \meta{tl var} \Arg{integer expression}
+\end{syntax}
+Converts the \meta{tl var} to a \meta{string},
+and returns the character in position \meta{integer expression} of
+the \meta{string}, starting at $1$ for the first (left-most)
+character. All characters including spaces are taken into account.
+If the \meta{integer expression} is negative,
+characters are counted from the end of the \meta{string}. Hence,
+$-1$ is the right-most character, \emph{etc.}
+\end{function}
+
+\section{Mapping over Strings}
+
+All mappings are done at the current group level, \emph{i.e.} any
+local assignments made by the \meta{function} or \meta{code} discussed
+below remain in effect after the loop.
+
+%\begin{function}{\StrMapFunction,\StrVarMapFunction}
+%\begin{syntax}
+%\cs{StrMapFunction} \Arg{token list} \meta{function}
+%\cs{StrVarMapFunction} \meta{str var} \meta{function}
+%\end{syntax}
+%Converts the \meta{token list} to a \meta{string} then
+%applies \meta{function} to every \meta{character} in the
+%\meta{string} including spaces.
+%\end{function}
+
+\begin{function}{\StrMapInline,\StrVarMapInline}
+\begin{syntax}
+\cs{StrMapInline} \Arg{token list} \Arg{inline function}
+\cs{StrVarMapInline} \meta{str var} \Arg{inline function}
+\end{syntax}
+Converts the \meta{token list} to a \meta{string} then
+applies the \meta{inline function} to every \meta{character} in the
+\meta{str var} including spaces.
+The \meta{inline function} should consist of code which
+receives the \meta{character} as \verb|#1|.
+\end{function}
+
+%\begin{function}{\StrMapTokens, \StrVarMapTokens}
+%\begin{syntax}
+%\cs{StrMapTokens} \Arg{token list} \Arg{code}
+%\cs{StrVarMapTokens} \meta{str var} \Arg{code}
+%\end{syntax}
+%Converts the \meta{token list} to a \meta{string} then applies
+%\meta{code} to every \meta{character} in the \meta{string} including spaces.
+%The \meta{code} receives each character as a trailing brace group.
+%This is equivalent to \cs{StrMapFunction} if the
+%\meta{code} consists of a single function.
+%\end{function}
+
+\begin{function}{\StrMapVariable,\StrMapVariable}
+\begin{syntax}
+\cs{StrMapVariable} \Arg{token list} \meta{variable} \Arg{code}
+\cs{StrVarMapVariable} \meta{str var} \meta{variable} \Arg{code}
+\end{syntax}
+Converts the \meta{token list} to a \meta{string} then stores each
+\meta{character} in the \meta{string} (including spaces) in turn in
+the (string or token list) \meta{variable} and applies the
+\meta{code}.  The \meta{code} will usually make use of the
+\meta{variable}, but this is not enforced.  The assignments to the
+\meta{variable} are local.  Its value after the loop is the last
+\meta{character} in the \meta{string}, or its original value if the
+\meta{string} is empty.
+\end{function}
+
+%\begin{function}{\StrMapBreak}
+%\begin{syntax}
+%\cs{StrMapBreak}
+%\end{syntax}
+%Used to terminate a string map function before all
+%characters in the \meta{string} have been processed. This
+%normally takes place within a conditional statement, for example
+%\begin{verbatim}
+%\str_map_inline:Nn \l_my_str
+%{
+%\str_if_eq:nnT { #1 } { bingo } { \str_map_break: }
+%Do something useful
+%}
+%\end{verbatim}
+%See also \cs{StrMapBreakDo}.
+%Use outside of a string map scenario leads to low
+%level \TeX{} errors.
+%\begin{texnote}
+%When the mapping is broken, additional tokens may be inserted
+%before continuing with the
+%code that follows the loop.
+%This depends on the design of the mapping function.
+%\end{texnote}
+%\end{function}
+%
+%\begin{function}{\StrMapBreakDo}
+%\begin{syntax}
+%\cs{StrMapBreakDo} \Arg{code}
+%\end{syntax}
+%Used to terminate a string map function before all
+%characters in the \meta{string} have been processed, inserting
+%the \meta{code} after the mapping has ended. This
+%normally takes place within a conditional statement, for example
+%\begin{verbatim}
+%\str_map_inline:Nn \l_my_str
+%{
+%\str_if_eq:nnT { #1 } { bingo }
+%{ \str_map_break:n { <code> } }
+%Do something useful
+%}
+%\end{verbatim}
+%Use outside of a string map scenario leads to low
+%level \TeX{} errors.
+%\begin{texnote}
+%When the mapping is broken, additional tokens may be inserted
+%before the \meta{code} is
+%inserted into the input stream.
+%This depends on the design of the mapping function.
+%\end{texnote}
+%\end{function}
+
+\section{String Conditionals}
+
+\begin{function}{\StrIfExist,\StrIfExistTF}
+\begin{syntax}
+\cs{StrIfExist} \meta{str var}
+\cs{StrIfExistTF} \meta{str var} \Arg{true code} \Arg{false code}
+\end{syntax}
+Tests whether the \meta{str var} is currently defined.  This does not
+check that the \meta{str var} really is a string.
 \end{function}
 
 \begin{function}{\StrVarIfEmpty,\StrVarIfEmptyTF}
@@ -1735,10 +2049,10 @@ var} are not automatically converted to a string. For example
 Tests if the \meta{string variable} is entirely empty
 (\emph{i.e.} contains no characters at all). For example
 \begin{demohigh}
-\StrSet\lTmpaStr{abc}
-\StrVarIfEmptyTF\lTmpaStr{\Result{Empty}}{\Result{NonEmpty}}
-\StrClear\lTmpaStr
-\StrVarIfEmptyTF\lTmpaStr{\Result{Empty}}{\Result{NonEmpty}}
+\StrSet \lTmpaStr {abc}
+\StrVarIfEmptyTF \lTmpaStr {\Result{Empty}} {\Result{NonEmpty}}
+\StrClear \lTmpaStr
+\StrVarIfEmptyTF \lTmpaStr {\Result{Empty}} {\Result{NonEmpty}}
 \end{demohigh}
 \end{function}
 
@@ -1760,8 +2074,8 @@ See \cs{TlIfEq} to compare
 tokens (including their category codes) rather than characters.
 For example
 \begin{demohigh}
-\StrIfEqTF{abc}{abc}{\Result{Yes}}{\Result{No}}
-\StrIfEqTF{abc}{xyz}{\Result{Yes}}{\Result{No}}
+\StrIfEqTF {abc} {abc} {\Result{Yes}} {\Result{No}}
+\StrIfEqTF {abc} {xyz} {\Result{Yes}} {\Result{No}}
 \end{demohigh}
 %\begin{demohigh}
 %\StrSet\lTmpaStr{abc}
@@ -1784,17 +2098,134 @@ is logically \texttt{true} if the two contain the same characters
 in the same order.  See \cs{TlVarIfEq} to compare tokens
 (including their category codes) rather than characters.
 \begin{demohigh}
-\StrSet\lTmpaStr{abc}
-\StrSet\lTmpbStr{abc}
-\StrSet\lTmpcStr{xyz}
-\StrVarIfEqTF\lTmpaStr\lTmpbStr{\Result{Yes}}{\Result{No}}
-\StrVarIfEqTF\lTmpaStr\lTmpcStr{\Result{Yes}}{\Result{No}}
+\StrSet \lTmpaStr {abc}
+\StrSet \lTmpbStr {abc}
+\StrSet \lTmpcStr {xyz}
+\StrVarIfEqTF \lTmpaStr \lTmpbStr {\Result{Yes}} {\Result{No}}
+\StrVarIfEqTF \lTmpaStr \lTmpcStr {\Result{Yes}} {\Result{No}}
 \end{demohigh}
+\end{function}
+
+\begin{function}{\StrIfIn,\StrIfInTF}
+\begin{syntax}
+\cs{StrIfInTF} \Arg{tl_1} \Arg{tl_2}
+\cs{StrIfInTF} \Arg{tl_1} \Arg{tl_2} \Arg{true code} \Arg{false code}
+\end{syntax}
+Converts both \meta{token lists} to \meta{strings} and
+tests whether \meta{string_2} is found inside \meta{string_1}.
+\end{function}
+
+\begin{function}{\StrVarIfIn,\StrVarIfInTF}
+\begin{syntax}
+\cs{StrVarIfInTF} \meta{str var} \Arg{token list}
+\cs{StrVarIfInTF} \meta{str var} \Arg{token list} \Arg{true code} \Arg{false code}
+\end{syntax}
+Converts the \meta{token list} to a \meta{string} and
+tests if that \meta{string} is found in the content of the
+\meta{str var}.
+\end{function}
+
+\section{Case Functions for Strings}
+
+\begin{function}{\StrCase}
+\begin{syntax}
+\cs{StrCase} \Arg{test string}
+~ ~ \verb|{|
+~ ~ ~ ~ \Arg{string case_1} \Arg{code case_1}
+~ ~ ~ ~ \Arg{string case_2} \Arg{code case_2}
+~ ~ ~ ~ $\cdots$
+~ ~ ~ ~ \Arg{string case_n} \Arg{code case_n}
+~ ~ \verb|}|
+\end{syntax}
+Compares the \meta{test string} in turn with each
+of the \meta{string cases} (all token lists are converted to strings).
+If the two are equal (as described for
+\cs{StrIfEq}) then the associated \meta{code} is left in the
+input stream and other cases are discarded.
+\end{function}
+
+\begin{function}{\StrCaseT}
+\begin{syntax}
+\cs{StrCaseT} \Arg{test string}
+~ ~ \verb|{|
+~ ~ ~ ~ \Arg{string case_1} \Arg{code case_1}
+~ ~ ~ ~ \Arg{string case_2} \Arg{code case_2}
+~ ~ ~ ~ $\cdots$
+~ ~ ~ ~ \Arg{string case_n} \Arg{code case_n}
+~ ~ \verb|}|
+~ ~ \Arg{true code}
+\end{syntax}
+Compares the \meta{test string} in turn with each
+of the \meta{string cases} (all token lists are converted to strings).
+If the two are equal (as described for
+\cs{StrIfEq}) then the associated \meta{code} is left in the
+input stream and other cases are discarded. If any of the
+cases are matched, the \meta{true code} is also inserted into the
+input stream (after the code for the appropriate case).
+\end{function}
+
+\begin{function}{\StrCaseF}
+\begin{syntax}
+\cs{StrCaseF} \Arg{test string}
+~ ~ \verb|{|
+~ ~ ~ ~ \Arg{string case_1} \Arg{code case_1}
+~ ~ ~ ~ \Arg{string case_2} \Arg{code case_2}
+~ ~ ~ ~ $\cdots$
+~ ~ ~ ~ \Arg{string case_n} \Arg{code case_n}
+~ ~ \verb|}|
+~ ~ \Arg{false code}
+\end{syntax}
+Compares the \meta{test string} in turn with each
+of the \meta{string cases} (all token lists are converted to strings).
+If the two are equal (as described for
+\cs{StrIfEq}) then the associated \meta{code} is left in the
+input stream and other cases are discarded. If none
+match then the \meta{false code} is inserted.
+\end{function}
+
+\begin{function}{\StrCaseTF}
+\begin{syntax}
+\cs{StrCaseTF} \Arg{test string}
+~ ~ \verb|{|
+~ ~ ~ ~ \Arg{string case_1} \Arg{code case_1}
+~ ~ ~ ~ \Arg{string case_2} \Arg{code case_2}
+~ ~ ~ ~ $\cdots$
+~ ~ ~ ~ \Arg{string case_n} \Arg{code case_n}
+~ ~ \verb|}|
+~ ~ \Arg{true code}
+~ ~ \Arg{false code}
+\end{syntax}
+Compares the \meta{test string} in turn with each
+of the \meta{string cases} (all token lists are converted to strings).
+If the two are equal (as described for
+\cs{StrIfEq}) then the associated \meta{code} is left in the
+input stream and other cases are discarded. If any of the
+cases are matched, the \meta{true code} is also inserted into the
+input stream (after the code for the appropriate case), while if none
+match then the \meta{false code} is inserted.
 \end{function}
 
 \chapter{Integers (\texttt{Int})}
 
-\section{Scratch Variables of Integers}
+\section{Constant and Scratch Integers}
+
+\begin{variable}{\cZeroInt,\cOneInt}
+Integer values used with primitive tests and assignments: their
+self-terminating nature makes these more convenient and faster than
+literal numbers.
+\end{variable}
+
+\begin{variable}{\cMaxInt}
+The maximum value that can be stored as an integer.
+\end{variable}
+
+\begin{variable}{\cMaxRegisterInt}
+Maximum number of registers.
+\end{variable}
+
+\begin{variable}{\cMaxCharInt}
+Maximum character code completely supported by the engine.
+\end{variable}
 
 \begin{variable}{\lTmpaInt,\lTmpbInt,\lTmpcInt,\lTmpiInt,\lTmpjInt,\lTmpkInt}
 Scratch integer for local assignment. These are never used by
@@ -1810,7 +2241,7 @@ function. However, they may be overwritten by other
 code and so should only be used for short-term storage.
 \end{variable}
 
-\section{Public Functions for Integers}
+\section{Integer Expressions}
 
 \begin{function}{\IntEval}
 \begin{syntax}
@@ -1822,7 +2253,7 @@ explicit sequence of decimal digits not starting with~\texttt{0},
 for negative results \texttt{-}~followed by such a sequence, and
 \texttt{0}~for zero. For example
 \begin{demohigh}
-\IntEval{(1+4)*(2-3)/5}
+\IntEval {(1+4)*(2-3)/5}
 \end{demohigh}
 \end{function}
 
@@ -1833,7 +2264,7 @@ for negative results \texttt{-}~followed by such a sequence, and
 Adds \Arg{integer expression_1} and \Arg{integer expression_2},
 and returns the result. For example
 \begin{demohigh}
-\IntMathAdd{7}{3}
+\IntMathAdd {7} {3}
 \end{demohigh}
 \end{function}
 
@@ -1844,7 +2275,7 @@ and returns the result. For example
 Subtracts \Arg{integer expression_2} from \Arg{integer expression_1},
 and returns the result. For example
 \begin{demohigh}
-\IntMathSub{7}{3}
+\IntMathSub {7} {3}
 \end{demohigh}
 \end{function}
 
@@ -1855,7 +2286,7 @@ and returns the result. For example
 Multiplies \Arg{integer expression_1} by \Arg{integer expression_2},
 and returns the result. For example
 \begin{demohigh}
-\IntMathMult{7}{3}
+\IntMathMult {7} {3}
 \end{demohigh}
 \end{function}
 
@@ -1863,12 +2294,84 @@ and returns the result. For example
 \begin{syntax}
 \cs{IntMathDiv} \Arg{integer expression_1} \Arg{integer expression_2}
 \end{syntax}
-Divides \Arg{integer expression_1} by \Arg{integer expression_2},
-and returns the result. For example
+Evaluates the two \meta{integer expressions} as described earlier,
+then divides the first value by the second, and rounds the result
+to the closest integer. Ties are rounded away from zero. Note that
+this is identical to using \verb|/| directly in an \meta{integer expression}.
+The result is returned as an \meta{integer denotation}.
+For example
 \begin{demohigh}
-\IntMathDiv{7}{3}
+\IntMathDiv {8} {3}
 \end{demohigh}
 \end{function}
+
+\begin{function}{\IntMathDivTrancate}
+\begin{syntax}
+\cs{IntMathDivTrancate} \Arg{integer expression_1} \Arg{integer expression_2}
+\end{syntax}
+Evaluates the two \meta{integer expressions} as described earlier,
+then divides the first value by the second, and rounds the result towards zero.
+Note that division using \verb|/| rounds to the closest integer instead.
+The result is returned as an \meta{integer denotation}.
+For example
+\begin{demohigh}
+\IntMathDivTruncate {8} {3}
+\end{demohigh}
+\end{function}
+
+\begin{function}{\IntMathSign}
+\begin{syntax}
+\cs{IntMathSign} \Arg{intexpr}
+\end{syntax}
+Evaluates the \meta{integer expression} then leaves $1$ or $0$ or
+$-1$ in the input stream according to the sign of the result.
+\end{function}
+
+\begin{function}{\IntMathAbs}
+\begin{syntax}
+\cs{IntMathAbs} \Arg{integer expression}
+\end{syntax}
+Evaluates the \meta{integer expression} as described for
+\cs{IntEval} and leaves the absolute value of the result in
+the input stream as an \meta{integer denotation} after two
+expansions.
+\end{function}
+
+\begin{function}{\IntMathMax,\IntMathMin}
+\begin{syntax}
+\cs{IntMathMax} \Arg{intexpr_1} \Arg{intexpr_2}
+\cs{IntMathMin} \Arg{intexpr_1} \Arg{intexpr_2}
+\end{syntax}
+Evaluates the \meta{integer expressions} as described for
+\cs{IntEval} and leaves either the larger or smaller value
+in the input stream as an \meta{integer denotation} after two
+expansions.
+\end{function}
+
+\begin{function}{\IntMathMod}
+\begin{syntax}
+\cs{IntMathMod} \Arg{intexpr_1} \Arg{intexpr_2}
+\end{syntax}
+Evaluates the two \meta{integer expressions} as described earlier,
+then calculates the integer remainder of dividing the first
+expression by the second.  This is obtained by subtracting
+\cs{IntMathDivTruncate} \Arg{intexpr_1} \Arg{intexpr_2} times
+\meta{intexpr_2} from \meta{intexpr_1}.  Thus, the result has the
+same sign as \meta{intexpr_1} and its absolute value is strictly
+less than that of \meta{intexpr_2}.  The result is left in the input
+stream as an \meta{integer denotation} after two expansions.
+\end{function}
+
+\begin{function}{\IntMathRand}
+\begin{syntax}
+\cs{IntMathRand} \Arg{intexpr_1} \Arg{intexpr_2}
+\end{syntax}
+Evaluates the two \meta{integer expressions} and produces a
+pseudo-random number between the two (with bounds included).
+%This is not available in older versions of \XeTeX{}.
+\end{function}
+
+\section{Creating and Using Integers}
 
 \begin{function}{\IntNew}
 \begin{syntax}
@@ -1879,6 +2382,15 @@ already taken. The declaration is global. The \meta{integer} is
 initially equal to $0$.
 \end{function}
 
+\begin{function}{\IntConst}
+\begin{syntax}
+\cs{IntConst} \meta{integer} \Arg{integer expression}
+\end{syntax}
+Creates a new constant \meta{integer} or raises an error if the name
+is already taken. The value of the \meta{integer} is set
+globally to the \meta{integer expression}.
+\end{function}
+
 \begin{function}{\IntUse}
 \begin{syntax}
 \cs{IntUse} \meta{integer}
@@ -1886,6 +2398,40 @@ initially equal to $0$.
 Recovers the content of an \meta{integer} and returns the value.
 An error is raised if the variable does not exist or if it is invalid.
 \end{function}
+
+\section{Viewing Integers}
+
+\begin{function}{\IntLog}
+\begin{syntax}
+\cs{IntLog} \Arg{integer expression}
+\end{syntax}
+Writes the result of evaluating the \meta{integer expression}
+in the log file.
+\end{function}
+
+\begin{function}{\IntVarLog}
+\begin{syntax}
+\cs{IntVarLog} \meta{integer}
+\end{syntax}
+Writes the value of the \meta{integer} in the log file.
+\end{function}
+
+\begin{function}{\IntShow}
+\begin{syntax}
+\cs{IntShow} \Arg{integer expression}
+\end{syntax}
+Displays the result of evaluating the \meta{integer expression}
+on the terminal.
+\end{function}
+
+\begin{function}{\IntVarShow}
+\begin{syntax}
+\cs{IntVarShow} \meta{integer}
+\end{syntax}
+Displays the value of the \meta{integer} on the terminal.
+\end{function}
+
+\section{Setting Integers Variables}
 
 \begin{function}{\IntSet}
 \begin{syntax}
@@ -1895,8 +2441,8 @@ Sets \meta{integer} to the value of \meta{integer expression},
 which must evaluate to an integer (as described for \cs{IntEval}).
 For example
 \begin{demohigh}
-\IntSet\lTmpaInt{3+5}
-\IntUse\lTmpaInt
+\IntSet \lTmpaInt {3+5}
+\IntUse \lTmpaInt
 \end{demohigh}
 \end{function}
 
@@ -1906,10 +2452,27 @@ For example
 \end{syntax}
 Sets \meta{integer} to $0$. For example
 \begin{demohigh}
-\IntSet\lTmpaInt{5}
-\IntZero\lTmpaInt
-\IntUse\lTmpaInt
+\IntSet \lTmpaInt {5}
+\IntZero \lTmpaInt
+\IntUse \lTmpaInt
 \end{demohigh}
+\end{function}
+
+\begin{function}{\IntZeroNew}
+\begin{syntax}
+\cs{IntZeroNew} \meta{integer}
+\end{syntax}
+Ensures that the \meta{integer} exists globally by applying
+\cs{IntNew} if necessary, then applies \cs{IntZero} to leave
+the \meta{integer} set to zero.
+\end{function}
+
+\begin{function}{\IntSetEq}
+\begin{syntax}
+\cs{IntSetEq} \meta{integer_1} \meta{integer_2}
+\end{syntax}
+Sets the content of \meta{integer_1} equal to that of
+\meta{integer_2}.
 \end{function}
 
 \begin{function}{\IntIncr}
@@ -1919,9 +2482,9 @@ Sets \meta{integer} to $0$. For example
 Increases the value stored in \meta{integer} by $1$.
 For example
 \begin{demohigh}
-\IntSet\lTmpaInt{5}
-\IntIncr\lTmpaInt
-\IntUse\lTmpaInt
+\IntSet \lTmpaInt {5}
+\IntIncr \lTmpaInt
+\IntUse \lTmpaInt
 \end{demohigh}
 \end{function}
 
@@ -1932,9 +2495,9 @@ For example
 Decreases the value stored in \meta{integer} by $1$.
 For example
 \begin{demohigh}
-\IntSet\lTmpaInt{5}
-\IntDecr\lTmpaInt
-\IntUse\lTmpaInt
+\IntSet \lTmpaInt {5}
+\IntDecr \lTmpaInt
+\IntUse \lTmpaInt
 \end{demohigh}
 \end{function}
 
@@ -1945,9 +2508,9 @@ For example
 Adds the result of the \meta{integer expression} to the current
 content of the \meta{integer}. For example
 \begin{demohigh}
-\IntSet\lTmpaInt{5}
-\IntAdd\lTmpaInt{2}
-\IntUse\lTmpaInt
+\IntSet \lTmpaInt {5}
+\IntAdd \lTmpaInt {2}
+\IntUse \lTmpaInt
 \end{demohigh}
 \end{function}
 
@@ -1958,34 +2521,119 @@ content of the \meta{integer}. For example
 Subtracts the result of the \meta{integer expression} from the
 current content of the \meta{integer}. For example
 \begin{demohigh}
-\IntSet\lTmpaInt{5}
-\IntSub\lTmpaInt{3}
-\IntUse\lTmpaInt
+\IntSet \lTmpaInt {5}
+\IntSub \lTmpaInt {3}
+\IntUse \lTmpaInt
 \end{demohigh}
+\end{function}
+
+\section{Integer Step Functions}
+
+%\begin{function}{\IntStepFunction}
+%\begin{syntax}
+%\cs{IntStepFunction} \Arg{initial value} \Arg{step} \Arg{final value} \meta{function}
+%\end{syntax}
+%This function first evaluates the \meta{initial value}, \meta{step}
+%and \meta{final value}, all of which should be integer expressions.
+%The \meta{function} is then placed in front of each \meta{value}
+%from the \meta{initial value} to the \meta{final value} in turn
+%(using \meta{step} between each \meta{value}).  The \meta{step} must
+%be non-zero.  If the \meta{step} is positive, the loop stops when
+%the \meta{value} becomes larger than the \meta{final value}.  If the
+%\meta{step} is negative, the loop stops when the \meta{value}
+%becomes smaller than the \meta{final value}.  The \meta{function}
+%should absorb one numerical argument. For example
+%\begin{verbatim}
+%\cs_set:Npn \my_func:n #1 { [I~saw~#1] \quad }
+%\int_step_function:nnnN { 1 } { 1 } { 5 } \my_func:n
+%\end{verbatim}
+%would print
+%\begin{quote}
+%[I saw 1] \quad
+%[I saw 2] \quad
+%[I saw 3] \quad
+%[I saw 4] \quad
+%[I saw 5] \quad
+%\end{quote}
+%\end{function}
+
+\begin{function}{\IntStepInline}
+\begin{syntax}
+\cs{IntStepInline} \Arg{initial value} \Arg{step} \Arg{final value} \Arg{code}
+\end{syntax}
+This function first evaluates the \meta{initial value}, \meta{step}
+and \meta{final value}, all of which should be integer expressions.
+Then for each \meta{value} from the \meta{initial value} to the
+\meta{final value} in turn (using \meta{step} between each
+\meta{value}), the \meta{code} is inserted into the input stream
+with \verb|#1| replaced by the current \meta{value}. Thus the
+\meta{code} should define a function of one argument~(\verb|#1|).
+For example
+\begin{codehigh}
+\IgnoreSpacesOn
+\TlClear \lTmpaTl
+\IntStepInline {1} {3} {30} {
+  \TlPutRight \lTmpaTl {[#1]}
+}
+\Result {\Value\lTmpaTl}
+\IgnoreSpacesOff
+\end{codehigh}
+produces [1][4][7][10][13][16][19][22][25][28].
 \end{function}
 
 \begin{function}{\IntStepVariable}
 \begin{syntax}
-\cs{IntStepVariable} \Arg{initial value} \Arg{step} \Arg{final value} \meta{tl~var} \Arg{code}
+\cs{IntStepVariable} \Arg{initial value} \Arg{step} \Arg{final value} \meta{tl var} \Arg{code}
 \end{syntax}
 This function first evaluates the \meta{initial value}, \meta{step}
 and \meta{final value}, all of which should be integer expressions.
 Then for each \meta{value} from the \meta{initial value} to the
 \meta{final value} in turn (using \meta{step} between each
 \meta{value}), the \meta{code} is evaluated,
-with the \meta{tl~var} defined as the current \meta{value}.  Thus
+with the \meta{tl~var} defined as the current \meta{value}. Thus
 the \meta{code} should make use of the \meta{tl~var}.
-For example
-\begin{demohigh}
-\IgnoreSpacesOn
-\TlClear\lTmpaTl
-\IntStepVariable{1}{3}{30}\lTmpiTl{
-  \TlPutRight\lTmpaTl{\Value\lTmpiTl}
-  \TlPutRight\lTmpaTl{~}
-}
-\Result{\Value\lTmpaTl}
-\IgnoreSpacesOff
-\end{demohigh}
+%For example
+%\begin{demohigh}
+%\IgnoreSpacesOn
+%\TlClear\lTmpaTl
+%\IntStepVariable{1}{3}{30}\lTmpiTl{
+%  \TlPutRight\lTmpaTl{\Value\lTmpiTl}
+%  \TlPutRight\lTmpaTl{~}
+%}
+%\Result{\Value\lTmpaTl}
+%\IgnoreSpacesOff
+%\end{demohigh}
+\end{function}
+
+\section{Integer Conditionals}
+
+\begin{function}{\IntIfExist, \IntIfExistTF}
+\begin{syntax}
+\cs{IntIfExist} \meta{integer}
+\cs{IntIfExistTF} \meta{integer} \Arg{true code} \Arg{false code}
+\end{syntax}
+Tests whether the \meta{integer} is currently defined.  This does not
+check that the \meta{integer} really is an integer variable.
+\end{function}
+
+\begin{function}{\IntIfOdd,\IntIfOddTF}
+\begin{syntax}
+\cs{IntIfOdd} \Arg{integer expression}
+\cs{IntIfOddTF} \Arg{integer expression} \Arg{true code} \Arg{false code}
+\end{syntax}
+This function first evaluates the \meta{integer expression}
+as described for \cs{IntEval}.
+It then evaluates if this is odd or even, as appropriate.
+\end{function}
+
+\begin{function}{\IntIfEven,\IntIfEvenTF}
+\begin{syntax}
+\cs{IntIfEven} \Arg{integer expression}
+\cs{IntIfEvenTF} \Arg{integer expression} \Arg{true code} \Arg{false code}
+\end{syntax}
+This function first evaluates the \meta{integer expression}
+as described for \cs{IntEval}.
+It then evaluates if this is even or odd, as appropriate.
 \end{function}
 
 \begin{function}{\IntCompare,\IntCompareTF}
@@ -2003,9 +2651,102 @@ Less than    & \texttt{<} \\
 \end{tabular}\par}
 For example
 \begin{demohigh}
-\IntCompareTF{2}>{1}{\Result{Greater}}{\Result{Less}}
-\IntCompareTF{2}>{3}{\Result{Greater}}{\Result{Less}}
+\IntCompareTF {2} > {1} {\Result{Greater}} {\Result{Less}}
+\IntCompareTF {2} > {3} {\Result{Greater}} {\Result{Less}}
 \end{demohigh}
+\end{function}
+
+\section{Integer Case Functions}
+
+\begin{function}{\IntCase}
+\begin{syntax}
+\cs{IntCase} \Arg{test integer expression}
+~ ~ \verb|{|
+~ ~ ~ ~ \Arg{intexpr case_1} \Arg{code case_1}
+~ ~ ~ ~ \Arg{intexpr case_2} \Arg{code case_2}
+~ ~ ~ ~ $\cdots$
+~ ~ ~ ~ \Arg{intexpr case_n} \Arg{code case_n}
+~ ~ \verb|}|
+\end{syntax}
+This function evaluates the \meta{test integer expression} and
+compares this in turn to each of the
+\meta{integer expression cases}. If the two are equal then the
+associated \meta{code} is left in the input stream
+and other cases are discarded.
+\end{function}
+
+\begin{function}{\IntCaseT}
+\begin{syntax}
+\cs{IntCaseT} \Arg{test integer expression}
+~ ~ \verb|{|
+~ ~ ~ ~ \Arg{intexpr case_1} \Arg{code case_1}
+~ ~ ~ ~ \Arg{intexpr case_2} \Arg{code case_2}
+~ ~ ~ ~ $\cdots$
+~ ~ ~ ~ \Arg{intexpr case_n} \Arg{code case_n}
+~ ~ \verb|}|
+~ ~ \Arg{true code}
+\end{syntax}
+This function evaluates the \meta{test integer expression} and
+compares this in turn to each of the
+\meta{integer expression cases}. If the two are equal then the
+associated \meta{code} is left in the input stream
+and other cases are discarded. If any of the
+cases are matched, the \meta{true code} is also inserted into the
+input stream (after the code for the appropriate case).
+\end{function}
+
+\begin{function}{\IntCaseF}
+\begin{syntax}
+\cs{IntCaseF} \Arg{test integer expression}
+~ ~ \verb|{|
+~ ~ ~ ~ \Arg{intexpr case_1} \Arg{code case_1}
+~ ~ ~ ~ \Arg{intexpr case_2} \Arg{code case_2}
+~ ~ ~ ~ $\cdots$
+~ ~ ~ ~ \Arg{intexpr case_n} \Arg{code case_n}
+~ ~ \verb|}|
+~ ~ \Arg{false code}
+\end{syntax}
+This function evaluates the \meta{test integer expression} and
+compares this in turn to each of the
+\meta{integer expression cases}. If the two are equal then the
+associated \meta{code} is left in the input stream
+and other cases are discarded. If none
+match then the \meta{false code} is into the input stream 
+(after the code for the appropriate case).
+For example
+\begin{demohigh}
+\IgnoreSpacesOn
+\IntCaseF { 2 * 5 }
+  {
+    { 5 }       { Small }
+    { 4 + 6 }   { Medium }
+    { -2 * 10 } { Negative }
+  }
+  { No idea! }
+\IgnoreSpacesOff
+\end{demohigh}
+\end{function}
+
+\begin{function}{\IntCaseTF}
+\begin{syntax}
+\cs{IntCaseTF} \Arg{test integer expression}
+~ ~ \verb|{|
+~ ~ ~ ~ \Arg{intexpr case_1} \Arg{code case_1}
+~ ~ ~ ~ \Arg{intexpr case_2} \Arg{code case_2}
+~ ~ ~ ~ $\cdots$
+~ ~ ~ ~ \Arg{intexpr case_n} \Arg{code case_n}
+~ ~ \verb|}|
+~ ~ \Arg{true code}
+~ ~ \Arg{false code}
+\end{syntax}
+This function evaluates the \meta{test integer expression} and
+compares this in turn to each of the
+\meta{integer expression cases}. If the two are equal then the
+associated \meta{code} is left in the input stream
+and other cases are discarded. If any of the
+cases are matched, the \meta{true code} is also inserted into the
+input stream (after the code for the appropriate case), while if none
+match then the \meta{false code} is inserted.
 \end{function}
 
 \chapter{Floating Point Numbers (\texttt{Fp})}

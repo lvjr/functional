@@ -9,7 +9,25 @@
 
 \chapter{Integers (\texttt{Int})}
 
-\section{Scratch Variables of Integers}
+\section{Constant and Scratch Integers}
+
+\begin{variable}{\cZeroInt,\cOneInt}
+Integer values used with primitive tests and assignments: their
+self-terminating nature makes these more convenient and faster than
+literal numbers.
+\end{variable}
+
+\begin{variable}{\cMaxInt}
+The maximum value that can be stored as an integer.
+\end{variable}
+
+\begin{variable}{\cMaxRegisterInt}
+Maximum number of registers.
+\end{variable}
+
+\begin{variable}{\cMaxCharInt}
+Maximum character code completely supported by the engine.
+\end{variable}
 
 \begin{variable}{\lTmpaInt,\lTmpbInt,\lTmpcInt,\lTmpiInt,\lTmpjInt,\lTmpkInt}
 Scratch integer for local assignment. These are never used by
@@ -25,7 +43,7 @@ function. However, they may be overwritten by other
 code and so should only be used for short-term storage.
 \end{variable}
 
-\section{Public Functions for Integers}
+\section{Integer Expressions}
 
 \begin{function}{\IntEval}
 \begin{syntax}
@@ -37,7 +55,7 @@ explicit sequence of decimal digits not starting with~\texttt{0},
 for negative results \texttt{-}~followed by such a sequence, and
 \texttt{0}~for zero. For example
 \begin{demohigh}
-\IntEval{(1+4)*(2-3)/5}
+\IntEval {(1+4)*(2-3)/5}
 \end{demohigh}
 \end{function}
 
@@ -48,7 +66,7 @@ for negative results \texttt{-}~followed by such a sequence, and
 Adds \Arg{integer expression_1} and \Arg{integer expression_2},
 and returns the result. For example
 \begin{demohigh}
-\IntMathAdd{7}{3}
+\IntMathAdd {7} {3}
 \end{demohigh}
 \end{function}
 
@@ -59,7 +77,7 @@ and returns the result. For example
 Subtracts \Arg{integer expression_2} from \Arg{integer expression_1},
 and returns the result. For example
 \begin{demohigh}
-\IntMathSub{7}{3}
+\IntMathSub {7} {3}
 \end{demohigh}
 \end{function}
 
@@ -70,7 +88,7 @@ and returns the result. For example
 Multiplies \Arg{integer expression_1} by \Arg{integer expression_2},
 and returns the result. For example
 \begin{demohigh}
-\IntMathMult{7}{3}
+\IntMathMult {7} {3}
 \end{demohigh}
 \end{function}
 
@@ -78,12 +96,84 @@ and returns the result. For example
 \begin{syntax}
 \cs{IntMathDiv} \Arg{integer expression_1} \Arg{integer expression_2}
 \end{syntax}
-Divides \Arg{integer expression_1} by \Arg{integer expression_2},
-and returns the result. For example
+Evaluates the two \meta{integer expressions} as described earlier,
+then divides the first value by the second, and rounds the result
+to the closest integer. Ties are rounded away from zero. Note that
+this is identical to using \verb|/| directly in an \meta{integer expression}.
+The result is returned as an \meta{integer denotation}.
+For example
 \begin{demohigh}
-\IntMathDiv{7}{3}
+\IntMathDiv {8} {3}
 \end{demohigh}
 \end{function}
+
+\begin{function}{\IntMathDivTrancate}
+\begin{syntax}
+\cs{IntMathDivTrancate} \Arg{integer expression_1} \Arg{integer expression_2}
+\end{syntax}
+Evaluates the two \meta{integer expressions} as described earlier,
+then divides the first value by the second, and rounds the result towards zero.
+Note that division using \verb|/| rounds to the closest integer instead.
+The result is returned as an \meta{integer denotation}.
+For example
+\begin{demohigh}
+\IntMathDivTruncate {8} {3}
+\end{demohigh}
+\end{function}
+
+\begin{function}{\IntMathSign}
+\begin{syntax}
+\cs{IntMathSign} \Arg{intexpr}
+\end{syntax}
+Evaluates the \meta{integer expression} then leaves $1$ or $0$ or
+$-1$ in the input stream according to the sign of the result.
+\end{function}
+
+\begin{function}{\IntMathAbs}
+\begin{syntax}
+\cs{IntMathAbs} \Arg{integer expression}
+\end{syntax}
+Evaluates the \meta{integer expression} as described for
+\cs{IntEval} and leaves the absolute value of the result in
+the input stream as an \meta{integer denotation} after two
+expansions.
+\end{function}
+
+\begin{function}{\IntMathMax,\IntMathMin}
+\begin{syntax}
+\cs{IntMathMax} \Arg{intexpr_1} \Arg{intexpr_2}
+\cs{IntMathMin} \Arg{intexpr_1} \Arg{intexpr_2}
+\end{syntax}
+Evaluates the \meta{integer expressions} as described for
+\cs{IntEval} and leaves either the larger or smaller value
+in the input stream as an \meta{integer denotation} after two
+expansions.
+\end{function}
+
+\begin{function}{\IntMathMod}
+\begin{syntax}
+\cs{IntMathMod} \Arg{intexpr_1} \Arg{intexpr_2}
+\end{syntax}
+Evaluates the two \meta{integer expressions} as described earlier,
+then calculates the integer remainder of dividing the first
+expression by the second.  This is obtained by subtracting
+\cs{IntMathDivTruncate} \Arg{intexpr_1} \Arg{intexpr_2} times
+\meta{intexpr_2} from \meta{intexpr_1}.  Thus, the result has the
+same sign as \meta{intexpr_1} and its absolute value is strictly
+less than that of \meta{intexpr_2}.  The result is left in the input
+stream as an \meta{integer denotation} after two expansions.
+\end{function}
+
+\begin{function}{\IntMathRand}
+\begin{syntax}
+\cs{IntMathRand} \Arg{intexpr_1} \Arg{intexpr_2}
+\end{syntax}
+Evaluates the two \meta{integer expressions} and produces a
+pseudo-random number between the two (with bounds included).
+%This is not available in older versions of \XeTeX{}.
+\end{function}
+
+\section{Creating and Using Integers}
 
 \begin{function}{\IntNew}
 \begin{syntax}
@@ -94,6 +184,15 @@ already taken. The declaration is global. The \meta{integer} is
 initially equal to $0$.
 \end{function}
 
+\begin{function}{\IntConst}
+\begin{syntax}
+\cs{IntConst} \meta{integer} \Arg{integer expression}
+\end{syntax}
+Creates a new constant \meta{integer} or raises an error if the name
+is already taken. The value of the \meta{integer} is set
+globally to the \meta{integer expression}.
+\end{function}
+
 \begin{function}{\IntUse}
 \begin{syntax}
 \cs{IntUse} \meta{integer}
@@ -101,6 +200,40 @@ initially equal to $0$.
 Recovers the content of an \meta{integer} and returns the value.
 An error is raised if the variable does not exist or if it is invalid.
 \end{function}
+
+\section{Viewing Integers}
+
+\begin{function}{\IntLog}
+\begin{syntax}
+\cs{IntLog} \Arg{integer expression}
+\end{syntax}
+Writes the result of evaluating the \meta{integer expression}
+in the log file.
+\end{function}
+
+\begin{function}{\IntVarLog}
+\begin{syntax}
+\cs{IntVarLog} \meta{integer}
+\end{syntax}
+Writes the value of the \meta{integer} in the log file.
+\end{function}
+
+\begin{function}{\IntShow}
+\begin{syntax}
+\cs{IntShow} \Arg{integer expression}
+\end{syntax}
+Displays the result of evaluating the \meta{integer expression}
+on the terminal.
+\end{function}
+
+\begin{function}{\IntVarShow}
+\begin{syntax}
+\cs{IntVarShow} \meta{integer}
+\end{syntax}
+Displays the value of the \meta{integer} on the terminal.
+\end{function}
+
+\section{Setting Integers Variables}
 
 \begin{function}{\IntSet}
 \begin{syntax}
@@ -110,8 +243,8 @@ Sets \meta{integer} to the value of \meta{integer expression},
 which must evaluate to an integer (as described for \cs{IntEval}).
 For example
 \begin{demohigh}
-\IntSet\lTmpaInt{3+5}
-\IntUse\lTmpaInt
+\IntSet \lTmpaInt {3+5}
+\IntUse \lTmpaInt
 \end{demohigh}
 \end{function}
 
@@ -121,10 +254,27 @@ For example
 \end{syntax}
 Sets \meta{integer} to $0$. For example
 \begin{demohigh}
-\IntSet\lTmpaInt{5}
-\IntZero\lTmpaInt
-\IntUse\lTmpaInt
+\IntSet \lTmpaInt {5}
+\IntZero \lTmpaInt
+\IntUse \lTmpaInt
 \end{demohigh}
+\end{function}
+
+\begin{function}{\IntZeroNew}
+\begin{syntax}
+\cs{IntZeroNew} \meta{integer}
+\end{syntax}
+Ensures that the \meta{integer} exists globally by applying
+\cs{IntNew} if necessary, then applies \cs{IntZero} to leave
+the \meta{integer} set to zero.
+\end{function}
+
+\begin{function}{\IntSetEq}
+\begin{syntax}
+\cs{IntSetEq} \meta{integer_1} \meta{integer_2}
+\end{syntax}
+Sets the content of \meta{integer_1} equal to that of
+\meta{integer_2}.
 \end{function}
 
 \begin{function}{\IntIncr}
@@ -134,9 +284,9 @@ Sets \meta{integer} to $0$. For example
 Increases the value stored in \meta{integer} by $1$.
 For example
 \begin{demohigh}
-\IntSet\lTmpaInt{5}
-\IntIncr\lTmpaInt
-\IntUse\lTmpaInt
+\IntSet \lTmpaInt {5}
+\IntIncr \lTmpaInt
+\IntUse \lTmpaInt
 \end{demohigh}
 \end{function}
 
@@ -147,9 +297,9 @@ For example
 Decreases the value stored in \meta{integer} by $1$.
 For example
 \begin{demohigh}
-\IntSet\lTmpaInt{5}
-\IntDecr\lTmpaInt
-\IntUse\lTmpaInt
+\IntSet \lTmpaInt {5}
+\IntDecr \lTmpaInt
+\IntUse \lTmpaInt
 \end{demohigh}
 \end{function}
 
@@ -160,9 +310,9 @@ For example
 Adds the result of the \meta{integer expression} to the current
 content of the \meta{integer}. For example
 \begin{demohigh}
-\IntSet\lTmpaInt{5}
-\IntAdd\lTmpaInt{2}
-\IntUse\lTmpaInt
+\IntSet \lTmpaInt {5}
+\IntAdd \lTmpaInt {2}
+\IntUse \lTmpaInt
 \end{demohigh}
 \end{function}
 
@@ -173,34 +323,119 @@ content of the \meta{integer}. For example
 Subtracts the result of the \meta{integer expression} from the
 current content of the \meta{integer}. For example
 \begin{demohigh}
-\IntSet\lTmpaInt{5}
-\IntSub\lTmpaInt{3}
-\IntUse\lTmpaInt
+\IntSet \lTmpaInt {5}
+\IntSub \lTmpaInt {3}
+\IntUse \lTmpaInt
 \end{demohigh}
+\end{function}
+
+\section{Integer Step Functions}
+
+%\begin{function}{\IntStepFunction}
+%\begin{syntax}
+%\cs{IntStepFunction} \Arg{initial value} \Arg{step} \Arg{final value} \meta{function}
+%\end{syntax}
+%This function first evaluates the \meta{initial value}, \meta{step}
+%and \meta{final value}, all of which should be integer expressions.
+%The \meta{function} is then placed in front of each \meta{value}
+%from the \meta{initial value} to the \meta{final value} in turn
+%(using \meta{step} between each \meta{value}).  The \meta{step} must
+%be non-zero.  If the \meta{step} is positive, the loop stops when
+%the \meta{value} becomes larger than the \meta{final value}.  If the
+%\meta{step} is negative, the loop stops when the \meta{value}
+%becomes smaller than the \meta{final value}.  The \meta{function}
+%should absorb one numerical argument. For example
+%\begin{verbatim}
+%\cs_set:Npn \my_func:n #1 { [I~saw~#1] \quad }
+%\int_step_function:nnnN { 1 } { 1 } { 5 } \my_func:n
+%\end{verbatim}
+%would print
+%\begin{quote}
+%[I saw 1] \quad
+%[I saw 2] \quad
+%[I saw 3] \quad
+%[I saw 4] \quad
+%[I saw 5] \quad
+%\end{quote}
+%\end{function}
+
+\begin{function}{\IntStepInline}
+\begin{syntax}
+\cs{IntStepInline} \Arg{initial value} \Arg{step} \Arg{final value} \Arg{code}
+\end{syntax}
+This function first evaluates the \meta{initial value}, \meta{step}
+and \meta{final value}, all of which should be integer expressions.
+Then for each \meta{value} from the \meta{initial value} to the
+\meta{final value} in turn (using \meta{step} between each
+\meta{value}), the \meta{code} is inserted into the input stream
+with \verb|#1| replaced by the current \meta{value}. Thus the
+\meta{code} should define a function of one argument~(\verb|#1|).
+For example
+\begin{codehigh}
+\IgnoreSpacesOn
+\TlClear \lTmpaTl
+\IntStepInline {1} {3} {30} {
+  \TlPutRight \lTmpaTl {[#1]}
+}
+\Result {\Value\lTmpaTl}
+\IgnoreSpacesOff
+\end{codehigh}
+produces [1][4][7][10][13][16][19][22][25][28].
 \end{function}
 
 \begin{function}{\IntStepVariable}
 \begin{syntax}
-\cs{IntStepVariable} \Arg{initial value} \Arg{step} \Arg{final value} \meta{tl~var} \Arg{code}
+\cs{IntStepVariable} \Arg{initial value} \Arg{step} \Arg{final value} \meta{tl var} \Arg{code}
 \end{syntax}
 This function first evaluates the \meta{initial value}, \meta{step}
 and \meta{final value}, all of which should be integer expressions.
 Then for each \meta{value} from the \meta{initial value} to the
 \meta{final value} in turn (using \meta{step} between each
 \meta{value}), the \meta{code} is evaluated,
-with the \meta{tl~var} defined as the current \meta{value}.  Thus
+with the \meta{tl~var} defined as the current \meta{value}. Thus
 the \meta{code} should make use of the \meta{tl~var}.
-For example
-\begin{demohigh}
-\IgnoreSpacesOn
-\TlClear\lTmpaTl
-\IntStepVariable{1}{3}{30}\lTmpiTl{
-  \TlPutRight\lTmpaTl{\Value\lTmpiTl}
-  \TlPutRight\lTmpaTl{~}
-}
-\Result{\Value\lTmpaTl}
-\IgnoreSpacesOff
-\end{demohigh}
+%For example
+%\begin{demohigh}
+%\IgnoreSpacesOn
+%\TlClear\lTmpaTl
+%\IntStepVariable{1}{3}{30}\lTmpiTl{
+%  \TlPutRight\lTmpaTl{\Value\lTmpiTl}
+%  \TlPutRight\lTmpaTl{~}
+%}
+%\Result{\Value\lTmpaTl}
+%\IgnoreSpacesOff
+%\end{demohigh}
+\end{function}
+
+\section{Integer Conditionals}
+
+\begin{function}{\IntIfExist, \IntIfExistTF}
+\begin{syntax}
+\cs{IntIfExist} \meta{integer}
+\cs{IntIfExistTF} \meta{integer} \Arg{true code} \Arg{false code}
+\end{syntax}
+Tests whether the \meta{integer} is currently defined.  This does not
+check that the \meta{integer} really is an integer variable.
+\end{function}
+
+\begin{function}{\IntIfOdd,\IntIfOddTF}
+\begin{syntax}
+\cs{IntIfOdd} \Arg{integer expression}
+\cs{IntIfOddTF} \Arg{integer expression} \Arg{true code} \Arg{false code}
+\end{syntax}
+This function first evaluates the \meta{integer expression}
+as described for \cs{IntEval}.
+It then evaluates if this is odd or even, as appropriate.
+\end{function}
+
+\begin{function}{\IntIfEven,\IntIfEvenTF}
+\begin{syntax}
+\cs{IntIfEven} \Arg{integer expression}
+\cs{IntIfEvenTF} \Arg{integer expression} \Arg{true code} \Arg{false code}
+\end{syntax}
+This function first evaluates the \meta{integer expression}
+as described for \cs{IntEval}.
+It then evaluates if this is even or odd, as appropriate.
 \end{function}
 
 \begin{function}{\IntCompare,\IntCompareTF}
@@ -218,9 +453,102 @@ Less than    & \texttt{<} \\
 \end{tabular}\par}
 For example
 \begin{demohigh}
-\IntCompareTF{2}>{1}{\Result{Greater}}{\Result{Less}}
-\IntCompareTF{2}>{3}{\Result{Greater}}{\Result{Less}}
+\IntCompareTF {2} > {1} {\Result{Greater}} {\Result{Less}}
+\IntCompareTF {2} > {3} {\Result{Greater}} {\Result{Less}}
 \end{demohigh}
+\end{function}
+
+\section{Integer Case Functions}
+
+\begin{function}{\IntCase}
+\begin{syntax}
+\cs{IntCase} \Arg{test integer expression}
+~ ~ \verb|{|
+~ ~ ~ ~ \Arg{intexpr case_1} \Arg{code case_1}
+~ ~ ~ ~ \Arg{intexpr case_2} \Arg{code case_2}
+~ ~ ~ ~ $\cdots$
+~ ~ ~ ~ \Arg{intexpr case_n} \Arg{code case_n}
+~ ~ \verb|}|
+\end{syntax}
+This function evaluates the \meta{test integer expression} and
+compares this in turn to each of the
+\meta{integer expression cases}. If the two are equal then the
+associated \meta{code} is left in the input stream
+and other cases are discarded.
+\end{function}
+
+\begin{function}{\IntCaseT}
+\begin{syntax}
+\cs{IntCaseT} \Arg{test integer expression}
+~ ~ \verb|{|
+~ ~ ~ ~ \Arg{intexpr case_1} \Arg{code case_1}
+~ ~ ~ ~ \Arg{intexpr case_2} \Arg{code case_2}
+~ ~ ~ ~ $\cdots$
+~ ~ ~ ~ \Arg{intexpr case_n} \Arg{code case_n}
+~ ~ \verb|}|
+~ ~ \Arg{true code}
+\end{syntax}
+This function evaluates the \meta{test integer expression} and
+compares this in turn to each of the
+\meta{integer expression cases}. If the two are equal then the
+associated \meta{code} is left in the input stream
+and other cases are discarded. If any of the
+cases are matched, the \meta{true code} is also inserted into the
+input stream (after the code for the appropriate case).
+\end{function}
+
+\begin{function}{\IntCaseF}
+\begin{syntax}
+\cs{IntCaseF} \Arg{test integer expression}
+~ ~ \verb|{|
+~ ~ ~ ~ \Arg{intexpr case_1} \Arg{code case_1}
+~ ~ ~ ~ \Arg{intexpr case_2} \Arg{code case_2}
+~ ~ ~ ~ $\cdots$
+~ ~ ~ ~ \Arg{intexpr case_n} \Arg{code case_n}
+~ ~ \verb|}|
+~ ~ \Arg{false code}
+\end{syntax}
+This function evaluates the \meta{test integer expression} and
+compares this in turn to each of the
+\meta{integer expression cases}. If the two are equal then the
+associated \meta{code} is left in the input stream
+and other cases are discarded. If none
+match then the \meta{false code} is into the input stream 
+(after the code for the appropriate case).
+For example
+\begin{demohigh}
+\IgnoreSpacesOn
+\IntCaseF { 2 * 5 }
+  {
+    { 5 }       { Small }
+    { 4 + 6 }   { Medium }
+    { -2 * 10 } { Negative }
+  }
+  { No idea! }
+\IgnoreSpacesOff
+\end{demohigh}
+\end{function}
+
+\begin{function}{\IntCaseTF}
+\begin{syntax}
+\cs{IntCaseTF} \Arg{test integer expression}
+~ ~ \verb|{|
+~ ~ ~ ~ \Arg{intexpr case_1} \Arg{code case_1}
+~ ~ ~ ~ \Arg{intexpr case_2} \Arg{code case_2}
+~ ~ ~ ~ $\cdots$
+~ ~ ~ ~ \Arg{intexpr case_n} \Arg{code case_n}
+~ ~ \verb|}|
+~ ~ \Arg{true code}
+~ ~ \Arg{false code}
+\end{syntax}
+This function evaluates the \meta{test integer expression} and
+compares this in turn to each of the
+\meta{integer expression cases}. If the two are equal then the
+associated \meta{code} is left in the input stream
+and other cases are discarded. If any of the
+cases are matched, the \meta{true code} is also inserted into the
+input stream (after the code for the appropriate case), while if none
+match then the \meta{false code} is inserted.
 \end{function}
 
 \end{document}
