@@ -461,90 +461,6 @@ If the \meta{token list} is blank, the result is empty.
 %\end{texnote}
 \end{function}
 
-\section{Case Functions for Token Lists}
-
-\begin{function}{\TlVarCase}
-\begin{syntax}
-\cs{TlVarCase} \meta{test token list variable}
-~ ~ \verb"{"
-~ ~ ~ ~ \meta{token list variable case_1} \Arg{code case_1}
-~ ~ ~ ~ \meta{token list variable case_2} \Arg{code case_2}
-~ ~ ~ ~ $\cdots$
-~ ~ ~ ~ \meta{token list variable case_n} \Arg{code case_n}
-~ ~ \verb"}"
-\end{syntax}
-This function compares the \meta{test token list variable} in turn
-with each of the \meta{token list variable cases}. If the two
-are equal (as described for \cs{TlVarIfEq})
-then the associated \meta{code} is left in the input
-stream and other cases are discarded. The function
-does nothing if there is no match.
-\end{function}
-
-\begin{function}{\TlVarCaseT}
-\begin{syntax}
-\cs{TlVarCaseT} \meta{test token list variable}
-~ ~ \verb"{"
-~ ~ ~ ~ \meta{token list variable case_1} \Arg{code case_1}
-~ ~ ~ ~ \meta{token list variable case_2} \Arg{code case_2}
-~ ~ ~ ~ $\cdots$
-~ ~ ~ ~ \meta{token list variable case_n} \Arg{code case_n}
-~ ~ \verb"}"
-~ ~ \Arg{true code}
-\end{syntax}
-This function compares the \meta{test token list variable} in turn
-with each of the \meta{token list variable cases}. If the two
-are equal (as described for \cs{TlVarIfEq})
-then the associated \meta{code} is left in the input
-stream and other cases are discarded. If any of the
-cases are matched, the \meta{true code} is also inserted into the
-input stream (after the code for the appropriate case).
-\end{function}
-
-\begin{function}{\TlVarCaseF}
-\begin{syntax}
-\cs{TlVarCaseF} \meta{test token list variable}
-~ ~ \verb"{"
-~ ~ ~ ~ \meta{token list variable case_1} \Arg{code case_1}
-~ ~ ~ ~ \meta{token list variable case_2} \Arg{code case_2}
-~ ~ ~ ~ $\cdots$
-~ ~ ~ ~ \meta{token list variable case_n} \Arg{code case_n}
-~ ~ \verb"}"
-~ ~ \Arg{false code}
-\end{syntax}
-This function compares the \meta{test token list variable} in turn
-with each of the \meta{token list variable cases}. If the two
-are equal (as described for \cs{TlVarIfEq})
-then the associated \meta{code} is left in the input
-stream and other cases are discarded. If none
-match then the \meta{false code} is inserted into the input stream
- (after the code for the appropriate case).
-\end{function}
-
-\begin{function}{\TlVarCaseTF}
-\begin{syntax}
-\cs{TlVarCaseTF} \meta{test token list variable}
-~ ~ \verb"{"
-~ ~ ~ ~ \meta{token list variable case_1} \Arg{code case_1}
-~ ~ ~ ~ \meta{token list variable case_2} \Arg{code case_2}
-~ ~ ~ ~ $\cdots$
-~ ~ ~ ~ \meta{token list variable case_n} \Arg{code case_n}
-~ ~ \verb"}"
-~ ~ \Arg{true code}
-~ ~ \Arg{false code}
-\end{syntax}
-This function compares the \meta{test token list variable} in turn
-with each of the \meta{token list variable cases}. If the two
-are equal (as described for \cs{TlVarIfEq})
-then the associated \meta{code} is left in the input
-stream and other cases are discarded. If any of the
-cases are matched, the \meta{true code} is also inserted into the
-input stream (after the code for the appropriate case), while if none
-match then the \meta{false code} is inserted. The function
-\cs{TlVarCase}, which does nothing if there is no match, is also
-available.
-\end{function}
-
 \section{Mapping over Token Lists}
 
 All mappings are done at the current group level, \emph{i.e.} any
@@ -684,7 +600,7 @@ or its original value if the \meta{tl var} is blank.
 %\end{texnote}
 %\end{function}
 
-\section{Token List Conditional}
+\section{Token List Conditionals}
 
 \begin{function}{\TlIfExist,\TlIfExistTF}
 \begin{syntax}
@@ -822,6 +738,90 @@ Tests if the content of the \meta{tl var} consists of a single \meta{item},
 character nor a begin-group character) or a single brace group,
 surrounded by optional spaces on both sides. In other words, such a
 token list has token count $1$ according to \cs{TlVarCount}.
+\end{function}
+
+\section{Case Functions for Token Lists}
+
+\begin{function}{\TlVarCase}
+\begin{syntax}
+\cs{TlVarCase} \meta{test token list variable}
+~ ~ \verb"{"
+~ ~ ~ ~ \meta{token list variable case_1} \Arg{code case_1}
+~ ~ ~ ~ \meta{token list variable case_2} \Arg{code case_2}
+~ ~ ~ ~ $\cdots$
+~ ~ ~ ~ \meta{token list variable case_n} \Arg{code case_n}
+~ ~ \verb"}"
+\end{syntax}
+This function compares the \meta{test token list variable} in turn
+with each of the \meta{token list variable cases}. If the two
+are equal (as described for \cs{TlVarIfEq})
+then the associated \meta{code} is left in the input
+stream and other cases are discarded. The function
+does nothing if there is no match.
+\end{function}
+
+\begin{function}{\TlVarCaseT}
+\begin{syntax}
+\cs{TlVarCaseT} \meta{test token list variable}
+~ ~ \verb"{"
+~ ~ ~ ~ \meta{token list variable case_1} \Arg{code case_1}
+~ ~ ~ ~ \meta{token list variable case_2} \Arg{code case_2}
+~ ~ ~ ~ $\cdots$
+~ ~ ~ ~ \meta{token list variable case_n} \Arg{code case_n}
+~ ~ \verb"}"
+~ ~ \Arg{true code}
+\end{syntax}
+This function compares the \meta{test token list variable} in turn
+with each of the \meta{token list variable cases}. If the two
+are equal (as described for \cs{TlVarIfEq})
+then the associated \meta{code} is left in the input
+stream and other cases are discarded. If any of the
+cases are matched, the \meta{true code} is also inserted into the
+input stream (after the code for the appropriate case).
+\end{function}
+
+\begin{function}{\TlVarCaseF}
+\begin{syntax}
+\cs{TlVarCaseF} \meta{test token list variable}
+~ ~ \verb"{"
+~ ~ ~ ~ \meta{token list variable case_1} \Arg{code case_1}
+~ ~ ~ ~ \meta{token list variable case_2} \Arg{code case_2}
+~ ~ ~ ~ $\cdots$
+~ ~ ~ ~ \meta{token list variable case_n} \Arg{code case_n}
+~ ~ \verb"}"
+~ ~ \Arg{false code}
+\end{syntax}
+This function compares the \meta{test token list variable} in turn
+with each of the \meta{token list variable cases}. If the two
+are equal (as described for \cs{TlVarIfEq})
+then the associated \meta{code} is left in the input
+stream and other cases are discarded. If none
+match then the \meta{false code} is inserted into the input stream
+ (after the code for the appropriate case).
+\end{function}
+
+\begin{function}{\TlVarCaseTF}
+\begin{syntax}
+\cs{TlVarCaseTF} \meta{test token list variable}
+~ ~ \verb"{"
+~ ~ ~ ~ \meta{token list variable case_1} \Arg{code case_1}
+~ ~ ~ ~ \meta{token list variable case_2} \Arg{code case_2}
+~ ~ ~ ~ $\cdots$
+~ ~ ~ ~ \meta{token list variable case_n} \Arg{code case_n}
+~ ~ \verb"}"
+~ ~ \Arg{true code}
+~ ~ \Arg{false code}
+\end{syntax}
+This function compares the \meta{test token list variable} in turn
+with each of the \meta{token list variable cases}. If the two
+are equal (as described for \cs{TlVarIfEq})
+then the associated \meta{code} is left in the input
+stream and other cases are discarded. If any of the
+cases are matched, the \meta{true code} is also inserted into the
+input stream (after the code for the appropriate case), while if none
+match then the \meta{false code} is inserted. The function
+\cs{TlVarCase}, which does nothing if there is no match, is also
+available.
 \end{function}
 
 \end{document}
