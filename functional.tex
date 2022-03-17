@@ -921,7 +921,47 @@ is a series of tokens with category code $12$ (other) with the exception
 of spaces, which retain category code $10$ (space).
 \end{function}
 
-\section{Setting and Adding Data to Token List Variables}
+\section{Viewing Token Lists}
+
+\begin{function}{\TlLog}
+\begin{syntax}
+\cs{TlLog} \Arg{token list}
+\end{syntax}
+Writes the \meta{token list} in the log file. See also
+\cs{TlShow} which displays the result in the terminal.
+\end{function}
+
+\begin{function}{\TlVarLog}
+\begin{syntax}
+\cs{TlVarLog} \meta{tl var}
+\end{syntax}
+Writes the content of the \meta{tl var} in the log file. See also
+\cs{TlVarShow} which displays the result in the terminal.
+\end{function}
+
+\begin{function}{\TlShow}
+\begin{syntax}
+\cs{TlShow} \Arg{token list}
+\end{syntax}
+Displays the \meta{token list} on the terminal.
+%\begin{texnote}
+%This is similar to the \eTeX{} primitive \tn{showtokens}, wrapped
+%to a fixed number of characters per line.
+%\end{texnote}
+\end{function}
+
+\begin{function}{\TlVarShow}
+\begin{syntax}
+\cs{TlVarShow} \meta{tl var}
+\end{syntax}
+Displays the content of the \meta{tl var} on the terminal.
+\begin{texnote}
+This is similar to the \TeX{} primitive \tn{show}, wrapped to a
+fixed number of characters per line.
+\end{texnote}
+\end{function}
+
+\section{Setting Token List Variables}
 
 \begin{function}{\TlSet}
 \begin{syntax}
@@ -1083,7 +1123,7 @@ and trailing explicit space characters (explicit tokens with
 character code $32$ and category code $10$) from its contents.
 \end{function}
 
-\section{ Working with the Content of Token Lists}
+\section{Working with the Content of Token Lists}
 
 \begin{function}{\TlCount}
 \begin{syntax}
@@ -1115,13 +1155,13 @@ All leading explicit space characters
 (explicit tokens with character code $32$ and category code $10$)
 are discarded; for example
 \begin{demohigh}
-\fbox{1\TlHead{ abc }2}
-\fbox{1\TlHead{   abc }2}
+\fbox {1\TlHead{ abc }2}
+\fbox {1\TlHead{  abc }2}
 \end{demohigh}
 If the \enquote{head} is a brace group, rather than a single token,
 the braces are removed, and so
 \begin{codehigh}
-\TlHead {   {   ab } c }
+\TlHead { { ab} c }
 \end{codehigh}
 yields \verb*| ab|.
 A blank \meta{token list} (see \cs{TlIfBlank}) results in
@@ -1153,13 +1193,13 @@ Discards all leading explicit space characters
 and the first \meta{item} in the \meta{token list}, and returns the
 remaining tokens. Thus for example
 \begin{codehigh}
-\TlTail { a   {bc} d }
+\TlTail { a {bc} d }
 \end{codehigh}
 and
 \begin{codehigh}
-\TlTail {   a   {bc} d }
+\TlTail {  a {bc} d }
 \end{codehigh}
-both return \verb*| {bc}d|.  A blank \meta{token list} (see \cs{TlIfBlank})
+both return \verb*| {bc} d |.  A blank \meta{token list} (see \cs{TlIfBlank})
 results in \cs{TlTail} returning nothing.
 %\begin{texnote}
 %The result is returned within \cs{exp_not:n}, which means that the
@@ -1295,46 +1335,6 @@ input stream (after the code for the appropriate case), while if none
 match then the \meta{false code} is inserted. The function
 \cs{TlVarCase}, which does nothing if there is no match, is also
 available.
-\end{function}
-
-\section{Viewing Token Lists}
-
-\begin{function}{\TlLog}
-\begin{syntax}
-\cs{TlLog} \Arg{token list}
-\end{syntax}
-Writes the \meta{token list} in the log file. See also
-\cs{TlShow} which displays the result in the terminal.
-\end{function}
-
-\begin{function}{\TlVarLog}
-\begin{syntax}
-\cs{TlVarLog} \meta{tl var}
-\end{syntax}
-Writes the content of the \meta{tl var} in the log file. See also
-\cs{TlVarShow} which displays the result in the terminal.
-\end{function}
-
-\begin{function}{\TlShow}
-\begin{syntax}
-\cs{TlShow} \Arg{token list}
-\end{syntax}
-Displays the \meta{token list} on the terminal.
-%\begin{texnote}
-%This is similar to the \eTeX{} primitive \tn{showtokens}, wrapped
-%to a fixed number of characters per line.
-%\end{texnote}
-\end{function}
-
-\begin{function}{\TlVarShow}
-\begin{syntax}
-\cs{TlVarShow} \meta{tl var}
-\end{syntax}
-Displays the content of the \meta{tl var} on the terminal.
-\begin{texnote}
-This is similar to the \TeX{} primitive \tn{show}, wrapped to a
-fixed number of characters per line.
-\end{texnote}
 \end{function}
 
 \section{Mapping over Token Lists}
@@ -2729,7 +2729,11 @@ match then the \meta{false code} is inserted.
 
 \chapter{Comma Separated Lists (\texttt{Clist})}
 
-\section{Scratch and Constant Comma Lists}
+\section{Constant and Scratch Comma Lists}
+
+\begin{variable}{\cEmptyClist}
+Constant that is always empty.
+\end{variable}
 
 \begin{variable}{\lTmpaClist,\lTmpbClist,\lTmpcClist,\lTmpiClist,\lTmpjClist,\lTmpkClist}
 Scratch comma lists for local assignment. These are never used by
@@ -2743,10 +2747,6 @@ Scratch comma lists for global assignment. These are never used by
 the \verb!functional! package, and so are safe for use with any
 function. However, they may be overwritten by other
 code and so should only be used for short-term storage.
-\end{variable}
-
-\begin{variable}{\cEmptyClist}
-Constant that is always empty.
 \end{variable}
 
 \section{Creating and Using Comma Lists}
@@ -2895,6 +2895,38 @@ then inserted in the same way as for \cs{ClistVarJoin} and
 %do not expand further when appearing in an \texttt{x}-type
 %or \texttt{e}-type argument expansion.
 %\end{texnote}
+\end{function}
+
+\section{Viewing Comma Lists}
+
+\begin{function}{\ClistLog}
+\begin{syntax}
+\cs{ClistLog} \Arg{tokens}
+\end{syntax}
+Writes the entries in the comma list in the log file. See also
+\cs{ClistShow} which displays the result in the terminal.
+\end{function}
+
+\begin{function}{\ClistVarLog}
+\begin{syntax}
+\cs{ClistVarLog} \meta{comma list}
+\end{syntax}
+Writes the entries in the \meta{comma list} in the log file. See
+also \cs{ClistVarShow} which displays the result in the terminal.
+\end{function}
+
+\begin{function}{\ClistShow}
+\begin{syntax}
+\cs{ClistShow} \Arg{tokens}
+\end{syntax}
+Displays the entries in the comma list in the terminal.
+\end{function}
+
+\begin{function}{\ClistVarShow}
+\begin{syntax}
+\cs{ClistVarShow} \meta{comma list}
+\end{syntax}
+Displays the entries in the \meta{comma list} in the terminal.
 \end{function}
 
 \section{Adding Data to Comma Lists}
@@ -3094,38 +3126,6 @@ not defined in this case and should not be relied upon.
 Adds the \Arg{items} to the top of the \meta{comma list}.
 Spaces are removed from both sides of each item as for any
 \texttt{n}-type comma list.
-\end{function}
-
-\section{Viewing Comma Lists}
-
-\begin{function}{\ClistLog}
-\begin{syntax}
-\cs{ClistLog} \Arg{tokens}
-\end{syntax}
-Writes the entries in the comma list in the log file. See also
-\cs{ClistShow} which displays the result in the terminal.
-\end{function}
-
-\begin{function}{\ClistVarLog}
-\begin{syntax}
-\cs{ClistVarLog} \meta{comma list}
-\end{syntax}
-Writes the entries in the \meta{comma list} in the log file. See
-also \cs{ClistVarShow} which displays the result in the terminal.
-\end{function}
- 
-\begin{function}{\ClistShow}
-\begin{syntax}
-\cs{ClistShow} \Arg{tokens}
-\end{syntax}
-Displays the entries in the comma list in the terminal.
-\end{function}
- 
-\begin{function}{\ClistVarShow}
-\begin{syntax}
-\cs{ClistVarShow} \meta{comma list}
-\end{syntax}
-Displays the entries in the \meta{comma list} in the terminal.
 \end{function}
 
 \section{Mapping over Comma Lists}

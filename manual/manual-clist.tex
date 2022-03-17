@@ -9,7 +9,11 @@
 
 \chapter{Comma Separated Lists (\texttt{Clist})}
 
-\section{Scratch and Constant Comma Lists}
+\section{Constant and Scratch Comma Lists}
+
+\begin{variable}{\cEmptyClist}
+Constant that is always empty.
+\end{variable}
 
 \begin{variable}{\lTmpaClist,\lTmpbClist,\lTmpcClist,\lTmpiClist,\lTmpjClist,\lTmpkClist}
 Scratch comma lists for local assignment. These are never used by
@@ -23,10 +27,6 @@ Scratch comma lists for global assignment. These are never used by
 the \verb!functional! package, and so are safe for use with any
 function. However, they may be overwritten by other
 code and so should only be used for short-term storage.
-\end{variable}
-
-\begin{variable}{\cEmptyClist}
-Constant that is always empty.
 \end{variable}
 
 \section{Creating and Using Comma Lists}
@@ -175,6 +175,38 @@ then inserted in the same way as for \cs{ClistVarJoin} and
 %do not expand further when appearing in an \texttt{x}-type
 %or \texttt{e}-type argument expansion.
 %\end{texnote}
+\end{function}
+
+\section{Viewing Comma Lists}
+
+\begin{function}{\ClistLog}
+\begin{syntax}
+\cs{ClistLog} \Arg{tokens}
+\end{syntax}
+Writes the entries in the comma list in the log file. See also
+\cs{ClistShow} which displays the result in the terminal.
+\end{function}
+
+\begin{function}{\ClistVarLog}
+\begin{syntax}
+\cs{ClistVarLog} \meta{comma list}
+\end{syntax}
+Writes the entries in the \meta{comma list} in the log file. See
+also \cs{ClistVarShow} which displays the result in the terminal.
+\end{function}
+
+\begin{function}{\ClistShow}
+\begin{syntax}
+\cs{ClistShow} \Arg{tokens}
+\end{syntax}
+Displays the entries in the comma list in the terminal.
+\end{function}
+
+\begin{function}{\ClistVarShow}
+\begin{syntax}
+\cs{ClistVarShow} \meta{comma list}
+\end{syntax}
+Displays the entries in the \meta{comma list} in the terminal.
 \end{function}
 
 \section{Adding Data to Comma Lists}
@@ -374,38 +406,6 @@ not defined in this case and should not be relied upon.
 Adds the \Arg{items} to the top of the \meta{comma list}.
 Spaces are removed from both sides of each item as for any
 \texttt{n}-type comma list.
-\end{function}
-
-\section{Viewing Comma Lists}
-
-\begin{function}{\ClistLog}
-\begin{syntax}
-\cs{ClistLog} \Arg{tokens}
-\end{syntax}
-Writes the entries in the comma list in the log file. See also
-\cs{ClistShow} which displays the result in the terminal.
-\end{function}
-
-\begin{function}{\ClistVarLog}
-\begin{syntax}
-\cs{ClistVarLog} \meta{comma list}
-\end{syntax}
-Writes the entries in the \meta{comma list} in the log file. See
-also \cs{ClistVarShow} which displays the result in the terminal.
-\end{function}
- 
-\begin{function}{\ClistShow}
-\begin{syntax}
-\cs{ClistShow} \Arg{tokens}
-\end{syntax}
-Displays the entries in the comma list in the terminal.
-\end{function}
- 
-\begin{function}{\ClistVarShow}
-\begin{syntax}
-\cs{ClistVarShow} \meta{comma list}
-\end{syntax}
-Displays the entries in the \meta{comma list} in the terminal.
 \end{function}
 
 \section{Mapping over Comma Lists}
