@@ -693,7 +693,7 @@
 
 \PrgNewFunction \TlSetEq { M M }
   {
-    \__fun_do_assignment:Nnn #1 { \tl_gset_eq:NN #1 {#2} } { \tl_set_eq:NN #1 {#2} }
+    \__fun_do_assignment:Nnn #1 { \tl_gset_eq:NN #1 #2 } { \tl_set_eq:NN #1 #2 }
   }
 
 \PrgNewFunction \TlConcat { M M M }
@@ -854,6 +854,20 @@
 %%> \section{Interfaces for Strings (Str)}
 %%% --------------------------------------------------------
 
+\str_set_eq:NN \cAmpersandStr  \c_ampersand_str
+\str_set_eq:NN \cAttignStr     \c_atsign_str
+\str_set_eq:NN \cBackslashStr  \c_backslash_str
+\str_set_eq:NN \cLeftBraceStr  \c_left_brace_str
+\str_set_eq:NN \cRightBraceStr \c_right_brace_str
+\str_set_eq:NN \cCircumflexStr \c_circumflex_str
+\str_set_eq:NN \cColonStr      \c_colon_str
+\str_set_eq:NN \cDollarStr     \c_dollar_str
+\str_set_eq:NN \cHashStr       \c_hash_str
+\str_set_eq:NN \cPercentStr    \c_percent_str
+\str_set_eq:NN \cTildeStr      \c_tilde_str
+\str_set_eq:NN \cUnderscoreStr \c_underscore_str
+\str_set_eq:NN \cZeroStr       \c_zero_str
+
 \str_new:N \lTmpaStr   \str_new:N \lTmpbStr   \str_new:N \lTmpcStr
 \str_new:N \lTmpiStr   \str_new:N \lTmpjStr   \str_new:N \lTmpkStr
 \str_new:N \l@Funx@Str \str_new:N \l@Funy@Str \str_new:N \l@Funz@Str
@@ -864,20 +878,42 @@
 
 \PrgNewFunction \StrNew { M } { \str_new:N #1 }
 
+\PrgNewFunction \StrLog { m } { \str_log:n { #1 } }
+
 \PrgNewFunction \StrVarLog { M } { \str_log:N #1 }
+
+\PrgNewFunction \StrShow { m } { \str_show:n { #1 } }
 
 \PrgNewFunction \StrVarShow { M } { \str_show:N #1 }
 
 \PrgNewFunction \StrUse { M } { \Result { \Value #1 } }
+
+\PrgNewFunction \StrConst { M m } { \str_const:Nn #1 {#2} }
+
+\PrgNewFunction \StrSet { M m }
+  {
+    \__fun_do_assignment:Nnn #1 { \str_gset:Nn #1 {#2} } { \str_set:Nn #1 {#2} }
+  }
+
+\PrgNewFunction \StrSetEq { M M }
+  {
+    \__fun_do_assignment:Nnn #1 { \str_gset_eq:NN #1 #2 } { \str_set_eq:NN #1 #2 }
+  }
+
+\PrgNewFunction \StrConcat { M M M }
+  {
+    \__fun_do_assignment:Nnn #1
+      { \str_gconcat:NNN #1 #2 #3 } { \str_concat:NNN #1 #2 #3 }
+  }
 
 \PrgNewFunction \StrClear { M }
   {
     \__fun_do_assignment:Nnn #1 { \str_gclear:N #1 } { \str_clear:N #1 }
   }
 
-\PrgNewFunction \StrSet { M m }
+\PrgNewFunction \StrClearNew { M }
   {
-    \__fun_do_assignment:Nnn #1 { \str_gset:Nn #1 {#2} } { \str_set:Nn #1 {#2} }
+    \__fun_do_assignment:Nnn #1 { \str_gclear_new:N #1 } { \str_clear_new:N #1 }
   }
 
 \PrgNewFunction \StrPutLeft { M m }
@@ -890,6 +926,76 @@
   {
     \__fun_do_assignment:Nnn #1
       { \str_gput_right:Nn #1 {#2} } { \str_put_right:Nn #1 {#2} }
+  }
+
+\PrgNewFunction \StrReplaceOnce { M m m }
+  {
+    \__fun_do_assignment:Nnn #1
+      { \str_greplace_once:Nnn #1 {#2} {#3} } { \str_replace_once:Nnn #1 {#2} {#3} }
+  }
+
+\PrgNewFunction \StrReplaceAll { M m m }
+  {
+    \__fun_do_assignment:Nnn #1
+      { \str_greplace_all:Nnn #1 {#2} {#3} } { \str_replace_all:Nnn #1 {#2} {#3} }
+  }
+
+\PrgNewFunction \StrRemoveOnce { M m }
+  {
+    \__fun_do_assignment:Nnn #1
+      { \str_gremove_once:Nn #1 {#2} } { \str_remove_once:Nn #1 {#2} }
+  }
+
+\PrgNewFunction \StrRemoveAll { M m }
+  {
+    \__fun_do_assignment:Nnn #1
+      { \str_gremove_all:Nn #1 {#2} } { \str_remove_all:Nn #1 {#2} }
+  }
+
+\PrgNewFunction \StrCount { m } { \Expand { \str_count:n { #1 } } }
+
+\PrgNewFunction \StrVarCount { M } { \Expand { \str_count:N #1 } }
+
+\PrgNewFunction \StrHead { m } { \Expand { \str_head:n { #1 } } }
+
+\PrgNewFunction \StrVarHead { M } { \Expand { \str_head:N #1 } }
+
+\PrgNewFunction \StrTail { m } { \Expand { \str_tail:n { #1 } } }
+
+\PrgNewFunction \StrVarTail { M } { \Expand { \str_tail:N #1 } }
+
+\PrgNewFunction \StrItem { m m } { \Expand { \str_item:nn {#1} {#2} } }
+
+\PrgNewFunction \StrVarItem { M m } { \Expand { \str_item:Nn #1 {#2} } }
+
+\PrgNewFunction \StrCase   { m m }     { \str_case:nn {#1} {#2} }
+\PrgNewFunction \StrCaseT  { m m n }   { \str_case:nnT {#1} {#2} {#3} }
+\PrgNewFunction \StrCaseF  { m m n }   { \str_case:nnF {#1} {#2} {#3} }
+\PrgNewFunction \StrCaseTF { m m n n } { \str_case:nnTF {#1} {#2} {#3} {#4} }
+
+\PrgNewFunction \StrMapInline { m n }
+  {
+    \str_map_inline:nn {#1} {#2}
+  }
+
+\PrgNewFunction \StrVarMapInline { M n }
+  {
+    \str_map_inline:Nn #1 {#2}
+  }
+
+\PrgNewFunction \StrMapVariable { m M n }
+  {
+    \str_map_variable:nNn {#1} #2 {#3}
+  }
+
+\PrgNewFunction \StrVarMapVariable { M M n }
+  {
+    \str_map_variable:NNn #1 #2 {#3}
+  }
+
+\PrgNewConditional \StrIfExist { M }
+  {
+    \str_if_exist:NTF #1 { \Result { \cTrueBool } }  { \Result { \cFalseBool } }
   }
 
 \PrgNewConditional \StrVarIfEmpty { M }
@@ -905,6 +1011,16 @@
 \PrgNewConditional \StrVarIfEq { M M }
   {
     \str_if_eq:NNTF #1 #2 { \Result { \cTrueBool } } { \Result { \cFalseBool } }
+  }
+
+\PrgNewConditional \StrIfIn { m m }
+  {
+    \str_if_in:nnTF {#1} {#2} { \Result { \cTrueBool } } { \Result { \cFalseBool } }
+  }
+
+\PrgNewConditional \StrVarIfIn { M m }
+  {
+    \str_if_in:NnTF #1 {#2} { \Result { \cTrueBool } } { \Result { \cFalseBool } }
   }
 
 %%% --------------------------------------------------------
