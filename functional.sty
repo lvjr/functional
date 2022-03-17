@@ -1066,8 +1066,12 @@
 
 \PrgNewFunction \IntMathDiv { m m }
   {
-    \int_set:Nn \l@Funx@Int { \int_eval:n { (#1) / (#2) } }
-    \Result { \Value \l@Funx@Int }
+    \Expand { \int_div_round:nn { #1 } { #2 } }
+  }
+
+\PrgNewFunction \IntMathDivTruncate { m m }
+  {
+    \Expand { \int_div_truncate:nn { #1 } { #2 } }
   }
 
 \PrgNewFunction \IntMathSign { m } { \Expand { \int_sign:n { #1 } } }
