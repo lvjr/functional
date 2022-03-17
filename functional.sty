@@ -1027,6 +1027,12 @@
 %%> \section{Interfaces for Integers (Int)}
 %%% --------------------------------------------------------
 
+\cs_set_eq:NN \cZeroInt        \c_zero_int
+\cs_set_eq:NN \cOneInt         \c_one_int
+\cs_set_eq:NN \cMaxInt         \c_max_int
+\cs_set_eq:NN \cMaxRegisterInt \c_max_register_int
+\cs_set_eq:NN \cMaxCharInt     \c_max_char_in
+
 \int_new:N \lTmpaInt   \int_new:N \lTmpbInt   \int_new:N \lTmpcInt
 \int_new:N \lTmpiInt   \int_new:N \lTmpjInt   \int_new:N \lTmpkInt
 \int_new:N \l@Funx@Int \int_new:N \l@Funy@Int \int_new:N \l@Funz@Int
@@ -1064,9 +1070,27 @@
     \Result { \Value \l@Funx@Int }
   }
 
+\PrgNewFunction \IntMathSign { m } { \Expand { \int_sign:n { #1 } } }
+
+\PrgNewFunction \IntMathAbs { m } { \Expand { \int_abs:n { #1 } } }
+
+\PrgNewFunction \IntMathMax { m m } { \Expand { \int_max:nn { #1 } { #2 } } }
+
+\PrgNewFunction \IntMathMin { m m } { \Expand { \int_min:nn { #1 } { #2 } } }
+
+\PrgNewFunction \IntMathMod { m m } { \Expand { \int_mod:nn { #1 } { #2 } } }
+
+\PrgNewFunction \IntMathRand { m m } { \Expand { \int_rand:nn { #1 } { #2 } } }
+
 \PrgNewFunction \IntNew { M } { \int_new:N #1 }
 
+\PrgNewFunction \IntConst { M m } { \int_const:Nn #1 { #2 } }
+
+\PrgNewFunction \IntLog { m } { \int_log:n { #1 } }
+
 \PrgNewFunction \IntVarLog { M } { \int_log:N #1 }
+
+\PrgNewFunction \IntShow { m } { \int_show:n { #1 } }
 
 \PrgNewFunction \IntVarShow { M } { \int_show:N #1 }
 
@@ -1080,6 +1104,16 @@
 \PrgNewFunction \IntZero { M }
   {
     \__fun_do_assignment:Nnn #1 { \int_gzero:N #1 } { \int_zero:N #1 }
+  }
+
+\PrgNewFunction \IntZeroNew { M }
+  {
+    \__fun_do_assignment:Nnn #1 { \int_gzero_new:N #1 } { \int_zero_new:N #1 }
+  }
+
+\PrgNewFunction \IntSetEq { M M }
+  {
+    \__fun_do_assignment:Nnn #1 { \int_gset_eq:NN #1 #2 } { \int_set_eq:NN #1 #2 }
   }
 
 \PrgNewFunction \IntIncr { M }
@@ -1102,9 +1136,19 @@
     \__fun_do_assignment:Nnn #1 { \int_gsub:Nn #1 {#2} } { \int_sub:Nn #1 {#2} }
   }
 
+\PrgNewFunction \IntStepInline { m m m n }
+  {
+    \int_step_inline:nnnn { #1 } { #2 } { #3 } { #4 }
+  }
+
 \PrgNewFunction \IntStepVariable { m m m M n }
   {
     \int_step_variable:nnnNn { #1 } { #2 } { #3 } #4 { #5 }
+  }
+
+\PrgNewConditional \IntIfExist { M }
+  {
+    \int_if_exist:NTF #1 { \Result { \cTrueBool } } { \Result { \cFalseBool } }
   }
 
 \PrgNewConditional \IntCompare { m N m }
@@ -1113,6 +1157,21 @@
       { \Result { \cTrueBool } }
       { \Result { \cFalseBool } }
   }
+
+\PrgNewConditional \IntIfOdd { m }
+  {
+    \int_if_odd:nTF { #1 } { \Result { \cTrueBool } } { \Result { \cFalseBool } }
+  }
+
+\PrgNewConditional \IntIfEven { m }
+  {
+    \int_if_even:nTF { #1 } { \Result { \cTrueBool } } { \Result { \cFalseBool } }
+  }
+
+\PrgNewFunction \IntCase   { m m }     { \int_case:nn {#1} {#2} }
+\PrgNewFunction \IntCaseT  { m m n }   { \int_case:nnT {#1} {#2} {#3} }
+\PrgNewFunction \IntCaseF  { m m n }   { \int_case:nnF {#1} {#2} {#3} }
+\PrgNewFunction \IntCaseTF { m m n n } { \int_case:nnTF {#1} {#2} {#3} {#4} }
 
 %%% --------------------------------------------------------
 %%> \section{Interfaces for Floating Point Numbers (Fp)}
