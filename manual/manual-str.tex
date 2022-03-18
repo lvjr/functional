@@ -516,6 +516,35 @@ tests if that \meta{string} is found in the content of the
 \meta{str var}.
 \end{function}
 
+\begin{function}{\StrCompare,\StrCompareTF}
+\begin{syntax}
+\cs{StrCompare} \Arg{tl_1} \meta{relation} \Arg{tl_2}
+\cs{StrCompareTF} \Arg{tl_1} \meta{relation} \Arg{tl_2} \Arg{true code} \Arg{false code}
+\end{syntax}
+Compares the two \meta{token lists} on a character by character
+basis (namely after converting them to strings) in a lexicographic
+order according to the character codes of the characters.  The
+\meta{relation} can be \verb|<|, \verb|=|, or \verb|>| and the test is
+\texttt{true} under the following conditions:
+\begin{itemize}[nosep]
+\item for \verb|<|, if the first string is earlier than the second in lexicographic order;
+\item for \verb|=|, if the two strings have exactly the same characters;
+\item for \verb|>|, if the first string is later than the second in lexicographic order.
+\end{itemize}
+For example:
+\begin{demohigh}
+\StrCompareTF {ab} < {abc} {\Result{Yes}} {\Result{No}}
+\StrCompareTF {ab} < {aa} {\Result{Yes}} {\Result{No}}
+\end{demohigh}
+%\begin{texnote}
+%This is a wrapper around the \TeX{} primitive
+%\cs{(pdf)strcmp}.  It is meant for programming
+%and not for sorting textual contents, as it simply considers
+%character codes and not more elaborate considerations of grapheme
+%clusters, locale, etc.
+%\end{texnote}
+\end{function}
+
 \section{String Case Functions}
 
 \begin{function}{\StrCase}
