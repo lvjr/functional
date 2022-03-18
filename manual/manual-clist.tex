@@ -441,17 +441,28 @@ explicit comma lists.
 %The function \cs{ClistMapInline} is in general more efficient
 %than \cs{ClistMapFunction}.
 %\end{function}
-% 
-%\begin{function}{\ClistMapInline,\ClistVarMapInline}
-%\begin{syntax}
-%\cs{ClistMapInline} \Arg{comma list} \Arg{inline function}
-%\cs{ClistVarMapInline} \meta{comma list} \Arg{inline function}
-%\end{syntax}
-%Applies \meta{inline function} to every \meta{item} stored
-%within the \meta{comma list}. The \meta{inline function} should
-%consist of code which receives the \meta{item} as \verb|#1|.
-%The \meta{items} are returned from left to right.
-%\end{function}
+
+\begin{function}{\ClistMapInline,\ClistVarMapInline}
+\begin{syntax}
+\cs{ClistMapInline} \Arg{comma list} \Arg{inline function}
+\cs{ClistVarMapInline} \meta{comma list} \Arg{inline function}
+\end{syntax}
+Applies \meta{inline function} to every \meta{item} stored
+within the \meta{comma list}. The \meta{inline function} should
+consist of code which receives the \meta{item} as \verb|#1|.
+The \meta{items} are returned from left to right.
+For example
+\begin{codehigh}
+\IgnoreSpacesOn
+\TlClear \lTmpaTl
+\ClistMapInline {one,two,three} {
+  \TlPutRight \lTmpaTl {(#1)}
+}
+\Result {\TlUse\lTmpaTl}
+\IgnoreSpacesOff
+\end{codehigh}
+produces (one)(two)(three).
+\end{function}
 
 \begin{function}{\ClistMapVariable,\ClistVarMapVariable}
 \begin{syntax}
