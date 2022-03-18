@@ -1,0 +1,194 @@
+This is a generated file for the l3build validation system.
+Don't change this file in any respect.
+============================================================
+TEST 1: Testing \BoolConst 
+============================================================
+    [I] \IntCompare{3}>{2}
+        [I] \Result{\cTrueBool }
+        [O] \cTrueBool 
+    [O] \cTrueBool 
+[I] \BoolConst{\cFooSomeBool }{\cTrueBool }
+[O] 
+[I] \BoolVarLog{\cFooSomeBool }
+> \cFooSomeBool=true.
+[O] 
+============================================================
+============================================================
+TEST 2: Testing \BoolSet 
+============================================================
+    [I] \IntCompare{3}<{2}
+        [I] \Result{\cFalseBool }
+        [O] \cFalseBool 
+    [O] \cFalseBool 
+[I] \BoolSet{\lTmpaBool }{\cFalseBool }
+[O] 
+[I] \BoolVarLog{\lTmpaBool }
+> \lTmpaBool=false.
+[O] 
+============================================================
+============================================================
+TEST 3: Testing \BoolSetTrue 
+============================================================
+[I] \BoolSetTrue{\lTmpaBool }
+[O] 
+[I] \BoolVarIfTF{\lTmpaBool }{\Result {True!}}{\Result {False!}}
+    [I] \BoolVarIf{\lTmpaBool }
+        [I] \Result{\lTmpaBool }
+        [O] \lTmpaBool 
+    [O] \lTmpaBool 
+    [I] \Result{True!}
+    [O] True!
+[O] True!
+============================================================
+============================================================
+TEST 4: Testing \BoolSetFalse 
+============================================================
+[I] \BoolSetFalse{\lTmpaBool }
+[O] 
+[I] \BoolVarIfTF{\lTmpaBool }{\Result {True!}}{\Result {False!}}
+    [I] \BoolVarIf{\lTmpaBool }
+        [I] \Result{\lTmpaBool }
+        [O] \lTmpaBool 
+    [O] \lTmpaBool 
+    [I] \Result{False!}
+    [O] False!
+[O] False!
+============================================================
+============================================================
+TEST 5: Testing \BoolSetEq 
+============================================================
+[I] \BoolSetTrue{\lTmpaBool }
+[O] 
+[I] \BoolSetEq{\lTmpbBool }{\lTmpaBool }
+[O] 
+[I] \BoolVarLog{\lTmpbBool }
+> \lTmpbBool=true.
+[O] 
+============================================================
+============================================================
+TEST 6: Testing \BoolLog 
+============================================================
+[I] \BoolLog{\lTmpaBool }
+> \lTmpaBool =false.
+[O] 
+============================================================
+============================================================
+TEST 7: Testing \BoolIfExist 
+============================================================
+[I] \BoolIfExistTF{\lTmpaBool }{\Result {Yes}}{\Result {No}}
+    [I] \BoolIfExist{\lTmpaBool }
+        [I] \Result{\cTrueBool }
+        [O] \cTrueBool 
+    [O] \cTrueBool 
+    [I] \Result{Yes}
+    [O] Yes
+[O] Yes
+[I] \BoolIfExistTF{\lFooUndefinedBool }{\Result {Yes}}{\Result {No}}
+    [I] \BoolIfExist{\lFooUndefinedBool }
+        [I] \Result{\cFalseBool }
+        [O] \cFalseBool 
+    [O] \cFalseBool 
+    [I] \Result{No}
+    [O] No
+[O] No
+============================================================
+============================================================
+TEST 8: Testing \BoolVarIf 
+============================================================
+[I] \BoolSetTrue{\lTmpaBool }
+[O] 
+[I] \BoolVarIfTF{\lTmpaBool }{\Result {True!}}{\Result {False!}}
+    [I] \BoolVarIf{\lTmpaBool }
+        [I] \Result{\lTmpaBool }
+        [O] \lTmpaBool 
+    [O] \lTmpaBool 
+    [I] \Result{True!}
+    [O] True!
+[O] True!
+[I] \BoolSetFalse{\lTmpaBool }
+[O] 
+[I] \BoolVarIfTF{\lTmpaBool }{\Result {True!}}{\Result {False!}}
+    [I] \BoolVarIf{\lTmpaBool }
+        [I] \Result{\lTmpaBool }
+        [O] \lTmpaBool 
+    [O] \lTmpaBool 
+    [I] \Result{False!}
+    [O] False!
+[O] False!
+============================================================
+============================================================
+TEST 9: Testing \BoolVarNot 
+============================================================
+    [I] \IntCompare{3}>{2}
+        [I] \Result{\cTrueBool }
+        [O] \cTrueBool 
+    [O] \cTrueBool 
+[I] \BoolVarNotTF{\cTrueBool }{\Result {Yes}}{\Result {No}}
+    [I] \BoolVarNot{\cTrueBool }
+        [I] \Result{\cFalseBool }
+        [O] \cFalseBool 
+    [O] \cFalseBool 
+    [I] \Result{No}
+    [O] No
+[O] No
+============================================================
+============================================================
+TEST 10: Testing \BoolVarAnd 
+============================================================
+    [I] \IntCompare{3}>{2}
+        [I] \Result{\cTrueBool }
+        [O] \cTrueBool 
+    [O] \cTrueBool 
+    [I] \IntCompare{3}>{4}
+        [I] \Result{\cFalseBool }
+        [O] \cFalseBool 
+    [O] \cFalseBool 
+[I] \BoolVarAndTF{\cTrueBool }{\cFalseBool }{\Result {Yes}}{\Result {No}}
+    [I] \BoolVarAnd{\cTrueBool }{\cFalseBool }
+        [I] \Result{\cFalseBool }
+        [O] \cFalseBool 
+    [O] \cFalseBool 
+    [I] \Result{No}
+    [O] No
+[O] No
+============================================================
+============================================================
+TEST 11: Testing \BoolVarOr 
+============================================================
+    [I] \IntCompare{3}>{2}
+        [I] \Result{\cTrueBool }
+        [O] \cTrueBool 
+    [O] \cTrueBool 
+    [I] \IntCompare{3}>{4}
+        [I] \Result{\cFalseBool }
+        [O] \cFalseBool 
+    [O] \cFalseBool 
+[I] \BoolVarOrTF{\cTrueBool }{\cFalseBool }{\Result {Yes}}{\Result {No}}
+    [I] \BoolVarOr{\cTrueBool }{\cFalseBool }
+        [I] \Result{\cTrueBool }
+        [O] \cTrueBool 
+    [O] \cTrueBool 
+    [I] \Result{Yes}
+    [O] Yes
+[O] Yes
+============================================================
+============================================================
+TEST 12: Testing \BoolVarXor 
+============================================================
+    [I] \IntCompare{3}>{2}
+        [I] \Result{\cTrueBool }
+        [O] \cTrueBool 
+    [O] \cTrueBool 
+    [I] \IntCompare{3}>{4}
+        [I] \Result{\cFalseBool }
+        [O] \cFalseBool 
+    [O] \cFalseBool 
+[I] \BoolVarXorTF{\cTrueBool }{\cFalseBool }{\Result {Yes}}{\Result {No}}
+    [I] \BoolVarXor{\cTrueBool }{\cFalseBool }
+        [I] \Result{\cTrueBool }
+        [O] \cTrueBool 
+    [O] \cTrueBool 
+    [I] \Result{Yes}
+    [O] Yes
+[O] Yes
+============================================================

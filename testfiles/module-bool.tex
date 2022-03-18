@@ -1,0 +1,73 @@
+\documentclass{article}
+
+\input{regression-test}
+\usepackage{functional}
+\Functional{tracing=true}
+
+\AtBeginDocument{\START}
+\AtEndDocument{\END}
+
+\begin{document}
+
+\BEGINTEST{Testing \BoolConst}
+\BoolConst \cFooSomeBool {\IntCompare {3} > {2}}
+\BoolVarLog \cFooSomeBool
+\ENDTEST
+
+\BEGINTEST{Testing \BoolSet}
+\BoolSet \lTmpaBool {\IntCompare {3} < {2}}
+\BoolVarLog \lTmpaBool
+\ENDTEST
+
+\BEGINTEST{Testing \BoolSetTrue}
+\BoolSetTrue \lTmpaBool
+\BoolVarIfTF \lTmpaBool {\Result{True!}} {\Result{False!}}
+\ENDTEST
+
+\BEGINTEST{Testing \BoolSetFalse}
+\BoolSetFalse \lTmpaBool
+\BoolVarIfTF \lTmpaBool {\Result{True!}} {\Result{False!}}
+\ENDTEST
+
+\BEGINTEST{Testing \BoolSetEq}
+\BoolSetTrue \lTmpaBool
+\BoolSetEq \lTmpbBool \lTmpaBool
+\BoolVarLog \lTmpbBool
+\ENDTEST
+
+\BEGINTEST{Testing \BoolLog}
+\BoolLog \lTmpaBool 
+\ENDTEST
+
+\BEGINTEST{Testing \BoolIfExist}
+\BoolIfExistTF \lTmpaBool {\Result{Yes}} {\Result{No}}
+\BoolIfExistTF \lFooUndefinedBool {\Result{Yes}} {\Result{No}}
+\ENDTEST
+
+\BEGINTEST{Testing \BoolVarIf}
+\BoolSetTrue\lTmpaBool
+\BoolVarIfTF\lTmpaBool{\Result{True!}}{\Result{False!}}
+\BoolSetFalse\lTmpaBool
+\BoolVarIfTF\lTmpaBool{\Result{True!}}{\Result{False!}}
+\ENDTEST
+
+\BEGINTEST{Testing \BoolVarNot}
+\BoolVarNotTF {\IntCompare {3} > {2}} {\Result{Yes}} {\Result{No}}
+\ENDTEST
+
+\BEGINTEST{Testing \BoolVarAnd}
+\BoolVarAndTF {\IntCompare {3} > {2}} {\IntCompare {3} > {4}}
+  {\Result{Yes}} {\Result{No}}
+\ENDTEST
+
+\BEGINTEST{Testing \BoolVarOr}
+\BoolVarOrTF {\IntCompare {3} > {2}} {\IntCompare {3} > {4}}
+  {\Result{Yes}} {\Result{No}}
+\ENDTEST
+
+\BEGINTEST{Testing \BoolVarXor}
+\BoolVarXorTF {\IntCompare {3} > {2}} {\IntCompare {3} > {4}}
+  {\Result{Yes}} {\Result{No}}
+\ENDTEST
+
+\end{document}

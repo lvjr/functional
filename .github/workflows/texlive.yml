@@ -1,0 +1,44 @@
+# Based on https://github.com/CTeX-org/ctex-kit/blob/master/.github/workflows/test.yml
+
+name: Run Tests in TeX Live
+
+on: [push, pull_request]
+
+env:
+  CTAN_URL: https://mirrors.rit.edu/CTAN
+
+jobs:
+  build-ubuntu:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install TeX Live
+      run: |
+        export PATH=${{github.workspace}}/tmp/texlive/bin/x86_64-linux:$PATH
+        wget ${{env.CTAN_URL}}/systems/texlive/tlnet/install-tl-unx.tar.gz
+        tar -xzf install-tl-unx.tar.gz
+        cd install-tl-20*
+        ./install-tl --profile ../.github/workflows/texlive.profile
+        echo $(cat ${{github.workspace}}/.github/workflows/texlive.package) | xargs tlmgr install
+        tlmgr update --self --all --no-auto-install --repository=${{env.CTAN_URL}}/systems/texlive/tlnet/
+    - name: Run Tests with l3build
+      run: |
+        export PATH=${{github.workspace}}/tmp/texlive/bin/x86_64-linux:$PATH
+        l3build check --debug --halt-on-error --show-log-on-error
+  build-windows:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install TeX Live
+      run: |
+        ${env:PATH} = "${{github.workspace}}\tmp\texlive\bin\win32;" + ${env:PATH}
+        Invoke-WebRequest -Uri ${{env.CTAN_URL}}/systems/texlive/tlnet/install-tl.zip -OutFile install-tl.zip
+        Expand-Archive install-tl.zip -DestinationPath .
+        Set-Location install-tl-*
+        .\install-tl-windows --no-gui --profile ..\.github\workflows\texlive.profile
+        ${{github.workspace}}/.github/workflows/texlive.bat
+        tlmgr update --self --all --no-auto-install --repository=${{env.CTAN_URL}}/systems/texlive/tlnet/
+    - name: Run Tests with l3build
+      run: |
+        ${env:PATH} = "${{github.workspace}}\tmp\texlive\bin\win32;" + ${env:PATH}
+        l3build check --debug --halt-on-error --show-log-on-error
