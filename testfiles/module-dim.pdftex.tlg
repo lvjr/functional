@@ -1,0 +1,338 @@
+This is a generated file for the l3build validation system.
+Don't change this file in any respect.
+============================================================
+TEST 1: Testing \DimEval 
+============================================================
+[I] \DimEval{(1.2pt+3.4pt)/9}
+        [I] \Expand{\dim_eval:n {(1.2pt+3.4pt)/9}}
+        [O] 0.51111pt
+    [I] \Result{0.51111pt}
+    [O] 0.51111pt
+[O] 0.51111pt
+============================================================
+============================================================
+TEST 2: Testing \DimMathAdd 
+============================================================
+[I] \DimMathAdd{2.8pt}{3.7pt}
+        [I] \Value{\l@Funx@Dim }
+        [O] 6.5pt
+    [I] \Result{6.5pt}
+    [O] 6.5pt
+[O] 6.5pt
+[I] \DimMathAdd{3.8pt-1pt}{2.7pt+1pt}
+        [I] \Value{\l@Funx@Dim }
+        [O] 6.5pt
+    [I] \Result{6.5pt}
+    [O] 6.5pt
+[O] 6.5pt
+============================================================
+============================================================
+TEST 3: Testing \DimMathSub 
+============================================================
+[I] \DimMathSub{2.8pt}{3.7pt}
+        [I] \Value{\l@Funx@Dim }
+        [O] -0.9pt
+    [I] \Result{-0.9pt}
+    [O] -0.9pt
+[O] -0.9pt
+[I] \DimMathSub{3.8pt-1pt}{2.7pt+1pt}
+        [I] \Value{\l@Funx@Dim }
+        [O] -0.9pt
+    [I] \Result{-0.9pt}
+    [O] -0.9pt
+[O] -0.9pt
+============================================================
+============================================================
+TEST 4: Testing \DimMathRatio 
+============================================================
+[I] \DimMathRatio{5pt}{2pt}
+        [I] \Expand{\dim_ratio:nn {5pt}{2pt}}
+        [O] 327680/131072
+    [I] \Result{327680/131072}
+    [O] 327680/131072
+[O] 327680/131072
+============================================================
+============================================================
+TEST 5: Testing \DimMathSign 
+============================================================
+[I] \DimMathSign{3.5pt}
+        [I] \Expand{\dim_sign:n {3.5pt}}
+        [O] 1
+    [I] \Result{1}
+    [O] 1
+[O] 1
+[I] \DimMathSign{-2.7pt}
+        [I] \Expand{\dim_sign:n {-2.7pt}}
+        [O] -1
+    [I] \Result{-1}
+    [O] -1
+[O] -1
+============================================================
+============================================================
+TEST 6: Testing \DimMathAbs 
+============================================================
+[I] \DimMathAbs{3.5pt}
+        [I] \Expand{\dim_abs:n {3.5pt}}
+        [O] 3.5pt
+    [I] \Result{3.5pt}
+    [O] 3.5pt
+[O] 3.5pt
+[I] \DimMathAbs{-2.7pt}
+        [I] \Expand{\dim_abs:n {-2.7pt}}
+        [O] 2.7pt
+    [I] \Result{2.7pt}
+    [O] 2.7pt
+[O] 2.7pt
+============================================================
+============================================================
+TEST 7: Testing \DimMathMax 
+============================================================
+[I] \DimMathMax{3.5pt}{-2.7pt}
+        [I] \Expand{\dim_max:nn {3.5pt}{-2.7pt}}
+        [O] 3.5pt
+    [I] \Result{3.5pt}
+    [O] 3.5pt
+[O] 3.5pt
+============================================================
+============================================================
+TEST 8: Testing \DimMathMin 
+============================================================
+[I] \DimMathMin{3.5pt}{-2.7pt}
+        [I] \Expand{\dim_min:nn {3.5pt}{-2.7pt}}
+        [O] -2.7pt
+    [I] \Result{-2.7pt}
+    [O] -2.7pt
+[O] -2.7pt
+============================================================
+============================================================
+TEST 9: Testing \DimConst 
+============================================================
+[I] \DimConst{\cFooSomeDim }{1cm}
+\cFooSomeDim=\dimen...
+[O] 
+[I] \DimUse{\cFooSomeDim }
+        [I] \Value{\cFooSomeDim }
+        [O] 28.45274pt
+    [I] \Result{28.45274pt}
+    [O] 28.45274pt
+[O] 28.45274pt
+============================================================
+============================================================
+TEST 10: Testing \DimLog 
+============================================================
+[I] \DimLog{\lTmpjDim }
+> \lTmpjDim =0.0pt.
+[O] 
+============================================================
+============================================================
+TEST 11: Testing \DimVarLog 
+============================================================
+[I] \DimVarLog{\lTmpkDim }
+> \lTmpkDim=0.0pt.
+[O] 
+============================================================
+============================================================
+TEST 12: Testing \DimSetEq 
+============================================================
+[I] \DimSetEq{\lTmpaDim }{\cZeroDim }
+[O] 
+[I] \DimUse{\lTmpaDim }
+        [I] \Value{\lTmpaDim }
+        [O] 0.0pt
+    [I] \Result{0.0pt}
+    [O] 0.0pt
+[O] 0.0pt
+[I] \DimSet{\lTmpaDim }{10pt}
+[O] 
+[I] \DimSetEq{\lTmpbDim }{\lTmpaDim }
+[O] 
+[I] \DimUse{\lTmpbDim }
+        [I] \Value{\lTmpbDim }
+        [O] 10.0pt
+    [I] \Result{10.0pt}
+    [O] 10.0pt
+[O] 10.0pt
+============================================================
+============================================================
+TEST 13: Testing \DimZero 
+============================================================
+[I] \DimSet{\lTmpaDim }{1em}
+[O] 
+[I] \DimZero{\lTmpaDim }
+[O] 
+[I] \DimUse{\lTmpaDim }
+        [I] \Value{\lTmpaDim }
+        [O] 0.0pt
+    [I] \Result{0.0pt}
+    [O] 0.0pt
+[O] 0.0pt
+============================================================
+============================================================
+TEST 14: Testing \DimZeroNew 
+============================================================
+[I] \DimZeroNew{\lFooSomeDim }
+\lFooSomeDim=\dimen...
+[O] 
+[I] \DimUse{\lFooSomeDim }
+        [I] \Value{\lFooSomeDim }
+        [O] 0.0pt
+    [I] \Result{0.0pt}
+    [O] 0.0pt
+[O] 0.0pt
+============================================================
+============================================================
+TEST 15: Testing \DimAdd 
+============================================================
+[I] \DimSet{\lTmpaDim }{5.3pt}
+[O] 
+[I] \DimAdd{\lTmpaDim }{2.11pt}
+[O] 
+[I] \DimUse{\lTmpaDim }
+        [I] \Value{\lTmpaDim }
+        [O] 7.41pt
+    [I] \Result{7.41pt}
+    [O] 7.41pt
+[O] 7.41pt
+============================================================
+============================================================
+TEST 16: Testing \DimSub 
+============================================================
+[I] \DimSet{\lTmpaDim }{5.3pt}
+[O] 
+[I] \DimSub{\lTmpaDim }{2.11pt}
+[O] 
+[I] \DimUse{\lTmpaDim }
+        [I] \Value{\lTmpaDim }
+        [O] 3.19pt
+    [I] \Result{3.19pt}
+    [O] 3.19pt
+[O] 3.19pt
+============================================================
+============================================================
+TEST 17: Testing \DimStepInline 
+============================================================
+[I] \TlClear{\lTmpaTl }
+[O] 
+[I] \DimStepInline{1pt}{0.1pt}{1.5pt}{\TlPutRight \lTmpaTl {[##1]}}
+    [I] \TlPutRight{\lTmpaTl }{[1.0pt]}
+    [O] 
+    [I] \TlPutRight{\lTmpaTl }{[1.1pt]}
+    [O] 
+    [I] \TlPutRight{\lTmpaTl }{[1.20001pt]}
+    [O] 
+    [I] \TlPutRight{\lTmpaTl }{[1.30002pt]}
+    [O] 
+    [I] \TlPutRight{\lTmpaTl }{[1.40002pt]}
+    [O] 
+[O] 
+    [I] \Value{\lTmpaTl }
+    [O] [1.0pt][1.1pt][1.20001pt][1.30002pt][1.40002pt]
+[I] \Result{[1.0pt][1.1pt][1.20001pt][1.30002pt][1.40002pt]}
+[O] [1.0pt][1.1pt][1.20001pt][1.30002pt][1.40002pt]
+============================================================
+============================================================
+TEST 18: Testing \DimStepVariable 
+============================================================
+[I] \TlClear{\lTmpaTl }
+[O] 
+[I] \DimStepVariable{1pt}{0.1pt}{1.5pt}{\lTmpiTl }{\TlPutRight \lTmpaTl {\Value \lTmpiTl }\TlPutRight \lTmpaTl { }}
+        [I] \Value{\lTmpiTl }
+        [O] 1.0pt
+    [I] \TlPutRight{\lTmpaTl }{1.0pt}
+    [O] 
+    [I] \TlPutRight{\lTmpaTl }{ }
+    [O] 
+        [I] \Value{\lTmpiTl }
+        [O] 1.1pt
+    [I] \TlPutRight{\lTmpaTl }{1.1pt}
+    [O] 
+    [I] \TlPutRight{\lTmpaTl }{ }
+    [O] 
+        [I] \Value{\lTmpiTl }
+        [O] 1.20001pt
+    [I] \TlPutRight{\lTmpaTl }{1.20001pt}
+    [O] 
+    [I] \TlPutRight{\lTmpaTl }{ }
+    [O] 
+        [I] \Value{\lTmpiTl }
+        [O] 1.30002pt
+    [I] \TlPutRight{\lTmpaTl }{1.30002pt}
+    [O] 
+    [I] \TlPutRight{\lTmpaTl }{ }
+    [O] 
+        [I] \Value{\lTmpiTl }
+        [O] 1.40002pt
+    [I] \TlPutRight{\lTmpaTl }{1.40002pt}
+    [O] 
+    [I] \TlPutRight{\lTmpaTl }{ }
+    [O] 
+[O] 
+    [I] \Value{\lTmpaTl }
+    [O] 1.0pt 1.1pt 1.20001pt 1.30002pt 1.40002pt 
+[I] \Result{1.0pt 1.1pt 1.20001pt 1.30002pt 1.40002pt }
+[O] 1.0pt 1.1pt 1.20001pt 1.30002pt 1.40002pt 
+============================================================
+============================================================
+TEST 19: Testing \DimIfExist 
+============================================================
+[I] \DimIfExistTF{\lTmpaDim }{\Result {Yes}}{\Result {No}}
+    [I] \DimIfExist{\lTmpaDim }
+        [I] \Result{\cTrueBool }
+        [O] \cTrueBool 
+    [O] \cTrueBool 
+    [I] \Result{Yes}
+    [O] Yes
+[O] Yes
+[I] \DimIfExistTF{\lFooUndefinedDim }{\Result {Yes}}{\Result {No}}
+    [I] \DimIfExist{\lFooUndefinedDim }
+        [I] \Result{\cFalseBool }
+        [O] \cFalseBool 
+    [O] \cFalseBool 
+    [I] \Result{No}
+    [O] No
+[O] No
+============================================================
+============================================================
+TEST 20: Testing \DimCompare 
+============================================================
+[I] \DimCompareTF{1pt}>{0.9999pt}{\Result {Greater}}{\Result {Less}}
+    [I] \DimCompare{1pt}>{0.9999pt}
+        [I] \Result{\cTrueBool }
+        [O] \cTrueBool 
+    [O] \cTrueBool 
+    [I] \Result{Greater}
+    [O] Greater
+[O] Greater
+[I] \DimCompareTF{1pt}>{1.0001pt}{\Result {Greater}}{\Result {Less}}
+    [I] \DimCompare{1pt}>{1.0001pt}
+        [I] \Result{\cFalseBool }
+        [O] \cFalseBool 
+    [O] \cFalseBool 
+    [I] \Result{Less}
+    [O] Less
+[O] Less
+============================================================
+============================================================
+TEST 21: Testing \DimCaseF 
+============================================================
+[I] \DimSet{\lTmpaDim }{5pt}
+[O] 
+[I] \DimCaseF{2\lTmpaDim }{{5pt}{\Result {Small}}{4pt+6pt}{\Result {Medium}}{-10pt}{\Result {Negative}}}{\Result {NoMatch}}
+    [I] \Result{Medium}
+    [O] Medium
+[O] Medium
+============================================================
+============================================================
+TEST 22: Testing \DimCaseTF 
+============================================================
+[I] \DimSet{\lTmpaDim }{5pt}
+[O] 
+[I] \DimCaseTF{2\lTmpaDim }{{5pt}{\Result {Small}}{4pt+6pt}{\Result {Medium}}{-10pt}{\Result {Negative}}}{\Result {[SomeMatch]}}{\Result {[NoMatch]}}
+    [I] \Result{Medium}
+    [O] Medium
+    [I] \Result{[SomeMatch]}
+    [O] [SomeMatch]
+[O] [SomeMatch]
+============================================================
+[1
+] (module-dim.aux)
