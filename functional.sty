@@ -1317,6 +1317,9 @@
 %%> \section{Interfaces for Dimensions (Dim)}
 %%% --------------------------------------------------------
 
+\cs_set_eq:NN \cMaxDim  \c_max_dim
+\cs_set_eq:NN \cZeroDim \c_zero_dim
+
 \dim_new:N \lTmpaDim   \dim_new:N \lTmpbDim   \dim_new:N \lTmpcDim
 \dim_new:N \lTmpiDim   \dim_new:N \lTmpjDim   \dim_new:N \lTmpkDim
 \dim_new:N \l@Funx@Dim \dim_new:N \l@Funy@Dim \dim_new:N \l@Funz@Dim
@@ -1324,9 +1327,6 @@
 \dim_new:N \gTmpaDim   \dim_new:N \gTmpbDim   \dim_new:N \gTmpcDim
 \dim_new:N \gTmpiDim   \dim_new:N \gTmpjDim   \dim_new:N \gTmpkDim
 \dim_new:N \g@Funx@Dim \dim_new:N \g@Funy@Dim \dim_new:N \g@Funz@Dim
-
-\dim_const:Nn \cMaxDim { \c_max_dim }
-\dim_const:Nn \cZeroDim { \c_zero_dim }
 
 \PrgNewFunction \DimEval { m }
   {
@@ -1372,6 +1372,10 @@
 
 \PrgNewFunction \DimNew { M } { \dim_new:N #1 }
 
+\PrgNewFunction \DimConst { M m } { \dim_const:Nn #1 {#2} }
+
+\PrgNewFunction \DimUse { M } { \Result { \Value #1 } }
+
 \PrgNewFunction \DimLog { m } { \dim_log:n { #1 } }
 
 \PrgNewFunction \DimVarLog { M } { \dim_log:N #1 }
@@ -1379,10 +1383,6 @@
 \PrgNewFunction \DimShow { m } { \dim_show:n { #1 } }
 
 \PrgNewFunction \DimVarShow { M } { \dim_show:N #1 }
-
-\PrgNewFunction \DimUse { M } { \Result { \Value #1 } }
-
-\PrgNewFunction \DimConst { M m } { \dim_const:Nn #1 {#2} }
 
 \PrgNewFunction \DimSet { M m }
   {
@@ -1412,6 +1412,11 @@
 \PrgNewFunction \DimSub { M m }
   {
     \__fun_do_assignment:Nnn #1 { \dim_gsub:Nn #1 {#2} } { \dim_sub:Nn #1 {#2} }
+  }
+
+\PrgNewFunction \DimStepInline { m m m n }
+  {
+    \dim_step_inline:nnnn { #1 } { #2 } { #3 } { #4 }
   }
 
 \PrgNewFunction \DimStepVariable { m m m M n }
