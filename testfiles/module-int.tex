@@ -1,0 +1,135 @@
+\documentclass{article}
+
+\input{regression-test}
+\AtBeginDocument{\START}
+%\AtEndDocument{\END}
+
+\usepackage{functional}
+\Functional{tracing=true}
+
+\begin{document}
+
+\BEGINTEST{Testing \IntEval}
+\IntEval {(1+4)*(2-3)/5}
+\ENDTEST
+
+\BEGINTEST{Testing \IntMathAdd}
+\IntMathAdd {7} {3}
+\IntMathAdd {8-1} {2+1}
+\ENDTEST
+
+\BEGINTEST{Testing \IntMathSub}
+\IntMathSub {7} {3}
+\IntMathSub {8-1} {2+1}
+\ENDTEST
+
+\BEGINTEST{Testing \IntMathMult}
+\IntMathMult {7} {3}
+\IntMathMult {8-1} {2+1}
+\ENDTEST
+
+\BEGINTEST{Testing \IntMathDiv}
+\IntMathDiv {8} {3}
+\IntMathDiv {9-1} {2+1}
+\ENDTEST
+
+\BEGINTEST{Testing \IntMathDivTruncate}
+\IntMathDivTruncate {8} {3}
+\IntMathDivTruncate {9-1} {2+1}
+\ENDTEST
+
+\BEGINTEST{Testing \IntMathSign}
+\IntMathSign {5}
+\IntMathSign {-2}
+\ENDTEST
+
+\BEGINTEST{Testing \IntMathAbs}
+\IntMathAbs {5}
+\IntMathAbs {-2}
+\ENDTEST
+
+\BEGINTEST{Testing \IntMathMax}
+\IntMathMax {5} {2}
+\ENDTEST
+
+\BEGINTEST{Testing \IntMathMin}
+\IntMathMin {5} {2}
+\ENDTEST
+
+\BEGINTEST{Testing \IntMathMod}
+\IntMathMod {28} {5}
+\ENDTEST
+
+%\BEGINTEST{Testing \IntMathRand}
+%\IntMathRand {1} {9}
+%\IntMathRand {1} {9}
+%\IntMathRand {1} {9}
+%\ENDTEST
+
+\BEGINTEST{Testing \IntConst}
+\IntConst \cFooSomeInt {3*5}
+\IntUse \cFooSomeInt
+\ENDTEST
+
+\BEGINTEST{Testing \IntLog}
+\IntLog {3 + 2}
+\ENDTEST
+
+\BEGINTEST{Testing \IntSet}
+\IntSet \lTmpaInt {3+5}
+\IntUse \lTmpaInt
+\ENDTEST
+
+\BEGINTEST{Testing \IntSetEq}
+\IntZeroNew \lFooSomeInt
+\IntSetEq \lFooSomeInt \cOneInt
+\IntUse \lFooSomeInt
+\ENDTEST
+
+\BEGINTEST{Testing \IntZero}
+\IntSet \lTmpaInt {5}
+\IntZero \lTmpaInt
+\IntUse \lTmpaInt
+\ENDTEST
+
+\BEGINTEST{Testing \IntZeroNew}
+\IntZeroNew \lFooSomeInt
+\IntUse \lFooSomeInt
+\ENDTEST
+
+\BEGINTEST{Testing \IntStepInline}
+\IgnoreSpacesOn
+\TlClear \lTmpaTl
+\IntStepInline {1} {3} {30} {
+  \TlPutRight \lTmpaTl {[#1]}
+}
+\Result {\Value\lTmpaTl}
+\IgnoreSpacesOff
+\ENDTEST
+
+\BEGINTEST{Testing \IntIfExist}
+\IntIfExistTF \lTmpaInt {\Result{Yes}} {\Result{No}}
+\IntIfExistTF \lFooUndefinedInt {\Result{Yes}} {\Result{No}}
+\ENDTEST
+
+\BEGINTEST{Testing \IntIfOdd}
+\IntIfOddTF {3+2} {\Result{Yes}} {\Result{No}}
+\ENDTEST
+
+\BEGINTEST{Testing \IntIfEven}
+\IntIfEvenTF {3+2} {\Result{Yes}} {\Result{No}}
+\ENDTEST
+
+\BEGINTEST{Testing \IntCaseF}
+\IgnoreSpacesOn
+\IntCaseF { 2 * 5 }
+  {
+    { 5 }       { Small }
+    { 4 + 6 }   { Medium }
+    { -2 * 10 } { Negative }
+  }
+  { No idea! }
+\IgnoreSpacesOff
+\ENDTEST
+
+\end{document}
