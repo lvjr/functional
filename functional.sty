@@ -956,7 +956,12 @@
       { \str_gremove_all:Nn #1 {#2} } { \str_remove_all:Nn #1 {#2} }
   }
 
-\PrgNewFunction \StrCount { m } { \Expand { \str_count:n { #1 } } }
+%% Avoid naming confict with xstring package
+\cs_if_exist:NF \StrCount
+  { \PrgNewFunction \StrCount { m } { \Expand { \str_count:n { #1 } } } }
+
+%% Provide another name for \StrCount function
+\PrgNewFunction \StrSize { m } { \Expand { \str_count:n { #1 } } }
 
 \PrgNewFunction \StrVarCount { M } { \Expand { \str_count:N #1 } }
 
@@ -1027,7 +1032,21 @@
     \str_if_in:NnTF #1 {#2} { \Result { \cTrueBool } } { \Result { \cFalseBool } }
   }
 
-\PrgNewConditional \StrCompare { m N m }
+%% Avoid naming confict with xstring package
+
+\cs_if_exist:NF \StrCompare
+  {
+    \PrgNewConditional \StrCompare { m N m }
+      {
+        \str_compare:nNnTF {#1} #2 {#3}
+          { \Result { \cTrueBool } }
+          { \Result { \cFalseBool } }
+      }
+  }
+
+%% Provide another name for \StrCompare function
+
+\PrgNewConditional \StrIfCompare { m N m }
   {
     \str_compare:nNnTF {#1} #2 {#3}
       { \Result { \cTrueBool } }

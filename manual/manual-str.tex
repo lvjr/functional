@@ -233,6 +233,9 @@ the pattern \meta{string} may remain after the removal, for instance,
 \end{syntax}
 Returns the number of characters in the string representation of \meta{token list},
 as an integer denotation. All characters including spaces are counted.
+\par
+Due to naming conflict, you need to use \cs{StrSize} instead of \cs{StrCount}
+if you want to use \verb!functional! package together with \verb!xstring! package.
 \end{function}
 
 \begin{function}{\StVarCount}
@@ -543,6 +546,9 @@ For example:
 %character codes and not more elaborate considerations of grapheme
 %clusters, locale, etc.
 %\end{texnote}
+\par
+Due to naming conflict, you need to use \cs{StrIfCompare}/\cs{StrIfCompareTF} as a replacement
+if you want to use \verb!functional! package together with \verb!xstring! package.
 \end{function}
 
 \section{String Case Functions}

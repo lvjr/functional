@@ -18,6 +18,8 @@
 \NewCodeHighEnv{code}{style/main=gray9,style/code=gray9}
 \NewCodeHighEnv{demo}{style/main=gray9,style/code=gray9,demo}
 
+\usepackage{enumitem}
+
 \NewDocumentCommand\MySubScript{m}{$_{#1}$}
 
 \ExplSyntaxOn
@@ -597,8 +599,8 @@ For example
 Constants that represent \verb|true| and \verb|false|, respectively. Used to
 implement predicates. For example
 \begin{demohigh}
-\BoolVarIfTF\cTrueBool{\Result{True!}}{\Result{False!}}
-\BoolVarIfTF\cFalseBool{\Result{True!}}{\Result{False!}}
+\BoolVarIfTF \cTrueBool {\Result{True!}} {\Result{False!}}
+\BoolVarIfTF \cFalseBool {\Result{True!}} {\Result{False!}}
 \end{demohigh}
 \end{variable}
 
@@ -1532,7 +1534,7 @@ surrounded by optional spaces on both sides. In other words, such a
 token list has token count $1$ according to \cs{TlVarCount}.
 \end{function}
 
-\section{Case Functions for Token Lists}
+\section{Token List Case Function}
 
 \begin{function}{\TlVarCase}
 \begin{syntax}
@@ -1842,6 +1844,9 @@ the pattern \meta{string} may remain after the removal, for instance,
 \end{syntax}
 Returns the number of characters in the string representation of \meta{token list},
 as an integer denotation. All characters including spaces are counted.
+\par
+Due to naming conflict, you need to use \cs{StrSize} instead of \cs{StrCount}
+if you want to use \verb!functional! package together with \verb!xstring! package.
 \end{function}
 
 \begin{function}{\StVarCount}
@@ -2125,7 +2130,39 @@ tests if that \meta{string} is found in the content of the
 \meta{str var}.
 \end{function}
 
-\section{Case Functions for Strings}
+\begin{function}{\StrCompare,\StrCompareTF}
+\begin{syntax}
+\cs{StrCompare} \Arg{tl_1} \meta{relation} \Arg{tl_2}
+\cs{StrCompareTF} \Arg{tl_1} \meta{relation} \Arg{tl_2} \Arg{true code} \Arg{false code}
+\end{syntax}
+Compares the two \meta{token lists} on a character by character
+basis (namely after converting them to strings) in a lexicographic
+order according to the character codes of the characters.  The
+\meta{relation} can be \verb|<|, \verb|=|, or \verb|>| and the test is
+\texttt{true} under the following conditions:
+\begin{itemize}[nosep]
+\item for \verb|<|, if the first string is earlier than the second in lexicographic order;
+\item for \verb|=|, if the two strings have exactly the same characters;
+\item for \verb|>|, if the first string is later than the second in lexicographic order.
+\end{itemize}
+For example:
+\begin{demohigh}
+\StrCompareTF {ab} < {abc} {\Result{Yes}} {\Result{No}}
+\StrCompareTF {ab} < {aa} {\Result{Yes}} {\Result{No}}
+\end{demohigh}
+%\begin{texnote}
+%This is a wrapper around the \TeX{} primitive
+%\cs{(pdf)strcmp}.  It is meant for programming
+%and not for sorting textual contents, as it simply considers
+%character codes and not more elaborate considerations of grapheme
+%clusters, locale, etc.
+%\end{texnote}
+\par
+Due to naming conflict, you need to use \cs{StrIfCompare}/\cs{StrIfCompareTF} as a replacement
+if you want to use \verb!functional! package together with \verb!xstring! package.
+\end{function}
+
+\section{String Case Functions}
 
 \begin{function}{\StrCase}
 \begin{syntax}
@@ -2431,7 +2468,7 @@ on the terminal.
 Displays the value of the \meta{integer} on the terminal.
 \end{function}
 
-\section{Setting Integers Variables}
+\section{Setting Integer Variables}
 
 \begin{function}{\IntSet}
 \begin{syntax}
@@ -3113,7 +3150,7 @@ For example
 \Result {\Value\lTmpaTl}
 \IgnoreSpacesOff
 \end{codehigh}
-procuces [1][1.1][1.2][1.3][1.4][1.5].
+produces [1][1.1][1.2][1.3][1.4][1.5].
 \end{function}
 
 \begin{function}{\FpStepVariable}
@@ -3187,7 +3224,17 @@ This is experimental.
 
 \chapter{Dimensions (\texttt{Dim})}
 
-\section{Scratch and Constant Dimensions}
+\section{Constant and Scratch Dimensions}
+
+\begin{variable}{\cMaxDim}
+The maximum value that can be stored as a dimension.  This can also
+be used as a component of a skip.
+\end{variable}
+
+\begin{variable}{\cZeroDim}
+A zero length as a dimension.  This can also be used as a component
+of a skip.
+\end{variable}
 
 \begin{variable}{\lTmpaDim,\lTmpbDim,\lTmpcDim,\lTmpiDim,\lTmpjDim,\lTmpkDim}
 Scratch dimensions for local assignment. These are never used by
@@ -3203,17 +3250,7 @@ function. However, they may be overwritten by other
 code and so should only be used for short-term storage.
 \end{variable}
 
-\begin{variable}{\cMaxDim}
-The maximum value that can be stored as a dimension.  This can also
-be used as a component of a skip.
-\end{variable}
-
-\begin{variable}{\cZeroDim}
-A zero length as a dimension.  This can also be used as a component
-of a skip.
-\end{variable}
-
-\section{Public Functions for Dimensions}
+\section{Dimension Expressions}
 
 \begin{function}{\DimEval}
 \begin{syntax}
@@ -3229,7 +3266,7 @@ calculation is returned as a \meta{dimension denotation}.
 %an \meta{internal dimension}.
 For example
 \begin{demohigh}
-\DimEval{(1.2pt+3.4pt)/9}
+\DimEval {(1.2pt+3.4pt)/9}
 \end{demohigh}
 %\DimEval{(1.2pt+3.4pt)*(5.6-7.8)/9}
 \end{function}
@@ -3241,8 +3278,8 @@ For example
 Adds \Arg{dimexpr_1} and \Arg{dimexpr_2},
 and returns the result. For example
 \begin{demohigh}
-\DimMathAdd{2.8pt}{3.7pt}
-\DimMathAdd{3.8pt-1pt}{2.7pt+1pt}
+\DimMathAdd {2.8pt} {3.7pt}
+\DimMathAdd {3.8pt-1pt} {2.7pt+1pt}
 \end{demohigh}
 \end{function}
 
@@ -3253,8 +3290,8 @@ and returns the result. For example
 Subtracts \Arg{dimexpr_2} from \Arg{dimexpr_1},
 and returns the result. For example
 \begin{demohigh}
-\DimMathSub{2.8pt}{3.7pt}
-\DimMathSub{3.8pt-1pt}{2.7pt+1pt}
+\DimMathSub {2.8pt} {3.7pt}
+\DimMathSub {3.8pt-1pt} {2.7pt+1pt}
 \end{demohigh}
 \end{function}
 
@@ -3268,12 +3305,12 @@ The result is a ratio expression
 between two integers, with all distances converted to scaled points.
 For example
 \begin{demohigh}
-\DimMathRatio{5pt}{10pt}
+\DimMathRatio {5pt} {10pt}
 \end{demohigh}
 The returned value is suitable for use inside a \meta{dimension expression}
 such as
 \begin{codehigh}
-\DimSet\lTmpaDim{10pt*\DimMathRatio{5pt}{10pt}}
+\DimSet \lTmpaDim {10pt*\DimMathRatio{5pt}{10pt}}
 \end{codehigh}
 \end{function}
 
@@ -3284,8 +3321,8 @@ such as
 Evaluates the \meta{dimexpr} then returns $1$ or $0$ or $-1$
 according to the sign of the result. For example
 \begin{demohigh}
-\DimMathSign{3.5pt}
-\DimMathSign{-2.7pt}
+\DimMathSign {3.5pt}
+\DimMathSign {-2.7pt}
 \end{demohigh}
 \end{function}
 
@@ -3297,8 +3334,8 @@ Converts the \meta{dimexpr} to its absolute value,
 returning the result as a \meta{dimension denotation}.
 For example
 \begin{demohigh}
-\DimMathAbs{3.5pt}
-\DimMathAbs{-2.7pt}
+\DimMathAbs {3.5pt}
+\DimMathAbs {-2.7pt}
 \end{demohigh}
 \end{function}
 
@@ -3311,10 +3348,12 @@ Evaluates the two \meta{dimension expressions} and returns either the
 maximum or minimum value as appropriate as a \meta{dimension denotation}.
 For example
 \begin{demohigh}
-\DimMathMax{3.5pt}{-2.7pt}
-\DimMathMin{3.5pt}{-2.7pt}
+\DimMathMax {3.5pt} {-2.7pt}
+\DimMathMin {3.5pt} {-2.7pt}
 \end{demohigh}
 \end{function}
+
+\section{Creating and Using Dimensions}
 
 \begin{function}{\DimNew}
 \begin{syntax}
@@ -3325,46 +3364,17 @@ already taken. The declaration is global. The \meta{dimension}
 is initially equal to $0$\,pt.
 \end{function}
 
-\begin{function}{\DimLog}
+\begin{function}{\DimConst}
 \begin{syntax}
-\cs{DimLog} \Arg{dimension expression}
+\cs{DimConst} \meta{dimension} \Arg{dimension expression}
 \end{syntax}
-Writes the result of evaluating the \meta{dimension expression}
-in the log file. For example
-\begin{codehigh}
-\DimLog{\lFooSomeDim+1cm}
-\end{codehigh}
-\end{function}
-
-\begin{function}{\DimVarLog}
-\begin{syntax}
-\cs{DimVarLog} \meta{dimension}
-\end{syntax}
-Writes the value of the \meta{dimension} in the log file. For example
-\begin{codehigh}
-\DimVarLog\lFooSomeDim
-\end{codehigh}
-\end{function}
-
-\begin{function}{\DimShow}
-\begin{syntax}
-\cs{DimShow} \Arg{dimension expression}
-\end{syntax}
-Displays the result of evaluating the \meta{dimension expression}
-on the terminal. For example
-\begin{codehigh}
-\DimShow{\lFooSomeDim+1cm}
-\end{codehigh}
-\end{function}
-
-\begin{function}{\DimVarShow}
-\begin{syntax}
-\cs{DimVarShow} \meta{dimension}
-\end{syntax}
-Displays the value of the \meta{dimension} on the terminal. For example
-\begin{codehigh}
-\DimVarShow\lFooSomeDim
-\end{codehigh}
+Creates a new constant \meta{dimension} or raises an error if the
+name is already taken. The value of the \meta{dimension} is set
+globally to the \meta{dimension expression}. For example
+\begin{demohigh}
+\DimConst \cFooSomeDim {1cm}
+\DimUse \cFooSomeDim
+\end{demohigh}
 \end{function}
 
 \begin{function}{\DimUse}
@@ -3375,18 +3385,51 @@ Recovers the content of a \meta{dimension} and returns the value.
 An error is raised if the variable does not exist or if it is invalid.
 \end{function}
 
-\begin{function}{\DimConst}
+\section{Viewing Dimensions}
+
+\begin{function}{\DimLog}
 \begin{syntax}
-\cs{DimConst} \meta{dimension} \Arg{dimension expression}
+\cs{DimLog} \Arg{dimension expression}
 \end{syntax}
-Creates a new constant \meta{dimension} or raises an error if the
-name is already taken. The value of the \meta{dimension} is set
-globally to the \meta{dimension expression}. For example
-\begin{demohigh}
-\DimConst\cFooSomeDim{1cm}
-\DimUse\cFooSomeDim
-\end{demohigh}
+Writes the result of evaluating the \meta{dimension expression}
+in the log file. For example
+\begin{codehigh}
+\DimLog {\lFooSomeDim+1cm}
+\end{codehigh}
 \end{function}
+
+\begin{function}{\DimVarLog}
+\begin{syntax}
+\cs{DimVarLog} \meta{dimension}
+\end{syntax}
+Writes the value of the \meta{dimension} in the log file. For example
+\begin{codehigh}
+\DimVarLog \lFooSomeDim
+\end{codehigh}
+\end{function}
+
+\begin{function}{\DimShow}
+\begin{syntax}
+\cs{DimShow} \Arg{dimension expression}
+\end{syntax}
+Displays the result of evaluating the \meta{dimension expression}
+on the terminal. For example
+\begin{codehigh}
+\DimShow {\lFooSomeDim+1cm}
+\end{codehigh}
+\end{function}
+
+\begin{function}{\DimVarShow}
+\begin{syntax}
+\cs{DimVarShow} \meta{dimension}
+\end{syntax}
+Displays the value of the \meta{dimension} on the terminal. For example
+\begin{codehigh}
+\DimVarShow \lFooSomeDim
+\end{codehigh}
+\end{function}
+
+\section{Setting Dimension Variables}
 
 \begin{function}{\DimSet}
 \begin{syntax}
@@ -3403,9 +3446,9 @@ must evaluate to a length with units.
 Sets the content of \meta{dimension_1} equal to that of
 \meta{dimension_2}. For example
 \begin{demohigh}
-\DimSet\lTmpaDim{10pt}
-\DimSetEq\lTmpbDim\lTmpaDim
-\DimUse\lTmpbDim
+\DimSet \lTmpaDim {10pt}
+\DimSetEq \lTmpbDim \lTmpaDim
+\DimUse \lTmpbDim
 \end{demohigh}
 \end{function}
 
@@ -3415,9 +3458,9 @@ Sets the content of \meta{dimension_1} equal to that of
 \end{syntax}
 Sets \meta{dimension} to $0$\,pt. For example
 \begin{demohigh}
-\DimSet\lTmpaDim{1em}
-\DimZero\lTmpaDim
-\DimUse\lTmpaDim
+\DimSet \lTmpaDim {1em}
+\DimZero \lTmpaDim
+\DimUse \lTmpaDim
 \end{demohigh}
 \end{function}
 
@@ -3429,8 +3472,8 @@ Ensures that the \meta{dimension} exists globally by applying
 \cs{DimNew} if necessary, then applies
 \cs{DimZero} to set the \meta{dimension} to zero. For example
 \begin{demohigh}
-\DimZeroNew\lFooSomeDim
-\DimUse\lFooSomeDim
+\DimZeroNew \lFooSomeDim
+\DimUse \lFooSomeDim
 \end{demohigh}
 \end{function}
 
@@ -3441,9 +3484,9 @@ Ensures that the \meta{dimension} exists globally by applying
 Adds the result of the \meta{dimension expression} to the current
 content of the \meta{dimension}. For example
 \begin{demohigh}
-\DimSet\lTmpaDim{5.3pt}
-\DimAdd\lTmpaDim{2.11pt}
-\DimUse\lTmpaDim
+\DimSet \lTmpaDim {5.3pt}
+\DimAdd \lTmpaDim {2.11pt}
+\DimUse \lTmpaDim
 \end{demohigh}
 \end{function}
 
@@ -3454,10 +3497,52 @@ content of the \meta{dimension}. For example
 Subtracts the result of the \meta{dimension expression} from the
 current content of the \meta{dimension}. For example
 \begin{demohigh}
-\DimSet\lTmpaDim{5.3pt}
-\DimSub\lTmpaDim{2.11pt}
-\DimUse\lTmpaDim
+\DimSet \lTmpaDim {5.3pt}
+\DimSub \lTmpaDim {2.11pt}
+\DimUse \lTmpaDim
 \end{demohigh}
+\end{function}
+
+\section{Dimension Step Functions}
+
+%\begin{function}{\DimStepFunction}
+%\begin{syntax}
+%\cs{DimStepFunction} \Arg{initial value} \Arg{step} \Arg{final value} \meta{function}
+%\end{syntax}
+%This function first evaluates the \meta{initial value}, \meta{step}
+%and \meta{final value}, all of which should be dimension expressions.
+%The \meta{function} is then placed in front of each \meta{value}
+%from the \meta{initial value} to the \meta{final value} in turn
+%(using \meta{step} between each \meta{value}).  The \meta{step} must
+%be non-zero.  If the \meta{step} is positive, the loop stops when
+%the \meta{value} becomes larger than the \meta{final value}.  If the
+%\meta{step} is negative, the loop stops when the \meta{value}
+%becomes smaller than the \meta{final value}.  The \meta{function}
+%should absorb one argument.
+%\end{function}
+
+\begin{function}{\DimStepInline}
+\begin{syntax}
+\cs{DimStepInline} \Arg{initial value} \Arg{step} \Arg{final value} \Arg{code}
+\end{syntax}
+This function first evaluates the \meta{initial value}, \meta{step}
+and \meta{final value}, all of which should be dimension expressions.
+Then for each \meta{value} from the \meta{initial value} to the
+\meta{final value} in turn (using \meta{step} between each
+\meta{value}), the \meta{code} is inserted into the input stream
+with \verb|#1| replaced by the current \meta{value}.  Thus the
+\meta{code} should define a function of one argument (\verb|#1|).
+For example
+\begin{codehigh}
+\IgnoreSpacesOn
+\TlClear \lTmpaTl
+\DimStepInline {1pt} {0.1pt} {1.5pt} {
+  \TlPutRight \lTmpaTl {[#1]}
+}
+\Result {\Value\lTmpaTl}
+\IgnoreSpacesOff
+\end{codehigh}
+produces [1.0pt][1.1pt][1.20001pt][1.30002pt][1.40002pt].
 \end{function}
 
 \begin{function}{\DimStepVariable}
@@ -3471,18 +3556,20 @@ Then for each \meta{value} from the \meta{initial value} to the
 \meta{value}), the \meta{code} is inserted into the input stream,
 with the \meta{tl var} defined as the current \meta{value}.  Thus
 the \meta{code} should make use of the \meta{tl var}.
-For example
-\begin{demohigh}
-\IgnoreSpacesOn
-\TlClear\lTmpaTl
-\DimStepVariable{1pt}{0.1pt}{1.5pt}\lTmpiTl{
-  \TlPutRight\lTmpaTl{\Value\lTmpiTl}
-  \TlPutRight\lTmpaTl{~}
-}
-\Result{\Value\lTmpaTl}
-\IgnoreSpacesOff
-\end{demohigh}
+%For example
+%\begin{demohigh}
+%\IgnoreSpacesOn
+%\TlClear\lTmpaTl
+%\DimStepVariable{1pt}{0.1pt}{1.5pt}\lTmpiTl{
+%  \TlPutRight\lTmpaTl{\Value\lTmpiTl}
+%  \TlPutRight\lTmpaTl{~}
+%}
+%\Result{\Value\lTmpaTl}
+%\IgnoreSpacesOff
+%\end{demohigh}
 \end{function}
+
+\section{Dimension Conditionals}
 
 \begin{function}{\DimIfExist,\DimIfExistTF}
 \begin{syntax}
@@ -3493,8 +3580,8 @@ Tests whether the \meta{dimension} is currently defined.  This does
 not check that the \meta{dimension} really is a dimension variable.
 For example
 \begin{demohigh}
-\DimIfExistTF\lTmpaDim{\Result{Yes}}{\Result{No}}
-\DimIfExistTF\lFooUndefinedDim{\Result{Yes}}{\Result{No}}
+\DimIfExistTF \lTmpaDim {\Result{Yes}} {\Result{No}}
+\DimIfExistTF \lFooUndefinedDim {\Result{Yes}} {\Result{No}}
 \end{demohigh}
 \end{function}
 
@@ -3514,10 +3601,12 @@ Less than    & \verb|<| \\
 \end{tabular}\par}
 For example
 \begin{demohigh}
-\DimCompareTF{1pt}>{0.9999pt}{\Result{Greater}}{\Result{Less}}
-\DimCompareTF{1pt}>{1.0001pt}{\Result{Greater}}{\Result{Less}}
+\DimCompareTF {1pt} > {0.9999pt} {\Result{Greater}} {\Result{Less}}
+\DimCompareTF {1pt} > {1.0001pt} {\Result{Greater}} {\Result{Less}}
 \end{demohigh}
 \end{function}
+
+\section{Dimension Case Functions}
 
 \begin{function}{\DimCase}
 \begin{syntax}
@@ -3576,13 +3665,13 @@ match then the \meta{false code} is inserted.
 For example
 \begin{demohigh}
 \IgnoreSpacesOn
-\DimSet\lTmpaDim{5pt}
-\DimCaseF{2\lTmpaDim}{
+\DimSet \lTmpaDim {5pt}
+\DimCaseF {2\lTmpaDim} {
   {5pt}     {\Result{Small}}
   {4pt+6pt} {\Result{Medium}}
   {-10pt}   {\Result{Negative}}
 }{
-  \Result{No Match}
+  \Result {No Match}
 }
 \IgnoreSpacesOff
 \end{demohigh}
