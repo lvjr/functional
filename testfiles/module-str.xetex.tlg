@@ -1,0 +1,636 @@
+This is a generated file for the l3build validation system.
+Don't change this file in any respect.
+============================================================
+TEST 1: Testing \StrConst 
+============================================================
+[I] \StrConst{\cFooSomeStr }{12\abc 34}
+[O] 
+[I] \StrUse{\cFooSomeStr }
+        [I] \Value{\cFooSomeStr }
+        [O] 12\abc 34
+    [I] \Result{12\abc 34}
+    [O] 12\abc 34
+[O] 12\abc 34
+============================================================
+============================================================
+TEST 2: Testing \StrLog 
+============================================================
+[I] \StrLog{12\abc 34}
+> 12\abc 34.
+[O] 
+============================================================
+============================================================
+TEST 3: Testing \StrSet 
+============================================================
+    [I] \IntMathMult{4}{5}
+            [I] \Value{\l@Funx@Int }
+            [O] 20
+        [I] \Result{20}
+        [O] 20
+    [O] 20
+[I] \StrSet{\lTmpiStr }{20}
+[O] 
+[I] \StrUse{\lTmpiStr }
+        [I] \Value{\lTmpiStr }
+        [O] 20
+    [I] \Result{20}
+    [O] 20
+[O] 20
+============================================================
+============================================================
+TEST 4: Testing \StrSetEq 
+============================================================
+[I] \StrSet{\lTmpaStr }{abc}
+[O] 
+[I] \StrSetEq{\lTmpbStr }{\lTmpaStr }
+[O] 
+[I] \StrUse{\lTmpbStr }
+        [I] \Value{\lTmpbStr }
+        [O] abc
+    [I] \Result{abc}
+    [O] abc
+[O] abc
+============================================================
+============================================================
+TEST 5: Testing \StrClea 
+============================================================
+[I] \StrSet{\lTmpjStr }{One}
+[O] 
+[I] \StrClear{\lTmpjStr }
+[O] 
+[I] \StrSet{\lTmpjStr }{Two}
+[O] 
+[I] \StrUse{\lTmpjStr }
+        [I] \Value{\lTmpjStr }
+        [O] Two
+    [I] \Result{Two}
+    [O] Two
+[O] Two
+============================================================
+============================================================
+TEST 6: Testing \StrClearNew 
+============================================================
+[I] \StrClearNew{\lFooSomeStr }
+[O] 
+[I] \StrUse{\lFooSomeStr }
+        [I] \Value{\lFooSomeStr }
+        [O] 
+    [I] \Result{}
+    [O] 
+[O] 
+============================================================
+============================================================
+TEST 7: Testing \StrConcat 
+============================================================
+[I] \StrSet{\lTmpbStr }{con}
+[O] 
+[I] \StrSet{\lTmpcStr }{cat}
+[O] 
+[I] \StrConcat{\lTmpaStr }{\lTmpbStr }{\lTmpcStr }
+[O] 
+[I] \StrUse{\lTmpaStr }
+        [I] \Value{\lTmpaStr }
+        [O] concat
+    [I] \Result{concat}
+    [O] concat
+[O] concat
+============================================================
+============================================================
+TEST 8: Testing \StrPutLeft 
+============================================================
+[I] \StrSet{\lTmpkStr }{Functional}
+[O] 
+[I] \StrPutLeft{\lTmpkStr }{Hello}
+[O] 
+[I] \StrUse{\lTmpkStr }
+        [I] \Value{\lTmpkStr }
+        [O] HelloFunctional
+    [I] \Result{HelloFunctional}
+    [O] HelloFunctional
+[O] HelloFunctional
+============================================================
+============================================================
+TEST 9: Testing \StrPutRight 
+============================================================
+[I] \StrSet{\lTmpkStr }{Functional}
+[O] 
+[I] \StrPutRight{\lTmpkStr }{World}
+[O] 
+[I] \StrUse{\lTmpkStr }
+        [I] \Value{\lTmpkStr }
+        [O] FunctionalWorld
+    [I] \Result{FunctionalWorld}
+    [O] FunctionalWorld
+[O] FunctionalWorld
+============================================================
+============================================================
+TEST 10: Testing \StrReplaceOnce 
+============================================================
+[I] \StrSet{\lTmpaStr }{hello world}
+[O] 
+[I] \StrReplaceOnce{\lTmpaStr }{l}{-}
+[O] 
+[I] \StrUse{\lTmpaStr }
+        [I] \Value{\lTmpaStr }
+        [O] he-lo world
+    [I] \Result{he-lo world}
+    [O] he-lo world
+[O] he-lo world
+============================================================
+============================================================
+TEST 11: Testing \StrReplaceAll 
+============================================================
+[I] \StrSet{\lTmpaStr }{hello world}
+[O] 
+[I] \StrReplaceAll{\lTmpaStr }{l}{-}
+[O] 
+[I] \StrUse{\lTmpaStr }
+        [I] \Value{\lTmpaStr }
+        [O] he--o wor-d
+    [I] \Result{he--o wor-d}
+    [O] he--o wor-d
+[O] he--o wor-d
+============================================================
+============================================================
+TEST 12: Testing \StrRemoveOnce 
+============================================================
+[I] \StrSet{\lTmpaStr }{hello world}
+[O] 
+[I] \StrRemoveOnce{\lTmpaStr }{l}
+[O] 
+[I] \StrUse{\lTmpaStr }
+        [I] \Value{\lTmpaStr }
+        [O] helo world
+    [I] \Result{helo world}
+    [O] helo world
+[O] helo world
+============================================================
+============================================================
+TEST 13: Testing \StrRemoveAll 
+============================================================
+[I] \StrSet{\lTmpaStr }{hello world}
+[O] 
+[I] \StrRemoveAll{\lTmpaStr }{l}
+[O] 
+[I] \StrUse{\lTmpaStr }
+        [I] \Value{\lTmpaStr }
+        [O] heo word
+    [I] \Result{heo word}
+    [O] heo word
+[O] heo word
+============================================================
+============================================================
+TEST 14: Testing \StrCount 
+============================================================
+[I] \StrCount{12\abc 34}
+    [I] \Expand{\str_count:n {12\abc 34}}
+    [O] 9
+[O] 9
+[I] \StrSize{12\abc 34}
+    [I] \Expand{\str_count:n {12\abc 34}}
+    [O] 9
+[O] 9
+============================================================
+============================================================
+TEST 15: Testing \StrVarCount 
+============================================================
+[I] \StrSet{\lTmpaStr }{12\abc 34}
+[O] 
+[I] \StrVarCount{\lTmpaStr }
+    [I] \Expand{\str_count:N \lTmpaStr }
+    [O] 9
+[O] 9
+============================================================
+============================================================
+TEST 16: Testing \StrHead 
+============================================================
+[I] \StrHead{HELLO}
+    [I] \Expand{\str_head:n {HELLO}}
+    [O] H
+[O] H
+============================================================
+============================================================
+TEST 17: Testing \StrVarHead 
+============================================================
+[I] \StrSet{\lTmpaStr }{HELLO}
+[O] 
+[I] \StrVarHead{\lTmpaStr }
+    [I] \Expand{\str_head:N \lTmpaStr }
+    [O] H
+[O] H
+============================================================
+============================================================
+TEST 18: Testing \StrTail 
+============================================================
+[I] \StrTail{HELLO}
+    [I] \Expand{\str_tail:n {HELLO}}
+    [O] ELLO
+[O] ELLO
+    [I] \StrTail{ a {bc} d }
+        [I] \Expand{\str_tail:n { a {bc} d }}
+        [O] a {bc} d 
+    [O] a {bc} d 
+[I] \StrLog{a {bc} d }
+> a {bc} d .
+[O] 
+============================================================
+============================================================
+TEST 19: Testing \StrVarTail 
+============================================================
+[I] \StrSet{\lTmpaStr }{HELLO}
+[O] 
+[I] \StrVarTail{\lTmpaStr }
+    [I] \Expand{\str_tail:N \lTmpaStr }
+    [O] ELLO
+[O] ELLO
+============================================================
+============================================================
+TEST 20: Testing \StrItem 
+============================================================
+[I] \StrItem{abcd}{3}
+    [I] \Expand{\str_item:nn {abcd}{3}}
+    [O] c
+[O] c
+============================================================
+============================================================
+TEST 21: Testing \StrVarItem 
+============================================================
+[I] \StrSet{\lTmpaStr }{abcd}
+[O] 
+[I] \StrVarItem{\lTmpaStr }{3}
+    [I] \Expand{\str_item:Nn \lTmpaStr {3}}
+    [O] c
+[O] c
+============================================================
+============================================================
+TEST 22: Testing \StrMapInline 
+============================================================
+[I] \StrClear{\lTmpaStr }
+[O] 
+[I] \StrMapInline{one}{\StrPutRight \lTmpaStr {[##1]}}
+    [I] \StrPutRight{\lTmpaStr }{[o]}
+    [O] 
+    [I] \StrPutRight{\lTmpaStr }{[n]}
+    [O] 
+    [I] \StrPutRight{\lTmpaStr }{[e]}
+    [O] 
+[O] 
+    [I] \StrUse{\lTmpaStr }
+            [I] \Value{\lTmpaStr }
+            [O] [o][n][e]
+        [I] \Result{[o][n][e]}
+        [O] [o][n][e]
+    [O] [o][n][e]
+[I] \Result{[o][n][e]}
+[O] [o][n][e]
+============================================================
+============================================================
+TEST 23: Testing \StrVarMapInline 
+============================================================
+[I] \StrClear{\lTmpaStr }
+[O] 
+[I] \StrSet{\lTmpkStr }{one}
+[O] 
+[I] \StrVarMapInline{\lTmpkStr }{\StrPutRight \lTmpaStr {[##1]}}
+    [I] \StrPutRight{\lTmpaStr }{[o]}
+    [O] 
+    [I] \StrPutRight{\lTmpaStr }{[n]}
+    [O] 
+    [I] \StrPutRight{\lTmpaStr }{[e]}
+    [O] 
+[O] 
+    [I] \StrUse{\lTmpaStr }
+            [I] \Value{\lTmpaStr }
+            [O] [o][n][e]
+        [I] \Result{[o][n][e]}
+        [O] [o][n][e]
+    [O] [o][n][e]
+[I] \Result{[o][n][e]}
+[O] [o][n][e]
+============================================================
+============================================================
+TEST 24: Testing \StrMapVariable 
+============================================================
+[I] \StrClear{\lTmpaStr }
+[O] 
+[I] \StrMapVariable{one}{\lTmpiStr }{\StrPutRight \lTmpaStr {\Expand {[\lTmpiStr ]}}}
+        [I] \Expand{[\lTmpiStr ]}
+        [O] [o]
+    [I] \StrPutRight{\lTmpaStr }{[o]}
+    [O] 
+        [I] \Expand{[\lTmpiStr ]}
+        [O] [n]
+    [I] \StrPutRight{\lTmpaStr }{[n]}
+    [O] 
+        [I] \Expand{[\lTmpiStr ]}
+        [O] [e]
+    [I] \StrPutRight{\lTmpaStr }{[e]}
+    [O] 
+[O] 
+    [I] \StrUse{\lTmpaStr }
+            [I] \Value{\lTmpaStr }
+            [O] [o][n][e]
+        [I] \Result{[o][n][e]}
+        [O] [o][n][e]
+    [O] [o][n][e]
+[I] \Result{[o][n][e]}
+[O] [o][n][e]
+============================================================
+============================================================
+TEST 25: Testing \StrVarMapVariable 
+============================================================
+[I] \StrClear{\lTmpaStr }
+[O] 
+[I] \StrSet{\lTmpkStr }{one}
+[O] 
+[I] \StrVarMapVariable{\lTmpkStr }{\lTmpiStr }{\StrPutRight \lTmpaStr {\Expand {[\lTmpiStr ]}}}
+        [I] \Expand{[\lTmpiStr ]}
+        [O] [o]
+    [I] \StrPutRight{\lTmpaStr }{[o]}
+    [O] 
+        [I] \Expand{[\lTmpiStr ]}
+        [O] [n]
+    [I] \StrPutRight{\lTmpaStr }{[n]}
+    [O] 
+        [I] \Expand{[\lTmpiStr ]}
+        [O] [e]
+    [I] \StrPutRight{\lTmpaStr }{[e]}
+    [O] 
+[O] 
+    [I] \StrUse{\lTmpaStr }
+            [I] \Value{\lTmpaStr }
+            [O] [o][n][e]
+        [I] \Result{[o][n][e]}
+        [O] [o][n][e]
+    [O] [o][n][e]
+[I] \Result{[o][n][e]}
+[O] [o][n][e]
+============================================================
+============================================================
+TEST 26: Testing \StrIfExist 
+============================================================
+[I] \StrIfExistTF{\lTmpaStr }{\Result {Yes}}{\Result {No}}
+    [I] \StrIfExist{\lTmpaStr }
+        [I] \Result{\cTrueBool }
+        [O] \cTrueBool 
+    [O] \cTrueBool 
+    [I] \Result{Yes}
+    [O] Yes
+[O] Yes
+[I] \StrIfExistTF{\lFooUndefinedStr }{\Result {Yes}}{\Result {No}}
+    [I] \StrIfExist{\lFooUndefinedStr }
+        [I] \Result{\cFalseBool }
+        [O] \cFalseBool 
+    [O] \cFalseBool 
+    [I] \Result{No}
+    [O] No
+[O] No
+============================================================
+============================================================
+TEST 27: Testing \StrVarIfEmpty 
+============================================================
+[I] \StrSet{\lTmpaStr }{abc}
+[O] 
+[I] \StrVarIfEmptyTF{\lTmpaStr }{\Result {Empty}}{\Result {NonEmpty}}
+    [I] \StrVarIfEmpty{\lTmpaStr }
+        [I] \Result{\cFalseBool }
+        [O] \cFalseBool 
+    [O] \cFalseBool 
+    [I] \Result{NonEmpty}
+    [O] NonEmpty
+[O] NonEmpty
+[I] \StrClear{\lTmpaStr }
+[O] 
+[I] \StrVarIfEmptyTF{\lTmpaStr }{\Result {Empty}}{\Result {NonEmpty}}
+    [I] \StrVarIfEmpty{\lTmpaStr }
+        [I] \Result{\cTrueBool }
+        [O] \cTrueBool 
+    [O] \cTrueBool 
+    [I] \Result{Empty}
+    [O] Empty
+[O] Empty
+============================================================
+============================================================
+TEST 28: Testing \StrIfEq 
+============================================================
+[I] \StrIfEqTF{abc}{abc}{\Result {Yes}}{\Result {No}}
+    [I] \StrIfEq{abc}{abc}
+        [I] \Result{\cTrueBool }
+        [O] \cTrueBool 
+    [O] \cTrueBool 
+    [I] \Result{Yes}
+    [O] Yes
+[O] Yes
+[I] \StrIfEqTF{abc}{xyz}{\Result {Yes}}{\Result {No}}
+    [I] \StrIfEq{abc}{xyz}
+        [I] \Result{\cFalseBool }
+        [O] \cFalseBool 
+    [O] \cFalseBool 
+    [I] \Result{No}
+    [O] No
+[O] No
+[I] \StrSet{\lTmpaStr }{abc}
+[O] 
+[I] \StrSet{\lTmpbStr }{abc}
+[O] 
+[I] \StrSet{\lTmpcStr }{xyz}
+[O] 
+[I] \StrIfEqTF{\lTmpaStr }{\lTmpbStr }{\Result {Yes}}{\Result {No}}
+    [I] \StrIfEq{\lTmpaStr }{\lTmpbStr }
+        [I] \Result{\cFalseBool }
+        [O] \cFalseBool 
+    [O] \cFalseBool 
+    [I] \Result{No}
+    [O] No
+[O] No
+[I] \StrIfEqTF{\lTmpaStr }{\lTmpcStr }{\Result {Yes}}{\Result {No}}
+    [I] \StrIfEq{\lTmpaStr }{\lTmpcStr }
+        [I] \Result{\cFalseBool }
+        [O] \cFalseBool 
+    [O] \cFalseBool 
+    [I] \Result{No}
+    [O] No
+[O] No
+    [I] \Value{\lTmpaStr }
+    [O] abc
+    [I] \Value{\lTmpbStr }
+    [O] abc
+[I] \StrIfEqTF{abc}{abc}{\Result {Yes}}{\Result {No}}
+    [I] \StrIfEq{abc}{abc}
+        [I] \Result{\cTrueBool }
+        [O] \cTrueBool 
+    [O] \cTrueBool 
+    [I] \Result{Yes}
+    [O] Yes
+[O] Yes
+    [I] \Value{\lTmpaStr }
+    [O] abc
+    [I] \Value{\lTmpcStr }
+    [O] xyz
+[I] \StrIfEqTF{abc}{xyz}{\Result {Yes}}{\Result {No}}
+    [I] \StrIfEq{abc}{xyz}
+        [I] \Result{\cFalseBool }
+        [O] \cFalseBool 
+    [O] \cFalseBool 
+    [I] \Result{No}
+    [O] No
+[O] No
+============================================================
+============================================================
+TEST 29: Testing \StrVarIfEq 
+============================================================
+[I] \StrSet{\lTmpaStr }{abc}
+[O] 
+[I] \StrSet{\lTmpbStr }{abc}
+[O] 
+[I] \StrSet{\lTmpcStr }{xyz}
+[O] 
+[I] \StrVarIfEqTF{\lTmpaStr }{\lTmpbStr }{\Result {Yes}}{\Result {No}}
+    [I] \StrVarIfEq{\lTmpaStr }{\lTmpbStr }
+        [I] \Result{\cTrueBool }
+        [O] \cTrueBool 
+    [O] \cTrueBool 
+    [I] \Result{Yes}
+    [O] Yes
+[O] Yes
+[I] \StrVarIfEqTF{\lTmpaStr }{\lTmpcStr }{\Result {Yes}}{\Result {No}}
+    [I] \StrVarIfEq{\lTmpaStr }{\lTmpcStr }
+        [I] \Result{\cFalseBool }
+        [O] \cFalseBool 
+    [O] \cFalseBool 
+    [I] \Result{No}
+    [O] No
+[O] No
+============================================================
+============================================================
+TEST 30: Testing \StrIfIn 
+============================================================
+[I] \StrIfInTF{hello world}{o}{\Result {Yes}}{\Result {No}}
+    [I] \StrIfIn{hello world}{o}
+        [I] \Result{\cTrueBool }
+        [O] \cTrueBool 
+    [O] \cTrueBool 
+    [I] \Result{Yes}
+    [O] Yes
+[O] Yes
+[I] \StrIfInTF{hello world}{a}{\Result {Yes}}{\Result {No}}
+    [I] \StrIfIn{hello world}{a}
+        [I] \Result{\cFalseBool }
+        [O] \cFalseBool 
+    [O] \cFalseBool 
+    [I] \Result{No}
+    [O] No
+[O] No
+============================================================
+============================================================
+TEST 31: Testing \StrVarIfIn 
+============================================================
+[I] \StrSet{\lTmpaStr }{hello world}
+[O] 
+[I] \StrVarIfInTF{\lTmpaStr }{o}{\Result {Yes}}{\Result {No}}
+    [I] \StrVarIfIn{\lTmpaStr }{o}
+        [I] \Result{\cTrueBool }
+        [O] \cTrueBool 
+    [O] \cTrueBool 
+    [I] \Result{Yes}
+    [O] Yes
+[O] Yes
+[I] \StrVarIfInTF{\lTmpaStr }{a}{\Result {Yes}}{\Result {No}}
+    [I] \StrVarIfIn{\lTmpaStr }{a}
+        [I] \Result{\cFalseBool }
+        [O] \cFalseBool 
+    [O] \cFalseBool 
+    [I] \Result{No}
+    [O] No
+[O] No
+============================================================
+============================================================
+TEST 32: Testing \StrCompare 
+============================================================
+    [I] \StrCompare{ab}<{abc}
+        [I] \Result{\cTrueBool }
+        [O] \cTrueBool 
+    [O] \cTrueBool 
+[I] \BoolVarLog{\cTrueBool }
+> \cTrueBool=true.
+[O] 
+    [I] \StrCompare{ab}<{aa}
+        [I] \Result{\cFalseBool }
+        [O] \cFalseBool 
+    [O] \cFalseBool 
+[I] \BoolVarLog{\cFalseBool }
+> \cFalseBool=false.
+[O] 
+[I] \StrCompareTF{ab}<{abc}{\Result {Yes}}{\Result {No}}
+    [I] \StrCompare{ab}<{abc}
+        [I] \Result{\cTrueBool }
+        [O] \cTrueBool 
+    [O] \cTrueBool 
+    [I] \Result{Yes}
+    [O] Yes
+[O] Yes
+[I] \StrCompareTF{ab}<{aa}{\Result {Yes}}{\Result {No}}
+    [I] \StrCompare{ab}<{aa}
+        [I] \Result{\cFalseBool }
+        [O] \cFalseBool 
+    [O] \cFalseBool 
+    [I] \Result{No}
+    [O] No
+[O] No
+    [I] \StrIfCompare{ab}<{abc}
+        [I] \Result{\cTrueBool }
+        [O] \cTrueBool 
+    [O] \cTrueBool 
+[I] \BoolVarLog{\cTrueBool }
+> \cTrueBool=true.
+[O] 
+    [I] \StrIfCompare{ab}<{aa}
+        [I] \Result{\cFalseBool }
+        [O] \cFalseBool 
+    [O] \cFalseBool 
+[I] \BoolVarLog{\cFalseBool }
+> \cFalseBool=false.
+[O] 
+[I] \StrIfCompareTF{ab}<{abc}{\Result {Yes}}{\Result {No}}
+    [I] \StrIfCompare{ab}<{abc}
+        [I] \Result{\cTrueBool }
+        [O] \cTrueBool 
+    [O] \cTrueBool 
+    [I] \Result{Yes}
+    [O] Yes
+[O] Yes
+[I] \StrIfCompareTF{ab}<{aa}{\Result {Yes}}{\Result {No}}
+    [I] \StrIfCompare{ab}<{aa}
+        [I] \Result{\cFalseBool }
+        [O] \cFalseBool 
+    [O] \cFalseBool 
+    [I] \Result{No}
+    [O] No
+[O] No
+============================================================
+============================================================
+TEST 33: Testing \StrCaseF 
+============================================================
+[I] \StrCaseF{bbb}{{aaa}{\TlSet \lTmpkTl {First}}{bbb}{\TlSet \lTmpkTl {Second}}{ccb}{\TlSet \lTmpkTl {Third}}}{\Result {NoMatch!}}
+    [I] \TlSet{\lTmpkTl }{Second}
+    [O] 
+[O] 
+    [I] \TlUse{\lTmpkTl }
+            [I] \Value{\lTmpkTl }
+            [O] Second
+        [I] \Result{Second}
+        [O] Second
+    [O] Second
+[I] \Result{Second}
+[O] Second
+============================================================
+============================================================
+TEST 34: Testing \StrCaseTF 
+============================================================
+[I] \StrCaseTF{ddd}{{aaa}{\TlSet \lTmpkTl {First}}{bbb}{\TlSet \lTmpkTl {Second}}{ccb}{\TlSet \lTmpkTl {Third}}}{\Result {\TlUse \lTmpkTl }}{\Result {No Match!}}
+    [I] \Result{No Match!}
+    [O] No Match!
+[O] No Match!
+============================================================
+[1
+] (module-str.aux)
