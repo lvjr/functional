@@ -1,0 +1,570 @@
+This is a generated file for the l3build validation system.
+Don't change this file in any respect.
+============================================================
+TEST 1: Testing \TlConst 
+============================================================
+[I] \TlConst{\cFooSomeTl }{abc}
+[O] 
+[I] \TlUse{\cFooSomeTl }
+        [I] \Value{\cFooSomeTl }
+        [O] abc
+    [I] \Result{abc}
+    [O] abc
+[O] abc
+============================================================
+============================================================
+TEST 2: Testing \TlToStr 
+============================================================
+[I] \TlToStr{12\abc 34}
+    [I] \Expand{\tl_to_str:n {12\abc 34}}
+    [O] 12\abc 34
+[O] 12\abc 34
+============================================================
+============================================================
+TEST 3: Testing \TlVarToStr 
+============================================================
+[I] \TlSet{\lTmpaTl }{12\abc 34}
+[O] 
+[I] \TlVarToStr{\lTmpaTl }
+    [I] \Expand{\tl_to_str:N \lTmpaTl }
+    [O] 12\abc 34
+[O] 12\abc 34
+============================================================
+============================================================
+TEST 4: Testing \TlLog 
+============================================================
+[I] \TlSet{\lTmpaTl }{abc}
+[O] 
+[I] \TlLog{123\lTmpaTl 456}
+> 123\lTmpaTl 456.
+[O] 
+============================================================
+============================================================
+TEST 5: Testing \TlSet 
+============================================================
+[I] \TlSet{\lTmpaTl }{abc}
+[O] 
+[I] \TlUse{\lTmpaTl }
+        [I] \Value{\lTmpaTl }
+        [O] abc
+    [I] \Result{abc}
+    [O] abc
+[O] abc
+============================================================
+============================================================
+TEST 6: Testing \TlSetEq 
+============================================================
+[I] \TlSet{\lTmpaTl }{abc}
+[O] 
+[I] \TlSetEq{\lTmpbTl }{\lTmpaTl }
+[O] 
+[I] \TlUse{\lTmpbTl }
+        [I] \Value{\lTmpbTl }
+        [O] abc
+    [I] \Result{abc}
+    [O] abc
+[O] abc
+============================================================
+============================================================
+TEST 7: Testing \TlClearNew 
+============================================================
+[I] \TlClearNew{\lFooSomeTl }
+[O] 
+[I] \TlUse{\lFooSomeTl }
+        [I] \Value{\lFooSomeTl }
+        [O] 
+    [I] \Result{}
+    [O] 
+[O] 
+============================================================
+============================================================
+TEST 8: Testing \TlConcat 
+============================================================
+[I] \TlSet{\lTmpbTl }{con}
+[O] 
+[I] \TlSet{\lTmpcTl }{cat}
+[O] 
+[I] \TlConcat{\lTmpaTl }{\lTmpbTl }{\lTmpcTl }
+[O] 
+[I] \TlUse{\lTmpaTl }
+        [I] \Value{\lTmpaTl }
+        [O] concat
+    [I] \Result{concat}
+    [O] concat
+[O] concat
+============================================================
+============================================================
+TEST 9: Testing \TlReplaceOnce 
+============================================================
+[I] \TlSet{\lTmpaTl }{hello world}
+[O] 
+[I] \TlReplaceOnce{\lTmpaTl }{l}{-}
+[O] 
+[I] \TlUse{\lTmpaTl }
+        [I] \Value{\lTmpaTl }
+        [O] he-lo world
+    [I] \Result{he-lo world}
+    [O] he-lo world
+[O] he-lo world
+============================================================
+============================================================
+TEST 10: Testing \TlReplaceAll 
+============================================================
+[I] \TlSet{\lTmpaTl }{hello world}
+[O] 
+[I] \TlReplaceAll{\lTmpaTl }{l}{-}
+[O] 
+[I] \TlUse{\lTmpaTl }
+        [I] \Value{\lTmpaTl }
+        [O] he--o wor-d
+    [I] \Result{he--o wor-d}
+    [O] he--o wor-d
+[O] he--o wor-d
+============================================================
+============================================================
+TEST 11: Testing \TlRemoveOnce 
+============================================================
+[I] \TlSet{\lTmpaTl }{hello world}
+[O] 
+[I] \TlRemoveOnce{\lTmpaTl }{l}
+[O] 
+[I] \TlUse{\lTmpaTl }
+        [I] \Value{\lTmpaTl }
+        [O] helo world
+    [I] \Result{helo world}
+    [O] helo world
+[O] helo world
+============================================================
+============================================================
+TEST 12: Testing \TlRemoveAll 
+============================================================
+[I] \TlSet{\lTmpaTl }{hello world}
+[O] 
+[I] \TlRemoveAll{\lTmpaTl }{l}
+[O] 
+[I] \TlUse{\lTmpaTl }
+        [I] \Value{\lTmpaTl }
+        [O] heo word
+    [I] \Result{heo word}
+    [O] heo word
+[O] heo word
+============================================================
+============================================================
+TEST 13: Testing \TlTrimSpaces 
+============================================================
+[I] \TlTrimSpaces{ 12 34 }
+    [I] \Expand{\tl_trim_spaces:n { 12 34 }}
+    [O] 12 34
+[O] 12 34
+============================================================
+============================================================
+TEST 14: Testing \TlVarTrimSpaces 
+============================================================
+[I] \TlSet{\lTmpaTl }{ 12 34 }
+[O] 
+[I] \TlVarTrimSpaces{\lTmpaTl }
+[O] 
+[I] \TlUse{\lTmpaTl }
+        [I] \Value{\lTmpaTl }
+        [O] 12 34
+    [I] \Result{12 34}
+    [O] 12 34
+[O] 12 34
+============================================================
+============================================================
+TEST 15: Testing \TlCount 
+============================================================
+[I] \TlCount{12\abc 34}
+    [I] \Expand{\tl_count:n {12\abc 34}}
+    [O] 5
+[O] 5
+============================================================
+============================================================
+TEST 16: Testing \TlVarCount 
+============================================================
+[I] \TlSet{\lTmpaTl }{12\abc 34}
+[O] 
+[I] \TlVarCount{\lTmpaTl }
+    [I] \Expand{\tl_count:N \lTmpaTl }
+    [O] 5
+[O] 5
+============================================================
+============================================================
+TEST 17: Testing \TlHead 
+============================================================
+[I] \TlHead{HELLO}
+    [I] \Expand{\tl_head:n {HELLO}}
+    [O] H
+[O] H
+============================================================
+============================================================
+TEST 18: Testing \TlVarHead 
+============================================================
+[I] \TlSet{\lTmpaTl }{HELLO}
+[O] 
+[I] \TlVarHead{\lTmpaTl }
+    [I] \Expand{\tl_head:N \lTmpaTl }
+    [O] H
+[O] H
+============================================================
+============================================================
+TEST 19: Testing \TlTail 
+============================================================
+[I] \TlTail{HELLO}
+    [I] \Expand{\tl_tail:n {HELLO}}
+    [O] ELLO
+[O] ELLO
+    [I] \TlTail{ a {bc} d }
+        [I] \Expand{\tl_tail:n { a {bc} d }}
+        [O]  {bc} d 
+    [O]  {bc} d 
+[I] \TlLog{ {bc} d }
+>  {bc} d .
+[O] 
+============================================================
+============================================================
+TEST 20: Testing \TlVarTail 
+============================================================
+[I] \TlSet{\lTmpaTl }{HELLO}
+[O] 
+[I] \TlVarTail{\lTmpaTl }
+    [I] \Expand{\tl_tail:N \lTmpaTl }
+    [O] ELLO
+[O] ELLO
+============================================================
+============================================================
+TEST 21: Testing \TlItem 
+============================================================
+[I] \TlItem{abcd}{3}
+    [I] \Expand{\tl_item:nn {abcd}{3}}
+    [O] c
+[O] c
+============================================================
+============================================================
+TEST 22: Testing \TlVarItem 
+============================================================
+[I] \TlSet{\lTmpaTl }{abcd}
+[O] 
+[I] \TlVarItem{\lTmpaTl }{3}
+    [I] \Expand{\tl_item:Nn \lTmpaTl {3}}
+    [O] c
+[O] c
+============================================================
+============================================================
+TEST 23: Testing \TlMapInline 
+============================================================
+[I] \TlClear{\lTmpaTl }
+[O] 
+[I] \TlMapInline{one}{\TlPutRight \lTmpaTl {[##1]}}
+    [I] \TlPutRight{\lTmpaTl }{[o]}
+    [O] 
+    [I] \TlPutRight{\lTmpaTl }{[n]}
+    [O] 
+    [I] \TlPutRight{\lTmpaTl }{[e]}
+    [O] 
+[O] 
+    [I] \TlUse{\lTmpaTl }
+            [I] \Value{\lTmpaTl }
+            [O] [o][n][e]
+        [I] \Result{[o][n][e]}
+        [O] [o][n][e]
+    [O] [o][n][e]
+[I] \Result{[o][n][e]}
+[O] [o][n][e]
+============================================================
+============================================================
+TEST 24: Testing \TlVarMapInline 
+============================================================
+[I] \TlClear{\lTmpaTl }
+[O] 
+[I] \TlSet{\lTmpkTl }{one}
+[O] 
+[I] \TlVarMapInline{\lTmpkTl }{\TlPutRight \lTmpaTl {[##1]}}
+    [I] \TlPutRight{\lTmpaTl }{[o]}
+    [O] 
+    [I] \TlPutRight{\lTmpaTl }{[n]}
+    [O] 
+    [I] \TlPutRight{\lTmpaTl }{[e]}
+    [O] 
+[O] 
+    [I] \TlUse{\lTmpaTl }
+            [I] \Value{\lTmpaTl }
+            [O] [o][n][e]
+        [I] \Result{[o][n][e]}
+        [O] [o][n][e]
+    [O] [o][n][e]
+[I] \Result{[o][n][e]}
+[O] [o][n][e]
+============================================================
+============================================================
+TEST 25: Testing \TlMapVariable 
+============================================================
+[I] \TlClear{\lTmpaTl }
+[O] 
+[I] \TlMapVariable{one}{\lTmpiTl }{\TlPutRight \lTmpaTl {\Expand {[\lTmpiTl ]}}}
+        [I] \Expand{[\lTmpiTl ]}
+        [O] [o]
+    [I] \TlPutRight{\lTmpaTl }{[o]}
+    [O] 
+        [I] \Expand{[\lTmpiTl ]}
+        [O] [n]
+    [I] \TlPutRight{\lTmpaTl }{[n]}
+    [O] 
+        [I] \Expand{[\lTmpiTl ]}
+        [O] [e]
+    [I] \TlPutRight{\lTmpaTl }{[e]}
+    [O] 
+[O] 
+    [I] \TlUse{\lTmpaTl }
+            [I] \Value{\lTmpaTl }
+            [O] [o][n][e]
+        [I] \Result{[o][n][e]}
+        [O] [o][n][e]
+    [O] [o][n][e]
+[I] \Result{[o][n][e]}
+[O] [o][n][e]
+============================================================
+============================================================
+TEST 26: Testing \TlVarMapVariable 
+============================================================
+[I] \TlClear{\lTmpaTl }
+[O] 
+[I] \TlSet{\lTmpkTl }{one}
+[O] 
+[I] \TlVarMapVariable{\lTmpkTl }{\lTmpiTl }{\TlPutRight \lTmpaTl {\Expand {[\lTmpiTl ]}}}
+        [I] \Expand{[\lTmpiTl ]}
+        [O] [o]
+    [I] \TlPutRight{\lTmpaTl }{[o]}
+    [O] 
+        [I] \Expand{[\lTmpiTl ]}
+        [O] [n]
+    [I] \TlPutRight{\lTmpaTl }{[n]}
+    [O] 
+        [I] \Expand{[\lTmpiTl ]}
+        [O] [e]
+    [I] \TlPutRight{\lTmpaTl }{[e]}
+    [O] 
+[O] 
+    [I] \TlUse{\lTmpaTl }
+            [I] \Value{\lTmpaTl }
+            [O] [o][n][e]
+        [I] \Result{[o][n][e]}
+        [O] [o][n][e]
+    [O] [o][n][e]
+[I] \Result{[o][n][e]}
+[O] [o][n][e]
+============================================================
+============================================================
+TEST 27: Testing \TlIfExist 
+============================================================
+[I] \TlIfExistTF{\lTmpaTl }{\Result {Yes}}{\Result {No}}
+    [I] \TlIfExist{\lTmpaTl }
+        [I] \Result{\cTrueBool }
+        [O] \cTrueBool 
+    [O] \cTrueBool 
+    [I] \Result{Yes}
+    [O] Yes
+[O] Yes
+[I] \TlIfExistTF{\lFooUndefinedTl }{\Result {Yes}}{\Result {No}}
+    [I] \TlIfExist{\lFooUndefinedTl }
+        [I] \Result{\cFalseBool }
+        [O] \cFalseBool 
+    [O] \cFalseBool 
+    [I] \Result{No}
+    [O] No
+[O] No
+============================================================
+============================================================
+TEST 28: Testing \TlIfEmpty 
+============================================================
+[I] \TlIfEmptyTF{ }{\Result {Yes}}{\Result {No}}
+    [I] \TlIfEmpty{ }
+        [I] \Result{\cFalseBool }
+        [O] \cFalseBool 
+    [O] \cFalseBool 
+    [I] \Result{No}
+    [O] No
+[O] No
+============================================================
+============================================================
+TEST 29: Testing \TlIfBlank 
+============================================================
+[I] \TlIfBlankTF{ }{\Result {Yes}}{\Result {No}}
+    [I] \TlIfBlank{ }
+        [I] \Result{\cTrueBool }
+        [O] \cTrueBool 
+    [O] \cTrueBool 
+    [I] \Result{Yes}
+    [O] Yes
+[O] Yes
+============================================================
+============================================================
+TEST 30: Testing \TlIfEq 
+============================================================
+[I] \TlSet{\lTmpaTl }{abc}
+[O] 
+[I] \TlSet{\lTmpbTl }{abc}
+[O] 
+[I] \TlSet{\lTmpcTl }{xyz}
+[O] 
+    [I] \TlUse{\lTmpaTl }
+            [I] \Value{\lTmpaTl }
+            [O] abc
+        [I] \Result{abc}
+        [O] abc
+    [O] abc
+    [I] \TlUse{\lTmpbTl }
+            [I] \Value{\lTmpbTl }
+            [O] abc
+        [I] \Result{abc}
+        [O] abc
+    [O] abc
+[I] \TlIfEqTF{abc}{abc}{\Result {Yes}}{\Result {No}}
+    [I] \TlIfEq{abc}{abc}
+        [I] \Result{\cTrueBool }
+        [O] \cTrueBool 
+    [O] \cTrueBool 
+    [I] \Result{Yes}
+    [O] Yes
+[O] Yes
+    [I] \TlUse{\lTmpaTl }
+            [I] \Value{\lTmpaTl }
+            [O] abc
+        [I] \Result{abc}
+        [O] abc
+    [O] abc
+    [I] \TlUse{\lTmpcTl }
+            [I] \Value{\lTmpcTl }
+            [O] xyz
+        [I] \Result{xyz}
+        [O] xyz
+    [O] xyz
+[I] \TlIfEqTF{abc}{xyz}{\Result {Yes}}{\Result {No}}
+    [I] \TlIfEq{abc}{xyz}
+        [I] \Result{\cFalseBool }
+        [O] \cFalseBool 
+    [O] \cFalseBool 
+    [I] \Result{No}
+    [O] No
+[O] No
+============================================================
+============================================================
+TEST 31: Testing \TlIfIn 
+============================================================
+[I] \TlIfInTF{hello world}{o}{\Result {Yes}}{\Result {No}}
+    [I] \TlIfIn{hello world}{o}
+        [I] \Result{\cTrueBool }
+        [O] \cTrueBool 
+    [O] \cTrueBool 
+    [I] \Result{Yes}
+    [O] Yes
+[O] Yes
+[I] \TlIfInTF{hello world}{a}{\Result {Yes}}{\Result {No}}
+    [I] \TlIfIn{hello world}{a}
+        [I] \Result{\cFalseBool }
+        [O] \cFalseBool 
+    [O] \cFalseBool 
+    [I] \Result{No}
+    [O] No
+[O] No
+============================================================
+============================================================
+TEST 32: Testing \TlVarIfIn 
+============================================================
+[I] \TlSet{\lTmpaTl }{hello world}
+[O] 
+[I] \TlVarIfInTF{\lTmpaTl }{o}{\Result {Yes}}{\Result {No}}
+    [I] \TlVarIfIn{\lTmpaTl }{o}
+        [I] \Result{\cTrueBool }
+        [O] \cTrueBool 
+    [O] \cTrueBool 
+    [I] \Result{Yes}
+    [O] Yes
+[O] Yes
+[I] \TlVarIfInTF{\lTmpaTl }{a}{\Result {Yes}}{\Result {No}}
+    [I] \TlVarIfIn{\lTmpaTl }{a}
+        [I] \Result{\cFalseBool }
+        [O] \cFalseBool 
+    [O] \cFalseBool 
+    [I] \Result{No}
+    [O] No
+[O] No
+============================================================
+============================================================
+TEST 33: Testing \TlIfSingle 
+============================================================
+[I] \TlIfSingleTF{a}{\Result {Yes}}{\Result {No}}
+    [I] \TlIfSingle{a}
+        [I] \Result{\cTrueBool }
+        [O] \cTrueBool 
+    [O] \cTrueBool 
+    [I] \Result{Yes}
+    [O] Yes
+[O] Yes
+[I] \TlIfSingleTF{abc}{\Result {Yes}}{\Result {No}}
+    [I] \TlIfSingle{abc}
+        [I] \Result{\cFalseBool }
+        [O] \cFalseBool 
+    [O] \cFalseBool 
+    [I] \Result{No}
+    [O] No
+[O] No
+============================================================
+============================================================
+TEST 34: Testing \TlVarIfSingle 
+============================================================
+[I] \TlSet{\lTmpaTl }{a}
+[O] 
+[I] \TlVarIfSingleTF{\lTmpaTl }{\Result {Yes}}{\Result {No}}
+    [I] \TlVarIfSingle{\lTmpaTl }
+        [I] \Result{\cTrueBool }
+        [O] \cTrueBool 
+    [O] \cTrueBool 
+    [I] \Result{Yes}
+    [O] Yes
+[O] Yes
+[I] \TlSet{\lTmpaTl }{abc}
+[O] 
+[I] \TlVarIfSingleTF{\lTmpaTl }{\Result {Yes}}{\Result {No}}
+    [I] \TlVarIfSingle{\lTmpaTl }
+        [I] \Result{\cFalseBool }
+        [O] \cFalseBool 
+    [O] \cFalseBool 
+    [I] \Result{No}
+    [O] No
+[O] No
+============================================================
+============================================================
+TEST 35: Testing \TlVarCaseF 
+============================================================
+[I] \TlSet{\lTmpaTl }{a}
+[O] 
+[I] \TlSet{\lTmpbTl }{b}
+[O] 
+[I] \TlSet{\lTmpcTl }{c}
+[O] 
+[I] \TlSet{\lTmpkTl }{b}
+[O] 
+[I] \TlVarCaseF{\lTmpkTl }{\lTmpaTl {\Result {First}}\lTmpbTl {\Result {Second}}\lTmpcTl {\Result {Third}}}{\Result {NoMatch!}}
+    [I] \Result{Second}
+    [O] Second
+[O] Second
+============================================================
+============================================================
+TEST 36: Testing \TlVarCaseTF 
+============================================================
+[I] \TlSet{\lTmpaTl }{a}
+[O] 
+[I] \TlSet{\lTmpbTl }{b}
+[O] 
+[I] \TlSet{\lTmpcTl }{c}
+[O] 
+[I] \TlSet{\lTmpkTl }{d}
+[O] 
+[I] \TlVarCaseTF{\lTmpkTl }{\lTmpaTl {\Result {First}}\lTmpbTl {\Result {Second}}\lTmpcTl {\Result {Third}}}{\Result {[SomeMatch]}}{\Result {[NoMatch]}}
+    [I] \Result{[NoMatch]}
+    [O] [NoMatch]
+[O] [NoMatch]
+============================================================
+[1
+] (module-tl.aux)
