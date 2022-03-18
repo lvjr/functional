@@ -1033,7 +1033,6 @@
   }
 
 %% Avoid naming confict with xstring package
-
 \cs_if_exist:NF \StrCompare
   {
     \PrgNewConditional \StrCompare { m N m }
@@ -1045,7 +1044,6 @@
   }
 
 %% Provide another name for \StrCompare function
-
 \PrgNewConditional \StrIfCompare { m N m }
   {
     \str_compare:nNnTF {#1} #2 {#3}
