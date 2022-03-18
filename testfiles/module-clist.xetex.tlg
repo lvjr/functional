@@ -1,0 +1,478 @@
+This is a generated file for the l3build validation system.
+Don't change this file in any respect.
+============================================================
+TEST 1: Testing \ClistConst 
+============================================================
+[I] \ClistConst{\cFooSomeClist }{one,two,three}
+[O] 
+============================================================
+============================================================
+TEST 2: Testing \ClistVarJoin 
+============================================================
+[I] \ClistSet{\lTmpaClist }{one,two,three}
+[O] 
+[I] \ClistVarJoin{\lTmpaClist }{ and }
+    [I] \Expand{\clist_use:Nn \lTmpaClist { and }}
+    [O] one and two and three
+[O] one and two and three
+============================================================
+============================================================
+TEST 3: Testing \ClistVarJoinExtended 
+============================================================
+[I] \ClistSet{\lTmpaClist }{one,two}
+[O] 
+[I] \ClistVarJoinExtended{\lTmpaClist }{ and }{, }{, and }
+    [I] \Expand{\clist_use:Nnnn \lTmpaClist { and }{, }{, and }}
+    [O] one and two
+[O] one and two
+[I] \ClistSet{\lTmpbClist }{one,two,three}
+[O] 
+[I] \ClistVarJoinExtended{\lTmpbClist }{ and }{, }{, and }
+    [I] \Expand{\clist_use:Nnnn \lTmpbClist { and }{, }{, and }}
+    [O] one, two, and three
+[O] one, two, and three
+============================================================
+============================================================
+TEST 4: Testing \ClistLog 
+============================================================
+[I] \ClistLog{one,two,three}
+The comma list contains the items (without outer braces):
+>  {one}
+>  {two}
+>  {three}.
+[O] 
+============================================================
+============================================================
+TEST 5: Testing \ClistVarLog 
+============================================================
+[I] \ClistNew{\lFooSomeList }
+[O] 
+[I] \ClistSet{\lFooSomeList }{one,two,three}
+[O] 
+[I] \ClistVarLog{\lFooSomeList }
+The comma list \lFooSomeList contains the items (without outer braces):
+>  {one}
+>  {two}
+>  {three}.
+[O] 
+============================================================
+============================================================
+TEST 6: Testing \ClistSetEq 
+============================================================
+[I] \ClistSet{\lTmpaClist }{one,two,three,four}
+[O] 
+[I] \ClistSetEq{\lTmpbClist }{\lTmpaClist }
+[O] 
+[I] \ClistVarJoin{\lTmpbClist }{ and }
+    [I] \Expand{\clist_use:Nn \lTmpbClist { and }}
+    [O] one and two and three and four
+[O] one and two and three and four
+============================================================
+============================================================
+TEST 7: Testing \ClistClear 
+============================================================
+[I] \ClistSet{\lTmpaClist }{one,two,three,four}
+[O] 
+[I] \ClistClear{\lTmpaClist }
+[O] 
+[I] \ClistVarJoin{\lTmpaClist }{ and }
+    [I] \Expand{\clist_use:Nn \lTmpaClist { and }}
+    [O] 
+[O] 
+============================================================
+============================================================
+TEST 8: Testing \ClistClearNew 
+============================================================
+[I] \ClistClearNew{\lFooSomeClist }
+[O] 
+[I] \ClistSet{\lFooSomeClist }{one,two,three}
+[O] 
+[I] \ClistVarJoin{\lFooSomeClist }{ and }
+    [I] \Expand{\clist_use:Nn \lFooSomeClist { and }}
+    [O] one and two and three
+[O] one and two and three
+============================================================
+============================================================
+TEST 9: Testing \ClistConcat 
+============================================================
+[I] \ClistSet{\lTmpbClist }{one,two}
+[O] 
+[I] \ClistSet{\lTmpcClist }{three,four}
+[O] 
+[I] \ClistConcat{\lTmpaClist }{\lTmpbClist }{\lTmpcClist }
+[O] 
+[I] \ClistVarJoin{\lTmpaClist }{ and }
+    [I] \Expand{\clist_use:Nn \lTmpaClist { and }}
+    [O] one and two and three and four
+[O] one and two and three and four
+============================================================
+============================================================
+TEST 10: Testing \ClistPutLeft 
+============================================================
+[I] \ClistSet{\lTmpaClist }{one,two}
+[O] 
+[I] \ClistPutLeft{\lTmpaClist }{zero}
+[O] 
+[I] \ClistVarJoin{\lTmpaClist }{ and }
+    [I] \Expand{\clist_use:Nn \lTmpaClist { and }}
+    [O] zero and one and two
+[O] zero and one and two
+============================================================
+============================================================
+TEST 11: Testing \ClistPutRight 
+============================================================
+[I] \ClistSet{\lTmpaClist }{one,two}
+[O] 
+[I] \ClistPutRight{\lTmpaClist }{three}
+[O] 
+[I] \ClistVarJoin{\lTmpaClist }{ and }
+    [I] \Expand{\clist_use:Nn \lTmpaClist { and }}
+    [O] one and two and three
+[O] one and two and three
+============================================================
+============================================================
+TEST 12: Testing \ClistRemoveDuplicates 
+============================================================
+[I] \ClistSet{\lTmpaClist }{one,two,one,two,three}
+[O] 
+[I] \ClistRemoveDuplicates{\lTmpaClist }
+[O] 
+[I] \ClistVarJoin{\lTmpaClist }{,}
+    [I] \Expand{\clist_use:Nn \lTmpaClist {,}}
+    [O] one,two,three
+[O] one,two,three
+============================================================
+============================================================
+TEST 13: Testing \ClistRemoveAll 
+============================================================
+[I] \ClistSet{\lTmpaClist }{one,two,one,two,three}
+[O] 
+[I] \ClistRemoveAll{\lTmpaClist }{two}
+[O] 
+[I] \ClistVarJoin{\lTmpaClist }{,}
+    [I] \Expand{\clist_use:Nn \lTmpaClist {,}}
+    [O] one,one,three
+[O] one,one,three
+============================================================
+============================================================
+TEST 14: Testing \ClistReverse 
+============================================================
+[I] \ClistSet{\lTmpaClist }{one,two,one,two,three}
+[O] 
+[I] \ClistReverse{\lTmpaClist }
+[O] 
+[I] \ClistVarJoin{\lTmpaClist }{,}
+    [I] \Expand{\clist_use:Nn \lTmpaClist {,}}
+    [O] three,two,one,two,one
+[O] three,two,one,two,one
+============================================================
+============================================================
+TEST 15: Testing \ClistCount 
+============================================================
+[I] \ClistCount{one,two,three,four,five}
+        [I] \Expand{\clist_count:n {one,two,three,four,five}}
+        [O] 5
+    [I] \Result{5}
+    [O] 5
+[O] 5
+============================================================
+============================================================
+TEST 16: Testing \ClistVarCount 
+============================================================
+[I] \ClistSet{\lTmpaClist }{one,two,three,four}
+[O] 
+[I] \ClistVarCount{\lTmpaClist }
+        [I] \Expand{\clist_count:N \lTmpaClist }
+        [O] 4
+    [I] \Result{4}
+    [O] 4
+[O] 4
+============================================================
+============================================================
+TEST 17: Testing \ClistItem 
+============================================================
+    [I] \ClistItem{one,two,three,four}{3}
+        [I] \Expand{\clist_item:nn {one,two,three,four}{3}}
+        [O] three
+    [O] three
+[I] \TlSet{\lTmpaTl }{three}
+[O] 
+[I] \TlUse{\lTmpaTl }
+        [I] \Value{\lTmpaTl }
+        [O] three
+    [I] \Result{three}
+    [O] three
+[O] three
+============================================================
+============================================================
+TEST 18: Testing \ClistVarItem 
+============================================================
+[I] \ClistSet{\lTmpaClist }{one,two,three,four}
+[O] 
+    [I] \ClistVarItem{\lTmpaClist }{3}
+        [I] \Expand{\clist_item:Nn \lTmpaClist {3}}
+        [O] three
+    [O] three
+[I] \TlSet{\lTmpaTl }{three}
+[O] 
+[I] \TlUse{\lTmpaTl }
+        [I] \Value{\lTmpaTl }
+        [O] three
+    [I] \Result{three}
+    [O] three
+[O] three
+============================================================
+============================================================
+TEST 19: Testing \ClistGet 
+============================================================
+[I] \ClistSet{\lTmpaClist }{two,three,four}
+[O] 
+[I] \ClistGetTF{\lTmpaClist }{\lTmpaTl }{\Result {Yes}}{\Result {No}}
+    [I] \Result{Yes}
+    [O] Yes
+[O] Yes
+[I] \TlUse{\lTmpaTl }
+        [I] \Value{\lTmpaTl }
+        [O] two
+    [I] \Result{two}
+    [O] two
+[O] two
+============================================================
+============================================================
+TEST 20: Testing \ClistPop 
+============================================================
+[I] \ClistSet{\lTmpaClist }{two,three,four}
+[O] 
+[I] \ClistPopTF{\lTmpaClist }{\lTmpaTl }{\Result {Yes}}{\Result {No}}
+    [I] \Result{Yes}
+    [O] Yes
+[O] Yes
+[I] \ClistVarJoin{\lTmpaClist }{,}
+    [I] \Expand{\clist_use:Nn \lTmpaClist {,}}
+    [O] three,four
+[O] three,four
+============================================================
+============================================================
+TEST 21: Testing \ClistPush 
+============================================================
+[I] \ClistSet{\lTmpaClist }{two,three,four}
+[O] 
+[I] \ClistPush{\lTmpaClist }{zero,one}
+[O] 
+[I] \ClistVarJoin{\lTmpaClist }{,}
+    [I] \Expand{\clist_use:Nn \lTmpaClist {,}}
+    [O] zero,one,two,three,four
+[O] zero,one,two,three,four
+============================================================
+============================================================
+TEST 22: Testing \ClistMapInline 
+============================================================
+[I] \TlClear{\lTmpaTl }
+[O] 
+[I] \ClistMapInline{one,two,three}{\TlPutRight \lTmpaTl {(##1)}}
+    [I] \TlPutRight{\lTmpaTl }{(one)}
+    [O] 
+    [I] \TlPutRight{\lTmpaTl }{(two)}
+    [O] 
+    [I] \TlPutRight{\lTmpaTl }{(three)}
+    [O] 
+[O] 
+    [I] \TlUse{\lTmpaTl }
+            [I] \Value{\lTmpaTl }
+            [O] (one)(two)(three)
+        [I] \Result{(one)(two)(three)}
+        [O] (one)(two)(three)
+    [O] (one)(two)(three)
+[I] \Result{(one)(two)(three)}
+[O] (one)(two)(three)
+============================================================
+============================================================
+TEST 23: Testing \ClistVarMapInline 
+============================================================
+[I] \TlSet{\lTmpkTl }{one,two,three}
+[O] 
+[I] \TlClear{\lTmpaTl }
+[O] 
+[I] \ClistVarMapInline{\lTmpkTl }{\TlPutRight \lTmpaTl {(##1)}}
+    [I] \TlPutRight{\lTmpaTl }{(one)}
+    [O] 
+    [I] \TlPutRight{\lTmpaTl }{(two)}
+    [O] 
+    [I] \TlPutRight{\lTmpaTl }{(three)}
+    [O] 
+[O] 
+    [I] \TlUse{\lTmpaTl }
+            [I] \Value{\lTmpaTl }
+            [O] (one)(two)(three)
+        [I] \Result{(one)(two)(three)}
+        [O] (one)(two)(three)
+    [O] (one)(two)(three)
+[I] \Result{(one)(two)(three)}
+[O] (one)(two)(three)
+============================================================
+============================================================
+TEST 24: Testing \ClistMapVariable 
+============================================================
+[I] \TlClear{\lTmpaTl }
+[O] 
+[I] \ClistMapVariable{one,two,three}{\lTmpiTl }{\TlPutRight \lTmpaTl {\Expand {[\lTmpiTl ]}}}
+        [I] \Expand{[\lTmpiTl ]}
+        [O] [one]
+    [I] \TlPutRight{\lTmpaTl }{[one]}
+    [O] 
+        [I] \Expand{[\lTmpiTl ]}
+        [O] [two]
+    [I] \TlPutRight{\lTmpaTl }{[two]}
+    [O] 
+        [I] \Expand{[\lTmpiTl ]}
+        [O] [three]
+    [I] \TlPutRight{\lTmpaTl }{[three]}
+    [O] 
+[O] 
+    [I] \TlUse{\lTmpaTl }
+            [I] \Value{\lTmpaTl }
+            [O] [one][two][three]
+        [I] \Result{[one][two][three]}
+        [O] [one][two][three]
+    [O] [one][two][three]
+[I] \Result{[one][two][three]}
+[O] [one][two][three]
+============================================================
+============================================================
+TEST 25: Testing \ClistVarMapVariable 
+============================================================
+[I] \TlClear{\lTmpaTl }
+[O] 
+[I] \ClistSet{\lTmpaClist }{one,two,three}
+[O] 
+[I] \ClistVarMapVariable{\lTmpaClist }{\lTmpiTl }{\TlPutRight \lTmpaTl {\Expand {[\lTmpiTl ]}}}
+        [I] \Expand{[\lTmpiTl ]}
+        [O] [one]
+    [I] \TlPutRight{\lTmpaTl }{[one]}
+    [O] 
+        [I] \Expand{[\lTmpiTl ]}
+        [O] [two]
+    [I] \TlPutRight{\lTmpaTl }{[two]}
+    [O] 
+        [I] \Expand{[\lTmpiTl ]}
+        [O] [three]
+    [I] \TlPutRight{\lTmpaTl }{[three]}
+    [O] 
+[O] 
+    [I] \TlUse{\lTmpaTl }
+            [I] \Value{\lTmpaTl }
+            [O] [one][two][three]
+        [I] \Result{[one][two][three]}
+        [O] [one][two][three]
+    [O] [one][two][three]
+[I] \Result{[one][two][three]}
+[O] [one][two][three]
+============================================================
+============================================================
+TEST 26: Testing \ClistIfExist 
+============================================================
+[I] \ClistIfExistTF{\lTmpaClist }{\Result {Yes}}{\Result {No}}
+    [I] \ClistIfExist{\lTmpaClist }
+        [I] \Result{\cTrueBool }
+        [O] \cTrueBool 
+    [O] \cTrueBool 
+    [I] \Result{Yes}
+    [O] Yes
+[O] Yes
+[I] \ClistIfExistTF{\lFooUndefinedClist }{\Result {Yes}}{\Result {No}}
+    [I] \ClistIfExist{\lFooUndefinedClist }
+        [I] \Result{\cFalseBool }
+        [O] \cFalseBool 
+    [O] \cFalseBool 
+    [I] \Result{No}
+    [O] No
+[O] No
+============================================================
+============================================================
+TEST 27: Testing \ClistIfEmpty 
+============================================================
+[I] \ClistIfEmptyTF{one,two}{\Result {Empty}}{\Result {NonEmpty}}
+    [I] \ClistIfEmpty{one,two}
+        [I] \Result{\cFalseBool }
+        [O] \cFalseBool 
+    [O] \cFalseBool 
+    [I] \Result{NonEmpty}
+    [O] NonEmpty
+[O] NonEmpty
+[I] \ClistIfEmptyTF{ , }{\Result {Empty}}{\Result {NonEmpty}}
+    [I] \ClistIfEmpty{ , }
+        [I] \Result{\cTrueBool }
+        [O] \cTrueBool 
+    [O] \cTrueBool 
+    [I] \Result{Empty}
+    [O] Empty
+[O] Empty
+============================================================
+============================================================
+TEST 28: Testing \ClistVarIfEmpty 
+============================================================
+[I] \ClistSet{\lTmpaClist }{one,two}
+[O] 
+[I] \ClistVarIfEmptyTF{\lTmpaClist }{\Result {Empty}}{\Result {NonEmpty}}
+    [I] \ClistVarIfEmpty{\lTmpaClist }
+        [I] \Result{\cFalseBool }
+        [O] \cFalseBool 
+    [O] \cFalseBool 
+    [I] \Result{NonEmpty}
+    [O] NonEmpty
+[O] NonEmpty
+[I] \ClistClear{\lTmpaClist }
+[O] 
+[I] \ClistVarIfEmptyTF{\lTmpaClist }{\Result {Empty}}{\Result {NonEmpty}}
+    [I] \ClistVarIfEmpty{\lTmpaClist }
+        [I] \Result{\cTrueBool }
+        [O] \cTrueBool 
+    [O] \cTrueBool 
+    [I] \Result{Empty}
+    [O] Empty
+[O] Empty
+============================================================
+============================================================
+TEST 29: Testing \ClistIfIn 
+============================================================
+[I] \ClistIfInTF{one,two}{one}{\Result {Yes}}{\Result {Not}}
+    [I] \ClistIfIn{one,two}{one}
+        [I] \Result{\cTrueBool }
+        [O] \cTrueBool 
+    [O] \cTrueBool 
+    [I] \Result{Yes}
+    [O] Yes
+[O] Yes
+[I] \ClistIfInTF{one,two}{three}{\Result {Yes}}{\Result {Not}}
+    [I] \ClistIfIn{one,two}{three}
+        [I] \Result{\cFalseBool }
+        [O] \cFalseBool 
+    [O] \cFalseBool 
+    [I] \Result{Not}
+    [O] Not
+[O] Not
+============================================================
+============================================================
+TEST 30: Testing \ClistVarIfIn 
+============================================================
+[I] \ClistSet{\lTmpaClist }{one,two}
+[O] 
+[I] \ClistVarIfInTF{\lTmpaClist }{one}{\Result {Yes}}{\Result {Not}}
+    [I] \ClistVarIfIn{\lTmpaClist }{one}
+        [I] \Result{\cTrueBool }
+        [O] \cTrueBool 
+    [O] \cTrueBool 
+    [I] \Result{Yes}
+    [O] Yes
+[O] Yes
+[I] \ClistVarIfInTF{\lTmpaClist }{three}{\Result {Yes}}{\Result {Not}}
+    [I] \ClistVarIfIn{\lTmpaClist }{three}
+        [I] \Result{\cFalseBool }
+        [O] \cFalseBool 
+    [O] \cFalseBool 
+    [I] \Result{Not}
+    [O] Not
+[O] Not
+============================================================
+[1
+] (module-clist.aux)
