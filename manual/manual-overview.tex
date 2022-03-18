@@ -13,27 +13,31 @@
 
 We will compare our first example with a similar \verb!Lua! example:
 
-\begin{code}
--- lua code --
-function MathSquare (arg)
-  local lTmpaInt = arg * arg
-  return lTmpaInt
-end
-print(MathSquare(5))
-print(MathSquare(MathSquare(5)))
-\end{code}
-
+\begin{minipage}{0.55\textwidth}
 \begin{codehigh}
 %% function code
 \IgnoreSpacesOn
 \PrgNewFunction \MathSquare { m } {
-  \IntSet \lTmpaInt { \IntEval { #1 * #1 } }
+  \IntSet \lTmpaInt { \IntEval {#1 * #1} }
   \Result { \Value \lTmpaInt }
 }
 \IgnoreSpacesOff
 \MathSquare{5}
 \MathSquare{\MathSquare{5}}
 \end{codehigh}
+\end{minipage}%
+\begin{minipage}{0.45\textwidth}
+\begin{code}
+-- define a function --
+function MathSquare (arg)
+  local lTmpaInt = arg * arg
+  return lTmpaInt
+end
+-- use the function --
+print(MathSquare(5))
+print(MathSquare(MathSquare(5)))
+\end{code}
+\end{minipage}
 
 %\IgnoreSpacesOn
 %\PrgNewFunction \MathSquare { m }{
@@ -75,30 +79,34 @@ you'd better put function definitions inside \verb!\IgnoreSpacesOn! and
 At the end of this section,
 we will compare our factorial example with a similar \verb!Lua! example:
 
-\begin{code}
--- lua code --
-function Factorial (n)
-  if n == 0 then
-    return 1
-  else
-    return n * Factorial(n-1)
-  end
-end
-print(Factorial(4))
-\end{code}
-
+\begin{minipage}{0.69\textwidth}
 \begin{codehigh}
 \IgnoreSpacesOn
-\PrgNewFunction \Factorial { m } {
+\PrgNewFunction \Fact { m } {
   \IntCompareTF {#1} = {0} {
     \Result {1}
   }{
-    \Result { \IntMathMult {#1} { \Factorial { \IntMathSub{#1}{1} } } }
+    \Result {\IntMathMult{#1}{\Fact{\IntMathSub{#1}{1}}}}
   }
 }
 \IgnoreSpacesOff
-\Factorial{4}
+\Fact{4}
 \end{codehigh}
+\end{minipage}%
+\begin{minipage}{0.31\textwidth}
+\begin{code}
+-- define a function --
+function Fact (n)
+  if n == 0 then
+    return 1
+  else
+    return n * Fact(n-1)
+  end
+end
+-- use the function --
+print(Fact(4))
+\end{code}
+\end{minipage}
 
 %\IgnoreSpacesOn
 %\PrgNewFunction \Factorial { m } {
@@ -116,47 +124,50 @@ print(Factorial(4))
 
 In \verb!Lua! language, a function or a condition expression makes a block,
 and the values of local variables will be reset after a block.
-For example
-
-\begin{code}
--- lua code --
-local a = 1
-print(a)          ---- 1
-function SomeFun()
-  local a = 2
-  print(a)        ---- 2
-  if 1 > 0 then
-    local a = 3
-    print(a)      ---- 3
-  end
-  print(a)        ---- 2
-end
-SomeFun()
-print(a)          ---- 1
-\end{code}
-
 In \verb!functional! package, a condition expression is in fact a function,
 and you can make every function become a group by setting
 \verb!\Functional{scoping=true}!. For example
 
+\begin{minipage}{0.58\textwidth}
 \begin{codehigh}
 \Functional{scoping=true}
 \IgnoreSpacesOn
 \IntSet \lTmpaInt {1}
-\IntLogVar \lTmpaInt          % ---- 1
+\IntLogVar \lTmpaInt            % ---- 1
 \PrgNewFunction \SomeFun { } {
   \IntSet \lTmpaInt {2}
-  \IntLogVar \lTmpaInt        % ---- 2
+  \IntLogVar \lTmpaInt          % ---- 2
   \IntCompareTF {1} > {0} {
     \IntSet \lTmpaInt {3}
-    \IntLogVar \lTmpaInt      % ---- 3
+    \IntLogVar \lTmpaInt        % ---- 3
   }{ }
-  \IntLogVar \lTmpaInt        % ---- 2
+  \IntLogVar \lTmpaInt          % ---- 2
 }
 \SomeFun
-\IntLogVar \lTmpaInt          % ---- 1
+\IntLogVar \lTmpaInt            % ---- 1
 \IgnoreSpacesOff
 \end{codehigh}
+\end{minipage}%
+\begin{minipage}{0.42\textwidth}
+\begin{code}
+-- lua code --
+-- begin example --
+local a = 1
+print(a)            ---- 1
+function SomeFun()
+  local a = 2
+  print(a)          ---- 2
+  if 1 > 0 then
+    local a = 3
+    print(a)        ---- 3
+  end
+  print(a)          ---- 2
+end
+SomeFun()
+print(a)            ---- 1
+-- end example --
+\end{code}
+\end{minipage}
 
 Same as \verb!expl3!, the names of local variables \emph{must} start with \verb!l!,
 while names of global variables \emph{must} start with \verb!g!.
@@ -168,24 +179,46 @@ by checking leading letters of their names. So for integer variables, you can wr
 The previous example will produce different result
 if we change variable from \verb!\lTmpaInt! to \verb!\gTmpaInt!.
 
+\begin{minipage}{0.58\textwidth}
 \begin{codehigh}
 \Functional{scoping=true}
 \IgnoreSpacesOn
 \IntSet \gTmpaInt {1}
-\IntLogVar \gTmpaInt          % ---- 1
+\IntLogVar \gTmpaInt            % ---- 1
 \PrgNewFunction \SomeFun { } {
   \IntSet \gTmpaInt {2}
-  \IntLogVar \gTmpaInt        % ---- 2
+  \IntLogVar \gTmpaInt          % ---- 2
   \IntCompareTF {1} > {0} {
     \IntSet \gTmpaInt {3}
-    \IntLogVar \gTmpaInt      % ---- 3
+    \IntLogVar \gTmpaInt        % ---- 3
   }{ }
-  \IntLogVar \gTmpaInt        % ---- 3
+  \IntLogVar \gTmpaInt          % ---- 3
 }
 \SomeFun
-\IntLogVar \gTmpaInt          % ---- 3
+\IntLogVar \gTmpaInt            % ---- 3
 \IgnoreSpacesOff
 \end{codehigh}
+\end{minipage}%
+\begin{minipage}{0.42\textwidth}
+\begin{code}
+-- lua code --
+-- begin example --
+a = 1
+print(a)            ---- 1
+function SomeFun()
+  a = 2
+  print(a)          ---- 2
+  if 1 > 0 then
+    a = 3
+    print(a)        ---- 3
+  end
+  print(a)          ---- 3
+end
+SomeFun()
+print(a)            ---- 3
+-- end example --
+\end{code}
+\end{minipage}
 
 As you can see, the values of global variables will never be reset after a group.
 
@@ -221,9 +254,9 @@ For example, the tracing log of the first example in this chapter will be the fo
             [I] \Result{25}
             [O] 25
         [O] 25
-    [I] \IntSet\lTmpaInt {25}
-    [O]
-        [I] \Value\lTmpaInt
+    [I] \IntSet{\lTmpaInt }{25}
+    [O] 
+        [I] \Value{\lTmpaInt }
         [O] 25
     [I] \Result{25}
     [O] 25
@@ -235,9 +268,9 @@ For example, the tracing log of the first example in this chapter will be the fo
             [I] \Result{625}
             [O] 625
         [O] 625
-    [I] \IntSet\lTmpaInt {625}
-    [O]
-        [I] \Value\lTmpaInt
+    [I] \IntSet{\lTmpaInt }{625}
+    [O] 
+        [I] \Value{\lTmpaInt }
         [O] 625
     [I] \Result{625}
     [O] 625
@@ -249,16 +282,22 @@ For example, the tracing log of the first example in this chapter will be the fo
 Within \verb!expl3!, there are eight commands for defining new functions,
 which is good for power users.
 
+\begin{minipage}{0.5\textwidth}
 \begin{code}[language=latex/latex3]
 \cs_new:Npn
 \cs_new_nopar:Npn
 \cs_new_protected:Npn
 \cs_new_protected_nopar:Npn
+\end{code}
+\end{minipage}%
+\begin{minipage}{0.5\textwidth}
+\begin{code}[language=latex/latex3]
 \cs_new:Nn
 \cs_new_nopar:Nn
 \cs_new_protected:Nn
 \cs_new_protected_nopar:Nn
 \end{code}
+\end{minipage}
 
 Within \verb!functional! package, there is only one command (\cs{PrgNewFunction})
 for defining new functions, which is good for normal users.
@@ -272,6 +311,7 @@ Since \verb!functional! package gets the results of functions by evaluation
 Within \verb!expl3!, there are several expansion variants for arguments,
 and many expansion functions for expanding them, which are necessary for power users.
 
+\begin{minipage}{0.5\textwidth}
 \begin{code}[language=latex/latex3]
 \module_foo:c
 \module_bar:e
@@ -281,7 +321,8 @@ and many expansion functions for expanding them, which are necessary for power u
 \module_bar:V
 \module_bar:v
 \end{code}
-
+\end{minipage}%
+\begin{minipage}{0.5\textwidth}
 \begin{code}[language=latex/latex3]
 \exp_args:Nc
 \exp_args:Ne
@@ -291,6 +332,7 @@ and many expansion functions for expanding them, which are necessary for power u
 \exp_args:NV
 \exp_args:Nv
 \end{code}
+\end{minipage}
 
 Within \verb!functional! package, there are only three variants
 (\verb!c!, \verb!e!, \verb!V!) are provided, and these variants are defined
