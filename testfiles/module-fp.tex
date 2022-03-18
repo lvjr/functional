@@ -1,0 +1,127 @@
+\documentclass{article}
+
+\input{regression-test}
+\AtBeginDocument{\START}
+%\AtEndDocument{\END}
+
+\usepackage{functional}
+\Functional{tracing=true}
+
+\begin{document}
+
+\BEGINTEST{Testing \FpEval}
+\FpEval {(1.2+3.4)*(5.6-7.8)/9}
+\ENDTEST
+
+\BEGINTEST{Testing \FpMathAdd}
+\FpMathAdd {2.8} {3.7}
+\FpMathAdd {3.8-1} {2.7+1}
+\ENDTEST
+
+\BEGINTEST{Testing \FpMathSub}
+\FpMathSub {2.8} {3.7}
+\FpMathSub {3.8-1} {2.7+1}
+\ENDTEST
+
+\BEGINTEST{Testing \FpMathMult}
+\FpMathMult {2.8} {3.7}
+\FpMathMult {3.8-1} {2.7+1}
+\ENDTEST
+
+\BEGINTEST{Testing \FpMathDiv}
+\FpMathDiv {2.8} {3.7}
+\FpMathDiv {3.8-1} {2.7+1}
+\ENDTEST
+
+\BEGINTEST{Testing \FpMathSign}
+\FpMathSign {3.5}
+\FpMathSign {-2.7}
+\ENDTEST
+
+\BEGINTEST{Testing \FpMathAbs}
+\FpMathAbs {3.5}
+\FpMathAbs {-2.7}
+\ENDTEST
+
+\BEGINTEST{Testing \FpMathMax}
+\FpMathMax {3.5} {-2.7}
+\ENDTEST
+
+\BEGINTEST{Testing \FpMathMin}
+\FpMathMin {3.5} {-2.7}
+\ENDTEST
+
+\BEGINTEST{Testing \FpConst}
+\FpConst \cMyPiFp {3.1415926}
+\FpUse \cMyPiFp
+\ENDTEST
+
+\BEGINTEST{Testing \FpLog}
+\FpLog {4/7}
+\ENDTEST
+
+\BEGINTEST{Testing \FpSet}
+\FpSet \lTmpaFp {4/7}
+\FpUse \lTmpaFp
+\ENDTEST
+
+\BEGINTEST{Testing \FpSetEq}
+\FpSetEq \lTmpaFp \cPiFp
+\FpUse \lTmpaFp
+\ENDTEST
+
+\BEGINTEST{Testing \FpZero}
+\FpSet \lTmpaFp {5.3}
+\FpZero \lTmpaFp
+\FpUse \lTmpaFp
+\ENDTEST
+
+\BEGINTEST{Testing \FpZeroNew}
+\FpZeroNew \lFooSomeFp
+\FpUse \lFooSomeFp
+\ENDTEST
+
+\BEGINTEST{Testing \FpAdd}
+\FpSet \lTmpaFp {5.3}
+\FpAdd \lTmpaFp {2.11}
+\FpUse \lTmpaFp
+\ENDTEST
+
+\BEGINTEST{Testing \FpSub}
+\FpSet \lTmpaFp {5.3}
+\FpSub \lTmpaFp {2.11}
+\FpUse \lTmpaFp
+\ENDTEST
+
+\BEGINTEST{Testing \FpStepInline}
+\IgnoreSpacesOn
+\TlClear \lTmpaTl
+\FpStepInline {1} {0.1} {1.5} {
+  \TlPutRight \lTmpaTl {[#1]}
+}
+\Result {\Value\lTmpaTl}
+\IgnoreSpacesOff
+\ENDTEST
+
+\BEGINTEST{Testing \FpStepVariable}
+\IgnoreSpacesOn
+\TlClear \lTmpaTl
+\FpStepVariable {1} {0.1} {1.5} \lTmpiTl {
+  \TlPutRight \lTmpaTl {\Value\lTmpiTl}
+  \TlPutRight \lTmpaTl {~}
+}
+\Result {\Value\lTmpaTl}
+\IgnoreSpacesOff
+\ENDTEST
+
+\BEGINTEST{Testing \FpIfExist}
+\FpIfExistTF \lTmpaFp {\Result{Yes}} {\Result{No}}
+\FpIfExistTF \lMyUndefinedFp {\Result{Yes}} {\Result{No}}
+\ENDTEST
+
+\BEGINTEST{Testing \FpCompare}
+\FpCompareTF {1} > {0.9999} {\Result{Greater}} {\Result{Less}}
+\FpCompareTF {1} > {1.0001} {\Result{Greater}} {\Result{Less}}
+\ENDTEST
+
+\end{document}
