@@ -1019,6 +1019,14 @@ removing any previous content from the variable. For example
 \end{demohigh}
 \end{function}
 
+\begin{function}{\TlSetEq}
+\begin{syntax}
+\cs{TlSetEq} \meta{tl var_1} \meta{tl var_2}
+\end{syntax}
+Sets the content of \meta{tl var_1} equal to that of
+\meta{tl var_2}.
+\end{function}
+
 \begin{function}{\TlClear}
 \begin{syntax}
 \cs{TlClear} \meta{tl~var}
@@ -1039,14 +1047,6 @@ Clears all entries from the \meta{tl~var}. For example
 Ensures that the \meta{tl var} exists globally by applying
 \cs{TlNew} if necessary, then applies \cs{TlClear} to leave
 the \meta{tl var} empty.
-\end{function}
-
-\begin{function}{\TlSetEq}
-\begin{syntax}
-\cs{TlSetEq} \meta{tl var_1} \meta{tl var_2}
-\end{syntax}
-Sets the content of \meta{tl var_1} equal to that of
-\meta{tl var_2}.
 \end{function}
 
 \begin{function}{\TlConcat}
@@ -1576,7 +1576,7 @@ surrounded by optional spaces on both sides. In other words, such a
 token list has token count $1$ according to \cs{TlVarCount}.
 \end{function}
 
-\section{Token List Case Function}
+\section{Token List Case Functions}
 
 \begin{function}{\TlVarCase}
 \begin{syntax}
@@ -1762,6 +1762,14 @@ result in \meta{str var}. For example
 \end{demohigh}
 \end{function}
 
+\begin{function}{\StrSetEq}
+\begin{syntax}
+\cs{StrSetEq} \meta{str var_1} \meta{str var_2}
+\end{syntax}
+Sets the content of \meta{str var_1} equal to that of
+\meta{str var_2}.
+\end{function}
+
 \begin{function}{\StrClear}
 \begin{syntax}
 \cs{StrClear} \meta{str var}
@@ -1782,14 +1790,6 @@ Clears the content of the \meta{str var}. For example
 Ensures that the \meta{str var} exists globally by applying
 \cs{StrNew} if necessary, then applies \cs{StrClear} to leave
 the \meta{str var} empty.
-\end{function}
-
-\begin{function}{\StrSetEq}
-\begin{syntax}
-\cs{StrSetEq} \meta{str var_1} \meta{str var_2}
-\end{syntax}
-Sets the content of \meta{str var_1} equal to that of
-\meta{str var_2}.
 \end{function}
 
 \begin{function}{\StrConcat}
@@ -2525,6 +2525,14 @@ For example
 \end{demohigh}
 \end{function}
 
+\begin{function}{\IntSetEq}
+\begin{syntax}
+\cs{IntSetEq} \meta{integer_1} \meta{integer_2}
+\end{syntax}
+Sets the content of \meta{integer_1} equal to that of
+\meta{integer_2}.
+\end{function}
+
 \begin{function}{\IntZero}
 \begin{syntax}
 \cs{IntZero} \meta{integer}
@@ -2544,14 +2552,6 @@ Sets \meta{integer} to $0$. For example
 Ensures that the \meta{integer} exists globally by applying
 \cs{IntNew} if necessary, then applies \cs{IntZero} to leave
 the \meta{integer} set to zero.
-\end{function}
-
-\begin{function}{\IntSetEq}
-\begin{syntax}
-\cs{IntSetEq} \meta{integer_1} \meta{integer_2}
-\end{syntax}
-Sets the content of \meta{integer_1} equal to that of
-\meta{integer_2}.
 \end{function}
 
 \begin{function}{\IntIncr}
@@ -3799,62 +3799,6 @@ if the name is already taken. The value of the
 \meta{comma list}.
 \end{function}
 
-\begin{function}{\ClistClear}
-\begin{syntax}
-\cs{ClistClear} \meta{comma list}
-\end{syntax}
-Clears all items from the \meta{comma list}.
-\end{function}
- 
-\begin{function}{\ClistClearNew}
-\begin{syntax}
-\cs{ClistClearNew} \meta{comma list}
-\end{syntax}
-Ensures that the \meta{comma list} exists globally by applying
-\cs{ClistNew} if necessary, then applies \cs{ClistClear} to leave
-the list empty.
-\end{function}
- 
-\begin{function}{\ClistSetEq}
-\begin{syntax}
-\cs{ClistSetEq} \meta{comma list_1} \meta{comma list_2}
-\end{syntax}
-Sets the content of \meta{comma list_1} equal to that of
-\meta{comma list_2}.  To set a token list variable equal to a comma
-list variable, use \cs{TlSetEq}.  Conversely, setting a comma
-list variable to a token list is unadvisable unless one checks
-space-trimming and related issues.
-\end{function}
- 
-\begin{function}{\ClistSetFromSeq}
-\begin{syntax}
-\cs{ClistSetFromSeq} \meta{comma list} \meta{sequence}
-\end{syntax}
-Converts the data in the \meta{sequence} into a \meta{comma list}:
-the original \meta{sequence} is unchanged.
-Items which contain either spaces or commas are surrounded by braces.
-\end{function}
- 
-\begin{function}{\ClistConcat}
-\begin{syntax}
-\cs{ClistConcat} \meta{comma list_1} \meta{comma list_2} \meta{comma list_3}
-\end{syntax}
-Concatenates the content of \meta{comma list_2} and \meta{comma list_3}
-together and saves the result in \meta{comma list_1}. The items in
-\meta{comma list_2} are placed at the left side of the new comma list.
-\end{function}
-
-\begin{function}{\ClistCount,\ClistVarCount}
-\begin{syntax}
-\cs{ClistCount} \Arg{comma list}
-\cs{ClistVarCount} \meta{comma list}
-\end{syntax}
-Returns the number of items in the \meta{comma list}
-as an \meta{integer denotation}. The total number of items
-in a \meta{comma list} includes those which are duplicates,
-\emph{i.e.} every item in a \meta{comma list} is counted.
-\end{function}
- 
 \begin{function}{\ClistVarJoin}
 \begin{syntax}
 \cs{ClistVarJoin} \meta{clist var} \Arg{separator}
@@ -3958,8 +3902,8 @@ Displays the entries in the comma list in the terminal.
 Displays the entries in the \meta{comma list} in the terminal.
 \end{function}
 
-\section{Adding Data to Comma Lists}
- 
+\section{Setting Comma Lists}
+
 \begin{function}{\ClistSet}
 \begin{syntax}
 \cs{ClistSet} \meta{comma list} \verb|{|\meta{item_1},\ldots{},\meta{item_n}\verb|}|
@@ -3973,7 +3917,52 @@ To store some \meta{tokens} as a single \meta{item} even if the
 \meta{tokens} contain commas or spaces, add a set of braces:
 \cs{ClistSet} \meta{comma list} \verb|{| \Arg{tokens} \verb|}|.
 \end{function}
- 
+
+\begin{function}{\ClistSetEq}
+\begin{syntax}
+\cs{ClistSetEq} \meta{comma list_1} \meta{comma list_2}
+\end{syntax}
+Sets the content of \meta{comma list_1} equal to that of
+\meta{comma list_2}.  To set a token list variable equal to a comma
+list variable, use \cs{TlSetEq}.  Conversely, setting a comma
+list variable to a token list is unadvisable unless one checks
+space-trimming and related issues.
+\end{function}
+
+%\begin{function}{\ClistSetFromSeq}
+%\begin{syntax}
+%\cs{ClistSetFromSeq} \meta{comma list} \meta{sequence}
+%\end{syntax}
+%Converts the data in the \meta{sequence} into a \meta{comma list}:
+%the original \meta{sequence} is unchanged.
+%Items which contain either spaces or commas are surrounded by braces.
+%\end{function}
+
+\begin{function}{\ClistClear}
+\begin{syntax}
+\cs{ClistClear} \meta{comma list}
+\end{syntax}
+Clears all items from the \meta{comma list}.
+\end{function}
+
+\begin{function}{\ClistClearNew}
+\begin{syntax}
+\cs{ClistClearNew} \meta{comma list}
+\end{syntax}
+Ensures that the \meta{comma list} exists globally by applying
+\cs{ClistNew} if necessary, then applies \cs{ClistClear} to leave
+the list empty.
+\end{function}
+
+\begin{function}{\ClistConcat}
+\begin{syntax}
+\cs{ClistConcat} \meta{comma list_1} \meta{comma list_2} \meta{comma list_3}
+\end{syntax}
+Concatenates the content of \meta{comma list_2} and \meta{comma list_3}
+together and saves the result in \meta{comma list_1}. The items in
+\meta{comma list_2} are placed at the left side of the new comma list.
+\end{function}
+
 \begin{function}{\ClistPutLeft}
 \begin{syntax}
 \cs{ClistPutLeft} \meta{comma list} \verb|{|\meta{item_1},\ldots{},\meta{item_n}\verb|}|
@@ -4054,7 +4043,18 @@ Reverses the order of items stored in the \meta{comma list}.
 %described in Section \ref{sec:l3sort:mech}.
 %\end{function}
 
-\section{Using a Single Item}
+\section{Working with the Contents of Comma Lists}
+
+\begin{function}{\ClistCount,\ClistVarCount}
+\begin{syntax}
+\cs{ClistCount} \Arg{comma list}
+\cs{ClistVarCount} \meta{comma list}
+\end{syntax}
+Returns the number of items in the \meta{comma list}
+as an \meta{integer denotation}. The total number of items
+in a \meta{comma list} includes those which are duplicates,
+\emph{i.e.} every item in a \meta{comma list} is counted.
+\end{function}
 
 \begin{function}{\ClistItem}
 \begin{syntax}

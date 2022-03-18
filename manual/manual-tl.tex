@@ -183,6 +183,14 @@ removing any previous content from the variable. For example
 \end{demohigh}
 \end{function}
 
+\begin{function}{\TlSetEq}
+\begin{syntax}
+\cs{TlSetEq} \meta{tl var_1} \meta{tl var_2}
+\end{syntax}
+Sets the content of \meta{tl var_1} equal to that of
+\meta{tl var_2}.
+\end{function}
+
 \begin{function}{\TlClear}
 \begin{syntax}
 \cs{TlClear} \meta{tl~var}
@@ -203,14 +211,6 @@ Clears all entries from the \meta{tl~var}. For example
 Ensures that the \meta{tl var} exists globally by applying
 \cs{TlNew} if necessary, then applies \cs{TlClear} to leave
 the \meta{tl var} empty.
-\end{function}
-
-\begin{function}{\TlSetEq}
-\begin{syntax}
-\cs{TlSetEq} \meta{tl var_1} \meta{tl var_2}
-\end{syntax}
-Sets the content of \meta{tl var_1} equal to that of
-\meta{tl var_2}.
 \end{function}
 
 \begin{function}{\TlConcat}
@@ -740,7 +740,7 @@ surrounded by optional spaces on both sides. In other words, such a
 token list has token count $1$ according to \cs{TlVarCount}.
 \end{function}
 
-\section{Token List Case Function}
+\section{Token List Case Functions}
 
 \begin{function}{\TlVarCase}
 \begin{syntax}

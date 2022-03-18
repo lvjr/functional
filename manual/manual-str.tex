@@ -109,6 +109,14 @@ result in \meta{str var}. For example
 \end{demohigh}
 \end{function}
 
+\begin{function}{\StrSetEq}
+\begin{syntax}
+\cs{StrSetEq} \meta{str var_1} \meta{str var_2}
+\end{syntax}
+Sets the content of \meta{str var_1} equal to that of
+\meta{str var_2}.
+\end{function}
+
 \begin{function}{\StrClear}
 \begin{syntax}
 \cs{StrClear} \meta{str var}
@@ -129,14 +137,6 @@ Clears the content of the \meta{str var}. For example
 Ensures that the \meta{str var} exists globally by applying
 \cs{StrNew} if necessary, then applies \cs{StrClear} to leave
 the \meta{str var} empty.
-\end{function}
-
-\begin{function}{\StrSetEq}
-\begin{syntax}
-\cs{StrSetEq} \meta{str var_1} \meta{str var_2}
-\end{syntax}
-Sets the content of \meta{str var_1} equal to that of
-\meta{str var_2}.
 \end{function}
 
 \begin{function}{\StrConcat}

@@ -248,6 +248,14 @@ For example
 \end{demohigh}
 \end{function}
 
+\begin{function}{\IntSetEq}
+\begin{syntax}
+\cs{IntSetEq} \meta{integer_1} \meta{integer_2}
+\end{syntax}
+Sets the content of \meta{integer_1} equal to that of
+\meta{integer_2}.
+\end{function}
+
 \begin{function}{\IntZero}
 \begin{syntax}
 \cs{IntZero} \meta{integer}
@@ -267,14 +275,6 @@ Sets \meta{integer} to $0$. For example
 Ensures that the \meta{integer} exists globally by applying
 \cs{IntNew} if necessary, then applies \cs{IntZero} to leave
 the \meta{integer} set to zero.
-\end{function}
-
-\begin{function}{\IntSetEq}
-\begin{syntax}
-\cs{IntSetEq} \meta{integer_1} \meta{integer_2}
-\end{syntax}
-Sets the content of \meta{integer_1} equal to that of
-\meta{integer_2}.
 \end{function}
 
 \begin{function}{\IntIncr}
