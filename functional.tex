@@ -245,18 +245,18 @@ and you can make every function become a group by setting
 \Functional{scoping=true}
 \IgnoreSpacesOn
 \IntSet \lTmpaInt {1}
-\IntLogVar \lTmpaInt            % ---- 1
+\IntVarLog \lTmpaInt            % ---- 1
 \PrgNewFunction \SomeFun { } {
   \IntSet \lTmpaInt {2}
-  \IntLogVar \lTmpaInt          % ---- 2
+  \IntVarLog \lTmpaInt          % ---- 2
   \IntCompareTF {1} > {0} {
     \IntSet \lTmpaInt {3}
-    \IntLogVar \lTmpaInt        % ---- 3
+    \IntVarLog \lTmpaInt        % ---- 3
   }{ }
-  \IntLogVar \lTmpaInt          % ---- 2
+  \IntVarLog \lTmpaInt          % ---- 2
 }
 \SomeFun
-\IntLogVar \lTmpaInt            % ---- 1
+\IntVarLog \lTmpaInt            % ---- 1
 \IgnoreSpacesOff
 \end{codehigh}
 \end{minipage}%
@@ -296,18 +296,18 @@ if we change variable from \verb!\lTmpaInt! to \verb!\gTmpaInt!.
 \Functional{scoping=true}
 \IgnoreSpacesOn
 \IntSet \gTmpaInt {1}
-\IntLogVar \gTmpaInt            % ---- 1
+\IntVarLog \gTmpaInt            % ---- 1
 \PrgNewFunction \SomeFun { } {
   \IntSet \gTmpaInt {2}
-  \IntLogVar \gTmpaInt          % ---- 2
+  \IntVarLog \gTmpaInt          % ---- 2
   \IntCompareTF {1} > {0} {
     \IntSet \gTmpaInt {3}
-    \IntLogVar \gTmpaInt        % ---- 3
+    \IntVarLog \gTmpaInt        % ---- 3
   }{ }
-  \IntLogVar \gTmpaInt          % ---- 3
+  \IntVarLog \gTmpaInt          % ---- 3
 }
 \SomeFun
-\IntLogVar \gTmpaInt            % ---- 3
+\IntVarLog \gTmpaInt            % ---- 3
 \IgnoreSpacesOff
 \end{codehigh}
 \end{minipage}%
