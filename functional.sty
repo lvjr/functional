@@ -18,8 +18,11 @@
   {^^JLaTeX2 functional interfaces for LaTeX3 programming layer}
 
 \cs_generate_variant:Nn \iow_log:n { V }
+\cs_generate_variant:Nn \str_set:Nn { Ne }
 \cs_generate_variant:Nn \tl_log:n { e }
 \cs_generate_variant:Nn \tl_set:Nn { Ne }
+
+\prg_generate_conditional_variant:Nnn \str_if_eq:nn { Ve } { TF }
 
 \tl_new:N \gResultTl
 \int_new:N \l__fun_arg_count_int
@@ -440,20 +443,44 @@
       { \tl_use:N \gResultTl }
   }
 
-\tl_new:N \l__fun_variable_type_tl
+\str_new:N \l__fun_variable_name_str
+\str_new:N \l__fun_variable_name_a_str
+\str_new:N \l__fun_variable_name_b_str
 
 \prg_new_protected_conditional:Npnn \__fun_if_global_variable:N #1 { TF }
   {
-    \tl_set:Ne \l__fun_variable_type_tl
-      { \exp_args:Ne \tl_head:n { \cs_to_str:N #1 } }
-    \str_if_eq:VnTF \l__fun_variable_type_tl { g }
-      { \prg_return_true: }
+    \str_set:Ne \l__fun_variable_name_str { \cs_to_str:N #1 }
+    \str_set:Ne \l__fun_variable_name_b_str
+      { \str_item:Nn \l__fun_variable_name_str { 2 } }
+    \str_if_eq:VeTF
+      \l__fun_variable_name_b_str
+      { \str_uppercase:f { \l__fun_variable_name_b_str } }
       {
-        \str_if_eq:VnTF \l__fun_variable_type_tl { c }
-          { \prg_return_true: }
-          { \prg_return_false: }
+        \str_set:Ne \l__fun_variable_name_a_str
+          { \str_head:N \l__fun_variable_name_str }
+        \str_case:VnF \l__fun_variable_name_a_str
+          {
+            { l } { \prg_return_false: }
+            { g } { \prg_return_true: }
+          }
+          { \__fun_if_set_local: }
       }
+      { \__fun_if_set_local: }
   }
+
+\bool_new:N \g__fun_variable_local_bool
+
+\cs_new:Npn \__fun_if_set_local:
+  {
+    \bool_if:NTF \g__fun_variable_local_bool
+      {
+        \bool_gset_false:N \g__fun_variable_local_bool
+        \prg_return_false:
+      }
+      { \prg_return_true: }
+  }
+
+\PrgNewFunction \Local { } { \bool_gset_true:N \g__fun_variable_local_bool }
 
 %% We must not put an assignment inside a group
 \cs_new_protected:Npn \__fun_do_assignment:Nnn #1 #2 #3
