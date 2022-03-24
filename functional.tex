@@ -567,12 +567,12 @@ Note that it is the same as \cs{TlUse} for \meta{tl var}, or \cs{IntUse} for \me
 Expands the \meta{tokens} exhaustively and returns the result.
 \end{function}
 
-\begin{function}{\ExpNot}
+\begin{function}{\NotExpand}
 \begin{syntax}
-\cs{ExpNot} \Arg{tokens}
+\cs{NotExpand} \Arg{tokens}
 \end{syntax}
 Prevents expansion of the \meta{tokens} inside the argument of \cs{Expand} function.
-The argument of \cs{ExpNot} \emph{must} be surrounded by braces.
+The argument of \cs{NotExpand} \emph{must} be surrounded by braces.
 %\begin{texnote}
 %This is the \eTeX{} \tn{unexpanded} primitive.  In an
 %|x|-expanding definition (\cs{cs_new:Npx}), \cs{exp_not:n}~|{#1}|
@@ -583,9 +583,26 @@ The argument of \cs{ExpNot} \emph{must} be surrounded by braces.
 %\end{texnote}
 \end{function}
 
-\begin{function}{\ExpValue}
+\begin{function}{\OnlyName}
 \begin{syntax}
-\cs{ExpValue} \meta{variable}
+\cs{OnlyName} \Arg{tokens}
+\end{syntax}
+Expands the \meta{tokens} until only characters remain, and then
+converts this into a control sequence.
+Further expansion of this control sequence is then inhibited
+inside the argument of \cs{Expand} function.
+%\begin{texnote}
+%Protected macros that appear in a \texttt{c}-type argument are
+%expanded despite being protected; \cs{exp_not:n} also has no
+%effect.  An internal error occurs if non-characters or active
+%characters remain after full expansion, as the conversion to a
+%control sequence is not possible.
+%\end{texnote}
+\end{function}
+
+\begin{function}{\OnlyValue}
+\begin{syntax}
+\cs{OnlyValue} \meta{variable}
 \end{syntax}
 Recovers the content of the \meta{variable}, then prevents expansion
 of this material inside the argument of \cs{Expand} function.
