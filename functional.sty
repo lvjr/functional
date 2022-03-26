@@ -526,7 +526,8 @@
 \cs_generate_variant:Nn \__fun_tracing_log_on:n { e, V }
 
 \cs_new_protected:Npn \__fun_tracing_log_off:n #1 { }
-\cs_generate_variant:Nn \__fun_tracing_log_off:n { e, V }
+\cs_new_protected:Npn \__fun_tracing_log_off:e #1 { }
+\cs_new_protected:Npn \__fun_tracing_log_off:V #1 { }
 
 \cs_new_protected:Npn \__fun_tracing_true:
   {
