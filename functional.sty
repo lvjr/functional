@@ -581,19 +581,16 @@
   {
     \exp_args:Nc \__fun_put_result:n { #1 }
   }
-\cs_set_eq:NN \UseName \Name
 
 \PrgNewFunction \Value { M }
   {
     \__fun_put_result:V #1
   }
-\cs_set_eq:NN \UseValue \Value
 
 \PrgNewFunction \Expand { m }
   {
     \__fun_put_result:e { #1 }
   }
-\cs_set_eq:NN \UseExpand \Expand
 
 \cs_set_eq:NN \UnExpand    \exp_not:n
 \cs_set_eq:NN \NoExpand    \exp_not:N
@@ -601,10 +598,6 @@
 \cs_set_eq:NN \OnlyValue   \exp_not:V
 \cs_set_eq:NN \OnlyExpandF \exp_not:f
 \cs_set_eq:NN \OnlyExpandO \exp_not:o
-
-%% obsolete commands, will be removed later
-\cs_set_eq:NN \ExpNot \exp_not:n
-\cs_set_eq:NN \ExpValue \exp_not:V
 
 \PrgNewFunction \UseOne { n } { \Result { #1 } }
 
