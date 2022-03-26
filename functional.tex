@@ -1107,9 +1107,9 @@ Within token lists, replacement takes place at the top level: there is
 no recursion into brace groups (more precisely, within a group defined by
 a categroy code $1$/$2$ pair).
 
-\begin{function}{\TlReplaceOnce}
+\begin{function}{\TlVarReplaceOnce}
 \begin{syntax}
-\cs{TlReplaceOnce} \meta{tl var} \Arg{old tokens} \Arg{new tokens}
+\cs{TlVarReplaceOnce} \meta{tl var} \Arg{old tokens} \Arg{new tokens}
 \end{syntax}
 Replaces the first (leftmost) occurrence of \meta{old tokens} in the
 \meta{tl var} with \meta{new tokens}. \meta{Old tokens}
@@ -1118,9 +1118,9 @@ cannot contain \verb|{|, \verb|}| or \verb|#|
 (begin-group) or $2$ (end-group), and tokens with category code $6$).
 \end{function}
 
-\begin{function}{\TlReplaceAll}
+\begin{function}{\TlVarReplaceAll}
 \begin{syntax}
-\cs{TlReplaceAll} \meta{tl var} \Arg{old tokens} \Arg{new tokens}
+\cs{TlVarReplaceAll} \meta{tl var} \Arg{old tokens} \Arg{new tokens}
 \end{syntax}
 Replaces all occurrences of \meta{old tokens} in the
 \meta{tl var} with \meta{new tokens}. \meta{Old tokens}
@@ -1129,13 +1129,13 @@ cannot contain \verb|{|, \verb|}| or \verb|#|
 (begin-group) or $2$ (end-group), and tokens with category code $6$).
 As this function
 operates from left to right, the pattern \meta{old tokens}
-may remain after the replacement (see \cs{TlRemoveAll}
+may remain after the replacement (see \cs{TlVarRemoveAll}
 for an example).
 \end{function}
 
-\begin{function}{\TlRemoveOnce}
+\begin{function}{\TlVarRemoveOnce}
 \begin{syntax}
-\cs{TlRemoveOnce} \meta{tl var} \Arg{tokens}
+\cs{TlVarRemoveOnce} \meta{tl var} \Arg{tokens}
 \end{syntax}
 Removes the first (leftmost) occurrence of \meta{tokens} from the
 \meta{tl var}. \meta{Tokens} cannot contain \verb|{|, \verb|}| or \verb|#|
@@ -1143,9 +1143,9 @@ Removes the first (leftmost) occurrence of \meta{tokens} from the
 (begin-group) or $2$ (end-group), and tokens with category code $6$).
 \end{function}
 
-\begin{function}{\TlRemoveAll}
+\begin{function}{\TlVarRemoveAll}
 \begin{syntax}
-\cs{TlRemoveAll} \meta{tl var} \Arg{tokens}
+\cs{TlVarRemoveAll} \meta{tl var} \Arg{tokens}
 \end{syntax}
 Removes all occurrences of \meta{tokens} from the
 \meta{tl var}. \meta{Tokens} cannot contain \verb|{|, \verb|}| or \verb|#|
@@ -1156,7 +1156,7 @@ operates from left to right, the pattern \meta{tokens}
 may remain after the removal, for instance,
 \begin{demohigh}
 \TlSet \lTmpaTl {abbccd}
-\TlRemoveAll \lTmpaTl {bc}
+\TlVarRemoveAll \lTmpaTl {bc}
 \TlUse \lTmpaTl
 \end{demohigh}
 \end{function}
@@ -1850,18 +1850,18 @@ var} are not automatically converted to a string. For example
 
 \section{Modifying String Variables}
 
-\begin{function}{\StrReplaceOnce}
+\begin{function}{\StrVarReplaceOnce}
 \begin{syntax}
-\cs{StrReplaceOnce} \meta{str var} \Arg{old} \Arg{new}
+\cs{StrVarReplaceOnce} \meta{str var} \Arg{old} \Arg{new}
 \end{syntax}
 Converts the \meta{old} and \meta{new} token lists to strings, then
 replaces the first (leftmost) occurrence of \meta{old string} in the
 \meta{str var} with \meta{new string}.
 \end{function}
 
-\begin{function}{\StrReplaceAll}
+\begin{function}{\StrVarReplaceAll}
 \begin{syntax}
-\cs{StrReplaceAll} \meta{str var} \Arg{old} \Arg{new}
+\cs{StrVarReplaceAll} \meta{str var} \Arg{old} \Arg{new}
 \end{syntax}
 Converts the \meta{old} and \meta{new} token lists to strings, then
 replaces all occurrences of \meta{old string} in the
@@ -1871,18 +1871,18 @@ operates from left to right, the pattern \meta{old string}
 may remain after the replacement.
 \end{function}
 
-\begin{function}{\StrRemoveOnce}
+\begin{function}{\StrVarRemoveOnce}
 \begin{syntax}
-\cs{StrRemoveOnce} \meta{str var} \Arg{token list}
+\cs{StrVarRemoveOnce} \meta{str var} \Arg{token list}
 \end{syntax}
 Converts the \meta{token list} to a \meta{string} then
 removes the first (leftmost) occurrence of \meta{string} from the
 \meta{str var}.
 \end{function}
 
-\begin{function}{\StrRemoveAll}
+\begin{function}{\StrVarRemoveAll}
 \begin{syntax}
-\cs{StrRemoveAll} \meta{str var} \Arg{token list}
+\cs{StrVarRemoveAll} \meta{str var} \Arg{token list}
 \end{syntax}
 Converts the \meta{token list} to a \meta{string} then
 removes all occurrences of \meta{string} from the \meta{str var}.
@@ -1890,7 +1890,7 @@ As this function operates from left to right,
 the pattern \meta{string} may remain after the removal, for instance,
 \begin{demohigh}
 \StrSet \lTmpaStr {abbccd}
-\StrRemoveAll \lTmpaStr {bc}
+\StrVarRemoveAll \lTmpaStr {bc}
 \TlUse \lTmpaStr
 \end{demohigh}
 \end{function}
@@ -4013,9 +4013,9 @@ necessary to modify the content. The functions here may be used
 to update comma lists, while retaining the order of the unaffected
 entries.
  
-\begin{function}{\ClistRemoveDuplicates}
+\begin{function}{\ClistVarRemoveDuplicates}
 \begin{syntax}
-\cs{ClistRemoveDuplicates} \meta{comma list}
+\cs{ClistVarRemoveDuplicates} \meta{comma list}
 \end{syntax}
 Removes duplicate items from the \meta{comma list}, leaving the
 left most copy of each item in the \meta{comma list}.  The \meta{item}
@@ -4030,9 +4030,9 @@ Furthermore, it may fail if any of the items in the
 \end{texnote}
 \end{function}
  
-\begin{function}{\ClistRemoveAll}
+\begin{function}{\ClistVarRemoveAll}
 \begin{syntax}
-\cs{ClistRemoveAll} \meta{comma list} \Arg{item}
+\cs{ClistVarRemoveAll} \meta{comma list} \Arg{item}
 \end{syntax}
 Removes every occurrence of \meta{item} from the \meta{comma list}.
 The \meta{item} comparison takes place on a token basis, as for
@@ -4043,16 +4043,16 @@ The function may fail if the \meta{item} contains \verb|{|, \verb|}|, or \verb|#
 \end{texnote}
 \end{function}
  
-\begin{function}{\ClistReverse}
+\begin{function}{\ClistVarReverse}
 \begin{syntax}
-\cs{ClistReverse} \meta{comma list}
+\cs{ClistVarReverse} \meta{comma list}
 \end{syntax}
 Reverses the order of items stored in the \meta{comma list}.
 \end{function}
  
-%\begin{function}{\ClistSort}
+%\begin{function}{\ClistVarSort}
 %\begin{syntax}
-%\cs{ClistSort} \meta{clist var} \Arg{comparison code}
+%\cs{ClistVarSort} \meta{clist var} \Arg{comparison code}
 %\end{syntax}
 %Sorts the items in the \meta{clist var} according to the
 %\meta{comparison code}, and assigns the result to

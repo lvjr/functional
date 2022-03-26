@@ -131,11 +131,11 @@ TEST 11: Testing \ClistPutRight
 [O] one and two and three
 ============================================================
 ============================================================
-TEST 12: Testing \ClistRemoveDuplicates 
+TEST 12: Testing \ClistVarRemoveDuplicates 
 ============================================================
 [I] \ClistSet{\lTmpaClist }{one,two,one,two,three}
 [O] 
-[I] \ClistRemoveDuplicates{\lTmpaClist }
+[I] \ClistVarRemoveDuplicates{\lTmpaClist }
 [O] 
 [I] \ClistVarJoin{\lTmpaClist }{,}
     [I] \Expand{\clist_use:Nn \lTmpaClist {,}}
@@ -143,11 +143,11 @@ TEST 12: Testing \ClistRemoveDuplicates
 [O] one,two,three
 ============================================================
 ============================================================
-TEST 13: Testing \ClistRemoveAll 
+TEST 13: Testing \ClistVarRemoveAll 
 ============================================================
 [I] \ClistSet{\lTmpaClist }{one,two,one,two,three}
 [O] 
-[I] \ClistRemoveAll{\lTmpaClist }{two}
+[I] \ClistVarRemoveAll{\lTmpaClist }{two}
 [O] 
 [I] \ClistVarJoin{\lTmpaClist }{,}
     [I] \Expand{\clist_use:Nn \lTmpaClist {,}}
@@ -155,11 +155,11 @@ TEST 13: Testing \ClistRemoveAll
 [O] one,one,three
 ============================================================
 ============================================================
-TEST 14: Testing \ClistReverse 
+TEST 14: Testing \ClistVarReverse 
 ============================================================
 [I] \ClistSet{\lTmpaClist }{one,two,one,two,three}
 [O] 
-[I] \ClistReverse{\lTmpaClist }
+[I] \ClistVarReverse{\lTmpaClist }
 [O] 
 [I] \ClistVarJoin{\lTmpaClist }{,}
     [I] \Expand{\clist_use:Nn \lTmpaClist {,}}

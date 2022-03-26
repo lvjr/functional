@@ -51,27 +51,27 @@
 \TlUse \lTmpaTl
 \ENDTEST
 
-\BEGINTEST{Testing \TlReplaceOnce}
+\BEGINTEST{Testing \TlVarReplaceOnce}
 \TlSet \lTmpaTl {hello world}
-\TlReplaceOnce \lTmpaTl {l} {-}
+\TlVarReplaceOnce \lTmpaTl {l} {-}
 \TlUse \lTmpaTl
 \ENDTEST
 
-\BEGINTEST{Testing \TlReplaceAll}
+\BEGINTEST{Testing \TlVarReplaceAll}
 \TlSet \lTmpaTl {hello world}
-\TlReplaceAll \lTmpaTl {l} {-}
+\TlVarReplaceAll \lTmpaTl {l} {-}
 \TlUse \lTmpaTl
 \ENDTEST
 
-\BEGINTEST{Testing \TlRemoveOnce}
+\BEGINTEST{Testing \TlVarRemoveOnce}
 \TlSet \lTmpaTl {hello world}
-\TlRemoveOnce \lTmpaTl {l}
+\TlVarRemoveOnce \lTmpaTl {l}
 \TlUse \lTmpaTl
 \ENDTEST
 
-\BEGINTEST{Testing \TlRemoveAll}
+\BEGINTEST{Testing \TlVarRemoveAll}
 \TlSet \lTmpaTl {hello world}
-\TlRemoveAll \lTmpaTl {l}
+\TlVarRemoveAll \lTmpaTl {l}
 \TlUse \lTmpaTl
 \ENDTEST
 

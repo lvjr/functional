@@ -124,11 +124,11 @@ TEST 9: Testing \StrPutRight
 [O] FunctionalWorld
 ============================================================
 ============================================================
-TEST 10: Testing \StrReplaceOnce 
+TEST 10: Testing \StrVarReplaceOnce 
 ============================================================
 [I] \StrSet{\lTmpaStr }{hello world}
 [O] 
-[I] \StrReplaceOnce{\lTmpaStr }{l}{-}
+[I] \StrVarReplaceOnce{\lTmpaStr }{l}{-}
 [O] 
 [I] \StrUse{\lTmpaStr }
         [I] \Value{\lTmpaStr }
@@ -138,11 +138,11 @@ TEST 10: Testing \StrReplaceOnce
 [O] he-lo world
 ============================================================
 ============================================================
-TEST 11: Testing \StrReplaceAll 
+TEST 11: Testing \StrVarReplaceAll 
 ============================================================
 [I] \StrSet{\lTmpaStr }{hello world}
 [O] 
-[I] \StrReplaceAll{\lTmpaStr }{l}{-}
+[I] \StrVarReplaceAll{\lTmpaStr }{l}{-}
 [O] 
 [I] \StrUse{\lTmpaStr }
         [I] \Value{\lTmpaStr }
@@ -152,11 +152,11 @@ TEST 11: Testing \StrReplaceAll
 [O] he--o wor-d
 ============================================================
 ============================================================
-TEST 12: Testing \StrRemoveOnce 
+TEST 12: Testing \StrVarRemoveOnce 
 ============================================================
 [I] \StrSet{\lTmpaStr }{hello world}
 [O] 
-[I] \StrRemoveOnce{\lTmpaStr }{l}
+[I] \StrVarRemoveOnce{\lTmpaStr }{l}
 [O] 
 [I] \StrUse{\lTmpaStr }
         [I] \Value{\lTmpaStr }
@@ -166,11 +166,11 @@ TEST 12: Testing \StrRemoveOnce
 [O] helo world
 ============================================================
 ============================================================
-TEST 13: Testing \StrRemoveAll 
+TEST 13: Testing \StrVarRemoveAll 
 ============================================================
 [I] \StrSet{\lTmpaStr }{hello world}
 [O] 
-[I] \StrRemoveAll{\lTmpaStr }{l}
+[I] \StrVarRemoveAll{\lTmpaStr }{l}
 [O] 
 [I] \StrUse{\lTmpaStr }
         [I] \Value{\lTmpaStr }

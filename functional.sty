@@ -765,25 +765,25 @@
       { \tl_gput_right:Nn #1 {#2} } { \tl_put_right:Nn #1 {#2} }
   }
 
-\PrgNewFunction \TlReplaceOnce { M m m }
+\PrgNewFunction \TlVarReplaceOnce { M m m }
   {
     \__fun_do_assignment:Nnn #1
       { \tl_greplace_once:Nnn #1 {#2} {#3} } { \tl_replace_once:Nnn #1 {#2} {#3} }
   }
 
-\PrgNewFunction \TlReplaceAll { M m m }
+\PrgNewFunction \TlVarReplaceAll { M m m }
   {
     \__fun_do_assignment:Nnn #1
       { \tl_greplace_all:Nnn #1 {#2} {#3} } { \tl_replace_all:Nnn #1 {#2} {#3} }
   }
 
-\PrgNewFunction \TlRemoveOnce { M m }
+\PrgNewFunction \TlVarRemoveOnce { M m }
   {
     \__fun_do_assignment:Nnn #1
       { \tl_gremove_once:Nn #1 {#2} } { \tl_remove_once:Nn #1 {#2} }
   }
 
-\PrgNewFunction \TlRemoveAll { M m }
+\PrgNewFunction \TlVarRemoveAll { M m }
   {
     \__fun_do_assignment:Nnn #1
       { \tl_gremove_all:Nn #1 {#2} } { \tl_remove_all:Nn #1 {#2} }
@@ -969,25 +969,25 @@
       { \str_gput_right:Nn #1 {#2} } { \str_put_right:Nn #1 {#2} }
   }
 
-\PrgNewFunction \StrReplaceOnce { M m m }
+\PrgNewFunction \StrVarReplaceOnce { M m m }
   {
     \__fun_do_assignment:Nnn #1
       { \str_greplace_once:Nnn #1 {#2} {#3} } { \str_replace_once:Nnn #1 {#2} {#3} }
   }
 
-\PrgNewFunction \StrReplaceAll { M m m }
+\PrgNewFunction \StrVarReplaceAll { M m m }
   {
     \__fun_do_assignment:Nnn #1
       { \str_greplace_all:Nnn #1 {#2} {#3} } { \str_replace_all:Nnn #1 {#2} {#3} }
   }
 
-\PrgNewFunction \StrRemoveOnce { M m }
+\PrgNewFunction \StrVarRemoveOnce { M m }
   {
     \__fun_do_assignment:Nnn #1
       { \str_gremove_once:Nn #1 {#2} } { \str_remove_once:Nn #1 {#2} }
   }
 
-\PrgNewFunction \StrRemoveAll { M m }
+\PrgNewFunction \StrVarRemoveAll { M m }
   {
     \__fun_do_assignment:Nnn #1
       { \str_gremove_all:Nn #1 {#2} } { \str_remove_all:Nn #1 {#2} }
@@ -1604,24 +1604,24 @@
       { \clist_gput_right:Nn #1 {#2} } { \clist_put_right:Nn #1 {#2} }
   }
 
-\PrgNewFunction \ClistRemoveDuplicates { M }
+\PrgNewFunction \ClistVarRemoveDuplicates { M }
   {
     \__fun_do_assignment:Nnn #1
       { \clist_gremove_duplicates:N #1 } { \clist_remove_duplicates:N #1 }
   }
 
-\PrgNewFunction \ClistRemoveAll { M m }
+\PrgNewFunction \ClistVarRemoveAll { M m }
   {
     \__fun_do_assignment:Nnn #1
       { \clist_gremove_all:Nn #1 {#2} } { \clist_remove_all:Nn #1 {#2} }
   }
 
-\PrgNewFunction \ClistReverse { M }
+\PrgNewFunction \ClistVarReverse { M }
   {
     \__fun_do_assignment:Nnn #1 { \clist_greverse:N #1 } { \clist_reverse:N #1 }
   }
 
-\PrgNewFunction \ClistSort { M m }
+\PrgNewFunction \ClistVarSort { M m }
   {
     \__fun_do_assignment:Nnn #1
       { \clist_gsort:Nn #1 {#2} } { \clist_sort:Nn #1 {#2} }

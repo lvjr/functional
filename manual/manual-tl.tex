@@ -254,9 +254,9 @@ Within token lists, replacement takes place at the top level: there is
 no recursion into brace groups (more precisely, within a group defined by
 a categroy code $1$/$2$ pair).
 
-\begin{function}{\TlReplaceOnce}
+\begin{function}{\TlVarReplaceOnce}
 \begin{syntax}
-\cs{TlReplaceOnce} \meta{tl var} \Arg{old tokens} \Arg{new tokens}
+\cs{TlVarReplaceOnce} \meta{tl var} \Arg{old tokens} \Arg{new tokens}
 \end{syntax}
 Replaces the first (leftmost) occurrence of \meta{old tokens} in the
 \meta{tl var} with \meta{new tokens}. \meta{Old tokens}
@@ -265,9 +265,9 @@ cannot contain \verb|{|, \verb|}| or \verb|#|
 (begin-group) or $2$ (end-group), and tokens with category code $6$).
 \end{function}
 
-\begin{function}{\TlReplaceAll}
+\begin{function}{\TlVarReplaceAll}
 \begin{syntax}
-\cs{TlReplaceAll} \meta{tl var} \Arg{old tokens} \Arg{new tokens}
+\cs{TlVarReplaceAll} \meta{tl var} \Arg{old tokens} \Arg{new tokens}
 \end{syntax}
 Replaces all occurrences of \meta{old tokens} in the
 \meta{tl var} with \meta{new tokens}. \meta{Old tokens}
@@ -276,13 +276,13 @@ cannot contain \verb|{|, \verb|}| or \verb|#|
 (begin-group) or $2$ (end-group), and tokens with category code $6$).
 As this function
 operates from left to right, the pattern \meta{old tokens}
-may remain after the replacement (see \cs{TlRemoveAll}
+may remain after the replacement (see \cs{TlVarRemoveAll}
 for an example).
 \end{function}
 
-\begin{function}{\TlRemoveOnce}
+\begin{function}{\TlVarRemoveOnce}
 \begin{syntax}
-\cs{TlRemoveOnce} \meta{tl var} \Arg{tokens}
+\cs{TlVarRemoveOnce} \meta{tl var} \Arg{tokens}
 \end{syntax}
 Removes the first (leftmost) occurrence of \meta{tokens} from the
 \meta{tl var}. \meta{Tokens} cannot contain \verb|{|, \verb|}| or \verb|#|
@@ -290,9 +290,9 @@ Removes the first (leftmost) occurrence of \meta{tokens} from the
 (begin-group) or $2$ (end-group), and tokens with category code $6$).
 \end{function}
 
-\begin{function}{\TlRemoveAll}
+\begin{function}{\TlVarRemoveAll}
 \begin{syntax}
-\cs{TlRemoveAll} \meta{tl var} \Arg{tokens}
+\cs{TlVarRemoveAll} \meta{tl var} \Arg{tokens}
 \end{syntax}
 Removes all occurrences of \meta{tokens} from the
 \meta{tl var}. \meta{Tokens} cannot contain \verb|{|, \verb|}| or \verb|#|
@@ -303,7 +303,7 @@ operates from left to right, the pattern \meta{tokens}
 may remain after the removal, for instance,
 \begin{demohigh}
 \TlSet \lTmpaTl {abbccd}
-\TlRemoveAll \lTmpaTl {bc}
+\TlVarRemoveAll \lTmpaTl {bc}
 \TlUse \lTmpaTl
 \end{demohigh}
 \end{function}

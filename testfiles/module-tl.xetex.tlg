@@ -94,11 +94,11 @@ TEST 8: Testing \TlConcat
 [O] concat
 ============================================================
 ============================================================
-TEST 9: Testing \TlReplaceOnce 
+TEST 9: Testing \TlVarReplaceOnce 
 ============================================================
 [I] \TlSet{\lTmpaTl }{hello world}
 [O] 
-[I] \TlReplaceOnce{\lTmpaTl }{l}{-}
+[I] \TlVarReplaceOnce{\lTmpaTl }{l}{-}
 [O] 
 [I] \TlUse{\lTmpaTl }
         [I] \Value{\lTmpaTl }
@@ -108,11 +108,11 @@ TEST 9: Testing \TlReplaceOnce
 [O] he-lo world
 ============================================================
 ============================================================
-TEST 10: Testing \TlReplaceAll 
+TEST 10: Testing \TlVarReplaceAll 
 ============================================================
 [I] \TlSet{\lTmpaTl }{hello world}
 [O] 
-[I] \TlReplaceAll{\lTmpaTl }{l}{-}
+[I] \TlVarReplaceAll{\lTmpaTl }{l}{-}
 [O] 
 [I] \TlUse{\lTmpaTl }
         [I] \Value{\lTmpaTl }
@@ -122,11 +122,11 @@ TEST 10: Testing \TlReplaceAll
 [O] he--o wor-d
 ============================================================
 ============================================================
-TEST 11: Testing \TlRemoveOnce 
+TEST 11: Testing \TlVarRemoveOnce 
 ============================================================
 [I] \TlSet{\lTmpaTl }{hello world}
 [O] 
-[I] \TlRemoveOnce{\lTmpaTl }{l}
+[I] \TlVarRemoveOnce{\lTmpaTl }{l}
 [O] 
 [I] \TlUse{\lTmpaTl }
         [I] \Value{\lTmpaTl }
@@ -136,11 +136,11 @@ TEST 11: Testing \TlRemoveOnce
 [O] helo world
 ============================================================
 ============================================================
-TEST 12: Testing \TlRemoveAll 
+TEST 12: Testing \TlVarRemoveAll 
 ============================================================
 [I] \TlSet{\lTmpaTl }{hello world}
 [O] 
-[I] \TlRemoveAll{\lTmpaTl }{l}
+[I] \TlVarRemoveAll{\lTmpaTl }{l}
 [O] 
 [I] \TlUse{\lTmpaTl }
         [I] \Value{\lTmpaTl }

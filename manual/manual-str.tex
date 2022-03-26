@@ -180,18 +180,18 @@ var} are not automatically converted to a string. For example
 
 \section{Modifying String Variables}
 
-\begin{function}{\StrReplaceOnce}
+\begin{function}{\StrVarReplaceOnce}
 \begin{syntax}
-\cs{StrReplaceOnce} \meta{str var} \Arg{old} \Arg{new}
+\cs{StrVarReplaceOnce} \meta{str var} \Arg{old} \Arg{new}
 \end{syntax}
 Converts the \meta{old} and \meta{new} token lists to strings, then
 replaces the first (leftmost) occurrence of \meta{old string} in the
 \meta{str var} with \meta{new string}.
 \end{function}
 
-\begin{function}{\StrReplaceAll}
+\begin{function}{\StrVarReplaceAll}
 \begin{syntax}
-\cs{StrReplaceAll} \meta{str var} \Arg{old} \Arg{new}
+\cs{StrVarReplaceAll} \meta{str var} \Arg{old} \Arg{new}
 \end{syntax}
 Converts the \meta{old} and \meta{new} token lists to strings, then
 replaces all occurrences of \meta{old string} in the
@@ -201,18 +201,18 @@ operates from left to right, the pattern \meta{old string}
 may remain after the replacement.
 \end{function}
 
-\begin{function}{\StrRemoveOnce}
+\begin{function}{\StrVarRemoveOnce}
 \begin{syntax}
-\cs{StrRemoveOnce} \meta{str var} \Arg{token list}
+\cs{StrVarRemoveOnce} \meta{str var} \Arg{token list}
 \end{syntax}
 Converts the \meta{token list} to a \meta{string} then
 removes the first (leftmost) occurrence of \meta{string} from the
 \meta{str var}.
 \end{function}
 
-\begin{function}{\StrRemoveAll}
+\begin{function}{\StrVarRemoveAll}
 \begin{syntax}
-\cs{StrRemoveAll} \meta{str var} \Arg{token list}
+\cs{StrVarRemoveAll} \meta{str var} \Arg{token list}
 \end{syntax}
 Converts the \meta{token list} to a \meta{string} then
 removes all occurrences of \meta{string} from the \meta{str var}.
@@ -220,7 +220,7 @@ As this function operates from left to right,
 the pattern \meta{string} may remain after the removal, for instance,
 \begin{demohigh}
 \StrSet \lTmpaStr {abbccd}
-\StrRemoveAll \lTmpaStr {bc}
+\StrVarRemoveAll \lTmpaStr {bc}
 \TlUse \lTmpaStr
 \end{demohigh}
 \end{function}

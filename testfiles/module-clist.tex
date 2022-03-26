@@ -80,21 +80,21 @@
 \ClistVarJoin \lTmpaClist { and }
 \ENDTEST
 
-\BEGINTEST{Testing \ClistRemoveDuplicates}
+\BEGINTEST{Testing \ClistVarRemoveDuplicates}
 \ClistSet \lTmpaClist {one,two,one,two,three}
-\ClistRemoveDuplicates \lTmpaClist
+\ClistVarRemoveDuplicates \lTmpaClist
 \ClistVarJoin \lTmpaClist {,}
 \ENDTEST
 
-\BEGINTEST{Testing \ClistRemoveAll}
+\BEGINTEST{Testing \ClistVarRemoveAll}
 \ClistSet \lTmpaClist {one,two,one,two,three}
-\ClistRemoveAll \lTmpaClist {two}
+\ClistVarRemoveAll \lTmpaClist {two}
 \ClistVarJoin \lTmpaClist {,}
 \ENDTEST
 
-\BEGINTEST{Testing \ClistReverse}
+\BEGINTEST{Testing \ClistVarReverse}
 \ClistSet \lTmpaClist {one,two,one,two,three}
-\ClistReverse \lTmpaClist
+\ClistVarReverse \lTmpaClist
 \ClistVarJoin \lTmpaClist {,}
 \ENDTEST
 

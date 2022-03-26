@@ -247,9 +247,9 @@ necessary to modify the content. The functions here may be used
 to update comma lists, while retaining the order of the unaffected
 entries.
  
-\begin{function}{\ClistRemoveDuplicates}
+\begin{function}{\ClistVarRemoveDuplicates}
 \begin{syntax}
-\cs{ClistRemoveDuplicates} \meta{comma list}
+\cs{ClistVarRemoveDuplicates} \meta{comma list}
 \end{syntax}
 Removes duplicate items from the \meta{comma list}, leaving the
 left most copy of each item in the \meta{comma list}.  The \meta{item}
@@ -264,9 +264,9 @@ Furthermore, it may fail if any of the items in the
 \end{texnote}
 \end{function}
  
-\begin{function}{\ClistRemoveAll}
+\begin{function}{\ClistVarRemoveAll}
 \begin{syntax}
-\cs{ClistRemoveAll} \meta{comma list} \Arg{item}
+\cs{ClistVarRemoveAll} \meta{comma list} \Arg{item}
 \end{syntax}
 Removes every occurrence of \meta{item} from the \meta{comma list}.
 The \meta{item} comparison takes place on a token basis, as for
@@ -277,16 +277,16 @@ The function may fail if the \meta{item} contains \verb|{|, \verb|}|, or \verb|#
 \end{texnote}
 \end{function}
  
-\begin{function}{\ClistReverse}
+\begin{function}{\ClistVarReverse}
 \begin{syntax}
-\cs{ClistReverse} \meta{comma list}
+\cs{ClistVarReverse} \meta{comma list}
 \end{syntax}
 Reverses the order of items stored in the \meta{comma list}.
 \end{function}
  
-%\begin{function}{\ClistSort}
+%\begin{function}{\ClistVarSort}
 %\begin{syntax}
-%\cs{ClistSort} \meta{clist var} \Arg{comparison code}
+%\cs{ClistVarSort} \meta{clist var} \Arg{comparison code}
 %\end{syntax}
 %Sorts the items in the \meta{clist var} according to the
 %\meta{comparison code}, and assigns the result to

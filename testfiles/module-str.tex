@@ -60,27 +60,27 @@
 \StrUse \lTmpkStr
 \ENDTEST
 
-\BEGINTEST{Testing \StrReplaceOnce}
+\BEGINTEST{Testing \StrVarReplaceOnce}
 \StrSet \lTmpaStr {hello world}
-\StrReplaceOnce \lTmpaStr {l} {-}
+\StrVarReplaceOnce \lTmpaStr {l} {-}
 \StrUse \lTmpaStr
 \ENDTEST
 
-\BEGINTEST{Testing \StrReplaceAll}
+\BEGINTEST{Testing \StrVarReplaceAll}
 \StrSet \lTmpaStr {hello world}
-\StrReplaceAll \lTmpaStr {l} {-}
+\StrVarReplaceAll \lTmpaStr {l} {-}
 \StrUse \lTmpaStr
 \ENDTEST
 
-\BEGINTEST{Testing \StrRemoveOnce}
+\BEGINTEST{Testing \StrVarRemoveOnce}
 \StrSet \lTmpaStr {hello world}
-\StrRemoveOnce \lTmpaStr {l}
+\StrVarRemoveOnce \lTmpaStr {l}
 \StrUse \lTmpaStr
 \ENDTEST
 
-\BEGINTEST{Testing \StrRemoveAll}
+\BEGINTEST{Testing \StrVarRemoveAll}
 \StrSet \lTmpaStr {hello world}
-\StrRemoveAll \lTmpaStr {l}
+\StrVarRemoveAll \lTmpaStr {l}
 \StrUse \lTmpaStr
 \ENDTEST
 
