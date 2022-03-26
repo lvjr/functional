@@ -45,12 +45,12 @@ The comma list contains the items (without outer braces):
 ============================================================
 TEST 5: Testing \ClistVarLog 
 ============================================================
-[I] \ClistNew{\lFooSomeList }
+[I] \ClistNew{\lFooSomeClist }
 [O] 
-[I] \ClistSet{\lFooSomeList }{one,two,three}
+[I] \ClistSet{\lFooSomeClist }{one,two,three}
 [O] 
-[I] \ClistVarLog{\lFooSomeList }
-The comma list \lFooSomeList contains the items (without outer braces):
+[I] \ClistVarLog{\lFooSomeClist }
+The comma list \lFooSomeClist contains the items (without outer braces):
 >  {one}
 >  {two}
 >  {three}.
