@@ -1719,3 +1719,237 @@
       { \Result { \cTrueBool } }  { \Result { \cFalseBool } }
   }
 
+%%% --------------------------------------------------------
+%%> \section{Interfaces for Sequences and Stacks (Seq)}
+%%% --------------------------------------------------------
+
+\seq_new:N \lTmpaSeq   \seq_new:N \lTmpbSeq   \seq_new:N \lTmpcSeq
+\seq_new:N \lTmpiSeq   \seq_new:N \lTmpjSeq   \seq_new:N \lTmpkSeq
+\seq_new:N \l@Funx@Seq \seq_new:N \l@Funy@Seq \seq_new:N \l@Funz@Seq
+
+\seq_new:N \gTmpaSeq   \seq_new:N \gTmpbSeq   \seq_new:N \gTmpcSeq
+\seq_new:N \gTmpiSeq   \seq_new:N \gTmpjSeq   \seq_new:N \gTmpkSeq
+\seq_new:N \g@Funx@Seq \seq_new:N \g@Funy@Seq \seq_new:N \g@Funz@Seq
+
+\seq_set_eq:NN \cEmptySeq \c_empty_clist
+
+\PrgNewFunction \SeqNew { M } { \seq_new:N #1 }
+
+\PrgNewFunction \SeqVarLog { M } { \seq_log:N #1 }
+
+\PrgNewFunction \SeqVarShow { M } { \seq_show:N #1 }
+
+\PrgNewFunction \SeqVarJoin { M m }
+  {
+    \Expand { \seq_use:Nn #1 { #2 } }
+  }
+
+\PrgNewFunction \SeqVarJoinExtended { M m m m }
+  {
+    \Expand { \seq_use:Nnnn #1 { #2 } { #3 } { #4 } }
+  }
+
+\PrgNewFunction \SeqJoin { m m }
+  {
+    \Expand { \seq_use:nn { #1 } { #2 } }
+  }
+
+\PrgNewFunction \SeqJoinExtended { m m m m }
+  {
+    \Expand { \seq_use:nnnn { #1 } { #2 } { #3 } { #4 } }
+  }
+
+\PrgNewFunction \SeqConstFromClist { M m } { \seq_const_from_clist:Nn #1 { #2 } }
+
+\PrgNewFunction \SeqSetFromClist { M m }
+  {
+    \__fun_do_assignment:Nnn #1
+      { \seq_gset_from_clist:Nn #1 {#2} } { \seq_set_from_clist:Nn #1 {#2} }
+  }
+
+\PrgNewFunction \SeqSetEq { M M }
+  {
+    \__fun_do_assignment:Nnn #1
+      { \seq_gset_eq:NN #1 #2 } { \seq_set_eq:NN #1 #2 }
+  }
+
+\PrgNewFunction \SeqSetSplit { M m m }
+  {
+    \__fun_do_assignment:Nnn #1
+      { \seq_gset_split:Nnn #1 {#2} {#3} } { \seq_set_split:Nnn #1 {#2} {#3} }
+  }
+
+\PrgNewFunction \SeqConcat { M M M }
+  {
+    \__fun_do_assignment:Nnn #1
+      { \seq_gconcat:NNN #1 #2 #3 } { \seq_concat:NNN #1 #2 #3 }
+  }
+
+\PrgNewFunction \SeqClear { M }
+  {
+    \__fun_do_assignment:Nnn #1 { \seq_gclear:N #1 } { \seq_clear:N #1 }
+  }
+
+\PrgNewFunction \SeqClearNew { M }
+  {
+    \__fun_do_assignment:Nnn #1 { \seq_gclear_new:N #1 } { \seq_clear_new:N #1 }
+  }
+
+\PrgNewFunction \SeqPutLeft { M m }
+  {
+    \__fun_do_assignment:Nnn #1
+      { \seq_gput_left:Nn #1 {#2} } { \seq_put_left:Nn #1 {#2} }
+  }
+
+\PrgNewFunction \SeqPutRight { M m }
+  {
+    \__fun_do_assignment:Nnn #1
+      { \seq_gput_right:Nn #1 {#2} } { \seq_put_right:Nn #1 {#2} }
+  }
+
+\PrgNewFunction \SeqVarRemoveDuplicates { M }
+  {
+    \__fun_do_assignment:Nnn #1
+      { \seq_gremove_duplicates:N #1 } { \seq_remove_duplicates:N #1 }
+  }
+
+\PrgNewFunction \SeqVarRemoveAll { M m }
+  {
+    \__fun_do_assignment:Nnn #1
+      { \seq_gremove_all:Nn #1 {#2} } { \seq_remove_all:Nn #1 {#2} }
+  }
+
+\PrgNewFunction \SeqVarReverse { M }
+  {
+    \__fun_do_assignment:Nnn #1 { \seq_greverse:N #1 } { \seq_reverse:N #1 }
+  }
+
+\PrgNewFunction \SeqVarSort { M m }
+  {
+    \__fun_do_assignment:Nnn #1
+      { \seq_gsort:Nn #1 {#2} } { \seq_sort:Nn #1 {#2} }
+  }
+
+\PrgNewFunction \SeqVarCount { m }
+  {
+    \Result { \Expand { \seq_count:N #1 } }
+  }
+
+\PrgNewFunction \SeqGet   { M M }     { \seq_get:NN #1 #2 }
+\PrgNewFunction \SeqGetT  { M M n }   { \seq_get:NNT #1 #2 {#3} }
+\PrgNewFunction \SeqGetF  { M M n }   { \seq_get:NNF #1 #2 {#3} }
+\PrgNewFunction \SeqGetTF { M M n n } { \seq_get:NNTF #1 #2 {#3} {#4} }
+
+\PrgNewFunction \SeqPop { M M }
+  {
+    \__fun_do_assignment:Nnn #1
+      { \seq_gpop:NN #1 #2 } { \seq_pop:NN #1 #2 }
+  }
+\PrgNewFunction \SeqPopT { M M n }
+  {
+    \__fun_do_assignment:Nnn #1
+      { \seq_gpop:NNT #1 #2 {#3} } { \seq_pop:NNT #1 #2 {#3} }
+  }
+\PrgNewFunction \SeqPopF { M M n }
+  {
+    \__fun_do_assignment:Nnn #1
+      { \seq_gpop:NNF #1 #2 {#3} } { \seq_pop:NNF #1 #2 {#3} }
+  }
+\PrgNewFunction \SeqPopTF { M M n n }
+  {
+    \__fun_do_assignment:Nnn #1
+      { \seq_gpop:NNTF #1 #2 {#3} {#4} } { \seq_pop:NNTF #1 #2 {#3} {#4} }
+  }
+
+\PrgNewFunction \SeqPush { M m }
+  {
+    \__fun_do_assignment:Nnn #1
+      { \seq_gpush:Nn #1 {#2} } { \seq_push:Nn #1 {#2} }
+  }
+
+\PrgNewFunction \SeqGetLeft   { M M }     { \seq_get_left:NN #1 #2 }
+\PrgNewFunction \SeqGetLeftT  { M M n }   { \seq_get_left:NNT #1 #2 {#3} }
+\PrgNewFunction \SeqGetLeftF  { M M n }   { \seq_get_left:NNF #1 #2 {#3} }
+\PrgNewFunction \SeqGetLeftTF { M M n n } { \seq_get_left:NNTF #1 #2 {#3} {#4} }
+
+\PrgNewFunction \SeqGetRight   { M M }     { \seq_get_right:NN #1 #2 }
+\PrgNewFunction \SeqGetRightT  { M M n }   { \seq_get_right:NNT #1 #2 {#3} }
+\PrgNewFunction \SeqGetRightF  { M M n }   { \seq_get_right:NNF #1 #2 {#3} }
+\PrgNewFunction \SeqGetRightTF { M M n n } { \seq_get_right:NNTF #1 #2 {#3} {#4} }
+
+\PrgNewFunction \SeqPopLeft { M M }
+  {
+    \__fun_do_assignment:Nnn #1
+      { \seq_gpop_left:NN #1 #2 } { \seq_pop_left:NN #1 #2 }
+  }
+\PrgNewFunction \SeqPopLeftT { M M n }
+  {
+    \__fun_do_assignment:Nnn #1
+      { \seq_gpop_left:NNT #1 #2 {#3} } { \seq_pop_left:NNT #1 #2 {#3} }
+  }
+\PrgNewFunction \SeqPopLeftF { M M n }
+  {
+    \__fun_do_assignment:Nnn #1
+      { \seq_gpop_left:NNF #1 #2 {#3} } { \seq_pop_left:NNF #1 #2 {#3} }
+  }
+\PrgNewFunction \SeqPopLeftTF { M M n n }
+  {
+    \__fun_do_assignment:Nnn #1
+      { \seq_gpop_left:NNTF #1 #2 {#3} {#4} }
+      { \seq_pop_left:NNTF #1 #2 {#3} {#4} }
+  }
+
+\PrgNewFunction \SeqPopRight { M M }
+  {
+    \__fun_do_assignment:Nnn #1
+      { \seq_gpop_right:NN #1 #2 } { \seq_pop_right:NN #1 #2 }
+  }
+\PrgNewFunction \SeqPopRightT { M M n }
+  {
+    \__fun_do_assignment:Nnn #1
+      { \seq_gpop_right:NNT #1 #2 {#3} } { \seq_pop_right:NNT #1 #2 {#3} }
+  }
+\PrgNewFunction \SeqPopRightF { M M n }
+  {
+    \__fun_do_assignment:Nnn #1
+      { \seq_gpop_right:NNF #1 #2 {#3} } { \seq_pop_right:NNF #1 #2 {#3} }
+  }
+\PrgNewFunction \SeqPopRightTF { M M n n }
+  {
+    \__fun_do_assignment:Nnn #1
+      { \seq_gpop_right:NNTF #1 #2 {#3} {#4} }
+      { \seq_pop_right:NNTF #1 #2 {#3} {#4} }
+  }
+
+\PrgNewFunction \SeqVarItem { M m } { \Expand { \seq_item:Nn #1 {#2} } }
+
+\PrgNewFunction \SeqVarRandItem { M } { \Expand { \seq_rand_item:N #1 } }
+
+\PrgNewFunction \SeqVarMapInline { M n }
+  {
+    \seq_map_inline:Nn #1 {#2}
+  }
+
+\PrgNewFunction \SeqVarMapVariable { M M n }
+  {
+    \seq_map_variable:NNn #1 #2 {#3}
+  }
+
+\cs_set_eq:NN \SeqMapBreak \seq_map_break:
+
+\PrgNewConditional \SeqIfExist { M }
+  {
+    \seq_if_exist:NTF #1 { \Result { \cTrueBool } }  { \Result { \cFalseBool } }
+  }
+
+\PrgNewConditional \SeqVarIfEmpty { m }
+  {
+    \seq_if_empty:NTF #1 { \Result { \cTrueBool } }  { \Result { \cFalseBool } }
+  }
+
+\PrgNewConditional \SeqVarIfIn { M m }
+  {
+    \seq_if_in:NnTF #1 {#2}
+      { \Result { \cTrueBool } }  { \Result { \cFalseBool } }
+  }
+
