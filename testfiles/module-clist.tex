@@ -163,9 +163,9 @@
 
 \BEGINTEST{Testing \ClistVarMapInline}
 \IgnoreSpacesOn
-\TlSet \lTmpkTl {one,two,three}
+\ClistSet \lTmpkClist {one,two,three}
 \TlClear \lTmpaTl
-\ClistVarMapInline \lTmpkTl {
+\ClistVarMapInline \lTmpkClist {
   \TlPutRight \lTmpaTl {(#1)}
 }
 \Result {\TlUse\lTmpaTl}

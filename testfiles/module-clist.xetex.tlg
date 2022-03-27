@@ -289,11 +289,11 @@ TEST 22: Testing \ClistMapInline
 ============================================================
 TEST 23: Testing \ClistVarMapInline 
 ============================================================
-[I] \TlSet{\lTmpkTl }{one,two,three}
+[I] \ClistSet{\lTmpkClist }{one,two,three}
 [O] 
 [I] \TlClear{\lTmpaTl }
 [O] 
-[I] \ClistVarMapInline{\lTmpkTl }{\TlPutRight \lTmpaTl {(##1)}}
+[I] \ClistVarMapInline{\lTmpkClist }{\TlPutRight \lTmpaTl {(##1)}}
     [I] \TlPutRight{\lTmpaTl }{(one)}
     [O] 
     [I] \TlPutRight{\lTmpaTl }{(two)}
