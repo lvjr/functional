@@ -1953,3 +1953,134 @@
       { \Result { \cTrueBool } }  { \Result { \cFalseBool } }
   }
 
+%%% --------------------------------------------------------
+%%> \section{Interfaces for Property Lists (Prop)}
+%%% --------------------------------------------------------
+
+\prop_new:N \lTmpaProp   \prop_new:N \lTmpbProp   \prop_new:N \lTmpcProp
+\prop_new:N \lTmpiProp   \prop_new:N \lTmpjProp   \prop_new:N \lTmpkProp
+\prop_new:N \l@Funx@Prop \prop_new:N \l@Funy@Prop \prop_new:N \l@Funz@Prop
+
+\prop_new:N \gTmpaProp   \prop_new:N \gTmpbProp   \prop_new:N \gTmpcProp
+\prop_new:N \gTmpiProp   \prop_new:N \gTmpjProp   \prop_new:N \gTmpkProp
+\prop_new:N \g@Funx@Prop \prop_new:N \g@Funy@Prop \prop_new:N \g@Funz@Prop
+
+\prop_set_eq:NN \cEmptyProp \c_empty_prop
+
+\PrgNewFunction \PropNew { M } { \prop_new:N #1 }
+
+\PrgNewFunction \PropVarLog { M } { \prop_log:N #1 }
+
+\PrgNewFunction \PropVarShow { M } { \prop_show:N #1 }
+
+\PrgNewFunction \PropConstFromKeyval { M m }
+  { \prop_const_from_keyval:Nn #1 { #2 } }
+
+\PrgNewFunction \PropSetFromKeyval { M m }
+  {
+    \__fun_do_assignment:Nnn #1
+      { \prop_gset_from_keyval:Nn #1 {#2} } { \prop_set_from_keyval:Nn #1 {#2} }
+  }
+
+\PrgNewFunction \PropSetEq { M M }
+  {
+    \__fun_do_assignment:Nnn #1
+      { \prop_gset_eq:NN #1 #2 } { \prop_set_eq:NN #1 #2 }
+  }
+
+\PrgNewFunction \PropClear { M }
+  {
+    \__fun_do_assignment:Nnn #1 { \prop_gclear:N #1 } { \prop_clear:N #1 }
+  }
+
+\PrgNewFunction \PropClearNew { M }
+  {
+    \__fun_do_assignment:Nnn #1 { \prop_gclear_new:N #1 } { \prop_clear_new:N #1 }
+  }
+
+\PrgNewFunction \PropConcat { M M M }
+  {
+    \__fun_do_assignment:Nnn #1
+      { \prop_gconcat:NNN #1 #2 #3 } { \prop_concat:NNN #1 #2 #3 }
+  }
+
+\PrgNewFunction \PropPut { M m m }
+  {
+    \__fun_do_assignment:Nnn #1
+      { \prop_gput:Nnn #1 {#2} {#3} } { \prop_put:Nnn #1 {#2} {#3} }
+  }
+
+\PrgNewFunction \PropPutIfNew { M m m }
+  {
+    \__fun_do_assignment:Nnn #1
+      { \prop_gput_if_new:Nnn #1 {#2} {#3} } { \prop_put_if_new:Nnn #1 {#2} {#3} }
+  }
+
+\PrgNewFunction \PropPutFromKeyval { M m }
+  {
+    \__fun_do_assignment:Nnn #1
+      { \prop_gput_from_keyval:Nn #1 {#2} } { \prop_put_from_keyval:Nn #1 {#2} }
+  }
+
+\PrgNewFunction \PropVarRemove { M m }
+  {
+    \__fun_do_assignment:Nnn #1
+      { \prop_gremove:Nn #1 {#2} } { \prop_remove:Nn #1 {#2} }
+  }
+
+\PrgNewFunction \PropVarCount { M } { \Expand { \prop_count:N #1 } }
+
+\PrgNewFunction \PropVarItem { M m } { \Expand { \prop_item:Nn #1 {#2} } }
+
+\PrgNewFunction \PropToKeyval { M } { \Expand { \prop_to_keyval:N #1 } }
+
+\PrgNewFunction \PropGet   { M m M }     { \prop_get:NnN #1 {#2} #3 }
+\PrgNewFunction \PropGetT  { M m M n }   { \prop_get:NnNT #1 {#2} #3 {#4} }
+\PrgNewFunction \PropGetF  { M m M n }   { \prop_get:NnNF #1 {#2} #3 {#4} }
+\PrgNewFunction \PropGetTF { M m M n n } { \prop_get:NnNTF #1 {#2} #3 {#4} {#5} }
+
+\PrgNewFunction \PropPop { M m M }
+  {
+    \__fun_do_assignment:Nnn #1
+      { \prop_gpop:NnN #1 {#2} #3 } { \prop_pop:NnN #1 {#2} #3 }
+  }
+\PrgNewFunction \PropPopT { M m M n }
+  {
+    \__fun_do_assignment:Nnn #1
+      { \prop_gpop:NnNT #1 {#2} #3 {#4} } { \prop_pop:NnNT #1 {#2} #3 {#4} }
+  }
+\PrgNewFunction \PropPopF { M m M n }
+  {
+    \__fun_do_assignment:Nnn #1
+      { \prop_gpop:NnNF #1 {#2} #3 {#4} } { \prop_pop:NnNF #1 {#2} #3 {#4} }
+  }
+\PrgNewFunction \PropPopTF { M m M n n }
+  {
+    \__fun_do_assignment:Nnn #1
+      { \prop_gpop:NnNTF #1 {#2} #3 {#4} {#5} }
+      { \prop_pop:NnNTF #1 {#2} #3 {#4} {#5} }
+  }
+
+\PrgNewFunction \PropVarMapInline { M n }
+  {
+    \prop_map_inline:Nn #1 {#2}
+  }
+
+\cs_set_eq:NN \PropMapBreak \prop_map_break:
+
+\PrgNewConditional \PropIfExist { M }
+  {
+    \prop_if_exist:NTF #1 { \Result { \cTrueBool } }  { \Result { \cFalseBool } }
+  }
+
+\PrgNewConditional \PropVarIfEmpty { m }
+  {
+    \prop_if_empty:NTF #1 { \Result { \cTrueBool } }  { \Result { \cFalseBool } }
+  }
+
+\PrgNewConditional \PropVarIfIn { M m }
+  {
+    \prop_if_in:NnTF #1 {#2}
+      { \Result { \cTrueBool } }  { \Result { \cFalseBool } }
+  }
+
