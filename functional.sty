@@ -1620,15 +1620,9 @@
       { \clist_gsort:Nn #1 {#2} } { \clist_sort:Nn #1 {#2} }
   }
 
-\PrgNewFunction \ClistCount { m }
-  {
-    \Result { \Expand { \clist_count:n { #1 } } }
-  }
+\PrgNewFunction \ClistCount { m } { \Expand { \clist_count:n { #1 } } }
 
-\PrgNewFunction \ClistVarCount { m }
-  {
-    \Result { \Expand { \clist_count:N #1 } }
-  }
+\PrgNewFunction \ClistVarCount { M } { \Expand { \clist_count:N #1 } }
 
 \PrgNewFunction \ClistGet   { M M }     { \clist_get:NN #1 #2 }
 \PrgNewFunction \ClistGetT  { M M n }   { \clist_get:NNT #1 #2 {#3} }
@@ -1702,7 +1696,7 @@
     \clist_if_empty:nTF {#1} { \Result { \cTrueBool } }  { \Result { \cFalseBool } }
   }
 
-\PrgNewConditional \ClistVarIfEmpty { m }
+\PrgNewConditional \ClistVarIfEmpty { M }
   {
     \clist_if_empty:NTF #1 { \Result { \cTrueBool } }  { \Result { \cFalseBool } }
   }
@@ -1830,10 +1824,7 @@
       { \seq_gsort:Nn #1 {#2} } { \seq_sort:Nn #1 {#2} }
   }
 
-\PrgNewFunction \SeqVarCount { m }
-  {
-    \Result { \Expand { \seq_count:N #1 } }
-  }
+\PrgNewFunction \SeqVarCount { M } { \Expand { \seq_count:N #1 } }
 
 \PrgNewFunction \SeqGet   { M M }     { \seq_get:NN #1 #2 }
 \PrgNewFunction \SeqGetT  { M M n }   { \seq_get:NNT #1 #2 {#3} }
@@ -1942,7 +1933,7 @@
     \seq_if_exist:NTF #1 { \Result { \cTrueBool } }  { \Result { \cFalseBool } }
   }
 
-\PrgNewConditional \SeqVarIfEmpty { m }
+\PrgNewConditional \SeqVarIfEmpty { M }
   {
     \seq_if_empty:NTF #1 { \Result { \cTrueBool } }  { \Result { \cFalseBool } }
   }
@@ -2073,7 +2064,7 @@
     \prop_if_exist:NTF #1 { \Result { \cTrueBool } }  { \Result { \cFalseBool } }
   }
 
-\PrgNewConditional \PropVarIfEmpty { m }
+\PrgNewConditional \PropVarIfEmpty { M }
   {
     \prop_if_empty:NTF #1 { \Result { \cTrueBool } }  { \Result { \cFalseBool } }
   }

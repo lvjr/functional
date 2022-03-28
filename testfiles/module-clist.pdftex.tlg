@@ -170,9 +170,7 @@ TEST 14: Testing \ClistVarReverse
 TEST 15: Testing \ClistCount 
 ============================================================
 [I] \ClistCount{one,two,three,four,five}
-        [I] \Expand{\clist_count:n {one,two,three,four,five}}
-        [O] 5
-    [I] \Result{5}
+    [I] \Expand{\clist_count:n {one,two,three,four,five}}
     [O] 5
 [O] 5
 ============================================================
@@ -182,9 +180,7 @@ TEST 16: Testing \ClistVarCount
 [I] \ClistSet{\lTmpaClist }{one,two,three,four}
 [O] 
 [I] \ClistVarCount{\lTmpaClist }
-        [I] \Expand{\clist_count:N \lTmpaClist }
-        [O] 4
-    [I] \Result{4}
+    [I] \Expand{\clist_count:N \lTmpaClist }
     [O] 4
 [O] 4
 ============================================================
