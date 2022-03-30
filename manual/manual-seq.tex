@@ -406,18 +406,15 @@ intended to be mixed with the general ordered data functions detailed
 in the previous section: a sequence should either be used as an
 ordered data type or as a stack, but not in both ways.
 
-\begin{function}{\SeqGet,\SeqGetT,\SeqGetF,\SeqGetTF}
+\begin{function}{\SeqGet}
 \begin{syntax}
 \cs{SeqGet} \meta{sequence} \meta{token list variable}
-\cs{SeqGetT} \meta{sequence} \meta{token list variable} \Arg{true code}
-\cs{SeqGetF} \meta{sequence} \meta{token list variable} \Arg{false code}
-\cs{SeqGetTF} \meta{sequence} \meta{token list variable} \Arg{true code} \Arg{false code}
 \end{syntax}
 Reads the top item from a \meta{sequence} into the
 \meta{token list variable} without removing it from the
 \meta{sequence}. The \meta{token list variable} is assigned locally.
-%If \meta{sequence} is empty the \meta{token list variable} is set to
-%the special marker \cs{qNoValue}.
+If \meta{sequence} is empty the \meta{token list variable} is set to
+the special marker \cs{qNoValue}.
 \begin{demohigh}
 \SeqSetFromClist \lTmpaSeq {two,three,four}
 \SeqGet \lTmpaSeq \lTmpaTl
@@ -425,21 +422,53 @@ Reads the top item from a \meta{sequence} into the
 \end{demohigh}
 \end{function}
 
-\begin{function}{\SeqPop,\SeqPopT,\SeqPopF,\SeqPopTF}
+\begin{function}{\SeqGetT,\SeqGetF,\SeqGetTF}
+\begin{syntax}
+\cs{SeqGetT} \meta{sequence} \meta{token list variable} \Arg{true code}
+\cs{SeqGetF} \meta{sequence} \meta{token list variable} \Arg{false code}
+\cs{SeqGetTF} \meta{sequence} \meta{token list variable} \Arg{true code} \Arg{false code}
+\end{syntax}
+If the \meta{sequence} is empty, leaves the \meta{false code} in the
+input stream.  The value of the \meta{token list variable} is
+not defined in this case and should not be relied upon.  If the
+\meta{sequence} is non-empty, stores the top item from a
+\meta{sequence} in the \meta{token list variable} without removing it from
+the \meta{sequence}. The \meta{token list variable} is assigned locally.
+\begin{demohigh}
+\SeqSetFromClist \lTmpaSeq {two,three,four}
+\SeqGetTF \lTmpaSeq \lTmpaTl {\Result{Yes}} {\Result{No}}
+\end{demohigh}
+\end{function}
+
+\begin{function}{\SeqPop}
 \begin{syntax}
 \cs{SeqPop} \meta{sequence} \meta{token list variable}
-\cs{SeqPopT} \meta{sequence} \meta{token list variable} \Arg{true code}
-\cs{SeqPopF} \meta{sequence} \meta{token list variable} \Arg{false code}
-\cs{SeqPopTF} \meta{sequence} \meta{token list variable} \Arg{true code} \Arg{false code}
 \end{syntax}
 Pops the top item from a \meta{sequence} into the
 \meta{token list variable}. the \meta{token list variable} is assigned locally.
-%If \meta{sequence} is empty the \meta{token list variable} is set to
-%the special marker \cs{qNoValue}.
+If \meta{sequence} is empty the \meta{token list variable} is set to
+the special marker \cs{qNoValue}.
 \begin{demohigh}
 \SeqSetFromClist \lTmpaSeq {two,three,four}
 \SeqPop \lTmpaSeq \lTmpaTl
 \SeqVarJoin \lTmpaSeq {,}
+\end{demohigh}
+\end{function}
+
+\begin{function}{\SeqPopT,\SeqPopF,\SeqPopTF}
+\begin{syntax}
+\cs{SeqPopT} \meta{sequence} \meta{token list variable} \Arg{true code}
+\cs{SeqPopF} \meta{sequence} \meta{token list variable} \Arg{false code}
+\cs{SeqPopTF} \meta{sequence} \meta{token list variable} \Arg{true code} \Arg{false code}
+\end{syntax}
+If the \meta{sequence} is empty, leaves the \meta{false code} in the
+input stream.  The value of the \meta{token list variable} is
+not defined in this case and should not be relied upon.  If the
+\meta{sequence} is non-empty, pops the top item from the \meta{sequence}
+in the \meta{token list variable}, \emph{i.e.} removes the item from the
+\meta{sequence}. The \meta{token list variable} is assigned locally.
+\begin{demohigh}
+\SeqPopTF \cEmptySeq \lTmpaTl {\Result{Yes}} {\Result{No}}
 \end{demohigh}
 \end{function}
 
@@ -464,18 +493,15 @@ For implementation reasons, the actions at the left of the sequence are
 faster than those acting on the right. These functions all assign the
 recovered material locally.
 
-\begin{function}{\SeqGetLeft,\SeqGetLeftT,\SeqGetLeftF,\SeqGetLeftTF}
+\begin{function}{\SeqGetLeft}
 \begin{syntax}
 \cs{SeqGetLeft} \meta{sequence} \meta{token list variable}
-\cs{SeqGetLeftT} \meta{sequence} \meta{token list variable} \Arg{true code}
-\cs{SeqGetLeftF} \meta{sequence} \meta{token list variable} \Arg{false code}
-\cs{SeqGetLeftTF} \meta{sequence} \meta{token list variable} \Arg{true code} \Arg{false code}
 \end{syntax}
 Stores the left-most item from a \meta{sequence} in the
 \meta{token list variable} without removing it from the
 \meta{sequence}. The \meta{token list variable} is assigned locally.
-%If \meta{sequence} is empty the \meta{token list variable}
-%is set to the special marker \cs{qNoValue}.
+If \meta{sequence} is empty the \meta{token list variable}
+is set to the special marker \cs{qNoValue}.
 \begin{demohigh}
 \SeqSetFromClist \lTmpaSeq {two,three,four}
 \SeqGetLeft \lTmpaSeq \lTmpaTl
@@ -483,18 +509,35 @@ Stores the left-most item from a \meta{sequence} in the
 \end{demohigh}
 \end{function}
 
-\begin{function}{\SeqGetRight,\SeqGetRightT,\SeqGetRightF,\SeqGetRightTF}
+\begin{function}{\SeqGetLeftT,\SeqGetLeftF,\SeqGetLeftTF}
+\begin{syntax}
+\cs{SeqGetLeftT} \meta{sequence} \meta{token list variable} \Arg{true code}
+\cs{SeqGetLeftF} \meta{sequence} \meta{token list variable} \Arg{false code}
+\cs{SeqGetLeftTF} \meta{sequence} \meta{token list variable} \Arg{true code} \Arg{false code}
+\end{syntax}
+If the \meta{sequence} is empty, leaves the \meta{false code} in the
+input stream.  The value of the \meta{token list variable} is
+not defined in this case and should not be relied upon.  If the
+\meta{sequence} is non-empty, stores the left-most item from the
+\meta{sequence}
+in the \meta{token list variable} without removing it from the
+\meta{sequence}, then leaves the \meta{true code} in the input stream.
+The \meta{token list variable} is assigned locally.
+\begin{demohigh}
+\SeqSetFromClist \lTmpaSeq {two,three,four}
+\SeqGetLeftTF \lTmpaSeq \lTmpaTl {\Result{Yes}} {\Result{No}}
+\end{demohigh}
+\end{function}
+
+\begin{function}{\SeqGetRight}
 \begin{syntax}
 \cs{SeqGetRight} \meta{sequence} \meta{token list variable}
-\cs{SeqGetRightT} \meta{sequence} \meta{token list variable} \Arg{true code}
-\cs{SeqGetRightF} \meta{sequence} \meta{token list variable} \Arg{false code}
-\cs{SeqGetRightTF} \meta{sequence} \meta{token list variable} \Arg{true code} \Arg{false code}
 \end{syntax}
 Stores the right-most item from a \meta{sequence} in the
 \meta{token list variable} without removing it from the
 \meta{sequence}. The \meta{token list variable} is assigned locally.
-%If \meta{sequence} is empty the \meta{token list variable}
-%is set to the special marker \cs{qNoValue}.
+If \meta{sequence} is empty the \meta{token list variable}
+is set to the special marker \cs{qNoValue}.
 \begin{demohigh}
 \SeqSetFromClist \lTmpaSeq {two,three,four}
 \SeqGetRight \lTmpaSeq \lTmpaTl
@@ -502,19 +545,36 @@ Stores the right-most item from a \meta{sequence} in the
 \end{demohigh}
 \end{function}
 
-\begin{function}{\SeqPopLeft,\SeqPopLeftT,\SeqPopLeftF,\SeqPopLeftTF}
+\begin{function}{\SeqGetRightT,\SeqGetRightF,\SeqGetRightTF}
+\begin{syntax}
+\cs{SeqGetRightT} \meta{sequence} \meta{token list variable} \Arg{true code}
+\cs{SeqGetRightF} \meta{sequence} \meta{token list variable} \Arg{false code}
+\cs{SeqGetRightTF} \meta{sequence} \meta{token list variable} \Arg{true code} \Arg{false code}
+\end{syntax}
+If the \meta{sequence} is empty, leaves the \meta{false code} in the
+input stream.  The value of the \meta{token list variable} is
+not defined in this case and should not be relied upon.  If the
+\meta{sequence} is non-empty, stores the right-most item from the
+\meta{sequence}
+in the \meta{token list variable} without removing it from the
+\meta{sequence}, then leaves the \meta{true code} in the input stream.
+The \meta{token list variable} is assigned locally.
+\begin{demohigh}
+\SeqSetFromClist \lTmpaSeq {two,three,four}
+\SeqGetRightTF \lTmpaSeq \lTmpaTl {\Result{Yes}} {\Result{No}}
+\end{demohigh}
+\end{function}
+
+\begin{function}{\SeqPopLeft}
 \begin{syntax}
 \cs{SeqPopLeft} \meta{sequence} \meta{token list variable}
-\cs{SeqPopLeftT} \meta{sequence} \meta{token list variable} \Arg{true code}
-\cs{SeqPopLeftF} \meta{sequence} \meta{token list variable} \Arg{false code}
-\cs{SeqPopLeftTF} \meta{sequence} \meta{token list variable} \Arg{true code} \Arg{false code}
 \end{syntax}
 Pops the left-most item from a \meta{sequence} into the
 \meta{token list variable}, \emph{i.e.} removes the item from the
 sequence and stores it in the \meta{token list variable}.
 The assignment of the \meta{token list variable} is local.
-%If \meta{sequence} is empty the \meta{token list variable}
-%is set to the special marker \cs{qNoValue}.
+If \meta{sequence} is empty the \meta{token list variable}
+is set to the special marker \cs{qNoValue}.
 \begin{demohigh}
 \SeqSetFromClist \lTmpaSeq {two,three,four}
 \SeqPopLeft \lTmpaSeq \lTmpaTl
@@ -522,23 +582,56 @@ The assignment of the \meta{token list variable} is local.
 \end{demohigh}
 \end{function}
 
-\begin{function}{\SeqPopRight,\SeqPopRightT,\SeqPopRightF,\SeqPopRightTF}
+\begin{function}{\SeqPopLeftT,\SeqPopLeftF,\SeqPopLeftTF}
+\begin{syntax}
+\cs{SeqPopLeftT} \meta{sequence} \meta{token list variable} \Arg{true code}
+\cs{SeqPopLeftF} \meta{sequence} \meta{token list variable} \Arg{false code}
+\cs{SeqPopLeftTF} \meta{sequence} \meta{token list variable} \Arg{true code} \Arg{false code}
+\end{syntax}
+If the \meta{sequence} is empty, leaves the \meta{false code} in the
+input stream.  The value of the \meta{token list variable} is
+not defined in this case and should not be relied upon.  If the
+\meta{sequence} is non-empty, pops the left-most item from the \meta{sequence}
+in the \meta{token list variable}, \emph{i.e.} removes the item from the
+\meta{sequence}, then leaves the \meta{true code} in the input stream.
+The \meta{token list variable} is assigned locally.
+\begin{demohigh}
+\SeqPopLeftTF \cEmptySeq \lTmpaTl {\Result{Yes}} {\Result{No}}
+\end{demohigh}
+\end{function}
+
+\begin{function}{\SeqPopRight}
 \begin{syntax}
 \cs{SeqPopRight} \meta{sequence} \meta{token list variable}
-\cs{SeqPopRightT} \meta{sequence} \meta{token list variable} \Arg{true code}
-\cs{SeqPopRightF} \meta{sequence} \meta{token list variable} \Arg{false code}
-\cs{SeqPopRightTF} \meta{sequence} \meta{token list variable} \Arg{true code} \Arg{false code}
 \end{syntax}
 Pops the right-most item from a \meta{sequence} into the
 \meta{token list variable}, \emph{i.e.} removes the item from the
 sequence and stores it in the \meta{token list variable}.
 The assignment of the \meta{token list variable} is local.
-%If \meta{sequence} is empty the \meta{token list variable}
-%is set to the special marker \cs{qNoValue}.
+If \meta{sequence} is empty the \meta{token list variable}
+is set to the special marker \cs{qNoValue}.
 \begin{demohigh}
 \SeqSetFromClist \lTmpaSeq {two,three,four}
 \SeqPopRight \lTmpaSeq \lTmpaTl
 \SeqVarJoin \lTmpaSeq {,}
+\end{demohigh}
+\end{function}
+
+\begin{function}{\SeqPopRightT,\SeqPopRightF,\SeqPopRightTF}
+\begin{syntax}
+\cs{SeqPopRightT} \meta{sequence} \meta{token list variable} \Arg{true code}
+\cs{SeqPopRightF} \meta{sequence} \meta{token list variable} \Arg{false code}
+\cs{SeqPopRightTF} \meta{sequence} \meta{token list variable} \Arg{true code} \Arg{false code}
+\end{syntax}
+If the \meta{sequence} is empty, leaves the \meta{false code} in the
+input stream.  The value of the \meta{token list variable} is
+not defined in this case and should not be relied upon.  If the
+\meta{sequence} is non-empty, pops the right-most item from the \meta{sequence}
+in the \meta{token list variable}, \emph{i.e.} removes the item from the
+\meta{sequence}, then leaves the \meta{true code} in the input stream.
+The \meta{token list variable} is assigned locally.
+\begin{demohigh}
+\SeqPopRightTF \cEmptySeq \lTmpaTl {\Result{Yes}} {\Result{No}}
 \end{demohigh}
 \end{function}
 

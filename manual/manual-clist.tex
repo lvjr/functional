@@ -369,36 +369,59 @@ intended to be mixed with the general ordered data functions detailed
 in the previous section: a comma list should either be used as an
 ordered data type or as a stack, but not in both ways.
  
-\begin{function}{\ClistGet,\ClistGetTF}
+\begin{function}{\ClistGet}
 \begin{syntax}
 \cs{ClistGet} \meta{comma list} \meta{token list variable}
+\end{syntax}
+Stores the left-most item from the \meta{comma list} in the
+\meta{token list variable} without removing it from the
+\meta{comma list}. The \meta{token list variable} is assigned locally.
+If the \meta{comma list} is empty the
+\meta{token list variable} is set to the marker value \cs{qNoValue}.
+\end{function}
+
+\begin{function}{\ClistGetT,\ClistGetF,\ClistGetTF}
+\begin{syntax}
 \cs{ClistGetT} \meta{comma list} \meta{token list variable} \meta{true code}
 \cs{ClistGetF} \meta{comma list} \meta{token list variable} \meta{false code}
 \cs{ClistGetTF} \meta{comma list} \meta{token list variable} \meta{true code} \meta{false code}
 \end{syntax}
-Stores the left-most item from a \meta{comma list} in the
-\meta{token list variable} without removing it from the
-\meta{comma list}. The \meta{token list variable} is assigned locally.
-%In the non-branching version, if the \meta{comma list} is empty the
-%\meta{token list variable} is set to the marker value \cs{qNoValue}.
+If the \meta{comma list} is empty, leaves the \meta{false code} in the
+input stream.  The value of the \meta{token list variable} is
+not defined in this case and should not be relied upon.  If the
+\meta{comma list} is non-empty, stores the left-most item from the
+\meta{comma list} in the \meta{token list variable} without removing
+it from the \meta{comma list}.
+The \meta{token list variable} is assigned locally.
 \end{function}
- 
-\begin{function}{\ClistPop,\ClistPopT,\ClistPopF,\ClistPopTF}
+
+\begin{function}{\ClistPop}
 \begin{syntax}
 \cs{ClistPop} \meta{comma list} \meta{token list variable}
-\cs{ClistPopT} \meta{comma list} \meta{token list variable} \Arg{true code}
-\cs{ClistPopF} \meta{comma list} \meta{token list variable} \Arg{false code}
-\cs{ClistPopTF} \meta{comma list} \meta{token list variable} \Arg{true code} \Arg{false code}
 \end{syntax}
 Pops the left-most item from a \meta{comma list} into the
 \meta{token list variable}, \emph{i.e.} removes the item from the
 comma list and stores it in the \meta{token list variable}.
 The assignment of the \meta{token list variable} is local.
-If the \meta{comma list} is empty,
-the value of the \meta{token list variable} is
-not defined in this case and should not be relied upon. 
+If the \meta{comma list} is empty the
+\meta{token list variable} is set to the marker value \cs{qNoValue}.
 \end{function}
- 
+
+\begin{function}{\ClistPopT,\ClistPopF,\ClistPopTF}
+\begin{syntax}
+\cs{ClistPopT} \meta{comma list} \meta{token list variable} \Arg{true code}
+\cs{ClistPopF} \meta{comma list} \meta{token list variable} \Arg{false code}
+\cs{ClistPopTF} \meta{comma list} \meta{token list variable} \Arg{true code} \Arg{false code}
+\end{syntax}
+If the \meta{comma list} is empty, leaves the \meta{false code} in the
+input stream.  The value of the \meta{token list variable} is
+not defined in this case and should not be relied upon.  If the
+\meta{comma list} is non-empty, pops the top item from the
+\meta{comma list} in the \meta{token list variable}, \emph{i.e.} removes
+the item from the \meta{comma list}.
+The \meta{token list variable} is assigned locally.
+\end{function}
+
 \begin{function}{\ClistPush}
 \begin{syntax}
 \cs{ClistPush} \meta{comma list} \Arg{items}

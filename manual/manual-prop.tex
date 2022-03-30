@@ -312,18 +312,15 @@ nothing is returned.
 %\end{texnote}
 \end{function}
 
-\begin{function}{\PropGet,\PropGetT,\PropGetF,\PropGetTF}
+\begin{function}{\PropGet}
 \begin{syntax}
 \cs{PropGet} \meta{property list} \Arg{key} \meta{token list variable}
-\cs{PropGetT} \meta{property list} \Arg{key} \meta{token list variable} \Arg{true code}
-\cs{PropGetF} \meta{property list} \Arg{key} \meta{token list variable} \Arg{false code}
-\cs{PropGetTF} \meta{property list} \Arg{key} \meta{token list variable} \Arg{true code} \Arg{false code}
 \end{syntax}
 Recovers the \meta{value} stored with \meta{key} from the \meta{property list},
 and places this in the \meta{token list variable}.
-%If the \meta{key} is not found in the
-%\meta{property list} then the \meta{token list variable} is set
-%to the special marker \cs{qNoValue}.
+If the \meta{key} is not found in the
+\meta{property list} then the \meta{token list variable} is set
+to the special marker \cs{qNoValue}.
 The assignment of the \meta{token list variable} is local.
 \begin{demohigh}
 \PropSetFromKeyval \lTmpaProp {key1=one,key2=two,key3=three}
@@ -332,18 +329,35 @@ The assignment of the \meta{token list variable} is local.
 \end{demohigh}
 \end{function}
 
-\begin{function}{\PropPop,\PropPopT,\PropPopF,\PropPopTF}
+\begin{function}{\PropGetT,\PropGetF,\PropGetTF}
 \begin{syntax}
-\cs{PropPop} \meta{property list} \Arg{key} \meta{token list variable} \Arg{true code} \Arg{false code}
-\cs{PropPopT} \meta{property list} \Arg{key} \meta{token list variable} \Arg{true code}
-\cs{PropPopF} \meta{property list} \Arg{key} \meta{token list variable} \Arg{false code}
-\cs{PropPopTF} \meta{property list} \Arg{key} \meta{token list variable} \Arg{true code} \Arg{false code}
+\cs{PropGetT} \meta{property list} \Arg{key} \meta{token list variable} \Arg{true code}
+\cs{PropGetF} \meta{property list} \Arg{key} \meta{token list variable} \Arg{false code}
+\cs{PropGetTF} \meta{property list} \Arg{key} \meta{token list variable} \Arg{true code} \Arg{false code}
+\end{syntax}
+If the \meta{key} is not present in the \meta{property list}, leaves
+the \meta{false code} in the input stream.  The value of the
+\meta{token list variable} is not defined in this case and should
+not be relied upon.  If the \meta{key} is present in the
+\meta{property list}, stores the corresponding \meta{value} in the
+\meta{token list variable} without removing it from the
+\meta{property list}, then leaves the \meta{true code} in the input
+stream.  The \meta{token list variable} is assigned locally.
+\begin{demohigh}
+\PropSetFromKeyval \lTmpaProp {key1=one,key2=two,key3=three}
+\PropGetTF \lTmpaProp {key2} \lTmpaTl {\Result{Yes}} {\Result{No}}
+\end{demohigh}
+\end{function}
+
+\begin{function}{\PropPop}
+\begin{syntax}
+\cs{PropPop} \meta{property list} \Arg{key} \meta{token list variable}
 \end{syntax}
 Recovers the \meta{value} stored with \meta{key} from the \meta{property list},
 and places this in the \meta{token list variable}.
-%If the \meta{key} is not found in the
-%\meta{property list} then the \meta{token list variable} is set
-%to the special marker \cs{qNoValue}.
+If the \meta{key} is not found in the
+\meta{property list} then the \meta{token list variable} is set
+to the special marker \cs{qNoValue}.
 The \meta{key} and \meta{value} are then deleted from the property list.
 The assignment of the \meta{token list variable} is local.
 \begin{demohigh}
@@ -351,6 +365,25 @@ The assignment of the \meta{token list variable} is local.
 \PropPop \lTmpaProp {key2} \lTmpaTl
 Pop: \TlUse \lTmpaTl.
 Count: \PropVarCount \lTmpaProp.
+\end{demohigh}
+\end{function}
+
+\begin{function}{\PropPopT,\PropPopF,\PropPopTF}
+\begin{syntax}
+\cs{PropPopT} \meta{property list} \Arg{key} \meta{token list variable} \Arg{true code}
+\cs{PropPopF} \meta{property list} \Arg{key} \meta{token list variable} \Arg{false code}
+\cs{PropPopTF} \meta{property list} \Arg{key} \meta{token list variable} \Arg{true code} \Arg{false code}
+\end{syntax}
+If the \meta{key} is not present in the \meta{property list}, leaves
+the \meta{false code} in the input stream.  The value of the
+\meta{token list variable} is not defined in this case and should
+not be relied upon.  If the \meta{key} is present in
+the \meta{property list}, pops the corresponding \meta{value}
+in the \meta{token list variable}, \emph{i.e.} removes the item from
+The \meta{token list variable} is assigned locally.
+\begin{demohigh}
+\PropSetFromKeyval \lTmpaProp {key1=one,key2=two,key3=three}
+\PropPopTF \lTmpaProp {key2} \lTmpaTl {\Result{Yes}} {\Result{No}}
 \end{demohigh}
 \end{function}
 

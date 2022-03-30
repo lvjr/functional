@@ -4137,36 +4137,59 @@ intended to be mixed with the general ordered data functions detailed
 in the previous section: a comma list should either be used as an
 ordered data type or as a stack, but not in both ways.
  
-\begin{function}{\ClistGet,\ClistGetTF}
+\begin{function}{\ClistGet}
 \begin{syntax}
 \cs{ClistGet} \meta{comma list} \meta{token list variable}
+\end{syntax}
+Stores the left-most item from the \meta{comma list} in the
+\meta{token list variable} without removing it from the
+\meta{comma list}. The \meta{token list variable} is assigned locally.
+If the \meta{comma list} is empty the
+\meta{token list variable} is set to the marker value \cs{qNoValue}.
+\end{function}
+
+\begin{function}{\ClistGetT,\ClistGetF,\ClistGetTF}
+\begin{syntax}
 \cs{ClistGetT} \meta{comma list} \meta{token list variable} \meta{true code}
 \cs{ClistGetF} \meta{comma list} \meta{token list variable} \meta{false code}
 \cs{ClistGetTF} \meta{comma list} \meta{token list variable} \meta{true code} \meta{false code}
 \end{syntax}
-Stores the left-most item from a \meta{comma list} in the
-\meta{token list variable} without removing it from the
-\meta{comma list}. The \meta{token list variable} is assigned locally.
-%In the non-branching version, if the \meta{comma list} is empty the
-%\meta{token list variable} is set to the marker value \cs{qNoValue}.
+If the \meta{comma list} is empty, leaves the \meta{false code} in the
+input stream.  The value of the \meta{token list variable} is
+not defined in this case and should not be relied upon.  If the
+\meta{comma list} is non-empty, stores the left-most item from the
+\meta{comma list} in the \meta{token list variable} without removing
+it from the \meta{comma list}.
+The \meta{token list variable} is assigned locally.
 \end{function}
- 
-\begin{function}{\ClistPop,\ClistPopT,\ClistPopF,\ClistPopTF}
+
+\begin{function}{\ClistPop}
 \begin{syntax}
 \cs{ClistPop} \meta{comma list} \meta{token list variable}
-\cs{ClistPopT} \meta{comma list} \meta{token list variable} \Arg{true code}
-\cs{ClistPopF} \meta{comma list} \meta{token list variable} \Arg{false code}
-\cs{ClistPopTF} \meta{comma list} \meta{token list variable} \Arg{true code} \Arg{false code}
 \end{syntax}
 Pops the left-most item from a \meta{comma list} into the
 \meta{token list variable}, \emph{i.e.} removes the item from the
 comma list and stores it in the \meta{token list variable}.
 The assignment of the \meta{token list variable} is local.
-If the \meta{comma list} is empty,
-the value of the \meta{token list variable} is
-not defined in this case and should not be relied upon. 
+If the \meta{comma list} is empty the
+\meta{token list variable} is set to the marker value \cs{qNoValue}.
 \end{function}
- 
+
+\begin{function}{\ClistPopT,\ClistPopF,\ClistPopTF}
+\begin{syntax}
+\cs{ClistPopT} \meta{comma list} \meta{token list variable} \Arg{true code}
+\cs{ClistPopF} \meta{comma list} \meta{token list variable} \Arg{false code}
+\cs{ClistPopTF} \meta{comma list} \meta{token list variable} \Arg{true code} \Arg{false code}
+\end{syntax}
+If the \meta{comma list} is empty, leaves the \meta{false code} in the
+input stream.  The value of the \meta{token list variable} is
+not defined in this case and should not be relied upon.  If the
+\meta{comma list} is non-empty, pops the top item from the
+\meta{comma list} in the \meta{token list variable}, \emph{i.e.} removes
+the item from the \meta{comma list}.
+The \meta{token list variable} is assigned locally.
+\end{function}
+
 \begin{function}{\ClistPush}
 \begin{syntax}
 \cs{ClistPush} \meta{comma list} \Arg{items}
@@ -4774,18 +4797,15 @@ intended to be mixed with the general ordered data functions detailed
 in the previous section: a sequence should either be used as an
 ordered data type or as a stack, but not in both ways.
 
-\begin{function}{\SeqGet,\SeqGetT,\SeqGetF,\SeqGetTF}
+\begin{function}{\SeqGet}
 \begin{syntax}
 \cs{SeqGet} \meta{sequence} \meta{token list variable}
-\cs{SeqGetT} \meta{sequence} \meta{token list variable} \Arg{true code}
-\cs{SeqGetF} \meta{sequence} \meta{token list variable} \Arg{false code}
-\cs{SeqGetTF} \meta{sequence} \meta{token list variable} \Arg{true code} \Arg{false code}
 \end{syntax}
 Reads the top item from a \meta{sequence} into the
 \meta{token list variable} without removing it from the
 \meta{sequence}. The \meta{token list variable} is assigned locally.
-%If \meta{sequence} is empty the \meta{token list variable} is set to
-%the special marker \cs{qNoValue}.
+If \meta{sequence} is empty the \meta{token list variable} is set to
+the special marker \cs{qNoValue}.
 \begin{demohigh}
 \SeqSetFromClist \lTmpaSeq {two,three,four}
 \SeqGet \lTmpaSeq \lTmpaTl
@@ -4793,21 +4813,53 @@ Reads the top item from a \meta{sequence} into the
 \end{demohigh}
 \end{function}
 
-\begin{function}{\SeqPop,\SeqPopT,\SeqPopF,\SeqPopTF}
+\begin{function}{\SeqGetT,\SeqGetF,\SeqGetTF}
+\begin{syntax}
+\cs{SeqGetT} \meta{sequence} \meta{token list variable} \Arg{true code}
+\cs{SeqGetF} \meta{sequence} \meta{token list variable} \Arg{false code}
+\cs{SeqGetTF} \meta{sequence} \meta{token list variable} \Arg{true code} \Arg{false code}
+\end{syntax}
+If the \meta{sequence} is empty, leaves the \meta{false code} in the
+input stream.  The value of the \meta{token list variable} is
+not defined in this case and should not be relied upon.  If the
+\meta{sequence} is non-empty, stores the top item from a
+\meta{sequence} in the \meta{token list variable} without removing it from
+the \meta{sequence}. The \meta{token list variable} is assigned locally.
+\begin{demohigh}
+\SeqSetFromClist \lTmpaSeq {two,three,four}
+\SeqGetTF \lTmpaSeq \lTmpaTl {\Result{Yes}} {\Result{No}}
+\end{demohigh}
+\end{function}
+
+\begin{function}{\SeqPop}
 \begin{syntax}
 \cs{SeqPop} \meta{sequence} \meta{token list variable}
-\cs{SeqPopT} \meta{sequence} \meta{token list variable} \Arg{true code}
-\cs{SeqPopF} \meta{sequence} \meta{token list variable} \Arg{false code}
-\cs{SeqPopTF} \meta{sequence} \meta{token list variable} \Arg{true code} \Arg{false code}
 \end{syntax}
 Pops the top item from a \meta{sequence} into the
 \meta{token list variable}. the \meta{token list variable} is assigned locally.
-%If \meta{sequence} is empty the \meta{token list variable} is set to
-%the special marker \cs{qNoValue}.
+If \meta{sequence} is empty the \meta{token list variable} is set to
+the special marker \cs{qNoValue}.
 \begin{demohigh}
 \SeqSetFromClist \lTmpaSeq {two,three,four}
 \SeqPop \lTmpaSeq \lTmpaTl
 \SeqVarJoin \lTmpaSeq {,}
+\end{demohigh}
+\end{function}
+
+\begin{function}{\SeqPopT,\SeqPopF,\SeqPopTF}
+\begin{syntax}
+\cs{SeqPopT} \meta{sequence} \meta{token list variable} \Arg{true code}
+\cs{SeqPopF} \meta{sequence} \meta{token list variable} \Arg{false code}
+\cs{SeqPopTF} \meta{sequence} \meta{token list variable} \Arg{true code} \Arg{false code}
+\end{syntax}
+If the \meta{sequence} is empty, leaves the \meta{false code} in the
+input stream.  The value of the \meta{token list variable} is
+not defined in this case and should not be relied upon.  If the
+\meta{sequence} is non-empty, pops the top item from the \meta{sequence}
+in the \meta{token list variable}, \emph{i.e.} removes the item from the
+\meta{sequence}. The \meta{token list variable} is assigned locally.
+\begin{demohigh}
+\SeqPopTF \cEmptySeq \lTmpaTl {\Result{Yes}} {\Result{No}}
 \end{demohigh}
 \end{function}
 
@@ -4832,18 +4884,15 @@ For implementation reasons, the actions at the left of the sequence are
 faster than those acting on the right. These functions all assign the
 recovered material locally.
 
-\begin{function}{\SeqGetLeft,\SeqGetLeftT,\SeqGetLeftF,\SeqGetLeftTF}
+\begin{function}{\SeqGetLeft}
 \begin{syntax}
 \cs{SeqGetLeft} \meta{sequence} \meta{token list variable}
-\cs{SeqGetLeftT} \meta{sequence} \meta{token list variable} \Arg{true code}
-\cs{SeqGetLeftF} \meta{sequence} \meta{token list variable} \Arg{false code}
-\cs{SeqGetLeftTF} \meta{sequence} \meta{token list variable} \Arg{true code} \Arg{false code}
 \end{syntax}
 Stores the left-most item from a \meta{sequence} in the
 \meta{token list variable} without removing it from the
 \meta{sequence}. The \meta{token list variable} is assigned locally.
-%If \meta{sequence} is empty the \meta{token list variable}
-%is set to the special marker \cs{qNoValue}.
+If \meta{sequence} is empty the \meta{token list variable}
+is set to the special marker \cs{qNoValue}.
 \begin{demohigh}
 \SeqSetFromClist \lTmpaSeq {two,three,four}
 \SeqGetLeft \lTmpaSeq \lTmpaTl
@@ -4851,18 +4900,35 @@ Stores the left-most item from a \meta{sequence} in the
 \end{demohigh}
 \end{function}
 
-\begin{function}{\SeqGetRight,\SeqGetRightT,\SeqGetRightF,\SeqGetRightTF}
+\begin{function}{\SeqGetLeftT,\SeqGetLeftF,\SeqGetLeftTF}
+\begin{syntax}
+\cs{SeqGetLeftT} \meta{sequence} \meta{token list variable} \Arg{true code}
+\cs{SeqGetLeftF} \meta{sequence} \meta{token list variable} \Arg{false code}
+\cs{SeqGetLeftTF} \meta{sequence} \meta{token list variable} \Arg{true code} \Arg{false code}
+\end{syntax}
+If the \meta{sequence} is empty, leaves the \meta{false code} in the
+input stream.  The value of the \meta{token list variable} is
+not defined in this case and should not be relied upon.  If the
+\meta{sequence} is non-empty, stores the left-most item from the
+\meta{sequence}
+in the \meta{token list variable} without removing it from the
+\meta{sequence}, then leaves the \meta{true code} in the input stream.
+The \meta{token list variable} is assigned locally.
+\begin{demohigh}
+\SeqSetFromClist \lTmpaSeq {two,three,four}
+\SeqGetLeftTF \lTmpaSeq \lTmpaTl {\Result{Yes}} {\Result{No}}
+\end{demohigh}
+\end{function}
+
+\begin{function}{\SeqGetRight}
 \begin{syntax}
 \cs{SeqGetRight} \meta{sequence} \meta{token list variable}
-\cs{SeqGetRightT} \meta{sequence} \meta{token list variable} \Arg{true code}
-\cs{SeqGetRightF} \meta{sequence} \meta{token list variable} \Arg{false code}
-\cs{SeqGetRightTF} \meta{sequence} \meta{token list variable} \Arg{true code} \Arg{false code}
 \end{syntax}
 Stores the right-most item from a \meta{sequence} in the
 \meta{token list variable} without removing it from the
 \meta{sequence}. The \meta{token list variable} is assigned locally.
-%If \meta{sequence} is empty the \meta{token list variable}
-%is set to the special marker \cs{qNoValue}.
+If \meta{sequence} is empty the \meta{token list variable}
+is set to the special marker \cs{qNoValue}.
 \begin{demohigh}
 \SeqSetFromClist \lTmpaSeq {two,three,four}
 \SeqGetRight \lTmpaSeq \lTmpaTl
@@ -4870,19 +4936,36 @@ Stores the right-most item from a \meta{sequence} in the
 \end{demohigh}
 \end{function}
 
-\begin{function}{\SeqPopLeft,\SeqPopLeftT,\SeqPopLeftF,\SeqPopLeftTF}
+\begin{function}{\SeqGetRightT,\SeqGetRightF,\SeqGetRightTF}
+\begin{syntax}
+\cs{SeqGetRightT} \meta{sequence} \meta{token list variable} \Arg{true code}
+\cs{SeqGetRightF} \meta{sequence} \meta{token list variable} \Arg{false code}
+\cs{SeqGetRightTF} \meta{sequence} \meta{token list variable} \Arg{true code} \Arg{false code}
+\end{syntax}
+If the \meta{sequence} is empty, leaves the \meta{false code} in the
+input stream.  The value of the \meta{token list variable} is
+not defined in this case and should not be relied upon.  If the
+\meta{sequence} is non-empty, stores the right-most item from the
+\meta{sequence}
+in the \meta{token list variable} without removing it from the
+\meta{sequence}, then leaves the \meta{true code} in the input stream.
+The \meta{token list variable} is assigned locally.
+\begin{demohigh}
+\SeqSetFromClist \lTmpaSeq {two,three,four}
+\SeqGetRightTF \lTmpaSeq \lTmpaTl {\Result{Yes}} {\Result{No}}
+\end{demohigh}
+\end{function}
+
+\begin{function}{\SeqPopLeft}
 \begin{syntax}
 \cs{SeqPopLeft} \meta{sequence} \meta{token list variable}
-\cs{SeqPopLeftT} \meta{sequence} \meta{token list variable} \Arg{true code}
-\cs{SeqPopLeftF} \meta{sequence} \meta{token list variable} \Arg{false code}
-\cs{SeqPopLeftTF} \meta{sequence} \meta{token list variable} \Arg{true code} \Arg{false code}
 \end{syntax}
 Pops the left-most item from a \meta{sequence} into the
 \meta{token list variable}, \emph{i.e.} removes the item from the
 sequence and stores it in the \meta{token list variable}.
 The assignment of the \meta{token list variable} is local.
-%If \meta{sequence} is empty the \meta{token list variable}
-%is set to the special marker \cs{qNoValue}.
+If \meta{sequence} is empty the \meta{token list variable}
+is set to the special marker \cs{qNoValue}.
 \begin{demohigh}
 \SeqSetFromClist \lTmpaSeq {two,three,four}
 \SeqPopLeft \lTmpaSeq \lTmpaTl
@@ -4890,23 +4973,56 @@ The assignment of the \meta{token list variable} is local.
 \end{demohigh}
 \end{function}
 
-\begin{function}{\SeqPopRight,\SeqPopRightT,\SeqPopRightF,\SeqPopRightTF}
+\begin{function}{\SeqPopLeftT,\SeqPopLeftF,\SeqPopLeftTF}
+\begin{syntax}
+\cs{SeqPopLeftT} \meta{sequence} \meta{token list variable} \Arg{true code}
+\cs{SeqPopLeftF} \meta{sequence} \meta{token list variable} \Arg{false code}
+\cs{SeqPopLeftTF} \meta{sequence} \meta{token list variable} \Arg{true code} \Arg{false code}
+\end{syntax}
+If the \meta{sequence} is empty, leaves the \meta{false code} in the
+input stream.  The value of the \meta{token list variable} is
+not defined in this case and should not be relied upon.  If the
+\meta{sequence} is non-empty, pops the left-most item from the \meta{sequence}
+in the \meta{token list variable}, \emph{i.e.} removes the item from the
+\meta{sequence}, then leaves the \meta{true code} in the input stream.
+The \meta{token list variable} is assigned locally.
+\begin{demohigh}
+\SeqPopLeftTF \cEmptySeq \lTmpaTl {\Result{Yes}} {\Result{No}}
+\end{demohigh}
+\end{function}
+
+\begin{function}{\SeqPopRight}
 \begin{syntax}
 \cs{SeqPopRight} \meta{sequence} \meta{token list variable}
-\cs{SeqPopRightT} \meta{sequence} \meta{token list variable} \Arg{true code}
-\cs{SeqPopRightF} \meta{sequence} \meta{token list variable} \Arg{false code}
-\cs{SeqPopRightTF} \meta{sequence} \meta{token list variable} \Arg{true code} \Arg{false code}
 \end{syntax}
 Pops the right-most item from a \meta{sequence} into the
 \meta{token list variable}, \emph{i.e.} removes the item from the
 sequence and stores it in the \meta{token list variable}.
 The assignment of the \meta{token list variable} is local.
-%If \meta{sequence} is empty the \meta{token list variable}
-%is set to the special marker \cs{qNoValue}.
+If \meta{sequence} is empty the \meta{token list variable}
+is set to the special marker \cs{qNoValue}.
 \begin{demohigh}
 \SeqSetFromClist \lTmpaSeq {two,three,four}
 \SeqPopRight \lTmpaSeq \lTmpaTl
 \SeqVarJoin \lTmpaSeq {,}
+\end{demohigh}
+\end{function}
+
+\begin{function}{\SeqPopRightT,\SeqPopRightF,\SeqPopRightTF}
+\begin{syntax}
+\cs{SeqPopRightT} \meta{sequence} \meta{token list variable} \Arg{true code}
+\cs{SeqPopRightF} \meta{sequence} \meta{token list variable} \Arg{false code}
+\cs{SeqPopRightTF} \meta{sequence} \meta{token list variable} \Arg{true code} \Arg{false code}
+\end{syntax}
+If the \meta{sequence} is empty, leaves the \meta{false code} in the
+input stream.  The value of the \meta{token list variable} is
+not defined in this case and should not be relied upon.  If the
+\meta{sequence} is non-empty, pops the right-most item from the \meta{sequence}
+in the \meta{token list variable}, \emph{i.e.} removes the item from the
+\meta{sequence}, then leaves the \meta{true code} in the input stream.
+The \meta{token list variable} is assigned locally.
+\begin{demohigh}
+\SeqPopRightTF \cEmptySeq \lTmpaTl {\Result{Yes}} {\Result{No}}
 \end{demohigh}
 \end{function}
 
@@ -5444,18 +5560,15 @@ nothing is returned.
 %\end{texnote}
 \end{function}
 
-\begin{function}{\PropGet,\PropGetT,\PropGetF,\PropGetTF}
+\begin{function}{\PropGet}
 \begin{syntax}
 \cs{PropGet} \meta{property list} \Arg{key} \meta{token list variable}
-\cs{PropGetT} \meta{property list} \Arg{key} \meta{token list variable} \Arg{true code}
-\cs{PropGetF} \meta{property list} \Arg{key} \meta{token list variable} \Arg{false code}
-\cs{PropGetTF} \meta{property list} \Arg{key} \meta{token list variable} \Arg{true code} \Arg{false code}
 \end{syntax}
 Recovers the \meta{value} stored with \meta{key} from the \meta{property list},
 and places this in the \meta{token list variable}.
-%If the \meta{key} is not found in the
-%\meta{property list} then the \meta{token list variable} is set
-%to the special marker \cs{qNoValue}.
+If the \meta{key} is not found in the
+\meta{property list} then the \meta{token list variable} is set
+to the special marker \cs{qNoValue}.
 The assignment of the \meta{token list variable} is local.
 \begin{demohigh}
 \PropSetFromKeyval \lTmpaProp {key1=one,key2=two,key3=three}
@@ -5464,18 +5577,35 @@ The assignment of the \meta{token list variable} is local.
 \end{demohigh}
 \end{function}
 
-\begin{function}{\PropPop,\PropPopT,\PropPopF,\PropPopTF}
+\begin{function}{\PropGetT,\PropGetF,\PropGetTF}
 \begin{syntax}
-\cs{PropPop} \meta{property list} \Arg{key} \meta{token list variable} \Arg{true code} \Arg{false code}
-\cs{PropPopT} \meta{property list} \Arg{key} \meta{token list variable} \Arg{true code}
-\cs{PropPopF} \meta{property list} \Arg{key} \meta{token list variable} \Arg{false code}
-\cs{PropPopTF} \meta{property list} \Arg{key} \meta{token list variable} \Arg{true code} \Arg{false code}
+\cs{PropGetT} \meta{property list} \Arg{key} \meta{token list variable} \Arg{true code}
+\cs{PropGetF} \meta{property list} \Arg{key} \meta{token list variable} \Arg{false code}
+\cs{PropGetTF} \meta{property list} \Arg{key} \meta{token list variable} \Arg{true code} \Arg{false code}
+\end{syntax}
+If the \meta{key} is not present in the \meta{property list}, leaves
+the \meta{false code} in the input stream.  The value of the
+\meta{token list variable} is not defined in this case and should
+not be relied upon.  If the \meta{key} is present in the
+\meta{property list}, stores the corresponding \meta{value} in the
+\meta{token list variable} without removing it from the
+\meta{property list}, then leaves the \meta{true code} in the input
+stream.  The \meta{token list variable} is assigned locally.
+\begin{demohigh}
+\PropSetFromKeyval \lTmpaProp {key1=one,key2=two,key3=three}
+\PropGetTF \lTmpaProp {key2} \lTmpaTl {\Result{Yes}} {\Result{No}}
+\end{demohigh}
+\end{function}
+
+\begin{function}{\PropPop}
+\begin{syntax}
+\cs{PropPop} \meta{property list} \Arg{key} \meta{token list variable}
 \end{syntax}
 Recovers the \meta{value} stored with \meta{key} from the \meta{property list},
 and places this in the \meta{token list variable}.
-%If the \meta{key} is not found in the
-%\meta{property list} then the \meta{token list variable} is set
-%to the special marker \cs{qNoValue}.
+If the \meta{key} is not found in the
+\meta{property list} then the \meta{token list variable} is set
+to the special marker \cs{qNoValue}.
 The \meta{key} and \meta{value} are then deleted from the property list.
 The assignment of the \meta{token list variable} is local.
 \begin{demohigh}
@@ -5483,6 +5613,25 @@ The assignment of the \meta{token list variable} is local.
 \PropPop \lTmpaProp {key2} \lTmpaTl
 Pop: \TlUse \lTmpaTl.
 Count: \PropVarCount \lTmpaProp.
+\end{demohigh}
+\end{function}
+
+\begin{function}{\PropPopT,\PropPopF,\PropPopTF}
+\begin{syntax}
+\cs{PropPopT} \meta{property list} \Arg{key} \meta{token list variable} \Arg{true code}
+\cs{PropPopF} \meta{property list} \Arg{key} \meta{token list variable} \Arg{false code}
+\cs{PropPopTF} \meta{property list} \Arg{key} \meta{token list variable} \Arg{true code} \Arg{false code}
+\end{syntax}
+If the \meta{key} is not present in the \meta{property list}, leaves
+the \meta{false code} in the input stream.  The value of the
+\meta{token list variable} is not defined in this case and should
+not be relied upon.  If the \meta{key} is present in
+the \meta{property list}, pops the corresponding \meta{value}
+in the \meta{token list variable}, \emph{i.e.} removes the item from
+The \meta{token list variable} is assigned locally.
+\begin{demohigh}
+\PropSetFromKeyval \lTmpaProp {key1=one,key2=two,key3=three}
+\PropPopTF \lTmpaProp {key2} \lTmpaTl {\Result{Yes}} {\Result{No}}
 \end{demohigh}
 \end{function}
 
