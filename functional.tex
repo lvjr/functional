@@ -3806,6 +3806,9 @@ code and so should only be used for short-term storage.
 Creates a new \meta{comma list} or raises an error if the name is
 already taken. The declaration is global. The \meta{comma list}
 initially contains no items.
+\begin{codehigh}
+\ClistNew \lFooSomeClist
+\end{codehigh}
 \end{function}
  
 \begin{function}{\ClistConst}
@@ -3816,6 +3819,9 @@ Creates a new constant \meta{clist var} or raises an error
 if the name is already taken. The value of the
 \meta{clist var} is set globally to the
 \meta{comma list}.
+\begin{codehigh}
+\ClistConst \cFooSomeClist {one,two,three}
+\end{codehigh}
 \end{function}
 
 \begin{function}{\ClistVarJoin}
@@ -3827,7 +3833,6 @@ with the \meta{separator} between the items.
 %If the comma list has a single item, it is placed in the input stream,
 %and a comma list with no items produces no output.
 %An error is raised if the variable does not exist or if it is invalid.
-For example,
 \begin{demohigh}
 \ClistSet \lTmpaClist { a , b , , c , {de} , f }
 \ClistVarJoin \lTmpaClist { and }
@@ -3854,13 +3859,14 @@ the \meta{separator between two} and returns.
 %If the comma list has a single item, it is placed in the input stream,
 %and a comma list with no items produces no output.
 %An error is raised if the variable does not exist or if it is invalid.
-For example,
+\begin{demohigh}
+\ClistSet \lTmpaClist { a , b }
+\ClistVarJoinExtended \lTmpaClist { and } {, } {, and }
+\end{demohigh}
 \begin{demohigh}
 \ClistSet \lTmpaClist { a , b , , c , {de} , f }
 \ClistVarJoinExtended \lTmpaClist { and } {, } {, and }
 \end{demohigh}
-The first separator argument is not used in this case
-because the comma list has more than $2$ items.
 %\begin{texnote}
 %The result is returned within the \tn{unexpanded}
 %primitive (\cs{exp_not:n}), which means that the \meta{items}
@@ -3881,6 +3887,12 @@ both sides of each item, then a set of braces is removed if the
 resulting space-trimmed item is braced.  The \meta{separators} are
 then inserted in the same way as for \cs{ClistVarJoin} and
 \cs{ClistVarJoinExtended}, respectively.
+\begin{demohigh}
+\ClistJoinExtended { a , b } { and } {, } {, and }
+\end{demohigh}
+\begin{demohigh}
+\ClistJoinExtended { a , b , , c , {de} , f } { and } {, } {, and }
+\end{demohigh}
 %\begin{texnote}
 %The result is returned within the \tn{unexpanded}
 %primitive (\cs{exp_not:n}), which means that the \meta{items}
@@ -3897,6 +3909,9 @@ then inserted in the same way as for \cs{ClistVarJoin} and
 \end{syntax}
 Writes the entries in the comma list in the log file. See also
 \cs{ClistShow} which displays the result in the terminal.
+\begin{codehigh}
+\ClistLog {one,two,three}
+\end{codehigh}
 \end{function}
 
 \begin{function}{\ClistVarLog}
@@ -3905,6 +3920,10 @@ Writes the entries in the comma list in the log file. See also
 \end{syntax}
 Writes the entries in the \meta{comma list} in the log file. See
 also \cs{ClistVarShow} which displays the result in the terminal.
+\begin{codehigh}
+\ClistSet \lTmpaClist {one,two,three}
+\ClistVarLog \lTmpaClist
+\end{codehigh}
 \end{function}
 
 \begin{function}{\ClistShow}
@@ -3912,6 +3931,9 @@ also \cs{ClistVarShow} which displays the result in the terminal.
 \cs{ClistShow} \Arg{tokens}
 \end{syntax}
 Displays the entries in the comma list in the terminal.
+\begin{codehigh}
+\ClistShow {one,two,three}
+\end{codehigh}
 \end{function}
 
 \begin{function}{\ClistVarShow}
@@ -3919,6 +3941,10 @@ Displays the entries in the comma list in the terminal.
 \cs{ClistVarShow} \meta{comma list}
 \end{syntax}
 Displays the entries in the \meta{comma list} in the terminal.
+\begin{codehigh}
+\ClistSet \lTmpaClist {one,two,three}
+\ClistVarShow \lTmpaClist
+\end{codehigh}
 \end{function}
 
 \section{Setting Comma Lists}
@@ -3935,6 +3961,10 @@ item is braced.
 To store some \meta{tokens} as a single \meta{item} even if the
 \meta{tokens} contain commas or spaces, add a set of braces:
 \cs{ClistSet} \meta{comma list} \verb|{| \Arg{tokens} \verb|}|.
+\begin{demohigh}
+\ClistSet \lTmpaClist {one,two,three}
+\ClistVarJoin \lTmpaClist { and }
+\end{demohigh}
 \end{function}
 
 \begin{function}{\ClistSetEq}
@@ -3946,22 +3976,37 @@ Sets the content of \meta{comma list_1} equal to that of
 list variable, use \cs{TlSetEq}.  Conversely, setting a comma
 list variable to a token list is unadvisable unless one checks
 space-trimming and related issues.
+\begin{demohigh}
+\ClistSet \lTmpaClist {one,two,three,four}
+\ClistSetEq \lTmpbClist \lTmpaClist
+\ClistVarJoin \lTmpbClist { and }
+\end{demohigh}
 \end{function}
 
-%\begin{function}{\ClistSetFromSeq}
-%\begin{syntax}
-%\cs{ClistSetFromSeq} \meta{comma list} \meta{sequence}
-%\end{syntax}
-%Converts the data in the \meta{sequence} into a \meta{comma list}:
-%the original \meta{sequence} is unchanged.
-%Items which contain either spaces or commas are surrounded by braces.
-%\end{function}
+\begin{function}{\ClistSetFromSeq}
+\begin{syntax}
+\cs{ClistSetFromSeq} \meta{comma list} \meta{sequence}
+\end{syntax}
+Converts the data in the \meta{sequence} into a \meta{comma list}:
+the original \meta{sequence} is unchanged.
+Items which contain either spaces or commas are surrounded by braces.
+\begin{demohigh}
+\SeqPutRight \lTmpaSeq {one}
+\SeqPutRight \lTmpaSeq {two}
+\ClistSetFromSeq \lTmpaClist \lTmpaSeq
+\ClistVarJoin \lTmpaClist { and }
+\end{demohigh}
+\end{function}
 
 \begin{function}{\ClistClear}
 \begin{syntax}
 \cs{ClistClear} \meta{comma list}
 \end{syntax}
 Clears all items from the \meta{comma list}.
+\begin{codehigh}
+\ClistSet \lTmpaClist {one,two,three,four}
+\ClistClear \lTmpaClist
+\end{codehigh}
 \end{function}
 
 \begin{function}{\ClistClearNew}
@@ -3971,6 +4016,11 @@ Clears all items from the \meta{comma list}.
 Ensures that the \meta{comma list} exists globally by applying
 \cs{ClistNew} if necessary, then applies \cs{ClistClear} to leave
 the list empty.
+\begin{demohigh}
+\ClistClearNew \lFooSomeClist
+\ClistSet \lFooSomeClist {one,two,three}
+\ClistVarJoin \lFooSomeClist { and }
+\end{demohigh}
 \end{function}
 
 \begin{function}{\ClistConcat}
@@ -3980,6 +4030,12 @@ the list empty.
 Concatenates the content of \meta{comma list_2} and \meta{comma list_3}
 together and saves the result in \meta{comma list_1}. The items in
 \meta{comma list_2} are placed at the left side of the new comma list.
+\begin{demohigh}
+\ClistSet \lTmpbClist {one,two}
+\ClistSet \lTmpcClist {three,four}
+\ClistConcat \lTmpaClist \lTmpbClist \lTmpcClist
+\ClistVarJoin \lTmpaClist { + }
+\end{demohigh}
 \end{function}
 
 \begin{function}{\ClistPutLeft}
@@ -3993,6 +4049,11 @@ item is braced.
 To append some \meta{tokens} as a single \meta{item} even if the
 \meta{tokens} contain commas or spaces, add a set of braces:
 \cs{ClistPutLeft} \meta{comma list} \verb|{| \Arg{tokens} \verb|}|.
+\begin{demohigh}
+\ClistSet \lTmpaClist {one,two}
+\ClistPutLeft \lTmpaClist {zero}
+\ClistVarJoin \lTmpaClist { and }
+\end{demohigh}
 \end{function}
  
 \begin{function}{\ClistPutRight}
@@ -4006,6 +4067,11 @@ item is braced.
 To append some \meta{tokens} as a single \meta{item} even if the
 \meta{tokens} contain commas or spaces, add a set of braces:
 \cs{ClistPutRight} \meta{comma list} \verb|{| \Arg{tokens} \verb|}|.
+\begin{demohigh}
+\ClistSet \lTmpaClist {one,two}
+\ClistPutRight \lTmpaClist {three}
+\ClistVarJoin \lTmpaClist { and }
+\end{demohigh}
 \end{function}
  
 \section{Modifying Comma Lists}
@@ -4022,14 +4088,19 @@ entries.
 Removes duplicate items from the \meta{comma list}, leaving the
 left most copy of each item in the \meta{comma list}.  The \meta{item}
 comparison takes place on a token basis, as for \cs{TlIfEqTF}.
-\begin{texnote}
-This function iterates through every item in the \meta{comma list} and
-does a comparison with the \meta{items} already checked. It is therefore
-relatively slow with large comma lists.
-Furthermore, it may fail if any of the items in the
-\meta{comma list} contains \verb|{|, \verb|}|, or \verb|#|
-(assuming the usual \TeX{} category codes apply).
-\end{texnote}
+\begin{demohigh}
+\ClistSet \lTmpaClist {one,two,one,two,three}
+\ClistVarRemoveDuplicates \lTmpaClist
+\ClistVarJoin \lTmpaClist {,}
+\end{demohigh}
+%\begin{texnote}
+%This function iterates through every item in the \meta{comma list} and
+%does a comparison with the \meta{items} already checked. It is therefore
+%relatively slow with large comma lists.
+%Furthermore, it may fail if any of the items in the
+%\meta{comma list} contains \verb|{|, \verb|}|, or \verb|#|
+%(assuming the usual \TeX{} category codes apply).
+%\end{texnote}
 \end{function}
  
 \begin{function}{\ClistVarRemoveAll}
@@ -4039,10 +4110,15 @@ Furthermore, it may fail if any of the items in the
 Removes every occurrence of \meta{item} from the \meta{comma list}.
 The \meta{item} comparison takes place on a token basis, as for
 \cs{TlIfEqTF}.
-\begin{texnote}
-The function may fail if the \meta{item} contains \verb|{|, \verb|}|, or \verb|#|
-(assuming the usual \TeX{} category codes apply).
-\end{texnote}
+\begin{demohigh}
+\ClistSet \lTmpaClist {one,two,one,two,three}
+\ClistVarRemoveAll \lTmpaClist {two}
+\ClistVarJoin \lTmpaClist {,}
+\end{demohigh}
+%\begin{texnote}
+%The function may fail if the \meta{item} contains \verb|{|, \verb|}|, or \verb|#|
+%(assuming the usual \TeX{} category codes apply).
+%\end{texnote}
 \end{function}
  
 \begin{function}{\ClistVarReverse}
@@ -4050,6 +4126,11 @@ The function may fail if the \meta{item} contains \verb|{|, \verb|}|, or \verb|#
 \cs{ClistVarReverse} \meta{comma list}
 \end{syntax}
 Reverses the order of items stored in the \meta{comma list}.
+\begin{demohigh}
+\ClistSet \lTmpaClist {one,two,one,two,three}
+\ClistVarReverse \lTmpaClist
+\ClistVarJoin \lTmpaClist {,}
+\end{demohigh}
 \end{function}
  
 %\begin{function}{\ClistVarSort}
@@ -4073,6 +4154,10 @@ Returns the number of items in the \meta{comma list}
 as an \meta{integer denotation}. The total number of items
 in a \meta{comma list} includes those which are duplicates,
 \emph{i.e.} every item in a \meta{comma list} is counted.
+\begin{demohigh}
+\ClistSet \lTmpaClist {one,two,three,four}
+\ClistVarCount \lTmpaClist
+\end{demohigh}
 \end{function}
 
 \begin{function}{\ClistItem}
@@ -4086,6 +4171,10 @@ appropriate item from the comma list. If the
 bottom (right) of the comma list. When the \meta{integer expression}
 is larger than the number of items in the \meta{comma list} (as
 calculated by \cs{ClistCount}) then the function returns nothing.
+\begin{demohigh}
+\TlSet \lTmpaTl {\ClistItem {one,two,three,four} {3}}
+\TlUse \lTmpaTl
+\end{demohigh}
 %\begin{texnote}
 %The result is returned within the \tn{unexpanded}
 %primitive (\cs{exp_not:n}), which means that the \meta{item}
@@ -4105,6 +4194,11 @@ appropriate item from the comma list. If the
 bottom (right) of the comma list. When the \meta{integer expression}
 is larger than the number of items in the \meta{comma list} (as
 calculated by \cs{ClistVarCount}) then the function returns nothing.
+\begin{demohigh}
+\ClistSet \lTmpaClist {one,two,three,four}
+\TlSet \lTmpaTl {\ClistVarItem \lTmpaClist {3}}
+\TlUse \lTmpaTl
+\end{demohigh}
 %\begin{texnote}
 %The result is returned within the \tn{unexpanded}
 %primitive (\cs{exp_not:n}), which means that the \meta{item}
@@ -4120,6 +4214,12 @@ calculated by \cs{ClistVarCount}) then the function returns nothing.
 \end{syntax}
 Selects a pseudo-random item of the \meta{comma list}.
 If the \meta{comma list} has no item, the result is empty.
+\begin{demohigh}
+\TlSet \lTmpaTl {\ClistRandItem {one,two,three,four,five,six}}
+\TlUse \lTmpaTl
+\TlSet \lTmpaTl {\ClistRandItem {one,two,three,four,five,six}}
+\TlUse \lTmpaTl
+\end{demohigh}
 %\begin{texnote}
 %The result is returned within the \tn{unexpanded}
 %primitive (\cs{exp_not:n}), which means that the \meta{item}
@@ -4146,6 +4246,11 @@ Stores the left-most item from the \meta{comma list} in the
 \meta{comma list}. The \meta{token list variable} is assigned locally.
 If the \meta{comma list} is empty the
 \meta{token list variable} is set to the marker value \cs{qNoValue}.
+\begin{demohigh}
+\ClistSet \lTmpaClist {two,three,four}
+\ClistGet \lTmpaClist \lTmpaTl
+\TlUse \lTmpaTl
+\end{demohigh}
 \end{function}
 
 \begin{function}{\ClistGetT,\ClistGetF,\ClistGetTF}
@@ -4161,6 +4266,10 @@ not defined in this case and should not be relied upon.  If the
 \meta{comma list} in the \meta{token list variable} without removing
 it from the \meta{comma list}.
 The \meta{token list variable} is assigned locally.
+\begin{demohigh}
+\ClistSet \lTmpaClist {two,three,four}
+\ClistGetTF \lTmpaClist \lTmpaTl {\Result{Yes}} {\Result{No}}
+\end{demohigh}
 \end{function}
 
 \begin{function}{\ClistPop}
@@ -4173,6 +4282,11 @@ comma list and stores it in the \meta{token list variable}.
 The assignment of the \meta{token list variable} is local.
 If the \meta{comma list} is empty the
 \meta{token list variable} is set to the marker value \cs{qNoValue}.
+\begin{demohigh}
+\ClistSet \lTmpaClist {two,three,four}
+\ClistPop \lTmpaClist \lTmpaTl
+\ClistVarJoin \lTmpaClist {,}
+\end{demohigh}
 \end{function}
 
 \begin{function}{\ClistPopT,\ClistPopF,\ClistPopTF}
@@ -4188,6 +4302,10 @@ not defined in this case and should not be relied upon.  If the
 \meta{comma list} in the \meta{token list variable}, \emph{i.e.} removes
 the item from the \meta{comma list}.
 The \meta{token list variable} is assigned locally.
+\begin{demohigh}
+\ClistSet \lTmpaClist {two,three,four}
+\ClistPopTF \lTmpaClist \lTmpaTl {\Result{Yes}} {\Result{No}}
+\end{demohigh}
 \end{function}
 
 \begin{function}{\ClistPush}
@@ -4197,6 +4315,11 @@ The \meta{token list variable} is assigned locally.
 Adds the \Arg{items} to the top of the \meta{comma list}.
 Spaces are removed from both sides of each item as for any
 \texttt{n}-type comma list.
+\begin{demohigh}
+\ClistSet \lTmpaClist {two,three,four}
+\ClistPush \lTmpaClist {zero,one}
+\ClistVarJoin \lTmpaClist {|}
+\end{demohigh}
 \end{function}
 
 \section{Mapping over Comma Lists}
@@ -4267,6 +4390,14 @@ is not enforced.  The assignments to the \meta{variable} are local.
 Its value after the loop is the last \meta{item} in the \meta{comma
 list}, or its original value if there were no \meta{item}.  The
 \meta{items} are returned from left to right.
+\begin{demohigh}
+\IgnoreSpacesOn
+\ClistMapVariable {one,two,three} \lTmpiTl {
+  \TlPutRight \gTmpaTl {\Expand {(\lTmpiTl)}}
+}
+\TlUse \gTmpaTl
+\IgnoreSpacesOff
+\end{demohigh}
 \end{function}
  
 %\begin{function}{\ClistMapTokens,\ClistVarMapTokens}
@@ -4344,6 +4475,10 @@ list}, or its original value if there were no \meta{item}.  The
 \end{syntax}
 Tests whether the \meta{comma list} is currently defined.  This does
 not check that the \meta{comma list} really is a comma list.
+\begin{demohigh}
+\ClistIfExistTF \lTmpaClist {\Result{Yes}} {\Result{No}}
+\ClistIfExistTF \lFooUndefinedClist {\Result{Yes}} {\Result{No}}
+\end{demohigh}
 \end{function}
 
 \begin{function}{\ClistIfEmpty,\ClistIfEmptyTF}
@@ -4357,6 +4492,10 @@ comma-list functions, hence the comma list \verb|{ , ,, }| (without
 outer braces) is empty, while \verb|{ ,{},}| (without outer braces)
 contains one element, which happens to be empty: the comma-list
 is not empty.
+\begin{demohigh}
+\ClistIfEmptyTF {one,two} {\Result{Empty}} {\Result{NonEmpty}}
+\ClistIfEmptyTF { , } {\Result{Empty}} {\Result{NonEmpty}}
+\end{demohigh}
 \end{function}
 
 \begin{function}{\ClistVarIfEmpty,\ClistVarIfEmptyTF}
@@ -4365,6 +4504,12 @@ is not empty.
 \cs{ClistVarIfEmptyTF} \meta{comma list} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests if the \meta{comma list} is empty (containing no items).
+\begin{demohigh}
+\ClistSet \lTmpaClist {one,two}
+\ClistVarIfEmptyTF \lTmpaClist {\Result{Empty}} {\Result{NonEmpty}}
+\ClistClear \lTmpaClist
+\ClistVarIfEmptyTF \lTmpaClist {\Result{Empty}} {\Result{NonEmpty}}
+\end{demohigh}
 \end{function}
  
 \begin{function}{\ClistIfIn,\ClistIfInTF}
@@ -4376,7 +4521,8 @@ Tests if the \meta{item} is present in the \meta{comma list}.
 In the case of an \texttt{n}-type \meta{comma list}, the usual rules
 of space trimming and brace stripping apply. For example
 \begin{demohigh}
-\ClistIfInTF { a , {b}  , {b} , c } {b} {Yes} {No}
+\ClistIfInTF { a , {b}  , {b} , c } {b} {\Result{Yes}} {\Result{No}}
+\ClistIfInTF { a , {b}  , {b} , c } {d} {\Result{Yes}} {\Result{No}}
 \end{demohigh}
 %\begin{texnote}
 %The function may fail if the \meta{item} contains \verb|{|, \verb|}|, or \verb|#|
@@ -4392,6 +4538,11 @@ of space trimming and brace stripping apply. For example
 Tests if the \meta{item} is present in the \meta{comma list}.
 In the case of an \texttt{n}-type \meta{comma list}, the usual rules
 of space trimming and brace stripping apply.
+\begin{demohigh}
+\ClistSet \lTmpaClist {one,two}
+\ClistVarIfInTF \lTmpaClist {one} {\Result{Yes}} {\Result{No}}
+\ClistVarIfInTF \lTmpaClist {three} {\Result{Yes}} {\Result{No}}
+\end{demohigh}
 %\begin{texnote}
 %The function may fail if the \meta{item} contains \verb|{|, \verb|}|, or \verb|#|
 %(assuming the usual \TeX{} category codes apply).
