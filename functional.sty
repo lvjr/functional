@@ -1624,7 +1624,11 @@
 
 \PrgNewFunction \ClistVarCount { M } { \Expand { \clist_count:N #1 } }
 
-\PrgNewFunction \ClistGet   { M M }     { \clist_get:NN #1 #2 }
+\PrgNewFunction \ClistGet   { M M }
+  {
+    \clist_get:NN #1 #2
+    \__fun_quark_upgrade_no_value:N #2
+  }
 \PrgNewFunction \ClistGetT  { M M n }   { \clist_get:NNT #1 #2 {#3} }
 \PrgNewFunction \ClistGetF  { M M n }   { \clist_get:NNF #1 #2 {#3} }
 \PrgNewFunction \ClistGetTF { M M n n } { \clist_get:NNTF #1 #2 {#3} {#4} }
@@ -1633,6 +1637,7 @@
   {
     \__fun_do_assignment:Nnn #1
       { \clist_gpop:NN #1 #2 } { \clist_pop:NN #1 #2 }
+    \__fun_quark_upgrade_no_value:N #2
   }
 \PrgNewFunction \ClistPopT { M M n }
   {
@@ -1826,7 +1831,11 @@
 
 \PrgNewFunction \SeqVarCount { M } { \Expand { \seq_count:N #1 } }
 
-\PrgNewFunction \SeqGet   { M M }     { \seq_get:NN #1 #2 }
+\PrgNewFunction \SeqGet { M M }
+  {
+    \seq_get:NN #1 #2
+    \__fun_quark_upgrade_no_value:N #2
+  }
 \PrgNewFunction \SeqGetT  { M M n }   { \seq_get:NNT #1 #2 {#3} }
 \PrgNewFunction \SeqGetF  { M M n }   { \seq_get:NNF #1 #2 {#3} }
 \PrgNewFunction \SeqGetTF { M M n n } { \seq_get:NNTF #1 #2 {#3} {#4} }
@@ -1835,6 +1844,7 @@
   {
     \__fun_do_assignment:Nnn #1
       { \seq_gpop:NN #1 #2 } { \seq_pop:NN #1 #2 }
+    \__fun_quark_upgrade_no_value:N #2
   }
 \PrgNewFunction \SeqPopT { M M n }
   {
@@ -1858,12 +1868,20 @@
       { \seq_gpush:Nn #1 {#2} } { \seq_push:Nn #1 {#2} }
   }
 
-\PrgNewFunction \SeqGetLeft   { M M }     { \seq_get_left:NN #1 #2 }
+\PrgNewFunction \SeqGetLeft { M M }
+  {
+    \seq_get_left:NN #1 #2
+    \__fun_quark_upgrade_no_value:N #2
+  }
 \PrgNewFunction \SeqGetLeftT  { M M n }   { \seq_get_left:NNT #1 #2 {#3} }
 \PrgNewFunction \SeqGetLeftF  { M M n }   { \seq_get_left:NNF #1 #2 {#3} }
 \PrgNewFunction \SeqGetLeftTF { M M n n } { \seq_get_left:NNTF #1 #2 {#3} {#4} }
 
-\PrgNewFunction \SeqGetRight   { M M }     { \seq_get_right:NN #1 #2 }
+\PrgNewFunction \SeqGetRight { M M }
+  {
+    \seq_get_right:NN #1 #2
+    \__fun_quark_upgrade_no_value:N #2
+  }
 \PrgNewFunction \SeqGetRightT  { M M n }   { \seq_get_right:NNT #1 #2 {#3} }
 \PrgNewFunction \SeqGetRightF  { M M n }   { \seq_get_right:NNF #1 #2 {#3} }
 \PrgNewFunction \SeqGetRightTF { M M n n } { \seq_get_right:NNTF #1 #2 {#3} {#4} }
@@ -1872,6 +1890,7 @@
   {
     \__fun_do_assignment:Nnn #1
       { \seq_gpop_left:NN #1 #2 } { \seq_pop_left:NN #1 #2 }
+    \__fun_quark_upgrade_no_value:N #2
   }
 \PrgNewFunction \SeqPopLeftT { M M n }
   {
@@ -1894,6 +1913,7 @@
   {
     \__fun_do_assignment:Nnn #1
       { \seq_gpop_right:NN #1 #2 } { \seq_pop_right:NN #1 #2 }
+    \__fun_quark_upgrade_no_value:N #2
   }
 \PrgNewFunction \SeqPopRightT { M M n }
   {
@@ -2025,7 +2045,11 @@
 
 \PrgNewFunction \PropToKeyval { M } { \Expand { \prop_to_keyval:N #1 } }
 
-\PrgNewFunction \PropGet   { M m M }     { \prop_get:NnN #1 {#2} #3 }
+\PrgNewFunction \PropGet { M m M }
+  {
+    \prop_get:NnN #1 {#2} #3
+    \__fun_quark_upgrade_no_value:N #3
+  }
 \PrgNewFunction \PropGetT  { M m M n }   { \prop_get:NnNT #1 {#2} #3 {#4} }
 \PrgNewFunction \PropGetF  { M m M n }   { \prop_get:NnNF #1 {#2} #3 {#4} }
 \PrgNewFunction \PropGetTF { M m M n n } { \prop_get:NnNTF #1 {#2} #3 {#4} {#5} }
@@ -2034,6 +2058,7 @@
   {
     \__fun_do_assignment:Nnn #1
       { \prop_gpop:NnN #1 {#2} #3 } { \prop_pop:NnN #1 {#2} #3 }
+    \__fun_quark_upgrade_no_value:N #3
   }
 \PrgNewFunction \PropPopT { M m M n }
   {
@@ -2072,6 +2097,23 @@
 \PrgNewConditional \PropVarIfIn { M m }
   {
     \prop_if_in:NnTF #1 {#2}
+      { \Result { \cTrueBool } }  { \Result { \cFalseBool } }
+  }
+
+%%% --------------------------------------------------------
+%%> \section{Interfaces for Quarks (Quark)}
+%%% --------------------------------------------------------
+
+\quark_new:N \qNoValue
+
+\cs_new_protected:Npn \__fun_quark_upgrade_no_value:N #1
+  {
+    \quark_if_no_value:NT #1 { \tl_set_eq:NN #1 \qNoValue }
+  }
+
+\PrgNewConditional \QuarkVarIfNoValue { M }
+  {
+    \tl_if_eq:NNTF \qNoValue #1
       { \Result { \cTrueBool } }  { \Result { \cFalseBool } }
   }
 
