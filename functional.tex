@@ -5647,6 +5647,65 @@ making the comparison using the method described by \cs{StrIfEqTF}.
 %\end{texnote}
 \end{function}
 
+\chapter{Quarks (\texttt{Quark})}
+
+%One special type of constants in \LaTeX3 is \enquote{quarks}.
+%By convention all constants of type quark start out with \verb|\q|.
+
+Quarks are control sequences (and in fact, token lists) that expand
+to themselves and should therefore \emph{never} be executed directly
+in the code. This would result in an endless loop!
+
+Quarks can be used as error return values for functions that receive erroneous input.
+For example, in the function \cs{PropGet} to retrieve a value stored
+in some key of a property list, if the key does not exist then the return value
+is the quark \cs{qNoValue}.
+As mentioned above, such quarks are extremely fragile and it is imperative
+when using such functions that code is carefully written to check for
+pathological cases to avoid leakage of a quark into an uncontrolled
+environment.
+
+\section{Constant Quarks}
+
+\begin{variable}{\qNoValue}
+A canonical value for a missing value, when one is requested from
+a data structure. This is therefore used as a \enquote{return} value
+by functions such as \cs{PropGet} if there is no data to return.
+\end{variable}
+
+\section{Quark Conditionals}
+
+\begin{function}{\QuarkVarIfNoValue,\QuarkVarIfNoValueTF}
+\begin{syntax}
+\cs{QuarkVarIfNoValue} \meta{token}
+\cs{QuarkVarIfNoValueTF} \meta{token} \Arg{true code} \Arg{false code}
+\end{syntax}
+Tests if the \meta{token} is equal to \cs{qNoValue}.
+\begin{demohigh}
+\ClistGet \cEmptyClist \lTmpaTl
+\QuarkVarIfNoValueTF \lTmpaTl {\Result{NoValue}} {\Result{SomeValue}}
+\end{demohigh}
+\begin{demohigh}
+\SeqPop \cEmptySeq \lTmpaTl
+\QuarkVarIfNoValueTF \lTmpaTl {\Result{NoValue}} {\Result{SomeValue}}
+\end{demohigh}
+\begin{demohigh}
+\PropSetFromKeyval \lTmpaProp {key1=one,key2=two}
+\PropGet \lTmpaProp {key3} \lTmpaTl
+\QuarkVarIfNoValueTF \lTmpaTl {\Result{NoValue}} {\Result{SomeValue}}
+\end{demohigh}
+\end{function}
+
+%\begin{function}{\QuarkIfNoValue,\QuarkIfNoValueTF}
+%\begin{syntax}
+%\cs{QuarkIfNoValue} \Arg{token list}
+%\cs{QuarkIfNoValueTF} \Arg{token list} \Arg{true code} \Arg{false code}
+%\end{syntax}
+%Tests if the \meta{token list} contains only \cs{qNoValue}
+%(distinct from \meta{token list} being empty or containing
+%\cs{qNoValue} plus one or more other tokens).
+%\end{function}
+
 \chapter{The Source Code}
 
 %\CodeHigh{lite}
