@@ -811,7 +811,7 @@ based on this result. For example
 \cs{BoolVarNotTF} \meta{boolean} \Arg{true code} \Arg{false code}
 \end{syntax}
 Evaluates \meta{true code} if \meta{boolean} is \verb!false!,
-and \meta{false code} If \meta{boolean} is \verb!true!.
+and \meta{false code} if \meta{boolean} is \verb!true!.
 For example
 \begin{demohigh}
 \BoolVarNotTF {\IntCompare{3}>{2}} {\Result{Yes}} {\Result{No}}
@@ -864,6 +864,43 @@ For example
 
 \chapter{Token Lists (\texttt{Tl})}
 
+\TeX{} works with tokens, and \LaTeX3 therefore provides a number of
+functions to deal with lists of tokens.  Token lists may be present
+directly in the argument to a function:
+\begin{codehigh}
+\TlFoo {a collection of \tokens}
+\end{codehigh}
+or may be stored in a so-called \enquote{token list variable}, which
+have the suffix \texttt{Tl}: a token list variable can also be used as
+the argument to a function, for example
+\begin{codehigh}
+\TlVarFoo \lSomeTl
+\end{codehigh}
+In both cases, functions are available to test and manipulate the lists
+of tokens, and these have the module prefix \texttt{Tl}.
+In many cases, functions which can be applied to token list variables
+are paired with similar functions for application to explicit lists
+of tokens: the two \enquote{views} of a token list are therefore collected
+together here.
+
+A token list (explicit, or stored in a variable) can be seen either
+as a list of \enquote{items},
+or a list of \enquote{tokens}. An item is whatever \cs{UseOne} would
+grab as its argument: a single non-space token or a brace group,
+with optional leading explicit space characters (each item is thus
+itself a token list). A token is either a normal \texttt{N} argument,
+or \verb*| |, \verb|{|, or \verb|}| (assuming normal \TeX{} category codes).
+Thus for example
+\begin{codehigh}
+{Hello} world
+\end{codehigh}
+contains 6 items (\texttt{Hello}, \texttt{w}, \texttt{o}, \texttt{r},
+\texttt{l} and \texttt{d}), but 13 tokens (\verb|{|, \texttt{H}, \texttt{e},
+\texttt{l}, \texttt{l}, \texttt{o}, \verb|}|, \verb*| |, \texttt{w}, \texttt{o},
+\texttt{r}, \texttt{l} and \texttt{d}).
+Functions which act on items are often faster than their analogue acting
+directly on tokens.
+
 \section{Constant and Scratch Token Lists}
 
 \begin{variable}{\cSpaceTl}
@@ -914,6 +951,9 @@ code and so should only be used for short-term storage.
 Creates a new \meta{tl var} or raises an error if the
 name is already taken. The declaration is global. The
 \meta{tl~var} is initially empty.
+\begin{codehigh}
+\TlNew \lFooSomeTl
+\end{codehigh}
 \end{function}
 
 \begin{function}{\TlConst}
@@ -923,6 +963,9 @@ name is already taken. The declaration is global. The
 Creates a new constant \meta{tl var} or raises an error
 if the name is already taken. The value of the
 \meta{tl var} is set globally to the \meta{token list}.
+\begin{codehigh}
+\TlConst \cFooSomeTl {abc}
+\end{codehigh}
 \end{function}
 
 \begin{function}{\TlUse}
@@ -933,6 +976,9 @@ Recovers the content of a \meta{tl~var} and returns the value.
 An error is raised if the variable
 does not exist or if it is invalid. Note that it is possible to use
 a \meta{tl~var} directly without an accessor function.
+\begin{codehigh}
+\TlUse \lTmpbTl
+\end{codehigh}
 \end{function}
 
 \begin{function}{\TlToStr}
@@ -943,6 +989,9 @@ Converts the \meta{token list} to a \meta{string}, returning the
 resulting character tokens. A \meta{string}
 is a series of tokens with category code $12$ (other) with the exception
 of spaces, which retain category code $10$ (space).
+\begin{demohigh}
+\TlToStr {12\abc34}
+\end{demohigh}
 %This function requires only a single expansion.
 %Its argument \emph{must} be braced.
 %\begin{texnote}
@@ -982,6 +1031,10 @@ Converts the content of the \meta{tl var} to a string, returning the
 resulting character tokens. A \meta{string}
 is a series of tokens with category code $12$ (other) with the exception
 of spaces, which retain category code $10$ (space).
+\begin{demohigh}
+\TlSet \lTmpaTl {12\abc34}
+\TlVarToStr \lTmpaTl
+\end{demohigh}
 \end{function}
 
 \section{Viewing Token Lists}
@@ -992,6 +1045,9 @@ of spaces, which retain category code $10$ (space).
 \end{syntax}
 Writes the \meta{token list} in the log file. See also
 \cs{TlShow} which displays the result in the terminal.
+\begin{codehigh}
+\TlLog {123\abc456}
+\end{codehigh}
 \end{function}
 
 \begin{function}{\TlVarLog}
@@ -1000,6 +1056,10 @@ Writes the \meta{token list} in the log file. See also
 \end{syntax}
 Writes the content of the \meta{tl var} in the log file. See also
 \cs{TlVarShow} which displays the result in the terminal.
+\begin{codehigh}
+\TlSet \lTmpaTl {123\abc456}
+\TlVarLog \lTmpaTl
+\end{codehigh}
 \end{function}
 
 \begin{function}{\TlShow}
@@ -1007,6 +1067,9 @@ Writes the content of the \meta{tl var} in the log file. See also
 \cs{TlShow} \Arg{token list}
 \end{syntax}
 Displays the \meta{token list} on the terminal.
+\begin{codehigh}
+\TlShow {123\abc456}
+\end{codehigh}
 %\begin{texnote}
 %This is similar to the \eTeX{} primitive \tn{showtokens}, wrapped
 %to a fixed number of characters per line.
@@ -1018,10 +1081,14 @@ Displays the \meta{token list} on the terminal.
 \cs{TlVarShow} \meta{tl var}
 \end{syntax}
 Displays the content of the \meta{tl var} on the terminal.
-\begin{texnote}
-This is similar to the \TeX{} primitive \tn{show}, wrapped to a
-fixed number of characters per line.
-\end{texnote}
+\begin{codehigh}
+\TlSet \lTmpaTl {123\abc456}
+\TlVarShow \lTmpaTl
+\end{codehigh}
+%\begin{texnote}
+%This is similar to the \TeX{} primitive \tn{show}, wrapped to a
+%fixed number of characters per line.
+%\end{texnote}
 \end{function}
 
 \section{Setting Token List Variables}
@@ -1031,7 +1098,7 @@ fixed number of characters per line.
 \cs{TlSet} \meta{tl~var} \Arg{tokens}
 \end{syntax}
 Sets \meta{tl~var} to contain \meta{tokens},
-removing any previous content from the variable. For example
+removing any previous content from the variable.
 \begin{demohigh}
 \TlSet \lTmpiTl {\IntMathMult{4}{5}}
 \TlUse \lTmpiTl
@@ -1042,15 +1109,19 @@ removing any previous content from the variable. For example
 \begin{syntax}
 \cs{TlSetEq} \meta{tl var_1} \meta{tl var_2}
 \end{syntax}
-Sets the content of \meta{tl var_1} equal to that of
-\meta{tl var_2}.
+Sets the content of \meta{tl var_1} equal to that of \meta{tl var_2}.
+\begin{demohigh}
+\TlSet \lTmpaTl {abc}
+\TlSetEq \lTmpbTl \lTmpaTl
+\TlUse \lTmpbTl
+\end{demohigh}
 \end{function}
 
 \begin{function}{\TlClear}
 \begin{syntax}
 \cs{TlClear} \meta{tl~var}
 \end{syntax}
-Clears all entries from the \meta{tl~var}. For example
+Clears all entries from the \meta{tl~var}.
 \begin{demohigh}
 \TlSet \lTmpjTl {One}
 \TlClear \lTmpjTl
@@ -1066,6 +1137,9 @@ Clears all entries from the \meta{tl~var}. For example
 Ensures that the \meta{tl var} exists globally by applying
 \cs{TlNew} if necessary, then applies \cs{TlClear} to leave
 the \meta{tl var} empty.
+\begin{codehigh}
+\TlClearNew \lFooSomeTl
+\end{codehigh}
 \end{function}
 
 \begin{function}{\TlConcat}
@@ -1075,14 +1149,19 @@ the \meta{tl var} empty.
 Concatenates the content of \meta{tl var_2} and \meta{tl var_3}
 together and saves the result in \meta{tl var_1}. The \meta{tl var_2}
 is placed at the left side of the new token list.
+\begin{demohigh}
+\TlSet \lTmpbTl {con}
+\TlSet \lTmpcTl {cat}
+\TlConcat \lTmpaTl \lTmpbTl \lTmpcTl
+\TlUse \lTmpaTl
+\end{demohigh}
 \end{function}
 
 \begin{function}{\TlPutLeft}
 \begin{syntax}
 \cs{TlPutLeft} \meta{tl~var} \Arg{tokens}
 \end{syntax}
-Appends \meta{tokens} to the left side of the current content of
-\meta{tl~var}. For example
+Appends \meta{tokens} to the left side of the current content of \meta{tl~var}.
 \begin{demohigh}
 \TlSet \lTmpkTl {Functional}
 \TlPutLeft \lTmpkTl {Hello}
@@ -1094,8 +1173,7 @@ Appends \meta{tokens} to the left side of the current content of
 \begin{syntax}
 \cs{TlPutRight} \meta{tl~var} \Arg{tokens}
 \end{syntax}
-Appends \meta{tokens} to the right side of the current content of
-\meta{tl~var}. For example
+Appends \meta{tokens} to the right side of the current content of \meta{tl~var}.
 \begin{demohigh}
 \TlSet \lTmpkTl {Functional}
 \TlPutRight \lTmpkTl {World}
@@ -1118,6 +1196,11 @@ Replaces the first (leftmost) occurrence of \meta{old tokens} in the
 cannot contain \verb|{|, \verb|}| or \verb|#|
 (more precisely, explicit character tokens with category code $1$
 (begin-group) or $2$ (end-group), and tokens with category code $6$).
+\begin{demohigh}
+\TlSet \lTmpaTl {1{bc}2bc3}
+\TlVarReplaceOnce \lTmpaTl {bc} {xx}
+\TlUse \lTmpaTl
+\end{demohigh}
 \end{function}
 
 \begin{function}{\TlVarReplaceAll}
@@ -1131,8 +1214,12 @@ cannot contain \verb|{|, \verb|}| or \verb|#|
 (begin-group) or $2$ (end-group), and tokens with category code $6$).
 As this function
 operates from left to right, the pattern \meta{old tokens}
-may remain after the replacement (see \cs{TlVarRemoveAll}
-for an example).
+may remain after the replacement (see \cs{TlVarRemoveAll} for an example).
+\begin{demohigh}
+\TlSet \lTmpaTl {1{bc}2bc3}
+\TlVarReplaceAll \lTmpaTl {bc} {xx}
+\TlUse \lTmpaTl
+\end{demohigh}
 \end{function}
 
 \begin{function}{\TlVarRemoveOnce}
@@ -1143,6 +1230,11 @@ Removes the first (leftmost) occurrence of \meta{tokens} from the
 \meta{tl var}. \meta{Tokens} cannot contain \verb|{|, \verb|}| or \verb|#|
 (more precisely, explicit character tokens with category code $1$
 (begin-group) or $2$ (end-group), and tokens with category code $6$).
+\begin{demohigh}
+\TlSet \lTmpaTl {1{bc}2bc3}
+\TlVarRemoveOnce \lTmpaTl {bc}
+\TlUse \lTmpaTl
+\end{demohigh}
 \end{function}
 
 \begin{function}{\TlVarRemoveAll}
@@ -1170,6 +1262,9 @@ may remain after the removal, for instance,
 Removes any leading and trailing explicit space characters
 (explicit tokens with character code $32$ and category code $10$)
 from the \meta{token list} and returns the result.
+\begin{demohigh}
+Foo\TlTrimSpaces { 12 34 }Bar
+\end{demohigh}
 %\begin{texnote}
 %The result is returned within \tn{unexpanded}, which means that the token
 %list does not expand further when appearing in an \texttt{x}-type
@@ -1184,6 +1279,11 @@ from the \meta{token list} and returns the result.
 Sets the \meta{tl var} to contain the result of removing any leading
 and trailing explicit space characters (explicit tokens with
 character code $32$ and category code $10$) from its contents.
+\begin{demohigh}
+\TlSet \lTmpaTl { 12 34 }
+\TlVarTrimSpaces \lTmpaTl
+Foo\TlUse \lTmpaTl Bar
+\end{demohigh}
 \end{function}
 
 \section{Working with the Content of Token Lists}
@@ -1196,6 +1296,9 @@ Counts the number of \meta{items} in \meta{tokens} and returns this information.
 Unbraced tokens count as one element as do each token group (\verb|{|$\cdots$\verb|}|).
 This process ignores any unprotected spaces within \meta{tokens}. %See also \cs{TlVarCount}.
 %This function requires three expansions, giving an \meta{integer denotation}.
+\begin{demohigh}
+\TlCount {12\abc34}
+\end{demohigh}
 \end{function}
 
 \begin{function}{\TlVarCount}
@@ -1206,6 +1309,10 @@ Counts the number of \meta{items} in the \meta{tl var} and returns this informat
 Unbraced tokens count as one element as do each token group (\verb|{|$\cdots$\verb|}|).
 This process ignores any unprotected spaces within the \meta{tl var}. %See also \cs{TlCount}.
 %This function requires three expansions, giving an \meta{integer denotation}.
+\begin{demohigh}
+\TlSet \lTmpaTl {12\abc34}
+\TlVarCount \lTmpaTl
+\end{demohigh}
 \end{function}
 
 \begin{function}{\TlHead}
@@ -1242,9 +1349,12 @@ A blank \meta{token list} (see \cs{TlIfBlank}) results in
 \end{syntax}
 Returns the first \meta{item} in the \meta{tl var},
 discarding the rest of the \meta{tl var}.
-All leading explicit space characters
-(explicit tokens with character code $32$ and category code $10$)
-are discarded.
+All leading explicit space characters (explicit tokens with character code $32$
+and category code $10$) are discarded.
+\begin{demohigh}
+\TlSet \lTmpaTl {HELLO}
+\TlVarHead \lTmpaTl
+\end{demohigh}
 \end{function}
 
 \begin{function}{\TlTail}
@@ -1279,6 +1389,10 @@ Discards all leading explicit space characters
 (explicit tokens with character code $32$ and category code $10$)
 and the first \meta{item} in the \meta{tl var}, and returns the
 remaining tokens.
+\begin{demohigh}
+\TlSet \lTmpaTl {HELLO}
+\TlVarTail \lTmpaTl
+\end{demohigh}
 \end{function}
 
 \begin{function}{\TlItem,\TlVarItem}
@@ -1292,6 +1406,9 @@ appropriate item from the \meta{token list}.
 If the \meta{integer expression} is negative, indexing occurs from
 the right of the token list, starting at $-1$ for the right-most item.
 If the index is out of bounds, then the function returns nothing.
+\begin{demohigh}
+\TlItem {abcd} {3}
+\end{demohigh}
 %\begin{texnote}
 %The result is returned within the \tn{unexpanded}
 %primitive (\cs{exp_not:n}), which means that the \meta{item}
@@ -1308,6 +1425,10 @@ If the index is out of bounds, then the function returns nothing.
 Selects and returns a pseudo-random item of the \meta{token list}.
 If the \meta{token list} is blank, the result is empty.
 %This is not available in older versions of \XeTeX{}.
+\begin{demohigh}
+\TlRandItem {abcdef}
+\TlRandItem {abcdef}
+\end{demohigh}
 %\begin{texnote}
 %The result is returned within the \tn{unexpanded}
 %primitive (\cs{exp_not:n}), which means that the \meta{item}
@@ -1350,7 +1471,17 @@ below remain in effect after the loop.
 \end{syntax}
 Applies the \meta{inline function} to every \meta{item} stored within the
 \meta{token list}. The \meta{inline function}  should consist of code which
-receives the \meta{item} as \verb|#1|.
+receives the \meta{item} as \verb|#1|. For example,
+\begin{codehigh}
+\IgnoreSpacesOn
+\TlClear \lTmpaTl
+\TlMapInline {one} {
+  \TlPutRight \lTmpaTl {[#1]}
+}
+\Result{\TlUse\lTmpaTl}
+\IgnoreSpacesOff
+\end{codehigh}
+produces [o][n][e].
 \end{function}
 
 \begin{function}{\TlVarMapInline}
@@ -1359,7 +1490,18 @@ receives the \meta{item} as \verb|#1|.
 \end{syntax}
 Applies the \meta{inline function} to every \meta{item} stored within the
 \meta{tl var}. The \meta{inline function} should consist of code which
-receives the \meta{item} as \verb|#1|.
+receives the \meta{item} as \verb|#1|. For example,
+\begin{codehigh}
+\IgnoreSpacesOn
+\TlClear \lTmpaTl
+\TlSet \lTmpkTl {one}
+\TlVarMapInline \lTmpkTl {
+  \TlPutRight \lTmpaTl {[#1]}
+}
+\Result{\TlUse\lTmpaTl}
+\IgnoreSpacesOff
+\end{codehigh}
+produces [o][n][e].
 \end{function}
 
 %\begin{function}{\TlMapTokens,\TlVarMapTokens}
@@ -1390,6 +1532,15 @@ Stores each \meta{item} of the \meta{token list} in turn in the
 is not enforced.  The assignments to the \meta{variable} are local.
 Its value after the loop is the last \meta{item} in the
 \meta{tl var}, or its original value if the \meta{tl var} is blank.
+\begin{demohigh}
+\IgnoreSpacesOn
+\TlClear \lTmpaTl
+\TlMapVariable {one} \lTmpiTl {
+  \TlPutRight \lTmpaTl {\Expand {[\lTmpiTl]}}
+}
+\Result{\TlUse\lTmpaTl}
+\IgnoreSpacesOff
+\end{demohigh}
 \end{function}
 
 \begin{function}{\TlVarMapVariable}
@@ -1402,6 +1553,16 @@ will usually make use of the \meta{variable}, but this is not
 enforced.  The assignments to the \meta{variable} are local.  Its
 value after the loop is the last \meta{item} in the \meta{tl var},
 or its original value if the \meta{tl var} is blank.
+\begin{demohigh}
+\IgnoreSpacesOn
+\TlClear \lTmpaTl
+\TlSet \lTmpkTl {one}
+\TlVarMapVariable \lTmpkTl \lTmpiTl {
+  \TlPutRight \lTmpaTl {\Expand {[\lTmpiTl]}}
+}
+\Result{\TlUse\lTmpaTl}
+\IgnoreSpacesOff
+\end{demohigh}
 \end{function}
 
 %\begin{function}{\TlMapBreak}
@@ -1464,6 +1625,10 @@ or its original value if the \meta{tl var} is blank.
 \end{syntax}
 Tests whether the \meta{tl var} is currently defined.  This does not
 check that the \meta{tl var} really is a token list variable.
+\begin{demohigh}
+\TlIfExistTF \lTmpaTl {\Result{Yes}} {\Result{No}}
+\TlIfExistTF \lFooUndefinedTl {\Result{Yes}} {\Result{No}}
+\end{demohigh}
 \end{function}
 
 \begin{function}{\TlIfEmpty,\TlIfEmptyTF}
@@ -1504,6 +1669,10 @@ Tests if the \meta{token list} consists only of blank spaces
 \meta{token list} is zero or more explicit space characters
 (explicit tokens with character code $32$ and category code $10$),
 and is \texttt{false} otherwise.
+\begin{demohigh}
+\TlIfEmptyTF {  } {\Result{Yes}} {\Result{No}}
+\TlIfBlankTF {  } {\Result{Yes}} {\Result{No}}
+\end{demohigh}
 \end{function}
 
 \begin{function}{\TlIfEq,\TlIfEqTF}
@@ -1557,6 +1726,10 @@ The \meta{token list_2} cannot contain the tokens \verb|{|, \verb|}| or \verb|#|
 (more precisely, explicit character tokens with category code $1$
 (begin-group) or $2$ (end-group), and tokens with category code $6$).
 The search does \emph{not} enter brace (category code $1$/$2$) groups.
+\begin{demohigh}
+\TlIfInTF {hello world} {o} {\Result{Yes}} {\Result{No}}
+\TlIfInTF {hello world} {a} {\Result{Yes}} {\Result{No}}
+\end{demohigh}
 \end{function}
 
 \begin{function}{\TlVarIfIn,\TlVarIfInTF}
@@ -1569,6 +1742,11 @@ Tests if the \meta{token list} is found in the content of the
 the tokens \verb|{|, \verb|}| or \verb|#|
 (more precisely, explicit character tokens with category code $1$
 (begin-group) or $2$ (end-group), and tokens with category code $6$).
+\begin{demohigh}
+\TlSet \lTmpaTl {hello world}
+\TlVarIfInTF \lTmpaTl {o} {\Result{Yes}} {\Result{No}}
+\TlVarIfInTF \lTmpaTl {a} {\Result{Yes}} {\Result{No}}
+\end{demohigh}
 \end{function}
 
 \begin{function}{\TlIfSingle,\TlIfSingleTF}
@@ -1581,6 +1759,10 @@ a single normal token (neither an explicit space character nor a
 begin-group character) or a single brace group, surrounded by
 optional spaces on both sides. In other words, such a token list has
 token count $1$ according to \cs{TlCount}.
+\begin{demohigh}
+\TlIfSingleTF {a} {\Result{Yes}} {\Result{No}}
+\TlIfSingleTF {abc} {\Result{Yes}} {\Result{No}}
+\end{demohigh}
 \end{function}
 
 \begin{function}{\TlVarIfSingle,\TlVarIfSingleTF}
@@ -1593,6 +1775,12 @@ Tests if the content of the \meta{tl var} consists of a single \meta{item},
 character nor a begin-group character) or a single brace group,
 surrounded by optional spaces on both sides. In other words, such a
 token list has token count $1$ according to \cs{TlVarCount}.
+\begin{demohigh}
+\TlSet \lTmpaTl {a}
+\TlVarIfSingleTF \lTmpaTl {\Result{Yes}} {\Result{No}}
+\TlSet \lTmpaTl {abc}
+\TlVarIfSingleTF \lTmpaTl {\Result{Yes}} {\Result{No}}
+\end{demohigh}
 \end{function}
 
 \section{Token List Case Functions}
@@ -1613,6 +1801,19 @@ are equal (as described for \cs{TlVarIfEq})
 then the associated \meta{code} is left in the input
 stream and other cases are discarded. The function
 does nothing if there is no match.
+\begin{demohigh}
+\IgnoreSpacesOn
+\TlSet \lTmpaTl {a}
+\TlSet \lTmpbTl {b}
+\TlSet \lTmpcTl {c}
+\TlSet \lTmpkTl {b}
+\TlVarCase \lTmpkTl {
+  \lTmpaTl {\Result {First}}
+  \lTmpbTl {\Result {Second}}
+  \lTmpcTl {\Result {Third}}
+}
+\IgnoreSpacesOff
+\end{demohigh}
 \end{function}
 
 \begin{function}{\TlVarCaseT}
@@ -1633,6 +1834,21 @@ then the associated \meta{code} is left in the input
 stream and other cases are discarded. If any of the
 cases are matched, the \meta{true code} is also inserted into the
 input stream (after the code for the appropriate case).
+\begin{demohigh}
+\IgnoreSpacesOn
+\TlSet \lTmpaTl {a}
+\TlSet \lTmpbTl {b}
+\TlSet \lTmpcTl {c}
+\TlSet \lTmpkTl {b}
+\TlVarCaseT \lTmpkTl {
+  \lTmpaTl {\IntSet \lTmpkInt {1}}
+  \lTmpbTl {\IntSet \lTmpkInt {2}}
+  \lTmpcTl {\IntSet \lTmpkInt {3}}
+}{
+  \Result {\IntUse \lTmpkInt}
+}
+\IgnoreSpacesOff
+\end{demohigh}
 \end{function}
 
 \begin{function}{\TlVarCaseF}
@@ -1650,9 +1866,23 @@ This function compares the \meta{test token list variable} in turn
 with each of the \meta{token list variable cases}. If the two
 are equal (as described for \cs{TlVarIfEq})
 then the associated \meta{code} is left in the input
-stream and other cases are discarded. If none
-match then the \meta{false code} is inserted into the input stream
- (after the code for the appropriate case).
+stream and other cases are discarded. If none match then the \meta{false code}
+is inserted into the input stream (after the code for the appropriate case).
+\begin{demohigh}
+\IgnoreSpacesOn
+\TlSet \lTmpaTl {a}
+\TlSet \lTmpbTl {b}
+\TlSet \lTmpcTl {c}
+\TlSet \lTmpkTl {b}
+\TlVarCaseF \lTmpkTl{
+  \lTmpaTl {\Result {First}}
+  \lTmpbTl {\Result {Second}}
+  \lTmpcTl {\Result {Third}}
+}{
+  \Result {No~Match!}
+}
+\IgnoreSpacesOff
+\end{demohigh}
 \end{function}
 
 \begin{function}{\TlVarCaseTF}
@@ -1674,9 +1904,25 @@ then the associated \meta{code} is left in the input
 stream and other cases are discarded. If any of the
 cases are matched, the \meta{true code} is also inserted into the
 input stream (after the code for the appropriate case), while if none
-match then the \meta{false code} is inserted. The function
-\cs{TlVarCase}, which does nothing if there is no match, is also
-available.
+match then the \meta{false code} is inserted. The function \cs{TlVarCase},
+which does nothing if there is no match, is also available.
+\begin{demohigh}
+\IgnoreSpacesOn
+\TlSet \lTmpaTl {a}
+\TlSet \lTmpbTl {b}
+\TlSet \lTmpcTl {c}
+\TlSet \lTmpkTl {b}
+\TlVarCaseTF \lTmpkTl {
+  \lTmpaTl {\IntSet \lTmpkInt {1}}
+  \lTmpbTl {\IntSet \lTmpkInt {2}}
+  \lTmpcTl {\IntSet \lTmpkInt {3}}
+}{
+  \Result {\IntUse \lTmpkInt}
+}{
+  \Result {0}
+}
+\IgnoreSpacesOff
+\end{demohigh}
 \end{function}
 
 \chapter{Strings (\texttt{Str})}
