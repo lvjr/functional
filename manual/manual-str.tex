@@ -9,6 +9,40 @@
 
 \chapter{Strings (\texttt{Str})}
 
+\TeX{} associates each character with a category code: as such, there is no
+concept of a \enquote{string} as commonly understood in many other
+programming languages. However, there are places where we wish to manipulate
+token lists while in some sense \enquote{ignoring} category codes: this is
+done by treating token lists as strings in a \TeX{} sense.
+
+A \TeX{} string (and thus an \pkg{expl3} string) is a series of characters
+which have category code $12$ (\enquote{other}) with the exception of
+space characters which have category code $10$ (\enquote{space}). Thus
+at a technical level, a \TeX{} string is a token list with the appropriate
+category codes. In this documentation, these are simply referred to as
+strings.
+
+String variables are simply specialised token lists, but by convention
+should be named with the suffix \texttt{Str}.  Such variables
+should contain characters with category code $12$ (other), except
+spaces, which have category code $10$ (blank space).  All the
+functions in this module which accept a token list argument first
+convert it to a string using \cs{TlToStr} for internal processing,
+and do not treat a token list or the corresponding string
+representation differently.
+
+As a string is a subset of the more general token list, it is sometimes unclear
+when one should be used over the other.
+Use a string variable for data that isn't primarily intended for typesetting
+and for which a level of protection from unwanted expansion is suitable.
+This data type simplifies comparison of variables since there are no concerns
+about expansion of their contents.
+
+%The functions \cs{CsToStr}, \cs{TlToStr}, \cs{TlVarToStr} and
+%\cs{TokenToStr} (and variants) generate strings from the appropriate
+%input: these are documented in modules \pkg{Cs}, \pkg{Tl} and \pkg{Token},
+%respectively.
+
 \section{Constant and Scratch Strings}
 
 \begin{variable}{\cAmpersandStr,\cAtsignStr,\cBackslashStr,\cLeftBraceStr,\cRightBraceStr,
@@ -39,6 +73,9 @@ code and so should only be used for short-term storage.
 Creates a new \meta{str var} or raises an error if the name is
 already taken. The declaration is global. The \meta{str var} is
 initially empty.
+\begin{codehigh}
+\StrNew \lFooSomeStr
+\end{codehigh}
 \end{function}
 
 \begin{function}{\StrConst}
@@ -48,6 +85,9 @@ initially empty.
 Creates a new constant \meta{str var} or raises an error if the name
 is already taken.  The value of the \meta{str var} is set
 globally to the \meta{token list}, converted to a string.
+\begin{codehigh}
+\StrConst \cFooSomeStr {12\abc34}
+\end{codehigh}
 \end{function}
 
 \begin{function}{\StrUse}
@@ -58,6 +98,9 @@ Recovers the content of a \meta{str var} and returns the value.
 An error is raised if the variable
 does not exist or if it is invalid. Note that it is possible to use
 a \meta{str} directly without an accessor function.
+\begin{codehigh}
+\StrUse \lTmpaStr
+\end{codehigh}
 \end{function}
 
 \section{Viewing Strings}
@@ -67,6 +110,9 @@ a \meta{str} directly without an accessor function.
 \cs{StrLog} \Arg{token list}
 \end{syntax}
 Writes \meta{token list} in the log file.
+\begin{codehigh}
+\StrLog {1234\abcd5678}
+\end{codehigh}
 \end{function}
 
 \begin{function}{\StrVarLog}
@@ -74,7 +120,6 @@ Writes \meta{token list} in the log file.
 \cs{StrVarLog} \meta{str var}
 \end{syntax}
 Writes the content of the \meta{str var} in the log file.
-For example
 \begin{codehigh}
 \StrSet \lTmpiStr {1234\abcd5678}
 \StrVarLog \lTmpiStr
@@ -86,6 +131,9 @@ For example
 \cs{StrShow} \Arg{token list}
 \end{syntax}
 Displays \meta{token list} on the terminal.
+\begin{codehigh}
+\StrShow {1234\abcd5678}
+\end{codehigh}
 \end{function}
 
 \begin{function}{\StrVarShow}
@@ -93,6 +141,10 @@ Displays \meta{token list} on the terminal.
 \cs{StrVarShow} \meta{str var}
 \end{syntax}
 Displays the content of the \meta{str var} on the terminal.
+\begin{codehigh}
+\StrSet \lTmpiStr {1234\abcd5678}
+\StrVarShow \lTmpiStr
+\end{codehigh}
 \end{function}
 
 \section{Setting String Variables}
@@ -102,7 +154,7 @@ Displays the content of the \meta{str var} on the terminal.
 \cs{StrSet} \meta{str var} \Arg{token list}
 \end{syntax}
 Converts the \meta{token list} to a \meta{string}, and stores the
-result in \meta{str var}. For example
+result in \meta{str var}.
 \begin{demohigh}
 \StrSet \lTmpiStr {\IntMathMult{4}{5}}
 \StrUse \lTmpiStr
@@ -113,8 +165,12 @@ result in \meta{str var}. For example
 \begin{syntax}
 \cs{StrSetEq} \meta{str var_1} \meta{str var_2}
 \end{syntax}
-Sets the content of \meta{str var_1} equal to that of
-\meta{str var_2}.
+Sets the content of \meta{str var_1} equal to that of \meta{str var_2}.
+\begin{demohigh}
+\StrSet \lTmpaStr {abc}
+\StrSetEq \lTmpbStr \lTmpaStr
+\StrUse \lTmpbStr
+\end{demohigh}
 \end{function}
 
 \begin{function}{\StrClear}
@@ -137,6 +193,10 @@ Clears the content of the \meta{str var}. For example
 Ensures that the \meta{str var} exists globally by applying
 \cs{StrNew} if necessary, then applies \cs{StrClear} to leave
 the \meta{str var} empty.
+\begin{codehigh}
+\StrClearNew \lFooSomeStr
+\StrUse \lFooSomeStr
+\end{codehigh}
 \end{function}
 
 \begin{function}{\StrConcat}
@@ -148,6 +208,12 @@ together and saves the result in \meta{str var_1}. The \meta{str var_2}
 is placed at the left side of the new string variable.
 The \meta{str var_2} and \meta{str var_3} must indeed be strings, as
 this function does not convert their contents to a string.
+\begin{demohigh}
+\StrSet \lTmpbStr {con}
+\StrSet \lTmpcStr {cat}
+\StrConcat \lTmpaStr \lTmpbStr \lTmpcStr
+\StrUse \lTmpaStr
+\end{demohigh}
 \end{function}
 
 \begin{function}{\StrPutLeft}
@@ -156,7 +222,7 @@ this function does not convert their contents to a string.
 \end{syntax}
 Converts the \meta{token list} to a \meta{string}, and prepends the
 result to \meta{str var}.  The current contents of the \meta{str
-var} are not automatically converted to a string. For example
+var} are not automatically converted to a string.
 \begin{demohigh}
 \StrSet \lTmpkStr {Functional}
 \StrPutLeft \lTmpkStr {Hello}
@@ -170,7 +236,7 @@ var} are not automatically converted to a string. For example
 \end{syntax}
 Converts the \meta{token list} to a \meta{string}, and appends the
 result to \meta{str var}.  The current contents of the \meta{str
-var} are not automatically converted to a string. For example
+var} are not automatically converted to a string.
 \begin{demohigh}
 \StrSet \lTmpkStr {Functional}
 \StrPutRight \lTmpkStr {World}
@@ -187,6 +253,11 @@ var} are not automatically converted to a string. For example
 Converts the \meta{old} and \meta{new} token lists to strings, then
 replaces the first (leftmost) occurrence of \meta{old string} in the
 \meta{str var} with \meta{new string}.
+\begin{demohigh}
+\StrSet \lTmpaStr {a{bc}bcd}
+\StrVarReplaceOnce \lTmpaStr {bc} {xx}
+\StrUse \lTmpaStr
+\end{demohigh}
 \end{function}
 
 \begin{function}{\StrVarReplaceAll}
@@ -199,6 +270,11 @@ replaces all occurrences of \meta{old string} in the
 As this function
 operates from left to right, the pattern \meta{old string}
 may remain after the replacement.
+\begin{demohigh}
+\StrSet \lTmpaStr {a{bc}bcd}
+\StrVarReplaceAll \lTmpaStr {bc} {xx}
+\StrUse \lTmpaStr
+\end{demohigh}
 \end{function}
 
 \begin{function}{\StrVarRemoveOnce}
@@ -206,8 +282,12 @@ may remain after the replacement.
 \cs{StrVarRemoveOnce} \meta{str var} \Arg{token list}
 \end{syntax}
 Converts the \meta{token list} to a \meta{string} then
-removes the first (leftmost) occurrence of \meta{string} from the
-\meta{str var}.
+removes the first (leftmost) occurrence of \meta{string} from the \meta{str var}.
+\begin{demohigh}
+\StrSet \lTmpaStr {a{bc}bcd}
+\StrVarRemoveOnce \lTmpaStr {bc}
+\StrUse \lTmpaStr
+\end{demohigh}
 \end{function}
 
 \begin{function}{\StrVarRemoveAll}
@@ -233,7 +313,9 @@ the pattern \meta{string} may remain after the removal, for instance,
 \end{syntax}
 Returns the number of characters in the string representation of \meta{token list},
 as an integer denotation. All characters including spaces are counted.
-\par
+\begin{demohigh}
+\StrCount {12\abc34}
+\end{demohigh}
 Due to naming conflict, you need to use \cs{StrSize} instead of \cs{StrCount}
 if you want to use \verb!functional! package together with \verb!xstring! package.
 \end{function}
@@ -244,6 +326,10 @@ if you want to use \verb!functional! package together with \verb!xstring! packag
 \end{syntax}
 Returns the number of characters in the string representation of the \meta{tl var},
 as an integer denotation. All characters including spaces are counted.
+\begin{demohigh}
+\StrSet \lTmpaStr {12\abc34}
+\StrVarCount \lTmpaStr
+\end{demohigh}
 \end{function}
 
 \begin{function}{\StrHead}
@@ -255,6 +341,9 @@ The first character in the \meta{string} is then returned,
 with category code \enquote{other}. If the first character is a space,
 it returns a space token with category code $10$ (blank space).
 If the \meta{string} is empty, then nothing is returned.
+\begin{demohigh}
+\StrHead {HELLO}
+\end{demohigh}
 \end{function}
 
 \begin{function}{\StrVarHead}
@@ -266,6 +355,10 @@ The first character in the \meta{string} is then returned,
 with category code \enquote{other}. If the first character is a space,
 it returns a space token with category code $10$ (blank space).
 If the \meta{string} is empty, then nothing is returned.
+\begin{demohigh}
+\StrSet \lTmpaStr {HELLO}
+\StrVarHead \lTmpaStr
+\end{demohigh}
 \end{function}
 
 \begin{function}{\StrTail}
@@ -278,6 +371,9 @@ with category codes $12$ and $10$ (for spaces).
 If the first character is a space, it only trims that space.
 If the \meta{token list} is empty,
 then nothing is left on the input stream.
+\begin{demohigh}
+\StrTail {HELLO}
+\end{demohigh}
 \end{function}
 
 \begin{function}{\StrVarTail}
@@ -290,6 +386,10 @@ with category codes $12$ and $10$ (for spaces).
 If the first character is a space, it only trims that space.
 If the \meta{token list} is empty,
 then nothing is left on the input stream.
+\begin{demohigh}
+\StrSet \lTmpaStr {HELLO}
+\StrVarTail \lTmpaStr
+\end{demohigh}
 \end{function}
 
 \begin{function}{\StrItem}
@@ -303,6 +403,9 @@ character. All characters including spaces are taken into account.
 If the \meta{integer expression} is negative,
 characters are counted from the end of the \meta{string}. Hence,
 $-1$ is the right-most character, \emph{etc.}
+\begin{demohigh}
+\StrItem {abcd} {3}
+\end{demohigh}
 \end{function}
 
 \begin{function}{\StrVarItem}
@@ -316,6 +419,10 @@ character. All characters including spaces are taken into account.
 If the \meta{integer expression} is negative,
 characters are counted from the end of the \meta{string}. Hence,
 $-1$ is the right-most character, \emph{etc.}
+\begin{demohigh}
+\StrSet \lTmpaStr {abcd}
+\StrVarItem \lTmpaStr {3}
+\end{demohigh}
 \end{function}
 
 \section{Mapping over Strings}
@@ -344,6 +451,17 @@ applies the \meta{inline function} to every \meta{character} in the
 \meta{str var} including spaces.
 The \meta{inline function} should consist of code which
 receives the \meta{character} as \verb|#1|.
+For example,
+\begin{codehigh}
+\IgnoreSpacesOn
+\StrClear \lTmpaStr
+\StrMapInline {one} {
+  \StrPutRight \lTmpaStr {[#1]}
+}
+\Result{\StrUse\lTmpaStr}
+\IgnoreSpacesOff
+\end{codehigh}
+produces [o][n][e].
 \end{function}
 
 %\begin{function}{\StrMapTokens, \StrVarMapTokens}
@@ -371,6 +489,15 @@ the (string or token list) \meta{variable} and applies the
 \meta{variable} are local.  Its value after the loop is the last
 \meta{character} in the \meta{string}, or its original value if the
 \meta{string} is empty.
+\begin{demohigh}
+\IgnoreSpacesOn
+\StrClear \lTmpaStr
+\StrMapVariable {one} \lTmpiStr {
+  \StrPutRight \lTmpaStr {\Expand {[\lTmpiStr]}}
+}
+\Result{\StrUse\lTmpaStr}
+\IgnoreSpacesOff
+\end{demohigh}
 \end{function}
 
 %\begin{function}{\StrMapBreak}
@@ -433,6 +560,10 @@ the (string or token list) \meta{variable} and applies the
 \end{syntax}
 Tests whether the \meta{str var} is currently defined.  This does not
 check that the \meta{str var} really is a string.
+\begin{demohigh}
+\StrIfExistTF\lTmpaStr{\Result{Yes}}{\Result{No}}
+\StrIfExistTF\lFooUndefinedStr{\Result{Yes}}{\Result{No}}
+\end{demohigh}
 \end{function}
 
 \begin{function}{\StrVarIfEmpty,\StrVarIfEmptyTF}
@@ -441,7 +572,7 @@ check that the \meta{str var} really is a string.
 \cs{StrVarIfEmptyTF} \meta{str var} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests if the \meta{string variable} is entirely empty
-(\emph{i.e.} contains no characters at all). For example
+(\emph{i.e.} contains no characters at all).
 \begin{demohigh}
 \StrSet \lTmpaStr {abc}
 \StrVarIfEmptyTF \lTmpaStr {\Result{Empty}} {\Result{NonEmpty}}
@@ -507,6 +638,10 @@ in the same order.  See \cs{TlVarIfEq} to compare tokens
 \end{syntax}
 Converts both \meta{token lists} to \meta{strings} and
 tests whether \meta{string_2} is found inside \meta{string_1}.
+\begin{demohigh}
+\StrIfInTF {hello world} {o} {\Result{Yes}}{\Result{No}}
+\StrIfInTF {hello world} {a} {\Result{Yes}}{\Result{No}}
+\end{demohigh}
 \end{function}
 
 \begin{function}{\StrVarIfIn,\StrVarIfInTF}
@@ -515,8 +650,12 @@ tests whether \meta{string_2} is found inside \meta{string_1}.
 \cs{StrVarIfInTF} \meta{str var} \Arg{token list} \Arg{true code} \Arg{false code}
 \end{syntax}
 Converts the \meta{token list} to a \meta{string} and
-tests if that \meta{string} is found in the content of the
-\meta{str var}.
+tests if that \meta{string} is found in the content of the \meta{str var}.
+\begin{demohigh}
+\StrSet \lTmpaStr {hello world}
+\StrVarIfInTF \lTmpaStr {o} {\Result{Yes}}{\Result{No}}
+\StrVarIfInTF \lTmpaStr {a} {\Result{Yes}}{\Result{No}}
+\end{demohigh}
 \end{function}
 
 \begin{function}{\StrCompare,\StrCompareTF}
@@ -568,6 +707,15 @@ of the \meta{string cases} (all token lists are converted to strings).
 If the two are equal (as described for
 \cs{StrIfEq}) then the associated \meta{code} is left in the
 input stream and other cases are discarded.
+\begin{demohigh}
+\IgnoreSpacesOn
+\StrCase {bbb} {
+  {aaa} {\Result{First}}
+  {bbb} {\Result{Second}}
+  {ccb} {\Result{Third}}
+}
+\IgnoreSpacesOff
+\end{demohigh}
 \end{function}
 
 \begin{function}{\StrCaseT}
@@ -588,6 +736,17 @@ If the two are equal (as described for
 input stream and other cases are discarded. If any of the
 cases are matched, the \meta{true code} is also inserted into the
 input stream (after the code for the appropriate case).
+\begin{demohigh}
+\IgnoreSpacesOn
+\StrCaseT {bbb} {
+  {aaa} {\TlSet\lTmpkTl{First}}
+  {bbb} {\TlSet\lTmpkTl{Second}}
+  {ccb} {\TlSet\lTmpkTl{Third}}
+}{
+  \Result{\TlUse\lTmpkTl}
+}
+\IgnoreSpacesOff
+\end{demohigh}
 \end{function}
 
 \begin{function}{\StrCaseF}
@@ -607,6 +766,17 @@ If the two are equal (as described for
 \cs{StrIfEq}) then the associated \meta{code} is left in the
 input stream and other cases are discarded. If none
 match then the \meta{false code} is inserted.
+\begin{demohigh}
+\IgnoreSpacesOn
+\StrCaseF {bbb} {
+  {aaa} {\Result{First}}
+  {bbb} {\Result{Second}}
+  {ccb} {\Result{Third}}
+}{
+  \Result{No~Match!}
+}
+\IgnoreSpacesOff
+\end{demohigh}
 \end{function}
 
 \begin{function}{\StrCaseTF}
@@ -629,6 +799,19 @@ input stream and other cases are discarded. If any of the
 cases are matched, the \meta{true code} is also inserted into the
 input stream (after the code for the appropriate case), while if none
 match then the \meta{false code} is inserted.
+\begin{demohigh}
+\IgnoreSpacesOn
+\StrCaseTF {bbb} {
+  {aaa} {\TlSet\lTmpkTl{First}}
+  {bbb} {\TlSet\lTmpkTl{Second}}
+  {ccb} {\TlSet\lTmpkTl{Third}}
+}{
+  \Result{\TlUse\lTmpkTl}
+}{
+  \Result{No~Match!}
+}
+\IgnoreSpacesOff
+\end{demohigh}
 \end{function}
 
 \end{document}
