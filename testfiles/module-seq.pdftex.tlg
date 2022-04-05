@@ -192,7 +192,7 @@ TEST 17: Testing \SeqVarItem
 [I] \TlUse{\lTmpaTl }
         [I] \Value{\lTmpaTl }
         [O] three
-    [I] \Result{three}
+    [I] \Return{three}
     [O] three
 [O] three
 ============================================================
@@ -201,14 +201,14 @@ TEST 18: Testing \SeqGet
 ============================================================
 [I] \SeqSetFromClist{\lTmpaSeq }{two,three,four}
 [O] 
-[I] \SeqGetTF{\lTmpaSeq }{\lTmpaTl }{\Result {Yes}}{\Result {No}}
-    [I] \Result{Yes}
+[I] \SeqGetTF{\lTmpaSeq }{\lTmpaTl }{\Return {Yes}}{\Return {No}}
+    [I] \Return{Yes}
     [O] Yes
 [O] Yes
 [I] \TlUse{\lTmpaTl }
         [I] \Value{\lTmpaTl }
         [O] two
-    [I] \Result{two}
+    [I] \Return{two}
     [O] two
 [O] two
 ============================================================
@@ -217,8 +217,8 @@ TEST 19: Testing \SeqPop
 ============================================================
 [I] \SeqSetFromClist{\lTmpaSeq }{two,three,four}
 [O] 
-[I] \SeqPopTF{\lTmpaSeq }{\lTmpaTl }{\Result {Yes}}{\Result {No}}
-    [I] \Result{Yes}
+[I] \SeqPopTF{\lTmpaSeq }{\lTmpaTl }{\Return {Yes}}{\Return {No}}
+    [I] \Return{Yes}
     [O] Yes
 [O] Yes
 [I] \SeqVarJoin{\lTmpaSeq }{,}
@@ -243,14 +243,14 @@ TEST 21: Testing \SeqGetLeft
 ============================================================
 [I] \SeqSetFromClist{\lTmpaSeq }{two,three,four}
 [O] 
-[I] \SeqGetLeftTF{\lTmpaSeq }{\lTmpaTl }{\Result {Yes}}{\Result {No}}
-    [I] \Result{Yes}
+[I] \SeqGetLeftTF{\lTmpaSeq }{\lTmpaTl }{\Return {Yes}}{\Return {No}}
+    [I] \Return{Yes}
     [O] Yes
 [O] Yes
 [I] \TlUse{\lTmpaTl }
         [I] \Value{\lTmpaTl }
         [O] two
-    [I] \Result{two}
+    [I] \Return{two}
     [O] two
 [O] two
 ============================================================
@@ -259,14 +259,14 @@ TEST 22: Testing \SeqGetRight
 ============================================================
 [I] \SeqSetFromClist{\lTmpaSeq }{two,three,four}
 [O] 
-[I] \SeqGetRightTF{\lTmpaSeq }{\lTmpaTl }{\Result {Yes}}{\Result {No}}
-    [I] \Result{Yes}
+[I] \SeqGetRightTF{\lTmpaSeq }{\lTmpaTl }{\Return {Yes}}{\Return {No}}
+    [I] \Return{Yes}
     [O] Yes
 [O] Yes
 [I] \TlUse{\lTmpaTl }
         [I] \Value{\lTmpaTl }
         [O] four
-    [I] \Result{four}
+    [I] \Return{four}
     [O] four
 [O] four
 ============================================================
@@ -275,8 +275,8 @@ TEST 23: Testing \SeqPopLeft
 ============================================================
 [I] \SeqSetFromClist{\lTmpaSeq }{two,three,four}
 [O] 
-[I] \SeqPopLeftTF{\lTmpaSeq }{\lTmpaTl }{\Result {Yes}}{\Result {No}}
-    [I] \Result{Yes}
+[I] \SeqPopLeftTF{\lTmpaSeq }{\lTmpaTl }{\Return {Yes}}{\Return {No}}
+    [I] \Return{Yes}
     [O] Yes
 [O] Yes
 [I] \SeqVarJoin{\lTmpaSeq }{,}
@@ -289,8 +289,8 @@ TEST 24: Testing \SeqPopRight
 ============================================================
 [I] \SeqSetFromClist{\lTmpaSeq }{two,three,four}
 [O] 
-[I] \SeqPopRightTF{\lTmpaSeq }{\lTmpaTl }{\Result {Yes}}{\Result {No}}
-    [I] \Result{Yes}
+[I] \SeqPopRightTF{\lTmpaSeq }{\lTmpaTl }{\Return {Yes}}{\Return {No}}
+    [I] \Return{Yes}
     [O] Yes
 [O] Yes
 [I] \SeqVarJoin{\lTmpaSeq }{,}
@@ -316,10 +316,10 @@ TEST 25: Testing \SeqVarMapInline
     [I] \TlUse{\lTmpaTl }
             [I] \Value{\lTmpaTl }
             [O] (one)(two)(three)
-        [I] \Result{(one)(two)(three)}
+        [I] \Return{(one)(two)(three)}
         [O] (one)(two)(three)
     [O] (one)(two)(three)
-[I] \Result{(one)(two)(three)}
+[I] \Return{(one)(two)(three)}
 [O] (one)(two)(three)
 ============================================================
 ============================================================
@@ -340,29 +340,29 @@ TEST 26: Testing \SeqVarMapVariable
     [I] \IntUse{\lTmpaInt }
             [I] \Value{\lTmpaInt }
             [O] 59
-        [I] \Result{59}
+        [I] \Return{59}
         [O] 59
     [O] 59
-[I] \Result{59}
+[I] \Return{59}
 [O] 59
 ============================================================
 ============================================================
 TEST 27: Testing \SeqIfExist 
 ============================================================
-[I] \SeqIfExistTF{\lTmpaSeq }{\Result {Yes}}{\Result {No}}
+[I] \SeqIfExistTF{\lTmpaSeq }{\Return {Yes}}{\Return {No}}
     [I] \SeqIfExist{\lTmpaSeq }
-        [I] \Result{\cTrueBool }
+        [I] \Return{\cTrueBool }
         [O] \cTrueBool 
     [O] \cTrueBool 
-    [I] \Result{Yes}
+    [I] \Return{Yes}
     [O] Yes
 [O] Yes
-[I] \SeqIfExistTF{\lFooUndefinedSeq }{\Result {Yes}}{\Result {No}}
+[I] \SeqIfExistTF{\lFooUndefinedSeq }{\Return {Yes}}{\Return {No}}
     [I] \SeqIfExist{\lFooUndefinedSeq }
-        [I] \Result{\cFalseBool }
+        [I] \Return{\cFalseBool }
         [O] \cFalseBool 
     [O] \cFalseBool 
-    [I] \Result{No}
+    [I] \Return{No}
     [O] No
 [O] No
 ============================================================
@@ -371,22 +371,22 @@ TEST 28: Testing \SeqVarIfEmpty
 ============================================================
 [I] \SeqSetFromClist{\lTmpaSeq }{one,two}
 [O] 
-[I] \SeqVarIfEmptyTF{\lTmpaSeq }{\Result {Empty}}{\Result {NonEmpty}}
+[I] \SeqVarIfEmptyTF{\lTmpaSeq }{\Return {Empty}}{\Return {NonEmpty}}
     [I] \SeqVarIfEmpty{\lTmpaSeq }
-        [I] \Result{\cFalseBool }
+        [I] \Return{\cFalseBool }
         [O] \cFalseBool 
     [O] \cFalseBool 
-    [I] \Result{NonEmpty}
+    [I] \Return{NonEmpty}
     [O] NonEmpty
 [O] NonEmpty
 [I] \SeqClear{\lTmpaSeq }
 [O] 
-[I] \SeqVarIfEmptyTF{\lTmpaSeq }{\Result {Empty}}{\Result {NonEmpty}}
+[I] \SeqVarIfEmptyTF{\lTmpaSeq }{\Return {Empty}}{\Return {NonEmpty}}
     [I] \SeqVarIfEmpty{\lTmpaSeq }
-        [I] \Result{\cTrueBool }
+        [I] \Return{\cTrueBool }
         [O] \cTrueBool 
     [O] \cTrueBool 
-    [I] \Result{Empty}
+    [I] \Return{Empty}
     [O] Empty
 [O] Empty
 ============================================================
@@ -395,20 +395,20 @@ TEST 29: Testing \SeqVarIfIn
 ============================================================
 [I] \SeqSetFromClist{\lTmpaSeq }{one,two}
 [O] 
-[I] \SeqVarIfInTF{\lTmpaSeq }{one}{\Result {Yes}}{\Result {Not}}
+[I] \SeqVarIfInTF{\lTmpaSeq }{one}{\Return {Yes}}{\Return {Not}}
     [I] \SeqVarIfIn{\lTmpaSeq }{one}
-        [I] \Result{\cTrueBool }
+        [I] \Return{\cTrueBool }
         [O] \cTrueBool 
     [O] \cTrueBool 
-    [I] \Result{Yes}
+    [I] \Return{Yes}
     [O] Yes
 [O] Yes
-[I] \SeqVarIfInTF{\lTmpaSeq }{three}{\Result {Yes}}{\Result {Not}}
+[I] \SeqVarIfInTF{\lTmpaSeq }{three}{\Return {Yes}}{\Return {Not}}
     [I] \SeqVarIfIn{\lTmpaSeq }{three}
-        [I] \Result{\cFalseBool }
+        [I] \Return{\cFalseBool }
         [O] \cFalseBool 
     [O] \cFalseBool 
-    [I] \Result{Not}
+    [I] \Return{Not}
     [O] Not
 [O] Not
 ============================================================

@@ -193,7 +193,7 @@ TEST 15: Testing \PropVarItem
 [I] \TlUse{\lTmpaTl }
         [I] \Value{\lTmpaTl }
         [O] two
-    [I] \Result{two}
+    [I] \Return{two}
     [O] two
 [O] two
 ============================================================
@@ -202,14 +202,14 @@ TEST 16: Testing \PropGet
 ============================================================
 [I] \PropSetFromKeyval{\lTmpaProp }{key1=one,key2=two,key3=three}
 [O] 
-[I] \PropGetTF{\lTmpaProp }{key2}{\lTmpaTl }{\Result {Yes}}{\Result {No}}
-    [I] \Result{Yes}
+[I] \PropGetTF{\lTmpaProp }{key2}{\lTmpaTl }{\Return {Yes}}{\Return {No}}
+    [I] \Return{Yes}
     [O] Yes
 [O] Yes
 [I] \TlUse{\lTmpaTl }
         [I] \Value{\lTmpaTl }
         [O] two
-    [I] \Result{two}
+    [I] \Return{two}
     [O] two
 [O] two
 [I] \PropVarCount{\lTmpaProp }
@@ -222,14 +222,14 @@ TEST 17: Testing \PropPop
 ============================================================
 [I] \PropSetFromKeyval{\lTmpaProp }{key1=one,key2=two,key3=three}
 [O] 
-[I] \PropPopTF{\lTmpaProp }{key2}{\lTmpaTl }{\Result {Yes}}{\Result {No}}
-    [I] \Result{Yes}
+[I] \PropPopTF{\lTmpaProp }{key2}{\lTmpaTl }{\Return {Yes}}{\Return {No}}
+    [I] \Return{Yes}
     [O] Yes
 [O] Yes
 [I] \TlUse{\lTmpaTl }
         [I] \Value{\lTmpaTl }
         [O] two
-    [I] \Result{two}
+    [I] \Return{two}
     [O] two
 [O] two
 [I] \PropVarCount{\lTmpaProp }
@@ -255,29 +255,29 @@ TEST 18: Testing \PropVarMapInline
     [I] \TlUse{\lTmpaTl }
             [I] \Value{\lTmpaTl }
             [O] (key1=one)(key2=two)(key3=three)
-        [I] \Result{(key1=one)(key2=two)(key3=three)}
+        [I] \Return{(key1=one)(key2=two)(key3=three)}
         [O] (key1=one)(key2=two)(key3=three)
     [O] (key1=one)(key2=two)(key3=three)
-[I] \Result{(key1=one)(key2=two)(key3=three)}
+[I] \Return{(key1=one)(key2=two)(key3=three)}
 [O] (key1=one)(key2=two)(key3=three)
 ============================================================
 ============================================================
 TEST 19: Testing \PropIfExist 
 ============================================================
-[I] \PropIfExistTF{\lTmpaProp }{\Result {Yes}}{\Result {No}}
+[I] \PropIfExistTF{\lTmpaProp }{\Return {Yes}}{\Return {No}}
     [I] \PropIfExist{\lTmpaProp }
-        [I] \Result{\cTrueBool }
+        [I] \Return{\cTrueBool }
         [O] \cTrueBool 
     [O] \cTrueBool 
-    [I] \Result{Yes}
+    [I] \Return{Yes}
     [O] Yes
 [O] Yes
-[I] \PropIfExistTF{\lFooUndefinedProp }{\Result {Yes}}{\Result {No}}
+[I] \PropIfExistTF{\lFooUndefinedProp }{\Return {Yes}}{\Return {No}}
     [I] \PropIfExist{\lFooUndefinedProp }
-        [I] \Result{\cFalseBool }
+        [I] \Return{\cFalseBool }
         [O] \cFalseBool 
     [O] \cFalseBool 
-    [I] \Result{No}
+    [I] \Return{No}
     [O] No
 [O] No
 ============================================================
@@ -286,22 +286,22 @@ TEST 20: Testing \PropVarIfEmpty
 ============================================================
 [I] \PropSetFromKeyval{\lTmpaProp }{key1=one,key2=two}
 [O] 
-[I] \PropVarIfEmptyTF{\lTmpaProp }{\Result {Empty}}{\Result {NonEmpty}}
+[I] \PropVarIfEmptyTF{\lTmpaProp }{\Return {Empty}}{\Return {NonEmpty}}
     [I] \PropVarIfEmpty{\lTmpaProp }
-        [I] \Result{\cFalseBool }
+        [I] \Return{\cFalseBool }
         [O] \cFalseBool 
     [O] \cFalseBool 
-    [I] \Result{NonEmpty}
+    [I] \Return{NonEmpty}
     [O] NonEmpty
 [O] NonEmpty
 [I] \PropClear{\lTmpaProp }
 [O] 
-[I] \PropVarIfEmptyTF{\lTmpaProp }{\Result {Empty}}{\Result {NonEmpty}}
+[I] \PropVarIfEmptyTF{\lTmpaProp }{\Return {Empty}}{\Return {NonEmpty}}
     [I] \PropVarIfEmpty{\lTmpaProp }
-        [I] \Result{\cTrueBool }
+        [I] \Return{\cTrueBool }
         [O] \cTrueBool 
     [O] \cTrueBool 
-    [I] \Result{Empty}
+    [I] \Return{Empty}
     [O] Empty
 [O] Empty
 ============================================================
@@ -310,20 +310,20 @@ TEST 21: Testing \PropVarIfIn
 ============================================================
 [I] \PropSetFromKeyval{\lTmpaProp }{key1=one,key2=two}
 [O] 
-[I] \PropVarIfInTF{\lTmpaProp }{key1}{\Result {Yes}}{\Result {Not}}
+[I] \PropVarIfInTF{\lTmpaProp }{key1}{\Return {Yes}}{\Return {Not}}
     [I] \PropVarIfIn{\lTmpaProp }{key1}
-        [I] \Result{\cTrueBool }
+        [I] \Return{\cTrueBool }
         [O] \cTrueBool 
     [O] \cTrueBool 
-    [I] \Result{Yes}
+    [I] \Return{Yes}
     [O] Yes
 [O] Yes
-[I] \PropVarIfInTF{\lTmpaProp }{key3}{\Result {Yes}}{\Result {Not}}
+[I] \PropVarIfInTF{\lTmpaProp }{key3}{\Return {Yes}}{\Return {Not}}
     [I] \PropVarIfIn{\lTmpaProp }{key3}
-        [I] \Result{\cFalseBool }
+        [I] \Return{\cFalseBool }
         [O] \cFalseBool 
     [O] \cFalseBool 
-    [I] \Result{Not}
+    [I] \Return{Not}
     [O] Not
 [O] Not
 ============================================================

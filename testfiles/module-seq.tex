@@ -108,13 +108,13 @@
 
 \BEGINTEST{Testing \SeqGet}
 \SeqSetFromClist \lTmpaSeq {two,three,four}
-\SeqGetTF \lTmpaSeq \lTmpaTl {\Result{Yes}} {\Result{No}}
+\SeqGetTF \lTmpaSeq \lTmpaTl {\Return{Yes}} {\Return{No}}
 \TlUse \lTmpaTl
 \ENDTEST
 
 \BEGINTEST{Testing \SeqPop}
 \SeqSetFromClist \lTmpaSeq {two,three,four}
-\SeqPopTF \lTmpaSeq \lTmpaTl {\Result{Yes}} {\Result{No}}
+\SeqPopTF \lTmpaSeq \lTmpaTl {\Return{Yes}} {\Return{No}}
 \SeqVarJoin \lTmpaSeq {,}
 \ENDTEST
 
@@ -126,25 +126,25 @@
 
 \BEGINTEST{Testing \SeqGetLeft}
 \SeqSetFromClist \lTmpaSeq {two,three,four}
-\SeqGetLeftTF \lTmpaSeq \lTmpaTl {\Result{Yes}} {\Result{No}}
+\SeqGetLeftTF \lTmpaSeq \lTmpaTl {\Return{Yes}} {\Return{No}}
 \TlUse \lTmpaTl
 \ENDTEST
 
 \BEGINTEST{Testing \SeqGetRight}
 \SeqSetFromClist \lTmpaSeq {two,three,four}
-\SeqGetRightTF \lTmpaSeq \lTmpaTl {\Result{Yes}} {\Result{No}}
+\SeqGetRightTF \lTmpaSeq \lTmpaTl {\Return{Yes}} {\Return{No}}
 \TlUse \lTmpaTl
 \ENDTEST
 
 \BEGINTEST{Testing \SeqPopLeft}
 \SeqSetFromClist \lTmpaSeq {two,three,four}
-\SeqPopLeftTF \lTmpaSeq \lTmpaTl {\Result{Yes}} {\Result{No}}
+\SeqPopLeftTF \lTmpaSeq \lTmpaTl {\Return{Yes}} {\Return{No}}
 \SeqVarJoin \lTmpaSeq {,}
 \ENDTEST
 
 \BEGINTEST{Testing \SeqPopRight}
 \SeqSetFromClist \lTmpaSeq {two,three,four}
-\SeqPopRightTF \lTmpaSeq \lTmpaTl {\Result{Yes}} {\Result{No}}
+\SeqPopRightTF \lTmpaSeq \lTmpaTl {\Return{Yes}} {\Return{No}}
 \SeqVarJoin \lTmpaSeq {,}
 \ENDTEST
 
@@ -155,7 +155,7 @@
 \SeqVarMapInline \lTmpkSeq {
   \TlPutRight \lTmpaTl {(#1)}
 }
-\Result {\TlUse\lTmpaTl}
+\Return {\TlUse\lTmpaTl}
 \IgnoreSpacesOff
 \ENDTEST
 
@@ -166,26 +166,26 @@
 \SeqVarMapVariable \lTmpaSeq \lTmpiTl {
   \IntAdd \lTmpaInt {\lTmpiTl*\lTmpiTl}
 }
-\Result {\IntUse\lTmpaInt}
+\Return {\IntUse\lTmpaInt}
 \IgnoreSpacesOff
 \ENDTEST
 
 \BEGINTEST{Testing \SeqIfExist}
-\SeqIfExistTF \lTmpaSeq {\Result{Yes}} {\Result{No}}
-\SeqIfExistTF \lFooUndefinedSeq {\Result{Yes}} {\Result{No}}
+\SeqIfExistTF \lTmpaSeq {\Return{Yes}} {\Return{No}}
+\SeqIfExistTF \lFooUndefinedSeq {\Return{Yes}} {\Return{No}}
 \ENDTEST
 
 \BEGINTEST{Testing \SeqVarIfEmpty}
 \SeqSetFromClist \lTmpaSeq {one,two}
-\SeqVarIfEmptyTF \lTmpaSeq {\Result{Empty}} {\Result{NonEmpty}}
+\SeqVarIfEmptyTF \lTmpaSeq {\Return{Empty}} {\Return{NonEmpty}}
 \SeqClear \lTmpaSeq
-\SeqVarIfEmptyTF \lTmpaSeq {\Result{Empty}} {\Result{NonEmpty}}
+\SeqVarIfEmptyTF \lTmpaSeq {\Return{Empty}} {\Return{NonEmpty}}
 \ENDTEST
 
 \BEGINTEST{Testing \SeqVarIfIn}
 \SeqSetFromClist \lTmpaSeq {one,two}
-\SeqVarIfInTF \lTmpaSeq {one} {\Result{Yes}} {\Result{Not}}
-\SeqVarIfInTF \lTmpaSeq {three} {\Result{Yes}} {\Result{Not}}
+\SeqVarIfInTF \lTmpaSeq {one} {\Return{Yes}} {\Return{Not}}
+\SeqVarIfInTF \lTmpaSeq {three} {\Return{Yes}} {\Return{Not}}
 \ENDTEST
 
 \end{document}

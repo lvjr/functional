@@ -128,7 +128,7 @@
 \StrMapInline {one} {
   \StrPutRight \lTmpaStr {[#1]}
 }
-\Result{\StrUse\lTmpaStr}
+\Return{\StrUse\lTmpaStr}
 \IgnoreSpacesOff
 \ENDTEST
 
@@ -139,7 +139,7 @@
 \StrVarMapInline \lTmpkStr {
   \StrPutRight \lTmpaStr {[#1]}
 }
-\Result{\StrUse\lTmpaStr}
+\Return{\StrUse\lTmpaStr}
 \IgnoreSpacesOff
 \ENDTEST
 
@@ -149,7 +149,7 @@
 \StrMapVariable {one} \lTmpiStr {
   \StrPutRight \lTmpaStr {\Expand {[\lTmpiStr]}}
 }
-\Result{\StrUse\lTmpaStr}
+\Return{\StrUse\lTmpaStr}
 \IgnoreSpacesOff
 \ENDTEST
 
@@ -160,62 +160,62 @@
 \StrVarMapVariable \lTmpkStr \lTmpiStr {
   \StrPutRight \lTmpaStr {\Expand {[\lTmpiStr]}}
 }
-\Result{\StrUse\lTmpaStr}
+\Return{\StrUse\lTmpaStr}
 \IgnoreSpacesOff
 \ENDTEST
 
 \BEGINTEST{Testing \StrIfExist}
-\StrIfExistTF \lTmpaStr {\Result{Yes}} {\Result{No}}
-\StrIfExistTF \lFooUndefinedStr {\Result{Yes}} {\Result{No}}
+\StrIfExistTF \lTmpaStr {\Return{Yes}} {\Return{No}}
+\StrIfExistTF \lFooUndefinedStr {\Return{Yes}} {\Return{No}}
 \ENDTEST
 
 \BEGINTEST{Testing \StrVarIfEmpty}
 \StrSet \lTmpaStr {abc}
-\StrVarIfEmptyTF \lTmpaStr {\Result{Empty}} {\Result{NonEmpty}}
+\StrVarIfEmptyTF \lTmpaStr {\Return{Empty}} {\Return{NonEmpty}}
 \StrClear \lTmpaStr
-\StrVarIfEmptyTF \lTmpaStr {\Result{Empty}} {\Result{NonEmpty}}
+\StrVarIfEmptyTF \lTmpaStr {\Return{Empty}} {\Return{NonEmpty}}
 \ENDTEST
 
 \BEGINTEST{Testing \StrIfEq}
-\StrIfEqTF {abc} {abc} {\Result{Yes}} {\Result{No}}
-\StrIfEqTF {abc} {xyz} {\Result{Yes}} {\Result{No}}
+\StrIfEqTF {abc} {abc} {\Return{Yes}} {\Return{No}}
+\StrIfEqTF {abc} {xyz} {\Return{Yes}} {\Return{No}}
 \StrSet \lTmpaStr {abc}
 \StrSet \lTmpbStr {abc}
 \StrSet \lTmpcStr {xyz}
-\StrIfEqTF {\lTmpaStr} {\lTmpbStr} {\Result{Yes}} {\Result{No}}
-\StrIfEqTF {\lTmpaStr} {\lTmpcStr} {\Result{Yes}} {\Result{No}}
-\StrIfEqTF {\Value\lTmpaStr} {\Value\lTmpbStr} {\Result{Yes}} {\Result{No}}
-\StrIfEqTF {\Value\lTmpaStr} {\Value\lTmpcStr} {\Result{Yes}} {\Result{No}}
+\StrIfEqTF {\lTmpaStr} {\lTmpbStr} {\Return{Yes}} {\Return{No}}
+\StrIfEqTF {\lTmpaStr} {\lTmpcStr} {\Return{Yes}} {\Return{No}}
+\StrIfEqTF {\Value\lTmpaStr} {\Value\lTmpbStr} {\Return{Yes}} {\Return{No}}
+\StrIfEqTF {\Value\lTmpaStr} {\Value\lTmpcStr} {\Return{Yes}} {\Return{No}}
 \ENDTEST
 
 \BEGINTEST{Testing \StrVarIfEq}
 \StrSet \lTmpaStr {abc}
 \StrSet \lTmpbStr {abc}
 \StrSet \lTmpcStr {xyz}
-\StrVarIfEqTF \lTmpaStr \lTmpbStr {\Result{Yes}} {\Result{No}}
-\StrVarIfEqTF \lTmpaStr \lTmpcStr {\Result{Yes}} {\Result{No}}
+\StrVarIfEqTF \lTmpaStr \lTmpbStr {\Return{Yes}} {\Return{No}}
+\StrVarIfEqTF \lTmpaStr \lTmpcStr {\Return{Yes}} {\Return{No}}
 \ENDTEST
 
 \BEGINTEST{Testing \StrIfIn}
-\StrIfInTF {hello world} {o} {\Result{Yes}}{\Result{No}}
-\StrIfInTF {hello world} {a} {\Result{Yes}}{\Result{No}}
+\StrIfInTF {hello world} {o} {\Return{Yes}}{\Return{No}}
+\StrIfInTF {hello world} {a} {\Return{Yes}}{\Return{No}}
 \ENDTEST
 
 \BEGINTEST{Testing \StrVarIfIn}
 \StrSet \lTmpaStr {hello world}
-\StrVarIfInTF \lTmpaStr {o} {\Result{Yes}}{\Result{No}}
-\StrVarIfInTF \lTmpaStr {a} {\Result{Yes}}{\Result{No}}
+\StrVarIfInTF \lTmpaStr {o} {\Return{Yes}}{\Return{No}}
+\StrVarIfInTF \lTmpaStr {a} {\Return{Yes}}{\Return{No}}
 \ENDTEST
 
 \BEGINTEST{Testing \StrCompare}
 \BoolVarLog {\StrCompare {ab} < {abc}}
 \BoolVarLog {\StrCompare {ab} < {aa}}
-\StrCompareTF {ab} < {abc} {\Result{Yes}} {\Result{No}}
-\StrCompareTF {ab} < {aa} {\Result{Yes}} {\Result{No}}
+\StrCompareTF {ab} < {abc} {\Return{Yes}} {\Return{No}}
+\StrCompareTF {ab} < {aa} {\Return{Yes}} {\Return{No}}
 \BoolVarLog {\StrIfCompare {ab} < {abc}}
 \BoolVarLog {\StrIfCompare {ab} < {aa}}
-\StrIfCompareTF {ab} < {abc} {\Result{Yes}} {\Result{No}}
-\StrIfCompareTF {ab} < {aa} {\Result{Yes}} {\Result{No}}
+\StrIfCompareTF {ab} < {abc} {\Return{Yes}} {\Return{No}}
+\StrIfCompareTF {ab} < {aa} {\Return{Yes}} {\Return{No}}
 \ENDTEST
 
 \BEGINTEST{Testing \StrCaseF}
@@ -225,9 +225,9 @@
   {bbb} { \TlSet\lTmpkTl{Second} }
   {ccb} { \TlSet\lTmpkTl{Third} }
 }{
-  \Result {No Match!}
+  \Return {No Match!}
 }
-\Result {\TlUse\lTmpkTl}
+\Return {\TlUse\lTmpkTl}
 \IgnoreSpacesOff
 \ENDTEST
 
@@ -238,9 +238,9 @@
   {bbb} { \TlSet\lTmpkTl{Second} }
   {ccb} { \TlSet\lTmpkTl{Third} }
 }{
-  \Result {\TlUse\lTmpkTl}
+  \Return {\TlUse\lTmpkTl}
 }{
-  \Result {No ~ Match!}
+  \Return {No ~ Match!}
 }
 \IgnoreSpacesOff
 \ENDTEST

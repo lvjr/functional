@@ -432,6 +432,11 @@
   }
 \cs_generate_variant:Nn \__fun_put_result:n { e, V }
 
+\PrgNewFunction \Return { m }
+  {
+    \__fun_put_result:n { #1 }
+  }
+%% Obsolete function, will be removed in the future
 \PrgNewFunction \Result { m }
   {
     \__fun_put_result:n { #1 }
@@ -599,9 +604,9 @@
 \cs_set_eq:NN \OnlyExpandF \exp_not:f
 \cs_set_eq:NN \OnlyExpandO \exp_not:o
 
-\PrgNewFunction \UseOne { n } { \Result { #1 } }
+\PrgNewFunction \UseOne { n } { \Return { #1 } }
 
-\PrgNewFunction \GobbleOne { n } { \Result { } }
+\PrgNewFunction \GobbleOne { n } { \Return { } }
 
 \PrgNewFunction \UseGobble { n n } { \UseOne { #1 } }
 
@@ -657,33 +662,33 @@
 
 \PrgNewConditional \BoolIfExist { M }
   {
-    \bool_if_exist:NTF #1 { \Result { \cTrueBool } } { \Result { \cFalseBool } }
+    \bool_if_exist:NTF #1 { \Return { \cTrueBool } } { \Return { \cFalseBool } }
   }
 
-\PrgNewConditional \BoolVarIf { M } { \Result { #1 } }
+\PrgNewConditional \BoolVarIf { M } { \Return { #1 } }
 
 \PrgNewConditional \BoolVarNot { M }
   {
     \bool_if:NTF #1
-      { \Result { \cFalseBool } } { \Result { \cTrueBool } }
+      { \Return { \cFalseBool } } { \Return { \cTrueBool } }
   }
 
 \PrgNewConditional \BoolVarAnd { M M }
   {
     \bool_lazy_and:nnTF {#1} {#2}
-      { \Result { \cTrueBool } } { \Result { \cFalseBool } }
+      { \Return { \cTrueBool } } { \Return { \cFalseBool } }
   }
 
 \PrgNewConditional \BoolVarOr { M M }
   {
     \bool_lazy_or:nnTF {#1} {#2}
-      { \Result { \cTrueBool } } { \Result { \cFalseBool } }
+      { \Return { \cTrueBool } } { \Return { \cFalseBool } }
   }
 
 \PrgNewConditional \BoolVarXor { M M }
   {
     \bool_xor:nnTF {#1} {#2}
-      { \Result { \cTrueBool } } { \Result { \cFalseBool } }
+      { \Return { \cTrueBool } } { \Return { \cFalseBool } }
   }
 
 %%% --------------------------------------------------------
@@ -712,7 +717,7 @@
 
 \PrgNewFunction \TlVarShow { M } { \tl_show:N #1 }
 
-\PrgNewFunction \TlUse { M } { \Result { \Value #1 } }
+\PrgNewFunction \TlUse { M } { \Return { \Value #1 } }
 
 \PrgNewFunction \TlToStr { m } { \Expand { \tl_to_str:n { #1 } } }
 
@@ -836,52 +841,52 @@
 
 \PrgNewConditional \TlIfExist { M }
   {
-    \tl_if_exist:NTF #1 { \Result { \cTrueBool } }  { \Result { \cFalseBool } }
+    \tl_if_exist:NTF #1 { \Return { \cTrueBool } }  { \Return { \cFalseBool } }
   }
 
 \PrgNewConditional \TlIfEmpty { m }
   {
-    \tl_if_empty:nTF {#1} { \Result { \cTrueBool } }  { \Result { \cFalseBool } }
+    \tl_if_empty:nTF {#1} { \Return { \cTrueBool } }  { \Return { \cFalseBool } }
   }
 
 \PrgNewConditional \TlVarIfEmpty { M }
   {
-    \tl_if_empty:NTF #1 { \Result { \cTrueBool } }  { \Result { \cFalseBool } }
+    \tl_if_empty:NTF #1 { \Return { \cTrueBool } }  { \Return { \cFalseBool } }
   }
 
 \PrgNewConditional \TlIfBlank { m }
   {
-    \tl_if_blank:nTF {#1} { \Result { \cTrueBool } }  { \Result { \cFalseBool } }
+    \tl_if_blank:nTF {#1} { \Return { \cTrueBool } }  { \Return { \cFalseBool } }
   }
 
 \PrgNewConditional \TlIfEq { m m }
   {
-    \tl_if_eq:nnTF {#1} {#2} { \Result { \cTrueBool } } { \Result { \cFalseBool } }
+    \tl_if_eq:nnTF {#1} {#2} { \Return { \cTrueBool } } { \Return { \cFalseBool } }
   }
 
 \PrgNewConditional \TlVarIfEq { M M }
   {
-    \tl_if_eq:NNTF #1 #2 { \Result { \cTrueBool } } { \Result { \cFalseBool } }
+    \tl_if_eq:NNTF #1 #2 { \Return { \cTrueBool } } { \Return { \cFalseBool } }
   }
 
 \PrgNewConditional \TlIfIn { m m }
   {
-    \tl_if_in:nnTF {#1} {#2} { \Result { \cTrueBool } } { \Result { \cFalseBool } }
+    \tl_if_in:nnTF {#1} {#2} { \Return { \cTrueBool } } { \Return { \cFalseBool } }
   }
 
 \PrgNewConditional \TlVarIfIn { M m }
   {
-    \tl_if_in:NnTF #1 {#2} { \Result { \cTrueBool } } { \Result { \cFalseBool } }
+    \tl_if_in:NnTF #1 {#2} { \Return { \cTrueBool } } { \Return { \cFalseBool } }
   }
 
 \PrgNewConditional \TlIfSingle { m }
   {
-    \tl_if_single:nTF {#1} { \Result { \cTrueBool } } { \Result { \cFalseBool } }
+    \tl_if_single:nTF {#1} { \Return { \cTrueBool } } { \Return { \cFalseBool } }
   }
 
 \PrgNewConditional \TlVarIfSingle { M }
   {
-    \tl_if_single:NTF #1 { \Result { \cTrueBool } } { \Result { \cFalseBool } }
+    \tl_if_single:NTF #1 { \Return { \cTrueBool } } { \Return { \cFalseBool } }
   }
 
 %%% --------------------------------------------------------
@@ -920,7 +925,7 @@
 
 \PrgNewFunction \StrVarShow { M } { \str_show:N #1 }
 
-\PrgNewFunction \StrUse { M } { \Result { \Value #1 } }
+\PrgNewFunction \StrUse { M } { \Return { \Value #1 } }
 
 \PrgNewFunction \StrConst { M m } { \str_const:Nn #1 {#2} }
 
@@ -1034,32 +1039,32 @@
 
 \PrgNewConditional \StrIfExist { M }
   {
-    \str_if_exist:NTF #1 { \Result { \cTrueBool } }  { \Result { \cFalseBool } }
+    \str_if_exist:NTF #1 { \Return { \cTrueBool } }  { \Return { \cFalseBool } }
   }
 
 \PrgNewConditional \StrVarIfEmpty { M }
   {
-    \str_if_empty:NTF #1 { \Result { \cTrueBool } } { \Result { \cFalseBool } }
+    \str_if_empty:NTF #1 { \Return { \cTrueBool } } { \Return { \cFalseBool } }
   }
 
 \PrgNewConditional \StrIfEq { m m }
   {
-    \str_if_eq:nnTF {#1} {#2} { \Result { \cTrueBool } } { \Result { \cFalseBool } }
+    \str_if_eq:nnTF {#1} {#2} { \Return { \cTrueBool } } { \Return { \cFalseBool } }
   }
 
 \PrgNewConditional \StrVarIfEq { M M }
   {
-    \str_if_eq:NNTF #1 #2 { \Result { \cTrueBool } } { \Result { \cFalseBool } }
+    \str_if_eq:NNTF #1 #2 { \Return { \cTrueBool } } { \Return { \cFalseBool } }
   }
 
 \PrgNewConditional \StrIfIn { m m }
   {
-    \str_if_in:nnTF {#1} {#2} { \Result { \cTrueBool } } { \Result { \cFalseBool } }
+    \str_if_in:nnTF {#1} {#2} { \Return { \cTrueBool } } { \Return { \cFalseBool } }
   }
 
 \PrgNewConditional \StrVarIfIn { M m }
   {
-    \str_if_in:NnTF #1 {#2} { \Result { \cTrueBool } } { \Result { \cFalseBool } }
+    \str_if_in:NnTF #1 {#2} { \Return { \cTrueBool } } { \Return { \cFalseBool } }
   }
 
 %% Avoid naming confict with xstring package
@@ -1068,8 +1073,8 @@
     \PrgNewConditional \StrCompare { m N m }
       {
         \str_compare:nNnTF {#1} #2 {#3}
-          { \Result { \cTrueBool } }
-          { \Result { \cFalseBool } }
+          { \Return { \cTrueBool } }
+          { \Return { \cFalseBool } }
       }
   }
 
@@ -1077,8 +1082,8 @@
 \PrgNewConditional \StrIfCompare { m N m }
   {
     \str_compare:nNnTF {#1} #2 {#3}
-      { \Result { \cTrueBool } }
-      { \Result { \cFalseBool } }
+      { \Return { \cTrueBool } }
+      { \Return { \cFalseBool } }
   }
 
 %%% --------------------------------------------------------
@@ -1101,25 +1106,25 @@
 
 \PrgNewFunction \IntEval { m }
   {
-    \Result { \Expand { \int_eval:n { #1 } } }
+    \Return { \Expand { \int_eval:n { #1 } } }
   }
 
 \PrgNewFunction \IntMathAdd { m m }
   {
     \int_set:Nn \l@Funx@Int { \int_eval:n { (#1) + (#2) } }
-    \Result { \Value \l@Funx@Int }
+    \Return { \Value \l@Funx@Int }
   }
 
 \PrgNewFunction \IntMathSub { m m }
   {
     \int_set:Nn \l@Funx@Int { \int_eval:n { (#1) - (#2) } }
-    \Result { \Value \l@Funx@Int }
+    \Return { \Value \l@Funx@Int }
   }
 
 \PrgNewFunction \IntMathMult { m m }
   {
     \int_set:Nn \l@Funx@Int { \int_eval:n { (#1) * (#2) } }
-    \Result { \Value \l@Funx@Int }
+    \Return { \Value \l@Funx@Int }
   }
 
 \PrgNewFunction \IntMathDiv { m m }
@@ -1156,7 +1161,7 @@
 
 \PrgNewFunction \IntVarShow { M } { \int_show:N #1 }
 
-\PrgNewFunction \IntUse { M } { \Result { \Value #1 } }
+\PrgNewFunction \IntUse { M } { \Return { \Value #1 } }
 
 \PrgNewFunction \IntSet { M m }
   {
@@ -1210,24 +1215,24 @@
 
 \PrgNewConditional \IntIfExist { M }
   {
-    \int_if_exist:NTF #1 { \Result { \cTrueBool } } { \Result { \cFalseBool } }
+    \int_if_exist:NTF #1 { \Return { \cTrueBool } } { \Return { \cFalseBool } }
   }
 
 \PrgNewConditional \IntIfOdd { m }
   {
-    \int_if_odd:nTF { #1 } { \Result { \cTrueBool } } { \Result { \cFalseBool } }
+    \int_if_odd:nTF { #1 } { \Return { \cTrueBool } } { \Return { \cFalseBool } }
   }
 
 \PrgNewConditional \IntIfEven { m }
   {
-    \int_if_even:nTF { #1 } { \Result { \cTrueBool } } { \Result { \cFalseBool } }
+    \int_if_even:nTF { #1 } { \Return { \cTrueBool } } { \Return { \cFalseBool } }
   }
 
 \PrgNewConditional \IntCompare { m N m }
   {
     \int_compare:nNnTF {#1} #2 {#3}
-      { \Result { \cTrueBool } }
-      { \Result { \cFalseBool } }
+      { \Return { \cTrueBool } }
+      { \Return { \cFalseBool } }
   }
 
 \PrgNewFunction \IntCase   { m m }     { \int_case:nn {#1} {#2} }
@@ -1258,58 +1263,58 @@
 
 \PrgNewFunction \FpEval { m }
   {
-    \Result { \Expand { \fp_eval:n { #1 } } }
+    \Return { \Expand { \fp_eval:n { #1 } } }
   }
 
 \PrgNewFunction \FpMathAdd { m m }
   {
     \fp_set:Nn \l@Funx@Fp { \fp_eval:n { (#1) + (#2) } }
-    \Result { \FpUse \l@Funx@Fp }
+    \Return { \FpUse \l@Funx@Fp }
   }
 
 \PrgNewFunction \FpMathSub { m m }
   {
     \fp_set:Nn \l@Funx@Fp { \fp_eval:n { (#1) - (#2) } }
-    \Result { \FpUse \l@Funx@Fp }
+    \Return { \FpUse \l@Funx@Fp }
   }
 
 \PrgNewFunction \FpMathMult { m m }
   {
     \fp_set:Nn \l@Funx@Fp { \fp_eval:n { (#1) * (#2) } }
-    \Result { \FpUse \l@Funx@Fp }
+    \Return { \FpUse \l@Funx@Fp }
   }
 
 \PrgNewFunction \FpMathDiv { m m }
   {
     \fp_set:Nn \l@Funx@Fp { \fp_eval:n { (#1) / (#2) } }
-    \Result { \FpUse \l@Funx@Fp }
+    \Return { \FpUse \l@Funx@Fp }
   }
 
 \PrgNewFunction \FpMathSign { m }
   {
-    \Result { \Expand { \fp_sign:n { #1 } } }
+    \Return { \Expand { \fp_sign:n { #1 } } }
   }
 
 \PrgNewFunction \FpMathAbs { m }
   {
-    \Result { \Expand { \fp_abs:n { #1 } } }
+    \Return { \Expand { \fp_abs:n { #1 } } }
   }
 
 \PrgNewFunction \FpMathMax { m m }
   {
-    \Result { \Expand { \fp_max:nn { #1 } { #2 } } }
+    \Return { \Expand { \fp_max:nn { #1 } { #2 } } }
   }
 
 \PrgNewFunction \FpMathMin { m m }
   {
-    \Result { \Expand { \fp_min:nn { #1 } { #2 } } }
+    \Return { \Expand { \fp_min:nn { #1 } { #2 } } }
   }
 
 \PrgNewFunction \FpNew { M } { \fp_new:N #1 }
 
 \PrgNewFunction \FpConst { M m } { \fp_const:Nn #1 {#2} }
 
-\PrgNewFunction \FpUse { M } { \Result { \Expand { \fp_use:N #1 } } }
+\PrgNewFunction \FpUse { M } { \Return { \Expand { \fp_use:N #1 } } }
 
 \PrgNewFunction \FpLog { m } { \fp_log:n { #1 } }
 
@@ -1361,14 +1366,14 @@
 
 \PrgNewConditional \FpIfExist { M }
   {
-    \fp_if_exist:NTF #1 { \Result { \cTrueBool } } { \Result { \cFalseBool } }
+    \fp_if_exist:NTF #1 { \Return { \cTrueBool } } { \Return { \cFalseBool } }
   }
 
 \PrgNewConditional \FpCompare { m N m }
   {
     \fp_compare:nNnTF {#1} #2 {#3}
-      { \Result { \cTrueBool } }
-      { \Result { \cFalseBool } }
+      { \Return { \cTrueBool } }
+      { \Return { \cFalseBool } }
   }
 
 %%% --------------------------------------------------------
@@ -1388,51 +1393,51 @@
 
 \PrgNewFunction \DimEval { m }
   {
-    \Result { \Expand { \dim_eval:n { #1 } } }
+    \Return { \Expand { \dim_eval:n { #1 } } }
   }
 
 \PrgNewFunction \DimMathAdd { m m }
   {
     \dim_set:Nn \l@Funx@Dim { \dim_eval:n { (#1) + (#2) } }
-    \Result { \Value \l@Funx@Dim }
+    \Return { \Value \l@Funx@Dim }
   }
 
 \PrgNewFunction \DimMathSub { m m }
   {
     \dim_set:Nn \l@Funx@Dim { \dim_eval:n { (#1) - (#2) } }
-    \Result { \Value \l@Funx@Dim }
+    \Return { \Value \l@Funx@Dim }
   }
 
 \PrgNewFunction \DimMathSign { m }
   {
-    \Result { \Expand { \dim_sign:n { #1 } } }
+    \Return { \Expand { \dim_sign:n { #1 } } }
   }
 
 \PrgNewFunction \DimMathAbs { m }
   {
-    \Result { \Expand { \dim_abs:n { #1 } } }
+    \Return { \Expand { \dim_abs:n { #1 } } }
   }
 
 \PrgNewFunction \DimMathMax { m m }
   {
-    \Result { \Expand { \dim_max:nn { #1 } { #2 } } }
+    \Return { \Expand { \dim_max:nn { #1 } { #2 } } }
   }
 
 \PrgNewFunction \DimMathMin { m m }
   {
-    \Result { \Expand { \dim_min:nn { #1 } { #2 } } }
+    \Return { \Expand { \dim_min:nn { #1 } { #2 } } }
   }
 
 \PrgNewFunction \DimMathRatio { m m }
   {
-    \Result { \Expand { \dim_ratio:nn { #1 } { #2 } } }
+    \Return { \Expand { \dim_ratio:nn { #1 } { #2 } } }
   }
 
 \PrgNewFunction \DimNew { M } { \dim_new:N #1 }
 
 \PrgNewFunction \DimConst { M m } { \dim_const:Nn #1 {#2} }
 
-\PrgNewFunction \DimUse { M } { \Result { \Value #1 } }
+\PrgNewFunction \DimUse { M } { \Return { \Value #1 } }
 
 \PrgNewFunction \DimLog { m } { \dim_log:n { #1 } }
 
@@ -1484,13 +1489,13 @@
 
 \PrgNewConditional \DimIfExist { M }
   {
-    \dim_if_exist:NTF #1 { \Result { \cTrueBool } } { \Result { \cFalseBool } }
+    \dim_if_exist:NTF #1 { \Return { \cTrueBool } } { \Return { \cFalseBool } }
   }
 
 \PrgNewConditional \DimCompare { m N m }
   {
     \dim_compare:nNnTF {#1} #2 {#3}
-      { \Result { \cTrueBool } } { \Result { \cFalseBool } }
+      { \Return { \cTrueBool } } { \Return { \cFalseBool } }
   }
 
 \PrgNewFunction \DimCase   { m m }     { \dim_case:nn {#1} {#2} }
@@ -1693,29 +1698,29 @@
 
 \PrgNewConditional \ClistIfExist { M }
   {
-    \clist_if_exist:NTF #1 { \Result { \cTrueBool } }  { \Result { \cFalseBool } }
+    \clist_if_exist:NTF #1 { \Return { \cTrueBool } }  { \Return { \cFalseBool } }
   }
 
 \PrgNewConditional \ClistIfEmpty { m }
   {
-    \clist_if_empty:nTF {#1} { \Result { \cTrueBool } }  { \Result { \cFalseBool } }
+    \clist_if_empty:nTF {#1} { \Return { \cTrueBool } }  { \Return { \cFalseBool } }
   }
 
 \PrgNewConditional \ClistVarIfEmpty { M }
   {
-    \clist_if_empty:NTF #1 { \Result { \cTrueBool } }  { \Result { \cFalseBool } }
+    \clist_if_empty:NTF #1 { \Return { \cTrueBool } }  { \Return { \cFalseBool } }
   }
 
 \PrgNewConditional \ClistIfIn { m m }
   {
     \clist_if_in:nnTF {#1} {#2}
-      { \Result { \cTrueBool } }  { \Result { \cFalseBool } }
+      { \Return { \cTrueBool } }  { \Return { \cFalseBool } }
   }
 
 \PrgNewConditional \ClistVarIfIn { M m }
   {
     \clist_if_in:NnTF #1 {#2}
-      { \Result { \cTrueBool } }  { \Result { \cFalseBool } }
+      { \Return { \cTrueBool } }  { \Return { \cFalseBool } }
   }
 
 %%% --------------------------------------------------------
@@ -1950,18 +1955,18 @@
 
 \PrgNewConditional \SeqIfExist { M }
   {
-    \seq_if_exist:NTF #1 { \Result { \cTrueBool } }  { \Result { \cFalseBool } }
+    \seq_if_exist:NTF #1 { \Return { \cTrueBool } }  { \Return { \cFalseBool } }
   }
 
 \PrgNewConditional \SeqVarIfEmpty { M }
   {
-    \seq_if_empty:NTF #1 { \Result { \cTrueBool } }  { \Result { \cFalseBool } }
+    \seq_if_empty:NTF #1 { \Return { \cTrueBool } }  { \Return { \cFalseBool } }
   }
 
 \PrgNewConditional \SeqVarIfIn { M m }
   {
     \seq_if_in:NnTF #1 {#2}
-      { \Result { \cTrueBool } }  { \Result { \cFalseBool } }
+      { \Return { \cTrueBool } }  { \Return { \cFalseBool } }
   }
 
 %%% --------------------------------------------------------
@@ -2086,18 +2091,18 @@
 
 \PrgNewConditional \PropIfExist { M }
   {
-    \prop_if_exist:NTF #1 { \Result { \cTrueBool } }  { \Result { \cFalseBool } }
+    \prop_if_exist:NTF #1 { \Return { \cTrueBool } }  { \Return { \cFalseBool } }
   }
 
 \PrgNewConditional \PropVarIfEmpty { M }
   {
-    \prop_if_empty:NTF #1 { \Result { \cTrueBool } }  { \Result { \cFalseBool } }
+    \prop_if_empty:NTF #1 { \Return { \cTrueBool } }  { \Return { \cFalseBool } }
   }
 
 \PrgNewConditional \PropVarIfIn { M m }
   {
     \prop_if_in:NnTF #1 {#2}
-      { \Result { \cTrueBool } }  { \Result { \cFalseBool } }
+      { \Return { \cTrueBool } }  { \Return { \cFalseBool } }
   }
 
 %%% --------------------------------------------------------
@@ -2114,6 +2119,6 @@
 \PrgNewConditional \QuarkVarIfNoValue { M }
   {
     \tl_if_eq:NNTF \qNoValue #1
-      { \Result { \cTrueBool } }  { \Result { \cFalseBool } }
+      { \Return { \cTrueBool } }  { \Return { \cFalseBool } }
   }
 

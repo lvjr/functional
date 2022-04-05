@@ -95,7 +95,7 @@
 \DimStepInline {1pt} {0.1pt} {1.5pt} {
   \TlPutRight \lTmpaTl {[#1]}
 }
-\Result {\Value\lTmpaTl}
+\Return {\Value\lTmpaTl}
 \IgnoreSpacesOff
 \ENDTEST
 
@@ -106,29 +106,29 @@
   \TlPutRight \lTmpaTl {\Value\lTmpiTl}
   \TlPutRight \lTmpaTl {~}
 }
-\Result {\Value\lTmpaTl}
+\Return {\Value\lTmpaTl}
 \IgnoreSpacesOff
 \ENDTEST
 
 \BEGINTEST{Testing \DimIfExist}
-\DimIfExistTF \lTmpaDim {\Result{Yes}} {\Result{No}}
-\DimIfExistTF \lFooUndefinedDim {\Result{Yes}} {\Result{No}}
+\DimIfExistTF \lTmpaDim {\Return{Yes}} {\Return{No}}
+\DimIfExistTF \lFooUndefinedDim {\Return{Yes}} {\Return{No}}
 \ENDTEST
 
 \BEGINTEST{Testing \DimCompare}
-\DimCompareTF {1pt} > {0.9999pt} {\Result{Greater}} {\Result{Less}}
-\DimCompareTF {1pt} > {1.0001pt} {\Result{Greater}} {\Result{Less}}
+\DimCompareTF {1pt} > {0.9999pt} {\Return{Greater}} {\Return{Less}}
+\DimCompareTF {1pt} > {1.0001pt} {\Return{Greater}} {\Return{Less}}
 \ENDTEST
 
 \BEGINTEST{Testing \DimCaseF}
 \IgnoreSpacesOn
 \DimSet \lTmpaDim {5pt}
 \DimCaseF {2\lTmpaDim} {
-  {5pt}     {\Result{Small}}
-  {4pt+6pt} {\Result{Medium}}
-  {-10pt}   {\Result{Negative}}
+  {5pt}     {\Return{Small}}
+  {4pt+6pt} {\Return{Medium}}
+  {-10pt}   {\Return{Negative}}
 }{
-  \Result {No Match}
+  \Return {No Match}
 }
 \IgnoreSpacesOff
 \ENDTEST
@@ -137,13 +137,13 @@
 \IgnoreSpacesOn
 \DimSet \lTmpaDim {5pt}
 \DimCaseTF {2\lTmpaDim} {
-  {5pt}     {\Result{Small}}
-  {4pt+6pt} {\Result{Medium}}
-  {-10pt}   {\Result{Negative}}
+  {5pt}     {\Return{Small}}
+  {4pt+6pt} {\Return{Medium}}
+  {-10pt}   {\Return{Negative}}
 }{
-  \Result {[Some Match]}
+  \Return {[Some Match]}
 }{
-  \Result {[No Match]}
+  \Return {[No Match]}
 }
 \IgnoreSpacesOff
 \ENDTEST

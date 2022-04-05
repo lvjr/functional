@@ -135,13 +135,13 @@
 
 \BEGINTEST{Testing \ClistGet}
 \ClistSet \lTmpaClist {two,three,four}
-\ClistGetTF \lTmpaClist \lTmpaTl {\Result{Yes}} {\Result{No}}
+\ClistGetTF \lTmpaClist \lTmpaTl {\Return{Yes}} {\Return{No}}
 \TlUse \lTmpaTl
 \ENDTEST
 
 \BEGINTEST{Testing \ClistPop}
 \ClistSet \lTmpaClist {two,three,four}
-\ClistPopTF \lTmpaClist \lTmpaTl {\Result{Yes}} {\Result{No}}
+\ClistPopTF \lTmpaClist \lTmpaTl {\Return{Yes}} {\Return{No}}
 \ClistVarJoin \lTmpaClist {,}
 \ENDTEST
 
@@ -157,7 +157,7 @@
 \ClistMapInline {one,two,three} {
   \TlPutRight \lTmpaTl {(#1)}
 }
-\Result {\TlUse\lTmpaTl}
+\Return {\TlUse\lTmpaTl}
 \IgnoreSpacesOff
 \ENDTEST
 
@@ -168,7 +168,7 @@
 \ClistVarMapInline \lTmpkClist {
   \TlPutRight \lTmpaTl {(#1)}
 }
-\Result {\TlUse\lTmpaTl}
+\Return {\TlUse\lTmpaTl}
 \IgnoreSpacesOff
 \ENDTEST
 
@@ -178,7 +178,7 @@
 \ClistMapVariable {one,two,three} \lTmpiTl {
   \TlPutRight \lTmpaTl {\Expand {[\lTmpiTl]}}
 }
-\Result {\TlUse\lTmpaTl}
+\Return {\TlUse\lTmpaTl}
 \IgnoreSpacesOff
 \ENDTEST
 
@@ -189,36 +189,36 @@
 \ClistVarMapVariable \lTmpaClist \lTmpiTl {
   \TlPutRight \lTmpaTl {\Expand {[\lTmpiTl]}}
 }
-\Result {\TlUse\lTmpaTl}
+\Return {\TlUse\lTmpaTl}
 \IgnoreSpacesOff
 \ENDTEST
 
 \BEGINTEST{Testing \ClistIfExist}
-\ClistIfExistTF \lTmpaClist {\Result{Yes}} {\Result{No}}
-\ClistIfExistTF \lFooUndefinedClist {\Result{Yes}} {\Result{No}}
+\ClistIfExistTF \lTmpaClist {\Return{Yes}} {\Return{No}}
+\ClistIfExistTF \lFooUndefinedClist {\Return{Yes}} {\Return{No}}
 \ENDTEST
 
 \BEGINTEST{Testing \ClistIfEmpty}
-\ClistIfEmptyTF {one,two} {\Result{Empty}} {\Result{NonEmpty}}
-\ClistIfEmptyTF { , } {\Result{Empty}} {\Result{NonEmpty}}
+\ClistIfEmptyTF {one,two} {\Return{Empty}} {\Return{NonEmpty}}
+\ClistIfEmptyTF { , } {\Return{Empty}} {\Return{NonEmpty}}
 \ENDTEST
 
 \BEGINTEST{Testing \ClistVarIfEmpty}
 \ClistSet \lTmpaClist {one,two}
-\ClistVarIfEmptyTF \lTmpaClist {\Result{Empty}} {\Result{NonEmpty}}
+\ClistVarIfEmptyTF \lTmpaClist {\Return{Empty}} {\Return{NonEmpty}}
 \ClistClear \lTmpaClist
-\ClistVarIfEmptyTF \lTmpaClist {\Result{Empty}} {\Result{NonEmpty}}
+\ClistVarIfEmptyTF \lTmpaClist {\Return{Empty}} {\Return{NonEmpty}}
 \ENDTEST
 
 \BEGINTEST{Testing \ClistIfIn}
-\ClistIfInTF {one,two} {one} {\Result{Yes}} {\Result{Not}}
-\ClistIfInTF {one,two} {three} {\Result{Yes}} {\Result{Not}}
+\ClistIfInTF {one,two} {one} {\Return{Yes}} {\Return{Not}}
+\ClistIfInTF {one,two} {three} {\Return{Yes}} {\Return{Not}}
 \ENDTEST
 
 \BEGINTEST{Testing \ClistVarIfIn}
 \ClistSet \lTmpaClist {one,two}
-\ClistVarIfInTF \lTmpaClist {one} {\Result{Yes}} {\Result{Not}}
-\ClistVarIfInTF \lTmpaClist {three} {\Result{Yes}} {\Result{Not}}
+\ClistVarIfInTF \lTmpaClist {one} {\Return{Yes}} {\Return{Not}}
+\ClistVarIfInTF \lTmpaClist {three} {\Return{Yes}} {\Return{Not}}
 \ENDTEST
 
 \end{document}

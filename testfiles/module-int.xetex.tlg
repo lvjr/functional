@@ -6,7 +6,7 @@ TEST 1: Testing \IntEval
 [I] \IntEval{(1+4)*(2-3)/5}
         [I] \Expand{\int_eval:n {(1+4)*(2-3)/5}}
         [O] -1
-    [I] \Result{-1}
+    [I] \Return{-1}
     [O] -1
 [O] -1
 ============================================================
@@ -16,13 +16,13 @@ TEST 2: Testing \IntMathAdd
 [I] \IntMathAdd{7}{3}
         [I] \Value{\l@Funx@Int }
         [O] 10
-    [I] \Result{10}
+    [I] \Return{10}
     [O] 10
 [O] 10
 [I] \IntMathAdd{8-1}{2+1}
         [I] \Value{\l@Funx@Int }
         [O] 10
-    [I] \Result{10}
+    [I] \Return{10}
     [O] 10
 [O] 10
 ============================================================
@@ -32,13 +32,13 @@ TEST 3: Testing \IntMathSub
 [I] \IntMathSub{7}{3}
         [I] \Value{\l@Funx@Int }
         [O] 4
-    [I] \Result{4}
+    [I] \Return{4}
     [O] 4
 [O] 4
 [I] \IntMathSub{8-1}{2+1}
         [I] \Value{\l@Funx@Int }
         [O] 4
-    [I] \Result{4}
+    [I] \Return{4}
     [O] 4
 [O] 4
 ============================================================
@@ -48,13 +48,13 @@ TEST 4: Testing \IntMathMult
 [I] \IntMathMult{7}{3}
         [I] \Value{\l@Funx@Int }
         [O] 21
-    [I] \Result{21}
+    [I] \Return{21}
     [O] 21
 [O] 21
 [I] \IntMathMult{8-1}{2+1}
         [I] \Value{\l@Funx@Int }
         [O] 21
-    [I] \Result{21}
+    [I] \Return{21}
     [O] 21
 [O] 21
 ============================================================
@@ -138,7 +138,7 @@ TEST 12: Testing \IntConst
 [I] \IntUse{\cFooSomeInt }
         [I] \Value{\cFooSomeInt }
         [O] 15
-    [I] \Result{15}
+    [I] \Return{15}
     [O] 15
 [O] 15
 ============================================================
@@ -157,7 +157,7 @@ TEST 14: Testing \IntSet
 [I] \IntUse{\lTmpaInt }
         [I] \Value{\lTmpaInt }
         [O] 8
-    [I] \Result{8}
+    [I] \Return{8}
     [O] 8
 [O] 8
 ============================================================
@@ -172,7 +172,7 @@ TEST 15: Testing \IntSetEq
 [I] \IntUse{\lFooSomeInt }
         [I] \Value{\lFooSomeInt }
         [O] 1
-    [I] \Result{1}
+    [I] \Return{1}
     [O] 1
 [O] 1
 ============================================================
@@ -186,7 +186,7 @@ TEST 16: Testing \IntZero
 [I] \IntUse{\lTmpaInt }
         [I] \Value{\lTmpaInt }
         [O] 0
-    [I] \Result{0}
+    [I] \Return{0}
     [O] 0
 [O] 0
 ============================================================
@@ -198,7 +198,7 @@ TEST 17: Testing \IntZeroNew
 [I] \IntUse{\lFooSomeInt }
         [I] \Value{\lFooSomeInt }
         [O] 0
-    [I] \Result{0}
+    [I] \Return{0}
     [O] 0
 [O] 0
 ============================================================
@@ -231,50 +231,50 @@ TEST 18: Testing \IntStepInline
 [O] 
     [I] \Value{\lTmpaTl }
     [O] [1][4][7][10][13][16][19][22][25][28]
-[I] \Result{[1][4][7][10][13][16][19][22][25][28]}
+[I] \Return{[1][4][7][10][13][16][19][22][25][28]}
 [O] [1][4][7][10][13][16][19][22][25][28]
 ============================================================
 ============================================================
 TEST 19: Testing \IntIfExist 
 ============================================================
-[I] \IntIfExistTF{\lTmpaInt }{\Result {Yes}}{\Result {No}}
+[I] \IntIfExistTF{\lTmpaInt }{\Return {Yes}}{\Return {No}}
     [I] \IntIfExist{\lTmpaInt }
-        [I] \Result{\cTrueBool }
+        [I] \Return{\cTrueBool }
         [O] \cTrueBool 
     [O] \cTrueBool 
-    [I] \Result{Yes}
+    [I] \Return{Yes}
     [O] Yes
 [O] Yes
-[I] \IntIfExistTF{\lFooUndefinedInt }{\Result {Yes}}{\Result {No}}
+[I] \IntIfExistTF{\lFooUndefinedInt }{\Return {Yes}}{\Return {No}}
     [I] \IntIfExist{\lFooUndefinedInt }
-        [I] \Result{\cFalseBool }
+        [I] \Return{\cFalseBool }
         [O] \cFalseBool 
     [O] \cFalseBool 
-    [I] \Result{No}
+    [I] \Return{No}
     [O] No
 [O] No
 ============================================================
 ============================================================
 TEST 20: Testing \IntIfOdd 
 ============================================================
-[I] \IntIfOddTF{3+2}{\Result {Yes}}{\Result {No}}
+[I] \IntIfOddTF{3+2}{\Return {Yes}}{\Return {No}}
     [I] \IntIfOdd{3+2}
-        [I] \Result{\cTrueBool }
+        [I] \Return{\cTrueBool }
         [O] \cTrueBool 
     [O] \cTrueBool 
-    [I] \Result{Yes}
+    [I] \Return{Yes}
     [O] Yes
 [O] Yes
 ============================================================
 ============================================================
 TEST 21: Testing \IntIfEven 
 ============================================================
-[I] \IntIfEvenTF{3+2}{\Result {Yes}}{\Result {No}}
+[I] \IntIfEvenTF{3+2}{\Return {Yes}}{\Return {No}}
     [I] \IntIfEven{3+2}
-        [I] \Result{\cFalseBool }
+        [I] \Return{\cFalseBool }
         [O] \cFalseBool 
     [O] \cFalseBool 
-    [I] \Result{No}
+    [I] \Return{No}
     [O] No
 [O] No
 ============================================================

@@ -4,7 +4,7 @@ Don't change this file in any respect.
 TEST 1: Testing \BoolConst 
 ============================================================
     [I] \IntCompare{3}>{2}
-        [I] \Result{\cTrueBool }
+        [I] \Return{\cTrueBool }
         [O] \cTrueBool 
     [O] \cTrueBool 
 [I] \BoolConst{\cFooSomeBool }{\cTrueBool }
@@ -17,7 +17,7 @@ TEST 1: Testing \BoolConst
 TEST 2: Testing \BoolSet 
 ============================================================
     [I] \IntCompare{3}<{2}
-        [I] \Result{\cFalseBool }
+        [I] \Return{\cFalseBool }
         [O] \cFalseBool 
     [O] \cFalseBool 
 [I] \BoolSet{\lTmpaBool }{\cFalseBool }
@@ -31,12 +31,12 @@ TEST 3: Testing \BoolSetTrue
 ============================================================
 [I] \BoolSetTrue{\lTmpaBool }
 [O] 
-[I] \BoolVarIfTF{\lTmpaBool }{\Result {True!}}{\Result {False!}}
+[I] \BoolVarIfTF{\lTmpaBool }{\Return {True!}}{\Return {False!}}
     [I] \BoolVarIf{\lTmpaBool }
-        [I] \Result{\lTmpaBool }
+        [I] \Return{\lTmpaBool }
         [O] \lTmpaBool 
     [O] \lTmpaBool 
-    [I] \Result{True!}
+    [I] \Return{True!}
     [O] True!
 [O] True!
 ============================================================
@@ -45,12 +45,12 @@ TEST 4: Testing \BoolSetFalse
 ============================================================
 [I] \BoolSetFalse{\lTmpaBool }
 [O] 
-[I] \BoolVarIfTF{\lTmpaBool }{\Result {True!}}{\Result {False!}}
+[I] \BoolVarIfTF{\lTmpaBool }{\Return {True!}}{\Return {False!}}
     [I] \BoolVarIf{\lTmpaBool }
-        [I] \Result{\lTmpaBool }
+        [I] \Return{\lTmpaBool }
         [O] \lTmpaBool 
     [O] \lTmpaBool 
-    [I] \Result{False!}
+    [I] \Return{False!}
     [O] False!
 [O] False!
 ============================================================
@@ -75,20 +75,20 @@ TEST 6: Testing \BoolLog
 ============================================================
 TEST 7: Testing \BoolIfExist 
 ============================================================
-[I] \BoolIfExistTF{\lTmpaBool }{\Result {Yes}}{\Result {No}}
+[I] \BoolIfExistTF{\lTmpaBool }{\Return {Yes}}{\Return {No}}
     [I] \BoolIfExist{\lTmpaBool }
-        [I] \Result{\cTrueBool }
+        [I] \Return{\cTrueBool }
         [O] \cTrueBool 
     [O] \cTrueBool 
-    [I] \Result{Yes}
+    [I] \Return{Yes}
     [O] Yes
 [O] Yes
-[I] \BoolIfExistTF{\lFooUndefinedBool }{\Result {Yes}}{\Result {No}}
+[I] \BoolIfExistTF{\lFooUndefinedBool }{\Return {Yes}}{\Return {No}}
     [I] \BoolIfExist{\lFooUndefinedBool }
-        [I] \Result{\cFalseBool }
+        [I] \Return{\cFalseBool }
         [O] \cFalseBool 
     [O] \cFalseBool 
-    [I] \Result{No}
+    [I] \Return{No}
     [O] No
 [O] No
 ============================================================
@@ -97,22 +97,22 @@ TEST 8: Testing \BoolVarIf
 ============================================================
 [I] \BoolSetTrue{\lTmpaBool }
 [O] 
-[I] \BoolVarIfTF{\lTmpaBool }{\Result {True!}}{\Result {False!}}
+[I] \BoolVarIfTF{\lTmpaBool }{\Return {True!}}{\Return {False!}}
     [I] \BoolVarIf{\lTmpaBool }
-        [I] \Result{\lTmpaBool }
+        [I] \Return{\lTmpaBool }
         [O] \lTmpaBool 
     [O] \lTmpaBool 
-    [I] \Result{True!}
+    [I] \Return{True!}
     [O] True!
 [O] True!
 [I] \BoolSetFalse{\lTmpaBool }
 [O] 
-[I] \BoolVarIfTF{\lTmpaBool }{\Result {True!}}{\Result {False!}}
+[I] \BoolVarIfTF{\lTmpaBool }{\Return {True!}}{\Return {False!}}
     [I] \BoolVarIf{\lTmpaBool }
-        [I] \Result{\lTmpaBool }
+        [I] \Return{\lTmpaBool }
         [O] \lTmpaBool 
     [O] \lTmpaBool 
-    [I] \Result{False!}
+    [I] \Return{False!}
     [O] False!
 [O] False!
 ============================================================
@@ -120,15 +120,15 @@ TEST 8: Testing \BoolVarIf
 TEST 9: Testing \BoolVarNot 
 ============================================================
     [I] \IntCompare{3}>{2}
-        [I] \Result{\cTrueBool }
+        [I] \Return{\cTrueBool }
         [O] \cTrueBool 
     [O] \cTrueBool 
-[I] \BoolVarNotTF{\cTrueBool }{\Result {Yes}}{\Result {No}}
+[I] \BoolVarNotTF{\cTrueBool }{\Return {Yes}}{\Return {No}}
     [I] \BoolVarNot{\cTrueBool }
-        [I] \Result{\cFalseBool }
+        [I] \Return{\cFalseBool }
         [O] \cFalseBool 
     [O] \cFalseBool 
-    [I] \Result{No}
+    [I] \Return{No}
     [O] No
 [O] No
 ============================================================
@@ -136,19 +136,19 @@ TEST 9: Testing \BoolVarNot
 TEST 10: Testing \BoolVarAnd 
 ============================================================
     [I] \IntCompare{3}>{2}
-        [I] \Result{\cTrueBool }
+        [I] \Return{\cTrueBool }
         [O] \cTrueBool 
     [O] \cTrueBool 
     [I] \IntCompare{3}>{4}
-        [I] \Result{\cFalseBool }
+        [I] \Return{\cFalseBool }
         [O] \cFalseBool 
     [O] \cFalseBool 
-[I] \BoolVarAndTF{\cTrueBool }{\cFalseBool }{\Result {Yes}}{\Result {No}}
+[I] \BoolVarAndTF{\cTrueBool }{\cFalseBool }{\Return {Yes}}{\Return {No}}
     [I] \BoolVarAnd{\cTrueBool }{\cFalseBool }
-        [I] \Result{\cFalseBool }
+        [I] \Return{\cFalseBool }
         [O] \cFalseBool 
     [O] \cFalseBool 
-    [I] \Result{No}
+    [I] \Return{No}
     [O] No
 [O] No
 ============================================================
@@ -156,19 +156,19 @@ TEST 10: Testing \BoolVarAnd
 TEST 11: Testing \BoolVarOr 
 ============================================================
     [I] \IntCompare{3}>{2}
-        [I] \Result{\cTrueBool }
+        [I] \Return{\cTrueBool }
         [O] \cTrueBool 
     [O] \cTrueBool 
     [I] \IntCompare{3}>{4}
-        [I] \Result{\cFalseBool }
+        [I] \Return{\cFalseBool }
         [O] \cFalseBool 
     [O] \cFalseBool 
-[I] \BoolVarOrTF{\cTrueBool }{\cFalseBool }{\Result {Yes}}{\Result {No}}
+[I] \BoolVarOrTF{\cTrueBool }{\cFalseBool }{\Return {Yes}}{\Return {No}}
     [I] \BoolVarOr{\cTrueBool }{\cFalseBool }
-        [I] \Result{\cTrueBool }
+        [I] \Return{\cTrueBool }
         [O] \cTrueBool 
     [O] \cTrueBool 
-    [I] \Result{Yes}
+    [I] \Return{Yes}
     [O] Yes
 [O] Yes
 ============================================================
@@ -176,19 +176,19 @@ TEST 11: Testing \BoolVarOr
 TEST 12: Testing \BoolVarXor 
 ============================================================
     [I] \IntCompare{3}>{2}
-        [I] \Result{\cTrueBool }
+        [I] \Return{\cTrueBool }
         [O] \cTrueBool 
     [O] \cTrueBool 
     [I] \IntCompare{3}>{4}
-        [I] \Result{\cFalseBool }
+        [I] \Return{\cFalseBool }
         [O] \cFalseBool 
     [O] \cFalseBool 
-[I] \BoolVarXorTF{\cTrueBool }{\cFalseBool }{\Result {Yes}}{\Result {No}}
+[I] \BoolVarXorTF{\cTrueBool }{\cFalseBool }{\Return {Yes}}{\Return {No}}
     [I] \BoolVarXor{\cTrueBool }{\cFalseBool }
-        [I] \Result{\cTrueBool }
+        [I] \Return{\cTrueBool }
         [O] \cTrueBool 
     [O] \cTrueBool 
-    [I] \Result{Yes}
+    [I] \Return{Yes}
     [O] Yes
 [O] Yes
 ============================================================

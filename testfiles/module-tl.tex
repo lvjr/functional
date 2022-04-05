@@ -139,7 +139,7 @@
 \TlMapInline {one} {
   \TlPutRight \lTmpaTl {[#1]}
 }
-\Result{\TlUse\lTmpaTl}
+\Return{\TlUse\lTmpaTl}
 \IgnoreSpacesOff
 \ENDTEST
 
@@ -150,7 +150,7 @@
 \TlVarMapInline \lTmpkTl {
   \TlPutRight \lTmpaTl {[#1]}
 }
-\Result{\TlUse\lTmpaTl}
+\Return{\TlUse\lTmpaTl}
 \IgnoreSpacesOff
 \ENDTEST
 
@@ -160,7 +160,7 @@
 \TlMapVariable {one} \lTmpiTl {
   \TlPutRight \lTmpaTl {\Expand {[\lTmpiTl]}}
 }
-\Result{\TlUse\lTmpaTl}
+\Return{\TlUse\lTmpaTl}
 \IgnoreSpacesOff
 \ENDTEST
 
@@ -171,52 +171,52 @@
 \TlVarMapVariable \lTmpkTl \lTmpiTl {
   \TlPutRight \lTmpaTl {\Expand {[\lTmpiTl]}}
 }
-\Result{\TlUse\lTmpaTl}
+\Return{\TlUse\lTmpaTl}
 \IgnoreSpacesOff
 \ENDTEST
 
 \BEGINTEST{Testing \TlIfExist}
-\TlIfExistTF\lTmpaTl{\Result{Yes}}{\Result{No}}
-\TlIfExistTF\lFooUndefinedTl{\Result{Yes}}{\Result{No}}
+\TlIfExistTF\lTmpaTl{\Return{Yes}}{\Return{No}}
+\TlIfExistTF\lFooUndefinedTl{\Return{Yes}}{\Return{No}}
 \ENDTEST
 
 \BEGINTEST{Testing \TlIfEmpty}
-\TlIfEmptyTF {  } {\Result{Yes}} {\Result{No}}
+\TlIfEmptyTF {  } {\Return{Yes}} {\Return{No}}
 \ENDTEST
 
 \BEGINTEST{Testing \TlIfBlank}
-\TlIfBlankTF {  } {\Result{Yes}} {\Result{No}}
+\TlIfBlankTF {  } {\Return{Yes}} {\Return{No}}
 \ENDTEST
 
 \BEGINTEST{Testing \TlIfEq}
 \TlSet \lTmpaTl {abc}
 \TlSet \lTmpbTl {abc}
 \TlSet \lTmpcTl {xyz}
-\TlIfEqTF {\TlUse\lTmpaTl} {\TlUse\lTmpbTl} {\Result{Yes}} {\Result{No}}
-\TlIfEqTF {\TlUse\lTmpaTl} {\TlUse\lTmpcTl} {\Result{Yes}} {\Result{No}}
+\TlIfEqTF {\TlUse\lTmpaTl} {\TlUse\lTmpbTl} {\Return{Yes}} {\Return{No}}
+\TlIfEqTF {\TlUse\lTmpaTl} {\TlUse\lTmpcTl} {\Return{Yes}} {\Return{No}}
 \ENDTEST
 
 \BEGINTEST{Testing \TlIfIn}
-\TlIfInTF {hello world} {o} {\Result{Yes}}{\Result{No}}
-\TlIfInTF {hello world} {a} {\Result{Yes}}{\Result{No}}
+\TlIfInTF {hello world} {o} {\Return{Yes}}{\Return{No}}
+\TlIfInTF {hello world} {a} {\Return{Yes}}{\Return{No}}
 \ENDTEST
 
 \BEGINTEST{Testing \TlVarIfIn}
 \TlSet \lTmpaTl {hello world}
-\TlVarIfInTF \lTmpaTl {o} {\Result{Yes}}{\Result{No}}
-\TlVarIfInTF \lTmpaTl {a} {\Result{Yes}}{\Result{No}}
+\TlVarIfInTF \lTmpaTl {o} {\Return{Yes}}{\Return{No}}
+\TlVarIfInTF \lTmpaTl {a} {\Return{Yes}}{\Return{No}}
 \ENDTEST
 
 \BEGINTEST{Testing \TlIfSingle}
-\TlIfSingleTF {a} {\Result{Yes}}{\Result{No}}
-\TlIfSingleTF {abc} {\Result{Yes}}{\Result{No}}
+\TlIfSingleTF {a} {\Return{Yes}}{\Return{No}}
+\TlIfSingleTF {abc} {\Return{Yes}}{\Return{No}}
 \ENDTEST
 
 \BEGINTEST{Testing \TlVarIfSingle}
 \TlSet \lTmpaTl {a}
-\TlVarIfSingleTF \lTmpaTl {\Result{Yes}}{\Result{No}}
+\TlVarIfSingleTF \lTmpaTl {\Return{Yes}}{\Return{No}}
 \TlSet \lTmpaTl {abc}
-\TlVarIfSingleTF \lTmpaTl {\Result{Yes}}{\Result{No}}
+\TlVarIfSingleTF \lTmpaTl {\Return{Yes}}{\Return{No}}
 \ENDTEST
 
 \BEGINTEST{Testing \TlVarCaseF}
@@ -226,11 +226,11 @@
 \TlSet\lTmpcTl{c}
 \TlSet\lTmpkTl{b}
 \TlVarCaseF\lTmpkTl{
-  \lTmpaTl {\Result{First}}
-  \lTmpbTl {\Result{Second}}
-  \lTmpcTl {\Result{Third}}
+  \lTmpaTl {\Return{First}}
+  \lTmpbTl {\Return{Second}}
+  \lTmpcTl {\Return{Third}}
 }{
-  \Result{No Match!}
+  \Return{No Match!}
 }
 \IgnoreSpacesOff
 \ENDTEST
@@ -242,13 +242,13 @@
 \TlSet\lTmpcTl{c}
 \TlSet\lTmpkTl{d}
 \TlVarCaseTF\lTmpkTl{
-  \lTmpaTl { \Result{First} }
-  \lTmpbTl { \Result{Second} }
-  \lTmpcTl { \Result{Third} }
+  \lTmpaTl { \Return{First} }
+  \lTmpbTl { \Return{Second} }
+  \lTmpcTl { \Return{Third} }
 }{
-  \Result{[Some Match]}
+  \Return{[Some Match]}
 }{
-  \Result{[No Match]}
+  \Return{[No Match]}
 }
 \IgnoreSpacesOff
 \ENDTEST

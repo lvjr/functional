@@ -21,12 +21,12 @@
 
 \BEGINTEST{Testing \BoolSetTrue}
 \BoolSetTrue \lTmpaBool
-\BoolVarIfTF \lTmpaBool {\Result{True!}} {\Result{False!}}
+\BoolVarIfTF \lTmpaBool {\Return{True!}} {\Return{False!}}
 \ENDTEST
 
 \BEGINTEST{Testing \BoolSetFalse}
 \BoolSetFalse \lTmpaBool
-\BoolVarIfTF \lTmpaBool {\Result{True!}} {\Result{False!}}
+\BoolVarIfTF \lTmpaBool {\Return{True!}} {\Return{False!}}
 \ENDTEST
 
 \BEGINTEST{Testing \BoolSetEq}
@@ -40,34 +40,34 @@
 \ENDTEST
 
 \BEGINTEST{Testing \BoolIfExist}
-\BoolIfExistTF \lTmpaBool {\Result{Yes}} {\Result{No}}
-\BoolIfExistTF \lFooUndefinedBool {\Result{Yes}} {\Result{No}}
+\BoolIfExistTF \lTmpaBool {\Return{Yes}} {\Return{No}}
+\BoolIfExistTF \lFooUndefinedBool {\Return{Yes}} {\Return{No}}
 \ENDTEST
 
 \BEGINTEST{Testing \BoolVarIf}
 \BoolSetTrue\lTmpaBool
-\BoolVarIfTF\lTmpaBool{\Result{True!}}{\Result{False!}}
+\BoolVarIfTF\lTmpaBool{\Return{True!}}{\Return{False!}}
 \BoolSetFalse\lTmpaBool
-\BoolVarIfTF\lTmpaBool{\Result{True!}}{\Result{False!}}
+\BoolVarIfTF\lTmpaBool{\Return{True!}}{\Return{False!}}
 \ENDTEST
 
 \BEGINTEST{Testing \BoolVarNot}
-\BoolVarNotTF {\IntCompare {3} > {2}} {\Result{Yes}} {\Result{No}}
+\BoolVarNotTF {\IntCompare {3} > {2}} {\Return{Yes}} {\Return{No}}
 \ENDTEST
 
 \BEGINTEST{Testing \BoolVarAnd}
 \BoolVarAndTF {\IntCompare {3} > {2}} {\IntCompare {3} > {4}}
-  {\Result{Yes}} {\Result{No}}
+  {\Return{Yes}} {\Return{No}}
 \ENDTEST
 
 \BEGINTEST{Testing \BoolVarOr}
 \BoolVarOrTF {\IntCompare {3} > {2}} {\IntCompare {3} > {4}}
-  {\Result{Yes}} {\Result{No}}
+  {\Return{Yes}} {\Return{No}}
 \ENDTEST
 
 \BEGINTEST{Testing \BoolVarXor}
 \BoolVarXorTF {\IntCompare {3} > {2}} {\IntCompare {3} > {4}}
-  {\Result{Yes}} {\Result{No}}
+  {\Return{Yes}} {\Return{No}}
 \ENDTEST
 
 \end{document}

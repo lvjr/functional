@@ -103,21 +103,21 @@
 \IntStepInline {1} {3} {30} {
   \TlPutRight \lTmpaTl {[#1]}
 }
-\Result {\Value\lTmpaTl}
+\Return {\Value\lTmpaTl}
 \IgnoreSpacesOff
 \ENDTEST
 
 \BEGINTEST{Testing \IntIfExist}
-\IntIfExistTF \lTmpaInt {\Result{Yes}} {\Result{No}}
-\IntIfExistTF \lFooUndefinedInt {\Result{Yes}} {\Result{No}}
+\IntIfExistTF \lTmpaInt {\Return{Yes}} {\Return{No}}
+\IntIfExistTF \lFooUndefinedInt {\Return{Yes}} {\Return{No}}
 \ENDTEST
 
 \BEGINTEST{Testing \IntIfOdd}
-\IntIfOddTF {3+2} {\Result{Yes}} {\Result{No}}
+\IntIfOddTF {3+2} {\Return{Yes}} {\Return{No}}
 \ENDTEST
 
 \BEGINTEST{Testing \IntIfEven}
-\IntIfEvenTF {3+2} {\Result{Yes}} {\Result{No}}
+\IntIfEvenTF {3+2} {\Return{Yes}} {\Return{No}}
 \ENDTEST
 
 \BEGINTEST{Testing \IntCaseF}

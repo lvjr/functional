@@ -196,7 +196,7 @@ TEST 17: Testing \ClistItem
 [I] \TlUse{\lTmpaTl }
         [I] \Value{\lTmpaTl }
         [O] three
-    [I] \Result{three}
+    [I] \Return{three}
     [O] three
 [O] three
 ============================================================
@@ -214,7 +214,7 @@ TEST 18: Testing \ClistVarItem
 [I] \TlUse{\lTmpaTl }
         [I] \Value{\lTmpaTl }
         [O] three
-    [I] \Result{three}
+    [I] \Return{three}
     [O] three
 [O] three
 ============================================================
@@ -223,14 +223,14 @@ TEST 19: Testing \ClistGet
 ============================================================
 [I] \ClistSet{\lTmpaClist }{two,three,four}
 [O] 
-[I] \ClistGetTF{\lTmpaClist }{\lTmpaTl }{\Result {Yes}}{\Result {No}}
-    [I] \Result{Yes}
+[I] \ClistGetTF{\lTmpaClist }{\lTmpaTl }{\Return {Yes}}{\Return {No}}
+    [I] \Return{Yes}
     [O] Yes
 [O] Yes
 [I] \TlUse{\lTmpaTl }
         [I] \Value{\lTmpaTl }
         [O] two
-    [I] \Result{two}
+    [I] \Return{two}
     [O] two
 [O] two
 ============================================================
@@ -239,8 +239,8 @@ TEST 20: Testing \ClistPop
 ============================================================
 [I] \ClistSet{\lTmpaClist }{two,three,four}
 [O] 
-[I] \ClistPopTF{\lTmpaClist }{\lTmpaTl }{\Result {Yes}}{\Result {No}}
-    [I] \Result{Yes}
+[I] \ClistPopTF{\lTmpaClist }{\lTmpaTl }{\Return {Yes}}{\Return {No}}
+    [I] \Return{Yes}
     [O] Yes
 [O] Yes
 [I] \ClistVarJoin{\lTmpaClist }{,}
@@ -276,10 +276,10 @@ TEST 22: Testing \ClistMapInline
     [I] \TlUse{\lTmpaTl }
             [I] \Value{\lTmpaTl }
             [O] (one)(two)(three)
-        [I] \Result{(one)(two)(three)}
+        [I] \Return{(one)(two)(three)}
         [O] (one)(two)(three)
     [O] (one)(two)(three)
-[I] \Result{(one)(two)(three)}
+[I] \Return{(one)(two)(three)}
 [O] (one)(two)(three)
 ============================================================
 ============================================================
@@ -300,10 +300,10 @@ TEST 23: Testing \ClistVarMapInline
     [I] \TlUse{\lTmpaTl }
             [I] \Value{\lTmpaTl }
             [O] (one)(two)(three)
-        [I] \Result{(one)(two)(three)}
+        [I] \Return{(one)(two)(three)}
         [O] (one)(two)(three)
     [O] (one)(two)(three)
-[I] \Result{(one)(two)(three)}
+[I] \Return{(one)(two)(three)}
 [O] (one)(two)(three)
 ============================================================
 ============================================================
@@ -328,10 +328,10 @@ TEST 24: Testing \ClistMapVariable
     [I] \TlUse{\lTmpaTl }
             [I] \Value{\lTmpaTl }
             [O] [one][two][three]
-        [I] \Result{[one][two][three]}
+        [I] \Return{[one][two][three]}
         [O] [one][two][three]
     [O] [one][two][three]
-[I] \Result{[one][two][three]}
+[I] \Return{[one][two][three]}
 [O] [one][two][three]
 ============================================================
 ============================================================
@@ -358,49 +358,49 @@ TEST 25: Testing \ClistVarMapVariable
     [I] \TlUse{\lTmpaTl }
             [I] \Value{\lTmpaTl }
             [O] [one][two][three]
-        [I] \Result{[one][two][three]}
+        [I] \Return{[one][two][three]}
         [O] [one][two][three]
     [O] [one][two][three]
-[I] \Result{[one][two][three]}
+[I] \Return{[one][two][three]}
 [O] [one][two][three]
 ============================================================
 ============================================================
 TEST 26: Testing \ClistIfExist 
 ============================================================
-[I] \ClistIfExistTF{\lTmpaClist }{\Result {Yes}}{\Result {No}}
+[I] \ClistIfExistTF{\lTmpaClist }{\Return {Yes}}{\Return {No}}
     [I] \ClistIfExist{\lTmpaClist }
-        [I] \Result{\cTrueBool }
+        [I] \Return{\cTrueBool }
         [O] \cTrueBool 
     [O] \cTrueBool 
-    [I] \Result{Yes}
+    [I] \Return{Yes}
     [O] Yes
 [O] Yes
-[I] \ClistIfExistTF{\lFooUndefinedClist }{\Result {Yes}}{\Result {No}}
+[I] \ClistIfExistTF{\lFooUndefinedClist }{\Return {Yes}}{\Return {No}}
     [I] \ClistIfExist{\lFooUndefinedClist }
-        [I] \Result{\cFalseBool }
+        [I] \Return{\cFalseBool }
         [O] \cFalseBool 
     [O] \cFalseBool 
-    [I] \Result{No}
+    [I] \Return{No}
     [O] No
 [O] No
 ============================================================
 ============================================================
 TEST 27: Testing \ClistIfEmpty 
 ============================================================
-[I] \ClistIfEmptyTF{one,two}{\Result {Empty}}{\Result {NonEmpty}}
+[I] \ClistIfEmptyTF{one,two}{\Return {Empty}}{\Return {NonEmpty}}
     [I] \ClistIfEmpty{one,two}
-        [I] \Result{\cFalseBool }
+        [I] \Return{\cFalseBool }
         [O] \cFalseBool 
     [O] \cFalseBool 
-    [I] \Result{NonEmpty}
+    [I] \Return{NonEmpty}
     [O] NonEmpty
 [O] NonEmpty
-[I] \ClistIfEmptyTF{ , }{\Result {Empty}}{\Result {NonEmpty}}
+[I] \ClistIfEmptyTF{ , }{\Return {Empty}}{\Return {NonEmpty}}
     [I] \ClistIfEmpty{ , }
-        [I] \Result{\cTrueBool }
+        [I] \Return{\cTrueBool }
         [O] \cTrueBool 
     [O] \cTrueBool 
-    [I] \Result{Empty}
+    [I] \Return{Empty}
     [O] Empty
 [O] Empty
 ============================================================
@@ -409,42 +409,42 @@ TEST 28: Testing \ClistVarIfEmpty
 ============================================================
 [I] \ClistSet{\lTmpaClist }{one,two}
 [O] 
-[I] \ClistVarIfEmptyTF{\lTmpaClist }{\Result {Empty}}{\Result {NonEmpty}}
+[I] \ClistVarIfEmptyTF{\lTmpaClist }{\Return {Empty}}{\Return {NonEmpty}}
     [I] \ClistVarIfEmpty{\lTmpaClist }
-        [I] \Result{\cFalseBool }
+        [I] \Return{\cFalseBool }
         [O] \cFalseBool 
     [O] \cFalseBool 
-    [I] \Result{NonEmpty}
+    [I] \Return{NonEmpty}
     [O] NonEmpty
 [O] NonEmpty
 [I] \ClistClear{\lTmpaClist }
 [O] 
-[I] \ClistVarIfEmptyTF{\lTmpaClist }{\Result {Empty}}{\Result {NonEmpty}}
+[I] \ClistVarIfEmptyTF{\lTmpaClist }{\Return {Empty}}{\Return {NonEmpty}}
     [I] \ClistVarIfEmpty{\lTmpaClist }
-        [I] \Result{\cTrueBool }
+        [I] \Return{\cTrueBool }
         [O] \cTrueBool 
     [O] \cTrueBool 
-    [I] \Result{Empty}
+    [I] \Return{Empty}
     [O] Empty
 [O] Empty
 ============================================================
 ============================================================
 TEST 29: Testing \ClistIfIn 
 ============================================================
-[I] \ClistIfInTF{one,two}{one}{\Result {Yes}}{\Result {Not}}
+[I] \ClistIfInTF{one,two}{one}{\Return {Yes}}{\Return {Not}}
     [I] \ClistIfIn{one,two}{one}
-        [I] \Result{\cTrueBool }
+        [I] \Return{\cTrueBool }
         [O] \cTrueBool 
     [O] \cTrueBool 
-    [I] \Result{Yes}
+    [I] \Return{Yes}
     [O] Yes
 [O] Yes
-[I] \ClistIfInTF{one,two}{three}{\Result {Yes}}{\Result {Not}}
+[I] \ClistIfInTF{one,two}{three}{\Return {Yes}}{\Return {Not}}
     [I] \ClistIfIn{one,two}{three}
-        [I] \Result{\cFalseBool }
+        [I] \Return{\cFalseBool }
         [O] \cFalseBool 
     [O] \cFalseBool 
-    [I] \Result{Not}
+    [I] \Return{Not}
     [O] Not
 [O] Not
 ============================================================
@@ -453,20 +453,20 @@ TEST 30: Testing \ClistVarIfIn
 ============================================================
 [I] \ClistSet{\lTmpaClist }{one,two}
 [O] 
-[I] \ClistVarIfInTF{\lTmpaClist }{one}{\Result {Yes}}{\Result {Not}}
+[I] \ClistVarIfInTF{\lTmpaClist }{one}{\Return {Yes}}{\Return {Not}}
     [I] \ClistVarIfIn{\lTmpaClist }{one}
-        [I] \Result{\cTrueBool }
+        [I] \Return{\cTrueBool }
         [O] \cTrueBool 
     [O] \cTrueBool 
-    [I] \Result{Yes}
+    [I] \Return{Yes}
     [O] Yes
 [O] Yes
-[I] \ClistVarIfInTF{\lTmpaClist }{three}{\Result {Yes}}{\Result {Not}}
+[I] \ClistVarIfInTF{\lTmpaClist }{three}{\Return {Yes}}{\Return {Not}}
     [I] \ClistVarIfIn{\lTmpaClist }{three}
-        [I] \Result{\cFalseBool }
+        [I] \Return{\cFalseBool }
         [O] \cFalseBool 
     [O] \cFalseBool 
-    [I] \Result{Not}
+    [I] \Return{Not}
     [O] Not
 [O] Not
 ============================================================

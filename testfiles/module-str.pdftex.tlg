@@ -8,7 +8,7 @@ TEST 1: Testing \StrConst
 [I] \StrUse{\cFooSomeStr }
         [I] \Value{\cFooSomeStr }
         [O] 12\abc 34
-    [I] \Result{12\abc 34}
+    [I] \Return{12\abc 34}
     [O] 12\abc 34
 [O] 12\abc 34
 ============================================================
@@ -25,7 +25,7 @@ TEST 3: Testing \StrSet
     [I] \IntMathMult{4}{5}
             [I] \Value{\l@Funx@Int }
             [O] 20
-        [I] \Result{20}
+        [I] \Return{20}
         [O] 20
     [O] 20
 [I] \StrSet{\lTmpiStr }{20}
@@ -33,7 +33,7 @@ TEST 3: Testing \StrSet
 [I] \StrUse{\lTmpiStr }
         [I] \Value{\lTmpiStr }
         [O] 20
-    [I] \Result{20}
+    [I] \Return{20}
     [O] 20
 [O] 20
 ============================================================
@@ -47,7 +47,7 @@ TEST 4: Testing \StrSetEq
 [I] \StrUse{\lTmpbStr }
         [I] \Value{\lTmpbStr }
         [O] abc
-    [I] \Result{abc}
+    [I] \Return{abc}
     [O] abc
 [O] abc
 ============================================================
@@ -63,7 +63,7 @@ TEST 5: Testing \StrClea
 [I] \StrUse{\lTmpjStr }
         [I] \Value{\lTmpjStr }
         [O] Two
-    [I] \Result{Two}
+    [I] \Return{Two}
     [O] Two
 [O] Two
 ============================================================
@@ -75,7 +75,7 @@ TEST 6: Testing \StrClearNew
 [I] \StrUse{\lFooSomeStr }
         [I] \Value{\lFooSomeStr }
         [O] 
-    [I] \Result{}
+    [I] \Return{}
     [O] 
 [O] 
 ============================================================
@@ -91,7 +91,7 @@ TEST 7: Testing \StrConcat
 [I] \StrUse{\lTmpaStr }
         [I] \Value{\lTmpaStr }
         [O] concat
-    [I] \Result{concat}
+    [I] \Return{concat}
     [O] concat
 [O] concat
 ============================================================
@@ -105,7 +105,7 @@ TEST 8: Testing \StrPutLeft
 [I] \StrUse{\lTmpkStr }
         [I] \Value{\lTmpkStr }
         [O] HelloFunctional
-    [I] \Result{HelloFunctional}
+    [I] \Return{HelloFunctional}
     [O] HelloFunctional
 [O] HelloFunctional
 ============================================================
@@ -119,7 +119,7 @@ TEST 9: Testing \StrPutRight
 [I] \StrUse{\lTmpkStr }
         [I] \Value{\lTmpkStr }
         [O] FunctionalWorld
-    [I] \Result{FunctionalWorld}
+    [I] \Return{FunctionalWorld}
     [O] FunctionalWorld
 [O] FunctionalWorld
 ============================================================
@@ -133,7 +133,7 @@ TEST 10: Testing \StrVarReplaceOnce
 [I] \StrUse{\lTmpaStr }
         [I] \Value{\lTmpaStr }
         [O] he-lo world
-    [I] \Result{he-lo world}
+    [I] \Return{he-lo world}
     [O] he-lo world
 [O] he-lo world
 ============================================================
@@ -147,7 +147,7 @@ TEST 11: Testing \StrVarReplaceAll
 [I] \StrUse{\lTmpaStr }
         [I] \Value{\lTmpaStr }
         [O] he--o wor-d
-    [I] \Result{he--o wor-d}
+    [I] \Return{he--o wor-d}
     [O] he--o wor-d
 [O] he--o wor-d
 ============================================================
@@ -161,7 +161,7 @@ TEST 12: Testing \StrVarRemoveOnce
 [I] \StrUse{\lTmpaStr }
         [I] \Value{\lTmpaStr }
         [O] helo world
-    [I] \Result{helo world}
+    [I] \Return{helo world}
     [O] helo world
 [O] helo world
 ============================================================
@@ -175,7 +175,7 @@ TEST 13: Testing \StrVarRemoveAll
 [I] \StrUse{\lTmpaStr }
         [I] \Value{\lTmpaStr }
         [O] heo word
-    [I] \Result{heo word}
+    [I] \Return{heo word}
     [O] heo word
 [O] heo word
 ============================================================
@@ -278,10 +278,10 @@ TEST 22: Testing \StrMapInline
     [I] \StrUse{\lTmpaStr }
             [I] \Value{\lTmpaStr }
             [O] [o][n][e]
-        [I] \Result{[o][n][e]}
+        [I] \Return{[o][n][e]}
         [O] [o][n][e]
     [O] [o][n][e]
-[I] \Result{[o][n][e]}
+[I] \Return{[o][n][e]}
 [O] [o][n][e]
 ============================================================
 ============================================================
@@ -302,10 +302,10 @@ TEST 23: Testing \StrVarMapInline
     [I] \StrUse{\lTmpaStr }
             [I] \Value{\lTmpaStr }
             [O] [o][n][e]
-        [I] \Result{[o][n][e]}
+        [I] \Return{[o][n][e]}
         [O] [o][n][e]
     [O] [o][n][e]
-[I] \Result{[o][n][e]}
+[I] \Return{[o][n][e]}
 [O] [o][n][e]
 ============================================================
 ============================================================
@@ -330,10 +330,10 @@ TEST 24: Testing \StrMapVariable
     [I] \StrUse{\lTmpaStr }
             [I] \Value{\lTmpaStr }
             [O] [o][n][e]
-        [I] \Result{[o][n][e]}
+        [I] \Return{[o][n][e]}
         [O] [o][n][e]
     [O] [o][n][e]
-[I] \Result{[o][n][e]}
+[I] \Return{[o][n][e]}
 [O] [o][n][e]
 ============================================================
 ============================================================
@@ -360,29 +360,29 @@ TEST 25: Testing \StrVarMapVariable
     [I] \StrUse{\lTmpaStr }
             [I] \Value{\lTmpaStr }
             [O] [o][n][e]
-        [I] \Result{[o][n][e]}
+        [I] \Return{[o][n][e]}
         [O] [o][n][e]
     [O] [o][n][e]
-[I] \Result{[o][n][e]}
+[I] \Return{[o][n][e]}
 [O] [o][n][e]
 ============================================================
 ============================================================
 TEST 26: Testing \StrIfExist 
 ============================================================
-[I] \StrIfExistTF{\lTmpaStr }{\Result {Yes}}{\Result {No}}
+[I] \StrIfExistTF{\lTmpaStr }{\Return {Yes}}{\Return {No}}
     [I] \StrIfExist{\lTmpaStr }
-        [I] \Result{\cTrueBool }
+        [I] \Return{\cTrueBool }
         [O] \cTrueBool 
     [O] \cTrueBool 
-    [I] \Result{Yes}
+    [I] \Return{Yes}
     [O] Yes
 [O] Yes
-[I] \StrIfExistTF{\lFooUndefinedStr }{\Result {Yes}}{\Result {No}}
+[I] \StrIfExistTF{\lFooUndefinedStr }{\Return {Yes}}{\Return {No}}
     [I] \StrIfExist{\lFooUndefinedStr }
-        [I] \Result{\cFalseBool }
+        [I] \Return{\cFalseBool }
         [O] \cFalseBool 
     [O] \cFalseBool 
-    [I] \Result{No}
+    [I] \Return{No}
     [O] No
 [O] No
 ============================================================
@@ -391,42 +391,42 @@ TEST 27: Testing \StrVarIfEmpty
 ============================================================
 [I] \StrSet{\lTmpaStr }{abc}
 [O] 
-[I] \StrVarIfEmptyTF{\lTmpaStr }{\Result {Empty}}{\Result {NonEmpty}}
+[I] \StrVarIfEmptyTF{\lTmpaStr }{\Return {Empty}}{\Return {NonEmpty}}
     [I] \StrVarIfEmpty{\lTmpaStr }
-        [I] \Result{\cFalseBool }
+        [I] \Return{\cFalseBool }
         [O] \cFalseBool 
     [O] \cFalseBool 
-    [I] \Result{NonEmpty}
+    [I] \Return{NonEmpty}
     [O] NonEmpty
 [O] NonEmpty
 [I] \StrClear{\lTmpaStr }
 [O] 
-[I] \StrVarIfEmptyTF{\lTmpaStr }{\Result {Empty}}{\Result {NonEmpty}}
+[I] \StrVarIfEmptyTF{\lTmpaStr }{\Return {Empty}}{\Return {NonEmpty}}
     [I] \StrVarIfEmpty{\lTmpaStr }
-        [I] \Result{\cTrueBool }
+        [I] \Return{\cTrueBool }
         [O] \cTrueBool 
     [O] \cTrueBool 
-    [I] \Result{Empty}
+    [I] \Return{Empty}
     [O] Empty
 [O] Empty
 ============================================================
 ============================================================
 TEST 28: Testing \StrIfEq 
 ============================================================
-[I] \StrIfEqTF{abc}{abc}{\Result {Yes}}{\Result {No}}
+[I] \StrIfEqTF{abc}{abc}{\Return {Yes}}{\Return {No}}
     [I] \StrIfEq{abc}{abc}
-        [I] \Result{\cTrueBool }
+        [I] \Return{\cTrueBool }
         [O] \cTrueBool 
     [O] \cTrueBool 
-    [I] \Result{Yes}
+    [I] \Return{Yes}
     [O] Yes
 [O] Yes
-[I] \StrIfEqTF{abc}{xyz}{\Result {Yes}}{\Result {No}}
+[I] \StrIfEqTF{abc}{xyz}{\Return {Yes}}{\Return {No}}
     [I] \StrIfEq{abc}{xyz}
-        [I] \Result{\cFalseBool }
+        [I] \Return{\cFalseBool }
         [O] \cFalseBool 
     [O] \cFalseBool 
-    [I] \Result{No}
+    [I] \Return{No}
     [O] No
 [O] No
 [I] \StrSet{\lTmpaStr }{abc}
@@ -435,44 +435,44 @@ TEST 28: Testing \StrIfEq
 [O] 
 [I] \StrSet{\lTmpcStr }{xyz}
 [O] 
-[I] \StrIfEqTF{\lTmpaStr }{\lTmpbStr }{\Result {Yes}}{\Result {No}}
+[I] \StrIfEqTF{\lTmpaStr }{\lTmpbStr }{\Return {Yes}}{\Return {No}}
     [I] \StrIfEq{\lTmpaStr }{\lTmpbStr }
-        [I] \Result{\cFalseBool }
+        [I] \Return{\cFalseBool }
         [O] \cFalseBool 
     [O] \cFalseBool 
-    [I] \Result{No}
+    [I] \Return{No}
     [O] No
 [O] No
-[I] \StrIfEqTF{\lTmpaStr }{\lTmpcStr }{\Result {Yes}}{\Result {No}}
+[I] \StrIfEqTF{\lTmpaStr }{\lTmpcStr }{\Return {Yes}}{\Return {No}}
     [I] \StrIfEq{\lTmpaStr }{\lTmpcStr }
-        [I] \Result{\cFalseBool }
+        [I] \Return{\cFalseBool }
         [O] \cFalseBool 
     [O] \cFalseBool 
-    [I] \Result{No}
+    [I] \Return{No}
     [O] No
 [O] No
     [I] \Value{\lTmpaStr }
     [O] abc
     [I] \Value{\lTmpbStr }
     [O] abc
-[I] \StrIfEqTF{abc}{abc}{\Result {Yes}}{\Result {No}}
+[I] \StrIfEqTF{abc}{abc}{\Return {Yes}}{\Return {No}}
     [I] \StrIfEq{abc}{abc}
-        [I] \Result{\cTrueBool }
+        [I] \Return{\cTrueBool }
         [O] \cTrueBool 
     [O] \cTrueBool 
-    [I] \Result{Yes}
+    [I] \Return{Yes}
     [O] Yes
 [O] Yes
     [I] \Value{\lTmpaStr }
     [O] abc
     [I] \Value{\lTmpcStr }
     [O] xyz
-[I] \StrIfEqTF{abc}{xyz}{\Result {Yes}}{\Result {No}}
+[I] \StrIfEqTF{abc}{xyz}{\Return {Yes}}{\Return {No}}
     [I] \StrIfEq{abc}{xyz}
-        [I] \Result{\cFalseBool }
+        [I] \Return{\cFalseBool }
         [O] \cFalseBool 
     [O] \cFalseBool 
-    [I] \Result{No}
+    [I] \Return{No}
     [O] No
 [O] No
 ============================================================
@@ -485,40 +485,40 @@ TEST 29: Testing \StrVarIfEq
 [O] 
 [I] \StrSet{\lTmpcStr }{xyz}
 [O] 
-[I] \StrVarIfEqTF{\lTmpaStr }{\lTmpbStr }{\Result {Yes}}{\Result {No}}
+[I] \StrVarIfEqTF{\lTmpaStr }{\lTmpbStr }{\Return {Yes}}{\Return {No}}
     [I] \StrVarIfEq{\lTmpaStr }{\lTmpbStr }
-        [I] \Result{\cTrueBool }
+        [I] \Return{\cTrueBool }
         [O] \cTrueBool 
     [O] \cTrueBool 
-    [I] \Result{Yes}
+    [I] \Return{Yes}
     [O] Yes
 [O] Yes
-[I] \StrVarIfEqTF{\lTmpaStr }{\lTmpcStr }{\Result {Yes}}{\Result {No}}
+[I] \StrVarIfEqTF{\lTmpaStr }{\lTmpcStr }{\Return {Yes}}{\Return {No}}
     [I] \StrVarIfEq{\lTmpaStr }{\lTmpcStr }
-        [I] \Result{\cFalseBool }
+        [I] \Return{\cFalseBool }
         [O] \cFalseBool 
     [O] \cFalseBool 
-    [I] \Result{No}
+    [I] \Return{No}
     [O] No
 [O] No
 ============================================================
 ============================================================
 TEST 30: Testing \StrIfIn 
 ============================================================
-[I] \StrIfInTF{hello world}{o}{\Result {Yes}}{\Result {No}}
+[I] \StrIfInTF{hello world}{o}{\Return {Yes}}{\Return {No}}
     [I] \StrIfIn{hello world}{o}
-        [I] \Result{\cTrueBool }
+        [I] \Return{\cTrueBool }
         [O] \cTrueBool 
     [O] \cTrueBool 
-    [I] \Result{Yes}
+    [I] \Return{Yes}
     [O] Yes
 [O] Yes
-[I] \StrIfInTF{hello world}{a}{\Result {Yes}}{\Result {No}}
+[I] \StrIfInTF{hello world}{a}{\Return {Yes}}{\Return {No}}
     [I] \StrIfIn{hello world}{a}
-        [I] \Result{\cFalseBool }
+        [I] \Return{\cFalseBool }
         [O] \cFalseBool 
     [O] \cFalseBool 
-    [I] \Result{No}
+    [I] \Return{No}
     [O] No
 [O] No
 ============================================================
@@ -527,20 +527,20 @@ TEST 31: Testing \StrVarIfIn
 ============================================================
 [I] \StrSet{\lTmpaStr }{hello world}
 [O] 
-[I] \StrVarIfInTF{\lTmpaStr }{o}{\Result {Yes}}{\Result {No}}
+[I] \StrVarIfInTF{\lTmpaStr }{o}{\Return {Yes}}{\Return {No}}
     [I] \StrVarIfIn{\lTmpaStr }{o}
-        [I] \Result{\cTrueBool }
+        [I] \Return{\cTrueBool }
         [O] \cTrueBool 
     [O] \cTrueBool 
-    [I] \Result{Yes}
+    [I] \Return{Yes}
     [O] Yes
 [O] Yes
-[I] \StrVarIfInTF{\lTmpaStr }{a}{\Result {Yes}}{\Result {No}}
+[I] \StrVarIfInTF{\lTmpaStr }{a}{\Return {Yes}}{\Return {No}}
     [I] \StrVarIfIn{\lTmpaStr }{a}
-        [I] \Result{\cFalseBool }
+        [I] \Return{\cFalseBool }
         [O] \cFalseBool 
     [O] \cFalseBool 
-    [I] \Result{No}
+    [I] \Return{No}
     [O] No
 [O] No
 ============================================================
@@ -548,87 +548,87 @@ TEST 31: Testing \StrVarIfIn
 TEST 32: Testing \StrCompare 
 ============================================================
     [I] \StrCompare{ab}<{abc}
-        [I] \Result{\cTrueBool }
+        [I] \Return{\cTrueBool }
         [O] \cTrueBool 
     [O] \cTrueBool 
 [I] \BoolVarLog{\cTrueBool }
 > \cTrueBool=true.
 [O] 
     [I] \StrCompare{ab}<{aa}
-        [I] \Result{\cFalseBool }
+        [I] \Return{\cFalseBool }
         [O] \cFalseBool 
     [O] \cFalseBool 
 [I] \BoolVarLog{\cFalseBool }
 > \cFalseBool=false.
 [O] 
-[I] \StrCompareTF{ab}<{abc}{\Result {Yes}}{\Result {No}}
+[I] \StrCompareTF{ab}<{abc}{\Return {Yes}}{\Return {No}}
     [I] \StrCompare{ab}<{abc}
-        [I] \Result{\cTrueBool }
+        [I] \Return{\cTrueBool }
         [O] \cTrueBool 
     [O] \cTrueBool 
-    [I] \Result{Yes}
+    [I] \Return{Yes}
     [O] Yes
 [O] Yes
-[I] \StrCompareTF{ab}<{aa}{\Result {Yes}}{\Result {No}}
+[I] \StrCompareTF{ab}<{aa}{\Return {Yes}}{\Return {No}}
     [I] \StrCompare{ab}<{aa}
-        [I] \Result{\cFalseBool }
+        [I] \Return{\cFalseBool }
         [O] \cFalseBool 
     [O] \cFalseBool 
-    [I] \Result{No}
+    [I] \Return{No}
     [O] No
 [O] No
     [I] \StrIfCompare{ab}<{abc}
-        [I] \Result{\cTrueBool }
+        [I] \Return{\cTrueBool }
         [O] \cTrueBool 
     [O] \cTrueBool 
 [I] \BoolVarLog{\cTrueBool }
 > \cTrueBool=true.
 [O] 
     [I] \StrIfCompare{ab}<{aa}
-        [I] \Result{\cFalseBool }
+        [I] \Return{\cFalseBool }
         [O] \cFalseBool 
     [O] \cFalseBool 
 [I] \BoolVarLog{\cFalseBool }
 > \cFalseBool=false.
 [O] 
-[I] \StrIfCompareTF{ab}<{abc}{\Result {Yes}}{\Result {No}}
+[I] \StrIfCompareTF{ab}<{abc}{\Return {Yes}}{\Return {No}}
     [I] \StrIfCompare{ab}<{abc}
-        [I] \Result{\cTrueBool }
+        [I] \Return{\cTrueBool }
         [O] \cTrueBool 
     [O] \cTrueBool 
-    [I] \Result{Yes}
+    [I] \Return{Yes}
     [O] Yes
 [O] Yes
-[I] \StrIfCompareTF{ab}<{aa}{\Result {Yes}}{\Result {No}}
+[I] \StrIfCompareTF{ab}<{aa}{\Return {Yes}}{\Return {No}}
     [I] \StrIfCompare{ab}<{aa}
-        [I] \Result{\cFalseBool }
+        [I] \Return{\cFalseBool }
         [O] \cFalseBool 
     [O] \cFalseBool 
-    [I] \Result{No}
+    [I] \Return{No}
     [O] No
 [O] No
 ============================================================
 ============================================================
 TEST 33: Testing \StrCaseF 
 ============================================================
-[I] \StrCaseF{bbb}{{aaa}{\TlSet \lTmpkTl {First}}{bbb}{\TlSet \lTmpkTl {Second}}{ccb}{\TlSet \lTmpkTl {Third}}}{\Result {NoMatch!}}
+[I] \StrCaseF{bbb}{{aaa}{\TlSet \lTmpkTl {First}}{bbb}{\TlSet \lTmpkTl {Second}}{ccb}{\TlSet \lTmpkTl {Third}}}{\Return {NoMatch!}}
     [I] \TlSet{\lTmpkTl }{Second}
     [O] 
 [O] 
     [I] \TlUse{\lTmpkTl }
             [I] \Value{\lTmpkTl }
             [O] Second
-        [I] \Result{Second}
+        [I] \Return{Second}
         [O] Second
     [O] Second
-[I] \Result{Second}
+[I] \Return{Second}
 [O] Second
 ============================================================
 ============================================================
 TEST 34: Testing \StrCaseTF 
 ============================================================
-[I] \StrCaseTF{ddd}{{aaa}{\TlSet \lTmpkTl {First}}{bbb}{\TlSet \lTmpkTl {Second}}{ccb}{\TlSet \lTmpkTl {Third}}}{\Result {\TlUse \lTmpkTl }}{\Result {No Match!}}
-    [I] \Result{No Match!}
+[I] \StrCaseTF{ddd}{{aaa}{\TlSet \lTmpkTl {First}}{bbb}{\TlSet \lTmpkTl {Second}}{ccb}{\TlSet \lTmpkTl {Third}}}{\Return {\TlUse \lTmpkTl }}{\Return {No Match!}}
+    [I] \Return{No Match!}
     [O] No Match!
 [O] No Match!
 ============================================================

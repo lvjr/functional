@@ -99,7 +99,7 @@
 \FpStepInline {1} {0.1} {1.5} {
   \TlPutRight \lTmpaTl {[#1]}
 }
-\Result {\Value\lTmpaTl}
+\Return {\Value\lTmpaTl}
 \IgnoreSpacesOff
 \ENDTEST
 
@@ -110,18 +110,18 @@
   \TlPutRight \lTmpaTl {\Value\lTmpiTl}
   \TlPutRight \lTmpaTl {~}
 }
-\Result {\Value\lTmpaTl}
+\Return {\Value\lTmpaTl}
 \IgnoreSpacesOff
 \ENDTEST
 
 \BEGINTEST{Testing \FpIfExist}
-\FpIfExistTF \lTmpaFp {\Result{Yes}} {\Result{No}}
-\FpIfExistTF \lMyUndefinedFp {\Result{Yes}} {\Result{No}}
+\FpIfExistTF \lTmpaFp {\Return{Yes}} {\Return{No}}
+\FpIfExistTF \lMyUndefinedFp {\Return{Yes}} {\Return{No}}
 \ENDTEST
 
 \BEGINTEST{Testing \FpCompare}
-\FpCompareTF {1} > {0.9999} {\Result{Greater}} {\Result{Less}}
-\FpCompareTF {1} > {1.0001} {\Result{Greater}} {\Result{Less}}
+\FpCompareTF {1} > {0.9999} {\Return{Greater}} {\Return{Less}}
+\FpCompareTF {1} > {1.0001} {\Return{Greater}} {\Return{Less}}
 \ENDTEST
 
 \end{document}

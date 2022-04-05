@@ -8,7 +8,7 @@ TEST 1: Testing \TlConst
 [I] \TlUse{\cFooSomeTl }
         [I] \Value{\cFooSomeTl }
         [O] abc
-    [I] \Result{abc}
+    [I] \Return{abc}
     [O] abc
 [O] abc
 ============================================================
@@ -47,7 +47,7 @@ TEST 5: Testing \TlSet
 [I] \TlUse{\lTmpaTl }
         [I] \Value{\lTmpaTl }
         [O] abc
-    [I] \Result{abc}
+    [I] \Return{abc}
     [O] abc
 [O] abc
 ============================================================
@@ -61,7 +61,7 @@ TEST 6: Testing \TlSetEq
 [I] \TlUse{\lTmpbTl }
         [I] \Value{\lTmpbTl }
         [O] abc
-    [I] \Result{abc}
+    [I] \Return{abc}
     [O] abc
 [O] abc
 ============================================================
@@ -73,7 +73,7 @@ TEST 7: Testing \TlClearNew
 [I] \TlUse{\lFooSomeTl }
         [I] \Value{\lFooSomeTl }
         [O] 
-    [I] \Result{}
+    [I] \Return{}
     [O] 
 [O] 
 ============================================================
@@ -89,7 +89,7 @@ TEST 8: Testing \TlConcat
 [I] \TlUse{\lTmpaTl }
         [I] \Value{\lTmpaTl }
         [O] concat
-    [I] \Result{concat}
+    [I] \Return{concat}
     [O] concat
 [O] concat
 ============================================================
@@ -103,7 +103,7 @@ TEST 9: Testing \TlVarReplaceOnce
 [I] \TlUse{\lTmpaTl }
         [I] \Value{\lTmpaTl }
         [O] he-lo world
-    [I] \Result{he-lo world}
+    [I] \Return{he-lo world}
     [O] he-lo world
 [O] he-lo world
 ============================================================
@@ -117,7 +117,7 @@ TEST 10: Testing \TlVarReplaceAll
 [I] \TlUse{\lTmpaTl }
         [I] \Value{\lTmpaTl }
         [O] he--o wor-d
-    [I] \Result{he--o wor-d}
+    [I] \Return{he--o wor-d}
     [O] he--o wor-d
 [O] he--o wor-d
 ============================================================
@@ -131,7 +131,7 @@ TEST 11: Testing \TlVarRemoveOnce
 [I] \TlUse{\lTmpaTl }
         [I] \Value{\lTmpaTl }
         [O] helo world
-    [I] \Result{helo world}
+    [I] \Return{helo world}
     [O] helo world
 [O] helo world
 ============================================================
@@ -145,7 +145,7 @@ TEST 12: Testing \TlVarRemoveAll
 [I] \TlUse{\lTmpaTl }
         [I] \Value{\lTmpaTl }
         [O] heo word
-    [I] \Result{heo word}
+    [I] \Return{heo word}
     [O] heo word
 [O] heo word
 ============================================================
@@ -167,7 +167,7 @@ TEST 14: Testing \TlVarTrimSpaces
 [I] \TlUse{\lTmpaTl }
         [I] \Value{\lTmpaTl }
         [O] 12 34
-    [I] \Result{12 34}
+    [I] \Return{12 34}
     [O] 12 34
 [O] 12 34
 ============================================================
@@ -266,10 +266,10 @@ TEST 23: Testing \TlMapInline
     [I] \TlUse{\lTmpaTl }
             [I] \Value{\lTmpaTl }
             [O] [o][n][e]
-        [I] \Result{[o][n][e]}
+        [I] \Return{[o][n][e]}
         [O] [o][n][e]
     [O] [o][n][e]
-[I] \Result{[o][n][e]}
+[I] \Return{[o][n][e]}
 [O] [o][n][e]
 ============================================================
 ============================================================
@@ -290,10 +290,10 @@ TEST 24: Testing \TlVarMapInline
     [I] \TlUse{\lTmpaTl }
             [I] \Value{\lTmpaTl }
             [O] [o][n][e]
-        [I] \Result{[o][n][e]}
+        [I] \Return{[o][n][e]}
         [O] [o][n][e]
     [O] [o][n][e]
-[I] \Result{[o][n][e]}
+[I] \Return{[o][n][e]}
 [O] [o][n][e]
 ============================================================
 ============================================================
@@ -318,10 +318,10 @@ TEST 25: Testing \TlMapVariable
     [I] \TlUse{\lTmpaTl }
             [I] \Value{\lTmpaTl }
             [O] [o][n][e]
-        [I] \Result{[o][n][e]}
+        [I] \Return{[o][n][e]}
         [O] [o][n][e]
     [O] [o][n][e]
-[I] \Result{[o][n][e]}
+[I] \Return{[o][n][e]}
 [O] [o][n][e]
 ============================================================
 ============================================================
@@ -348,53 +348,53 @@ TEST 26: Testing \TlVarMapVariable
     [I] \TlUse{\lTmpaTl }
             [I] \Value{\lTmpaTl }
             [O] [o][n][e]
-        [I] \Result{[o][n][e]}
+        [I] \Return{[o][n][e]}
         [O] [o][n][e]
     [O] [o][n][e]
-[I] \Result{[o][n][e]}
+[I] \Return{[o][n][e]}
 [O] [o][n][e]
 ============================================================
 ============================================================
 TEST 27: Testing \TlIfExist 
 ============================================================
-[I] \TlIfExistTF{\lTmpaTl }{\Result {Yes}}{\Result {No}}
+[I] \TlIfExistTF{\lTmpaTl }{\Return {Yes}}{\Return {No}}
     [I] \TlIfExist{\lTmpaTl }
-        [I] \Result{\cTrueBool }
+        [I] \Return{\cTrueBool }
         [O] \cTrueBool 
     [O] \cTrueBool 
-    [I] \Result{Yes}
+    [I] \Return{Yes}
     [O] Yes
 [O] Yes
-[I] \TlIfExistTF{\lFooUndefinedTl }{\Result {Yes}}{\Result {No}}
+[I] \TlIfExistTF{\lFooUndefinedTl }{\Return {Yes}}{\Return {No}}
     [I] \TlIfExist{\lFooUndefinedTl }
-        [I] \Result{\cFalseBool }
+        [I] \Return{\cFalseBool }
         [O] \cFalseBool 
     [O] \cFalseBool 
-    [I] \Result{No}
+    [I] \Return{No}
     [O] No
 [O] No
 ============================================================
 ============================================================
 TEST 28: Testing \TlIfEmpty 
 ============================================================
-[I] \TlIfEmptyTF{ }{\Result {Yes}}{\Result {No}}
+[I] \TlIfEmptyTF{ }{\Return {Yes}}{\Return {No}}
     [I] \TlIfEmpty{ }
-        [I] \Result{\cFalseBool }
+        [I] \Return{\cFalseBool }
         [O] \cFalseBool 
     [O] \cFalseBool 
-    [I] \Result{No}
+    [I] \Return{No}
     [O] No
 [O] No
 ============================================================
 ============================================================
 TEST 29: Testing \TlIfBlank 
 ============================================================
-[I] \TlIfBlankTF{ }{\Result {Yes}}{\Result {No}}
+[I] \TlIfBlankTF{ }{\Return {Yes}}{\Return {No}}
     [I] \TlIfBlank{ }
-        [I] \Result{\cTrueBool }
+        [I] \Return{\cTrueBool }
         [O] \cTrueBool 
     [O] \cTrueBool 
-    [I] \Result{Yes}
+    [I] \Return{Yes}
     [O] Yes
 [O] Yes
 ============================================================
@@ -410,61 +410,61 @@ TEST 30: Testing \TlIfEq
     [I] \TlUse{\lTmpaTl }
             [I] \Value{\lTmpaTl }
             [O] abc
-        [I] \Result{abc}
+        [I] \Return{abc}
         [O] abc
     [O] abc
     [I] \TlUse{\lTmpbTl }
             [I] \Value{\lTmpbTl }
             [O] abc
-        [I] \Result{abc}
+        [I] \Return{abc}
         [O] abc
     [O] abc
-[I] \TlIfEqTF{abc}{abc}{\Result {Yes}}{\Result {No}}
+[I] \TlIfEqTF{abc}{abc}{\Return {Yes}}{\Return {No}}
     [I] \TlIfEq{abc}{abc}
-        [I] \Result{\cTrueBool }
+        [I] \Return{\cTrueBool }
         [O] \cTrueBool 
     [O] \cTrueBool 
-    [I] \Result{Yes}
+    [I] \Return{Yes}
     [O] Yes
 [O] Yes
     [I] \TlUse{\lTmpaTl }
             [I] \Value{\lTmpaTl }
             [O] abc
-        [I] \Result{abc}
+        [I] \Return{abc}
         [O] abc
     [O] abc
     [I] \TlUse{\lTmpcTl }
             [I] \Value{\lTmpcTl }
             [O] xyz
-        [I] \Result{xyz}
+        [I] \Return{xyz}
         [O] xyz
     [O] xyz
-[I] \TlIfEqTF{abc}{xyz}{\Result {Yes}}{\Result {No}}
+[I] \TlIfEqTF{abc}{xyz}{\Return {Yes}}{\Return {No}}
     [I] \TlIfEq{abc}{xyz}
-        [I] \Result{\cFalseBool }
+        [I] \Return{\cFalseBool }
         [O] \cFalseBool 
     [O] \cFalseBool 
-    [I] \Result{No}
+    [I] \Return{No}
     [O] No
 [O] No
 ============================================================
 ============================================================
 TEST 31: Testing \TlIfIn 
 ============================================================
-[I] \TlIfInTF{hello world}{o}{\Result {Yes}}{\Result {No}}
+[I] \TlIfInTF{hello world}{o}{\Return {Yes}}{\Return {No}}
     [I] \TlIfIn{hello world}{o}
-        [I] \Result{\cTrueBool }
+        [I] \Return{\cTrueBool }
         [O] \cTrueBool 
     [O] \cTrueBool 
-    [I] \Result{Yes}
+    [I] \Return{Yes}
     [O] Yes
 [O] Yes
-[I] \TlIfInTF{hello world}{a}{\Result {Yes}}{\Result {No}}
+[I] \TlIfInTF{hello world}{a}{\Return {Yes}}{\Return {No}}
     [I] \TlIfIn{hello world}{a}
-        [I] \Result{\cFalseBool }
+        [I] \Return{\cFalseBool }
         [O] \cFalseBool 
     [O] \cFalseBool 
-    [I] \Result{No}
+    [I] \Return{No}
     [O] No
 [O] No
 ============================================================
@@ -473,40 +473,40 @@ TEST 32: Testing \TlVarIfIn
 ============================================================
 [I] \TlSet{\lTmpaTl }{hello world}
 [O] 
-[I] \TlVarIfInTF{\lTmpaTl }{o}{\Result {Yes}}{\Result {No}}
+[I] \TlVarIfInTF{\lTmpaTl }{o}{\Return {Yes}}{\Return {No}}
     [I] \TlVarIfIn{\lTmpaTl }{o}
-        [I] \Result{\cTrueBool }
+        [I] \Return{\cTrueBool }
         [O] \cTrueBool 
     [O] \cTrueBool 
-    [I] \Result{Yes}
+    [I] \Return{Yes}
     [O] Yes
 [O] Yes
-[I] \TlVarIfInTF{\lTmpaTl }{a}{\Result {Yes}}{\Result {No}}
+[I] \TlVarIfInTF{\lTmpaTl }{a}{\Return {Yes}}{\Return {No}}
     [I] \TlVarIfIn{\lTmpaTl }{a}
-        [I] \Result{\cFalseBool }
+        [I] \Return{\cFalseBool }
         [O] \cFalseBool 
     [O] \cFalseBool 
-    [I] \Result{No}
+    [I] \Return{No}
     [O] No
 [O] No
 ============================================================
 ============================================================
 TEST 33: Testing \TlIfSingle 
 ============================================================
-[I] \TlIfSingleTF{a}{\Result {Yes}}{\Result {No}}
+[I] \TlIfSingleTF{a}{\Return {Yes}}{\Return {No}}
     [I] \TlIfSingle{a}
-        [I] \Result{\cTrueBool }
+        [I] \Return{\cTrueBool }
         [O] \cTrueBool 
     [O] \cTrueBool 
-    [I] \Result{Yes}
+    [I] \Return{Yes}
     [O] Yes
 [O] Yes
-[I] \TlIfSingleTF{abc}{\Result {Yes}}{\Result {No}}
+[I] \TlIfSingleTF{abc}{\Return {Yes}}{\Return {No}}
     [I] \TlIfSingle{abc}
-        [I] \Result{\cFalseBool }
+        [I] \Return{\cFalseBool }
         [O] \cFalseBool 
     [O] \cFalseBool 
-    [I] \Result{No}
+    [I] \Return{No}
     [O] No
 [O] No
 ============================================================
@@ -515,22 +515,22 @@ TEST 34: Testing \TlVarIfSingle
 ============================================================
 [I] \TlSet{\lTmpaTl }{a}
 [O] 
-[I] \TlVarIfSingleTF{\lTmpaTl }{\Result {Yes}}{\Result {No}}
+[I] \TlVarIfSingleTF{\lTmpaTl }{\Return {Yes}}{\Return {No}}
     [I] \TlVarIfSingle{\lTmpaTl }
-        [I] \Result{\cTrueBool }
+        [I] \Return{\cTrueBool }
         [O] \cTrueBool 
     [O] \cTrueBool 
-    [I] \Result{Yes}
+    [I] \Return{Yes}
     [O] Yes
 [O] Yes
 [I] \TlSet{\lTmpaTl }{abc}
 [O] 
-[I] \TlVarIfSingleTF{\lTmpaTl }{\Result {Yes}}{\Result {No}}
+[I] \TlVarIfSingleTF{\lTmpaTl }{\Return {Yes}}{\Return {No}}
     [I] \TlVarIfSingle{\lTmpaTl }
-        [I] \Result{\cFalseBool }
+        [I] \Return{\cFalseBool }
         [O] \cFalseBool 
     [O] \cFalseBool 
-    [I] \Result{No}
+    [I] \Return{No}
     [O] No
 [O] No
 ============================================================
@@ -545,8 +545,8 @@ TEST 35: Testing \TlVarCaseF
 [O] 
 [I] \TlSet{\lTmpkTl }{b}
 [O] 
-[I] \TlVarCaseF{\lTmpkTl }{\lTmpaTl {\Result {First}}\lTmpbTl {\Result {Second}}\lTmpcTl {\Result {Third}}}{\Result {NoMatch!}}
-    [I] \Result{Second}
+[I] \TlVarCaseF{\lTmpkTl }{\lTmpaTl {\Return {First}}\lTmpbTl {\Return {Second}}\lTmpcTl {\Return {Third}}}{\Return {NoMatch!}}
+    [I] \Return{Second}
     [O] Second
 [O] Second
 ============================================================
@@ -561,8 +561,8 @@ TEST 36: Testing \TlVarCaseTF
 [O] 
 [I] \TlSet{\lTmpkTl }{d}
 [O] 
-[I] \TlVarCaseTF{\lTmpkTl }{\lTmpaTl {\Result {First}}\lTmpbTl {\Result {Second}}\lTmpcTl {\Result {Third}}}{\Result {[SomeMatch]}}{\Result {[NoMatch]}}
-    [I] \Result{[NoMatch]}
+[I] \TlVarCaseTF{\lTmpkTl }{\lTmpaTl {\Return {First}}\lTmpbTl {\Return {Second}}\lTmpcTl {\Return {Third}}}{\Return {[SomeMatch]}}{\Return {[NoMatch]}}
+    [I] \Return{[NoMatch]}
     [O] [NoMatch]
 [O] [NoMatch]
 ============================================================
