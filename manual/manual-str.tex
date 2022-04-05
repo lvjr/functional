@@ -458,7 +458,7 @@ For example,
 \StrMapInline {one} {
   \StrPutRight \lTmpaStr {[#1]}
 }
-\Result{\StrUse\lTmpaStr}
+\Return{\StrUse\lTmpaStr}
 \IgnoreSpacesOff
 \end{codehigh}
 produces [o][n][e].
@@ -495,7 +495,7 @@ the (string or token list) \meta{variable} and applies the
 \StrMapVariable {one} \lTmpiStr {
   \StrPutRight \lTmpaStr {\Expand {[\lTmpiStr]}}
 }
-\Result{\StrUse\lTmpaStr}
+\Return{\StrUse\lTmpaStr}
 \IgnoreSpacesOff
 \end{demohigh}
 \end{function}
@@ -561,8 +561,8 @@ the (string or token list) \meta{variable} and applies the
 Tests whether the \meta{str var} is currently defined.  This does not
 check that the \meta{str var} really is a string.
 \begin{demohigh}
-\StrIfExistTF\lTmpaStr{\Result{Yes}}{\Result{No}}
-\StrIfExistTF\lFooUndefinedStr{\Result{Yes}}{\Result{No}}
+\StrIfExistTF\lTmpaStr{\Return{Yes}}{\Return{No}}
+\StrIfExistTF\lFooUndefinedStr{\Return{Yes}}{\Return{No}}
 \end{demohigh}
 \end{function}
 
@@ -575,9 +575,9 @@ Tests if the \meta{string variable} is entirely empty
 (\emph{i.e.} contains no characters at all).
 \begin{demohigh}
 \StrSet \lTmpaStr {abc}
-\StrVarIfEmptyTF \lTmpaStr {\Result{Empty}} {\Result{NonEmpty}}
+\StrVarIfEmptyTF \lTmpaStr {\Return{Empty}} {\Return{NonEmpty}}
 \StrClear \lTmpaStr
-\StrVarIfEmptyTF \lTmpaStr {\Result{Empty}} {\Result{NonEmpty}}
+\StrVarIfEmptyTF \lTmpaStr {\Return{Empty}} {\Return{NonEmpty}}
 \end{demohigh}
 \end{function}
 
@@ -599,17 +599,17 @@ See \cs{TlIfEq} to compare
 tokens (including their category codes) rather than characters.
 For example
 \begin{demohigh}
-\StrIfEqTF {abc} {abc} {\Result{Yes}} {\Result{No}}
-\StrIfEqTF {abc} {xyz} {\Result{Yes}} {\Result{No}}
+\StrIfEqTF {abc} {abc} {\Return{Yes}} {\Return{No}}
+\StrIfEqTF {abc} {xyz} {\Return{Yes}} {\Return{No}}
 \end{demohigh}
 %\begin{demohigh}
 %\StrSet\lTmpaStr{abc}
 %\StrSet\lTmpbStr{abc}
 %\StrSet\lTmpcStr{xyz}
-%\StrIfEqTF{\lTmpaStr}{\lTmpbStr}{\Result{Yes}}{\Result{No}}
-%\StrIfEqTF{\lTmpaStr}{\lTmpcStr}{\Result{Yes}}{\Result{No}}
-%\StrIfEqTF{\StrUse\lTmpaStr}{\StrUse\lTmpbStr}{\Result{Yes}}{\Result{No}}
-%\StrIfEqTF{\StrUse\lTmpaStr}{\StrUse\lTmpcStr}{\Result{Yes}}{\Result{No}}
+%\StrIfEqTF{\lTmpaStr}{\lTmpbStr}{\Return{Yes}}{\Return{No}}
+%\StrIfEqTF{\lTmpaStr}{\lTmpcStr}{\Return{Yes}}{\Return{No}}
+%\StrIfEqTF{\StrUse\lTmpaStr}{\StrUse\lTmpbStr}{\Return{Yes}}{\Return{No}}
+%\StrIfEqTF{\StrUse\lTmpaStr}{\StrUse\lTmpcStr}{\Return{Yes}}{\Return{No}}
 %\end{demohigh}
 \end{function}
 
@@ -626,8 +626,8 @@ in the same order.  See \cs{TlVarIfEq} to compare tokens
 \StrSet \lTmpaStr {abc}
 \StrSet \lTmpbStr {abc}
 \StrSet \lTmpcStr {xyz}
-\StrVarIfEqTF \lTmpaStr \lTmpbStr {\Result{Yes}} {\Result{No}}
-\StrVarIfEqTF \lTmpaStr \lTmpcStr {\Result{Yes}} {\Result{No}}
+\StrVarIfEqTF \lTmpaStr \lTmpbStr {\Return{Yes}} {\Return{No}}
+\StrVarIfEqTF \lTmpaStr \lTmpcStr {\Return{Yes}} {\Return{No}}
 \end{demohigh}
 \end{function}
 
@@ -639,8 +639,8 @@ in the same order.  See \cs{TlVarIfEq} to compare tokens
 Converts both \meta{token lists} to \meta{strings} and
 tests whether \meta{string_2} is found inside \meta{string_1}.
 \begin{demohigh}
-\StrIfInTF {hello world} {o} {\Result{Yes}}{\Result{No}}
-\StrIfInTF {hello world} {a} {\Result{Yes}}{\Result{No}}
+\StrIfInTF {hello world} {o} {\Return{Yes}}{\Return{No}}
+\StrIfInTF {hello world} {a} {\Return{Yes}}{\Return{No}}
 \end{demohigh}
 \end{function}
 
@@ -653,8 +653,8 @@ Converts the \meta{token list} to a \meta{string} and
 tests if that \meta{string} is found in the content of the \meta{str var}.
 \begin{demohigh}
 \StrSet \lTmpaStr {hello world}
-\StrVarIfInTF \lTmpaStr {o} {\Result{Yes}}{\Result{No}}
-\StrVarIfInTF \lTmpaStr {a} {\Result{Yes}}{\Result{No}}
+\StrVarIfInTF \lTmpaStr {o} {\Return{Yes}}{\Return{No}}
+\StrVarIfInTF \lTmpaStr {a} {\Return{Yes}}{\Return{No}}
 \end{demohigh}
 \end{function}
 
@@ -675,8 +675,8 @@ order according to the character codes of the characters.  The
 \end{itemize}
 For example:
 \begin{demohigh}
-\StrCompareTF {ab} < {abc} {\Result{Yes}} {\Result{No}}
-\StrCompareTF {ab} < {aa} {\Result{Yes}} {\Result{No}}
+\StrCompareTF {ab} < {abc} {\Return{Yes}} {\Return{No}}
+\StrCompareTF {ab} < {aa} {\Return{Yes}} {\Return{No}}
 \end{demohigh}
 %\begin{texnote}
 %This is a wrapper around the \TeX{} primitive
@@ -710,9 +710,9 @@ input stream and other cases are discarded.
 \begin{demohigh}
 \IgnoreSpacesOn
 \StrCase {bbb} {
-  {aaa} {\Result{First}}
-  {bbb} {\Result{Second}}
-  {ccb} {\Result{Third}}
+  {aaa} {\Return{First}}
+  {bbb} {\Return{Second}}
+  {ccb} {\Return{Third}}
 }
 \IgnoreSpacesOff
 \end{demohigh}
@@ -743,7 +743,7 @@ input stream (after the code for the appropriate case).
   {bbb} {\TlSet\lTmpkTl{Second}}
   {ccb} {\TlSet\lTmpkTl{Third}}
 }{
-  \Result{\TlUse\lTmpkTl}
+  \Return{\TlUse\lTmpkTl}
 }
 \IgnoreSpacesOff
 \end{demohigh}
@@ -769,11 +769,11 @@ match then the \meta{false code} is inserted.
 \begin{demohigh}
 \IgnoreSpacesOn
 \StrCaseF {bbb} {
-  {aaa} {\Result{First}}
-  {bbb} {\Result{Second}}
-  {ccb} {\Result{Third}}
+  {aaa} {\Return{First}}
+  {bbb} {\Return{Second}}
+  {ccb} {\Return{Third}}
 }{
-  \Result{No~Match!}
+  \Return{No~Match!}
 }
 \IgnoreSpacesOff
 \end{demohigh}
@@ -806,9 +806,9 @@ match then the \meta{false code} is inserted.
   {bbb} {\TlSet\lTmpkTl{Second}}
   {ccb} {\TlSet\lTmpkTl{Third}}
 }{
-  \Result{\TlUse\lTmpkTl}
+  \Return{\TlUse\lTmpkTl}
 }{
-  \Result{No~Match!}
+  \Return{No~Match!}
 }
 \IgnoreSpacesOff
 \end{demohigh}

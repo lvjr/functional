@@ -43,16 +43,16 @@ by functions such as \cs{PropGet} if there is no data to return.
 Tests if the \meta{token} is equal to \cs{qNoValue}.
 \begin{demohigh}
 \ClistGet \cEmptyClist \lTmpaTl
-\QuarkVarIfNoValueTF \lTmpaTl {\Result{NoValue}} {\Result{SomeValue}}
+\QuarkVarIfNoValueTF \lTmpaTl {\Return{NoValue}} {\Return{SomeValue}}
 \end{demohigh}
 \begin{demohigh}
 \SeqPop \cEmptySeq \lTmpaTl
-\QuarkVarIfNoValueTF \lTmpaTl {\Result{NoValue}} {\Result{SomeValue}}
+\QuarkVarIfNoValueTF \lTmpaTl {\Return{NoValue}} {\Return{SomeValue}}
 \end{demohigh}
 \begin{demohigh}
 \PropSetFromKeyval \lTmpaProp {key1=one,key2=two}
 \PropGet \lTmpaProp {key3} \lTmpaTl
-\QuarkVarIfNoValueTF \lTmpaTl {\Result{NoValue}} {\Result{SomeValue}}
+\QuarkVarIfNoValueTF \lTmpaTl {\Return{NoValue}} {\Return{SomeValue}}
 \end{demohigh}
 \end{function}
 

@@ -19,7 +19,7 @@ We will compare our first example with a similar \verb!Lua! example:
 \IgnoreSpacesOn
 \PrgNewFunction \MathSquare { m } {
   \IntSet \lTmpaInt { \IntEval {#1 * #1} }
-  \Result { \Value \lTmpaInt }
+  \Return { \Value \lTmpaInt }
 }
 \IgnoreSpacesOff
 \MathSquare{5}
@@ -42,7 +42,7 @@ print(MathSquare(MathSquare(5)))
 %\IgnoreSpacesOn
 %\PrgNewFunction \MathSquare { m }{
 %  \IntSet \lTmpaInt { \IntEval { #1 * #1 } }
-%  \Result { \Value \lTmpaInt }
+%  \Return { \Value \lTmpaInt }
 %}
 %\IgnoreSpacesOff
 %\MathSquare{5}
@@ -52,7 +52,7 @@ print(MathSquare(MathSquare(5)))
 %\PrgNewFunction \MathCubic { m }
 %  {
 %    \IntSet \lTmpaInt { \IntEval { #1 * #1 * #1 } }
-%    \Result { \Value \lTmpaInt }
+%    \Return { \Value \lTmpaInt }
 %  }
 %\IgnoreSpacesOff
 %\MathCubic{2}
@@ -84,9 +84,9 @@ we will compare our factorial example with a similar \verb!Lua! example:
 \IgnoreSpacesOn
 \PrgNewFunction \Fact { m } {
   \IntCompareTF {#1} = {0} {
-    \Result {1}
+    \Return {1}
   }{
-    \Result {\IntMathMult{#1}{\Fact{\IntMathSub{#1}{1}}}}
+    \Return {\IntMathMult{#1}{\Fact{\IntMathSub{#1}{1}}}}
   }
 }
 \IgnoreSpacesOff
@@ -111,9 +111,9 @@ print(Fact(4))
 %\IgnoreSpacesOn
 %\PrgNewFunction \Factorial { m } {
 %  \IntCompareTF {#1} = {0} {
-%    \Result {1}
+%    \Return {1}
 %  }{
-%    \Result { \IntMathMult {#1} { \Factorial { \IntMathSub{#1}{1} } } }
+%    \Return { \IntMathMult {#1} { \Factorial { \IntMathSub{#1}{1} } } }
 %  }
 %}
 %\IgnoreSpacesOff
@@ -235,14 +235,14 @@ For example, the tracing log of the first example in this chapter will be the fo
 %            [I] \IntEval{5*5}
 %                    [I] \Expand{\int_eval:n {5*5}}
 %                    [O] 25
-%                [I] \Result{25}
+%                [I] \Return{25}
 %                [O] 25
 %            [O] 25
 %        [I] \IntSet\lTmpaInt {25}
 %        [O]
 %            [I] \Value\lTmpaInt
 %            [O] 25
-%        [I] \Result{25}
+%        [I] \Return{25}
 %        [O] 25
 %    [O] 25
 %\end{codehigh}
@@ -251,28 +251,28 @@ For example, the tracing log of the first example in this chapter will be the fo
         [I] \IntEval{5*5}
                 [I] \Expand{\int_eval:n {5*5}}
                 [O] 25
-            [I] \Result{25}
+            [I] \Return{25}
             [O] 25
         [O] 25
     [I] \IntSet{\lTmpaInt }{25}
     [O] 
         [I] \Value{\lTmpaInt }
         [O] 25
-    [I] \Result{25}
+    [I] \Return{25}
     [O] 25
 [O] 25
 [I] \MathSquare{25}
         [I] \IntEval{25*25}
                 [I] \Expand{\int_eval:n {25*25}}
                 [O] 625
-            [I] \Result{625}
+            [I] \Return{625}
             [O] 625
         [O] 625
     [I] \IntSet{\lTmpaInt }{625}
     [O] 
         [I] \Value{\lTmpaInt }
         [O] 625
-    [I] \Result{625}
+    [I] \Return{625}
     [O] 625
 [O] 625
 \end{codehigh}

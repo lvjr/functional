@@ -15,8 +15,8 @@
 Constants that represent \verb|true| and \verb|false|, respectively. Used to
 implement predicates. For example
 \begin{demohigh}
-\BoolVarIfTF \cTrueBool {\Result{True!}} {\Result{False!}}
-\BoolVarIfTF \cFalseBool {\Result{True!}} {\Result{False!}}
+\BoolVarIfTF \cTrueBool {\Return{True!}} {\Return{False!}}
+\BoolVarIfTF \cFalseBool {\Return{True!}} {\Return{False!}}
 \end{demohigh}
 \end{variable}
 
@@ -140,8 +140,8 @@ Tests whether the \meta{boolean} is currently defined.  This does not
 check that the \meta{boolean} really is a boolean variable.
 For example
 \begin{demohigh}
-\BoolIfExistTF \lTmpaBool {\Result{Yes}} {\Result{No}}
-\BoolIfExistTF \lFooUndefinedBool {\Result{Yes}} {\Result{No}}
+\BoolIfExistTF \lTmpaBool {\Return{Yes}} {\Return{No}}
+\BoolIfExistTF \lFooUndefinedBool {\Return{Yes}} {\Return{No}}
 \end{demohigh}
 \end{function}
 
@@ -154,9 +154,9 @@ Tests the current truth of \meta{boolean}, and continues evaluation
 based on this result. For example
 \begin{demohigh}
 \BoolSetTrue \lTmpaBool
-\BoolVarIfTF \lTmpaBool {\Result{True!}} {\Result{False!}}
+\BoolVarIfTF \lTmpaBool {\Return{True!}} {\Return{False!}}
 \BoolSetFalse \lTmpaBool
-\BoolVarIfTF \lTmpaBool {\Result{True!}} {\Result{False!}}
+\BoolVarIfTF \lTmpaBool {\Return{True!}} {\Return{False!}}
 \end{demohigh}
 \end{function}
 
@@ -169,7 +169,7 @@ Evaluates \meta{true code} if \meta{boolean} is \verb!false!,
 and \meta{false code} if \meta{boolean} is \verb!true!.
 For example
 \begin{demohigh}
-\BoolVarNotTF {\IntCompare{3}>{2}} {\Result{Yes}} {\Result{No}}
+\BoolVarNotTF {\IntCompare{3}>{2}} {\Return{Yes}} {\Return{No}}
 \end{demohigh}
 \end{function}
 
@@ -185,7 +185,7 @@ The \meta{boolean_2} is only evaluated if it is needed to determine the result o
 \cs{BoolVarAnd}.
 For example
 \begin{demohigh}
-\BoolVarAndTF {\IntCompare{3}>{2}} {\IntCompare{3}>{4}} {\Result{Yes}} {\Result{No}}
+\BoolVarAndTF {\IntCompare{3}>{2}} {\IntCompare{3}>{4}} {\Return{Yes}} {\Return{No}}
 \end{demohigh}
 \end{function}
 
@@ -201,7 +201,7 @@ The \meta{boolean_2} is only evaluated if it is needed to determine the result o
 \cs{BoolVarOr}.
 For example
 \begin{demohigh}
-\BoolVarOrTF {\IntCompare{3}>{2}} {\IntCompare{3}>{4}} {\Result{Yes}} {\Result{No}}
+\BoolVarOrTF {\IntCompare{3}>{2}} {\IntCompare{3}>{4}} {\Return{Yes}} {\Return{No}}
 \end{demohigh}
 \end{function}
 
@@ -213,7 +213,7 @@ For example
 Implements an \enquote{exclusive or} operation between two booleans.
 For example
 \begin{demohigh}
-\BoolVarXorTF {\IntCompare{3}>{2}} {\IntCompare{3}>{4}} {\Result{Yes}} {\Result{No}}
+\BoolVarXorTF {\IntCompare{3}>{2}} {\IntCompare{3}>{4}} {\Return{Yes}} {\Return{No}}
 \end{demohigh}
 \end{function}
 

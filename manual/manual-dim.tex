@@ -324,7 +324,7 @@ For example
 \DimStepInline {1pt} {0.1pt} {1.5pt} {
   \TlPutRight \lTmpaTl {[#1]}
 }
-\Result {\Value\lTmpaTl}
+\Return {\Value\lTmpaTl}
 \IgnoreSpacesOff
 \end{codehigh}
 produces [1.0pt][1.1pt][1.20001pt][1.30002pt][1.40002pt].
@@ -349,7 +349,7 @@ the \meta{code} should make use of the \meta{tl var}.
 %  \TlPutRight\lTmpaTl{\Value\lTmpiTl}
 %  \TlPutRight\lTmpaTl{~}
 %}
-%\Result{\Value\lTmpaTl}
+%\Return{\Value\lTmpaTl}
 %\IgnoreSpacesOff
 %\end{demohigh}
 \end{function}
@@ -365,8 +365,8 @@ Tests whether the \meta{dimension} is currently defined.  This does
 not check that the \meta{dimension} really is a dimension variable.
 For example
 \begin{demohigh}
-\DimIfExistTF \lTmpaDim {\Result{Yes}} {\Result{No}}
-\DimIfExistTF \lFooUndefinedDim {\Result{Yes}} {\Result{No}}
+\DimIfExistTF \lTmpaDim {\Return{Yes}} {\Return{No}}
+\DimIfExistTF \lFooUndefinedDim {\Return{Yes}} {\Return{No}}
 \end{demohigh}
 \end{function}
 
@@ -386,8 +386,8 @@ Less than    & \verb|<| \\
 \end{tabular}\par}
 For example
 \begin{demohigh}
-\DimCompareTF {1pt} > {0.9999pt} {\Result{Greater}} {\Result{Less}}
-\DimCompareTF {1pt} > {1.0001pt} {\Result{Greater}} {\Result{Less}}
+\DimCompareTF {1pt} > {0.9999pt} {\Return{Greater}} {\Return{Less}}
+\DimCompareTF {1pt} > {1.0001pt} {\Return{Greater}} {\Return{Less}}
 \end{demohigh}
 \end{function}
 
@@ -452,11 +452,11 @@ For example
 \IgnoreSpacesOn
 \DimSet \lTmpaDim {5pt}
 \DimCaseF {2\lTmpaDim} {
-  {5pt}     {\Result{Small}}
-  {4pt+6pt} {\Result{Medium}}
-  {-10pt}   {\Result{Negative}}
+  {5pt}     {\Return{Small}}
+  {4pt+6pt} {\Return{Medium}}
+  {-10pt}   {\Return{Negative}}
 }{
-  \Result {No Match}
+  \Return {No Match}
 }
 \IgnoreSpacesOff
 \end{demohigh}
@@ -487,13 +487,13 @@ match then the \meta{false code} is inserted.
 %\IgnoreSpacesOn
 %\DimSet\lTmpaDim{5pt}
 %\DimCaseTF{2\lTmpaDim}{
-%  {5pt}     {\Result{Small}}
-%  {4pt+6pt} {\Result{Medium}}
-%  {-10pt}   {\Result{Negative}}
+%  {5pt}     {\Return{Small}}
+%  {4pt+6pt} {\Return{Medium}}
+%  {-10pt}   {\Return{Negative}}
 %}{
-%  \Result{[Some Match]}
+%  \Return{[Some Match]}
 %}{
-%  \Result{[No Match]}
+%  \Return{[No Match]}
 %}
 %\IgnoreSpacesOff
 %\end{demohigh}

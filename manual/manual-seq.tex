@@ -436,7 +436,7 @@ not defined in this case and should not be relied upon.  If the
 the \meta{sequence}. The \meta{token list variable} is assigned locally.
 \begin{demohigh}
 \SeqSetFromClist \lTmpaSeq {two,three,four}
-\SeqGetTF \lTmpaSeq \lTmpaTl {\Result{Yes}} {\Result{No}}
+\SeqGetTF \lTmpaSeq \lTmpaTl {\Return{Yes}} {\Return{No}}
 \end{demohigh}
 \end{function}
 
@@ -468,7 +468,7 @@ not defined in this case and should not be relied upon.  If the
 in the \meta{token list variable}, \emph{i.e.} removes the item from the
 \meta{sequence}. The \meta{token list variable} is assigned locally.
 \begin{demohigh}
-\SeqPopTF \cEmptySeq \lTmpaTl {\Result{Yes}} {\Result{No}}
+\SeqPopTF \cEmptySeq \lTmpaTl {\Return{Yes}} {\Return{No}}
 \end{demohigh}
 \end{function}
 
@@ -525,7 +525,7 @@ in the \meta{token list variable} without removing it from the
 The \meta{token list variable} is assigned locally.
 \begin{demohigh}
 \SeqSetFromClist \lTmpaSeq {two,three,four}
-\SeqGetLeftTF \lTmpaSeq \lTmpaTl {\Result{Yes}} {\Result{No}}
+\SeqGetLeftTF \lTmpaSeq \lTmpaTl {\Return{Yes}} {\Return{No}}
 \end{demohigh}
 \end{function}
 
@@ -561,7 +561,7 @@ in the \meta{token list variable} without removing it from the
 The \meta{token list variable} is assigned locally.
 \begin{demohigh}
 \SeqSetFromClist \lTmpaSeq {two,three,four}
-\SeqGetRightTF \lTmpaSeq \lTmpaTl {\Result{Yes}} {\Result{No}}
+\SeqGetRightTF \lTmpaSeq \lTmpaTl {\Return{Yes}} {\Return{No}}
 \end{demohigh}
 \end{function}
 
@@ -596,7 +596,7 @@ in the \meta{token list variable}, \emph{i.e.} removes the item from the
 \meta{sequence}, then leaves the \meta{true code} in the input stream.
 The \meta{token list variable} is assigned locally.
 \begin{demohigh}
-\SeqPopLeftTF \cEmptySeq \lTmpaTl {\Result{Yes}} {\Result{No}}
+\SeqPopLeftTF \cEmptySeq \lTmpaTl {\Return{Yes}} {\Return{No}}
 \end{demohigh}
 \end{function}
 
@@ -631,7 +631,7 @@ in the \meta{token list variable}, \emph{i.e.} removes the item from the
 \meta{sequence}, then leaves the \meta{true code} in the input stream.
 The \meta{token list variable} is assigned locally.
 \begin{demohigh}
-\SeqPopRightTF \cEmptySeq \lTmpaTl {\Result{Yes}} {\Result{No}}
+\SeqPopRightTF \cEmptySeq \lTmpaTl {\Return{Yes}} {\Return{No}}
 \end{demohigh}
 \end{function}
 
@@ -668,7 +668,7 @@ The \meta{items} are returned from left to right. For example,
 \SeqVarMapInline \lTmpkSeq {
   \TlPutRight \lTmpaTl {(#1)}
 }
-\Result {\TlUse\lTmpaTl}
+\Return {\TlUse\lTmpaTl}
 \IgnoreSpacesOff
 \end{codehigh}
 produces (one)(two)(three).
@@ -708,7 +708,7 @@ or its original value if the \meta{sequence} is empty.  The
 \SeqVarMapVariable \lTmpaSeq \lTmpiTl {
   \IntAdd \lTmpaInt {\lTmpiTl*\lTmpiTl}
 }
-\Result {\IntUse\lTmpaInt}
+\Return {\IntUse\lTmpaInt}
 \IgnoreSpacesOff
 \end{demohigh}
 \end{function}
@@ -832,8 +832,8 @@ or its original value if the \meta{sequence} is empty.  The
 Tests whether the \meta{sequence} is currently defined.  This does not
 check that the \meta{sequence} really is a sequence variable.
 \begin{demohigh}
-\SeqIfExistTF \lTmpaSeq {\Result{Yes}} {\Result{No}}
-\SeqIfExistTF \lFooUndefinedSeq {\Result{Yes}} {\Result{No}}
+\SeqIfExistTF \lTmpaSeq {\Return{Yes}} {\Return{No}}
+\SeqIfExistTF \lFooUndefinedSeq {\Return{Yes}} {\Return{No}}
 \end{demohigh}
 \end{function}
 
@@ -845,9 +845,9 @@ check that the \meta{sequence} really is a sequence variable.
 Tests if the \meta{sequence} is empty (containing no items).
 \begin{demohigh}
 \SeqSetFromClist \lTmpaSeq {one,two}
-\SeqVarIfEmptyTF \lTmpaSeq {\Result{Empty}} {\Result{NonEmpty}}
+\SeqVarIfEmptyTF \lTmpaSeq {\Return{Empty}} {\Return{NonEmpty}}
 \SeqClear \lTmpaSeq
-\SeqVarIfEmptyTF \lTmpaSeq {\Result{Empty}} {\Result{NonEmpty}}
+\SeqVarIfEmptyTF \lTmpaSeq {\Return{Empty}} {\Return{NonEmpty}}
 \end{demohigh}
 \end{function}
 
@@ -859,8 +859,8 @@ Tests if the \meta{sequence} is empty (containing no items).
 Tests if the \meta{item} is present in the \meta{sequence}.
 \begin{demohigh}
 \SeqSetFromClist \lTmpaSeq {one,two}
-\SeqVarIfInTF \lTmpaSeq {one} {\Result{Yes}} {\Result{Not}}
-\SeqVarIfInTF \lTmpaSeq {three} {\Result{Yes}} {\Result{Not}}
+\SeqVarIfInTF \lTmpaSeq {one} {\Return{Yes}} {\Return{Not}}
+\SeqVarIfInTF \lTmpaSeq {three} {\Return{Yes}} {\Return{Not}}
 \end{demohigh}
 \end{function}
 

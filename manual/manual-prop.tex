@@ -345,7 +345,7 @@ not be relied upon.  If the \meta{key} is present in the
 stream.  The \meta{token list variable} is assigned locally.
 \begin{demohigh}
 \PropSetFromKeyval \lTmpaProp {key1=one,key2=two,key3=three}
-\PropGetTF \lTmpaProp {key2} \lTmpaTl {\Result{Yes}} {\Result{No}}
+\PropGetTF \lTmpaProp {key2} \lTmpaTl {\Return{Yes}} {\Return{No}}
 \end{demohigh}
 \end{function}
 
@@ -383,7 +383,7 @@ in the \meta{token list variable}, \emph{i.e.} removes the item from
 The \meta{token list variable} is assigned locally.
 \begin{demohigh}
 \PropSetFromKeyval \lTmpaProp {key1=one,key2=two,key3=three}
-\PropPopTF \lTmpaProp {key2} \lTmpaTl {\Result{Yes}} {\Result{No}}
+\PropPopTF \lTmpaProp {key2} \lTmpaTl {\Return{Yes}} {\Return{No}}
 \end{demohigh}
 \end{function}
 
@@ -424,7 +424,7 @@ For example,
 \PropVarMapInline \lTmpkProp {
   \TlPutRight \lTmpaTl {(#1=#2)}
 }
-\Result {\TlUse\lTmpaTl}
+\Return {\TlUse\lTmpaTl}
 \IgnoreSpacesOff
 \end{codehigh}
 produces (key1=one)(key2=two)(key3=three).
@@ -512,8 +512,8 @@ produces (key1=one)(key2=two)(key3=three).
 Tests whether the \meta{property list} is currently defined.  This does not
 check that the \meta{property list} really is a property list variable.
 \begin{demohigh}
-\PropIfExistTF \lTmpaProp {\Result{Yes}} {\Result{No}}
-\PropIfExistTF \lFooUndefinedProp {\Result{Yes}} {\Result{No}}
+\PropIfExistTF \lTmpaProp {\Return{Yes}} {\Return{No}}
+\PropIfExistTF \lFooUndefinedProp {\Return{Yes}} {\Return{No}}
 \end{demohigh}
 \end{function}
 
@@ -525,9 +525,9 @@ check that the \meta{property list} really is a property list variable.
 Tests if the \meta{property list} is empty (containing no entries).
 \begin{demohigh}
 \PropSetFromKeyval \lTmpaProp {key1=one,key2=two}
-\PropVarIfEmptyTF \lTmpaProp {\Result{Empty}} {\Result{NonEmpty}}
+\PropVarIfEmptyTF \lTmpaProp {\Return{Empty}} {\Return{NonEmpty}}
 \PropClear \lTmpaProp
-\PropVarIfEmptyTF \lTmpaProp {\Result{Empty}} {\Result{NonEmpty}}
+\PropVarIfEmptyTF \lTmpaProp {\Return{Empty}} {\Return{NonEmpty}}
 \end{demohigh}
 \end{function}
 
@@ -539,8 +539,8 @@ Tests if the \meta{key} is present in the \meta{property list},
 making the comparison using the method described by \cs{StrIfEqTF}.
 \begin{demohigh}
 \PropSetFromKeyval \lTmpaProp {key1=one,key2=two}
-\PropVarIfInTF \lTmpaProp {key1} {\Result{Yes}} {\Result{Not}}
-\PropVarIfInTF \lTmpaProp {key3} {\Result{Yes}} {\Result{Not}}
+\PropVarIfInTF \lTmpaProp {key1} {\Return{Yes}} {\Return{Not}}
+\PropVarIfInTF \lTmpaProp {key3} {\Return{Yes}} {\Return{Not}}
 \end{demohigh}
 %\begin{texnote}
 %This function iterates through every key--value pair in the

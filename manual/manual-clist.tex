@@ -500,7 +500,7 @@ it from the \meta{comma list}.
 The \meta{token list variable} is assigned locally.
 \begin{demohigh}
 \ClistSet \lTmpaClist {two,three,four}
-\ClistGetTF \lTmpaClist \lTmpaTl {\Result{Yes}} {\Result{No}}
+\ClistGetTF \lTmpaClist \lTmpaTl {\Return{Yes}} {\Return{No}}
 \end{demohigh}
 \end{function}
 
@@ -536,7 +536,7 @@ the item from the \meta{comma list}.
 The \meta{token list variable} is assigned locally.
 \begin{demohigh}
 \ClistSet \lTmpaClist {two,three,four}
-\ClistPopTF \lTmpaClist \lTmpaTl {\Result{Yes}} {\Result{No}}
+\ClistPopTF \lTmpaClist \lTmpaTl {\Return{Yes}} {\Return{No}}
 \end{demohigh}
 \end{function}
 
@@ -604,7 +604,7 @@ For example
 \ClistMapInline {one,two,three} {
   \TlPutRight \lTmpaTl {(#1)}
 }
-\Result {\TlUse\lTmpaTl}
+\Return {\TlUse\lTmpaTl}
 \IgnoreSpacesOff
 \end{codehigh}
 produces (one)(two)(three).
@@ -708,8 +708,8 @@ list}, or its original value if there were no \meta{item}.  The
 Tests whether the \meta{comma list} is currently defined.  This does
 not check that the \meta{comma list} really is a comma list.
 \begin{demohigh}
-\ClistIfExistTF \lTmpaClist {\Result{Yes}} {\Result{No}}
-\ClistIfExistTF \lFooUndefinedClist {\Result{Yes}} {\Result{No}}
+\ClistIfExistTF \lTmpaClist {\Return{Yes}} {\Return{No}}
+\ClistIfExistTF \lFooUndefinedClist {\Return{Yes}} {\Return{No}}
 \end{demohigh}
 \end{function}
 
@@ -725,8 +725,8 @@ outer braces) is empty, while \verb|{ ,{},}| (without outer braces)
 contains one element, which happens to be empty: the comma-list
 is not empty.
 \begin{demohigh}
-\ClistIfEmptyTF {one,two} {\Result{Empty}} {\Result{NonEmpty}}
-\ClistIfEmptyTF { , } {\Result{Empty}} {\Result{NonEmpty}}
+\ClistIfEmptyTF {one,two} {\Return{Empty}} {\Return{NonEmpty}}
+\ClistIfEmptyTF { , } {\Return{Empty}} {\Return{NonEmpty}}
 \end{demohigh}
 \end{function}
 
@@ -738,9 +738,9 @@ is not empty.
 Tests if the \meta{comma list} is empty (containing no items).
 \begin{demohigh}
 \ClistSet \lTmpaClist {one,two}
-\ClistVarIfEmptyTF \lTmpaClist {\Result{Empty}} {\Result{NonEmpty}}
+\ClistVarIfEmptyTF \lTmpaClist {\Return{Empty}} {\Return{NonEmpty}}
 \ClistClear \lTmpaClist
-\ClistVarIfEmptyTF \lTmpaClist {\Result{Empty}} {\Result{NonEmpty}}
+\ClistVarIfEmptyTF \lTmpaClist {\Return{Empty}} {\Return{NonEmpty}}
 \end{demohigh}
 \end{function}
  
@@ -753,8 +753,8 @@ Tests if the \meta{item} is present in the \meta{comma list}.
 In the case of an \texttt{n}-type \meta{comma list}, the usual rules
 of space trimming and brace stripping apply. For example
 \begin{demohigh}
-\ClistIfInTF { a , {b}  , {b} , c } {b} {\Result{Yes}} {\Result{No}}
-\ClistIfInTF { a , {b}  , {b} , c } {d} {\Result{Yes}} {\Result{No}}
+\ClistIfInTF { a , {b}  , {b} , c } {b} {\Return{Yes}} {\Return{No}}
+\ClistIfInTF { a , {b}  , {b} , c } {d} {\Return{Yes}} {\Return{No}}
 \end{demohigh}
 %\begin{texnote}
 %The function may fail if the \meta{item} contains \verb|{|, \verb|}|, or \verb|#|
@@ -772,8 +772,8 @@ In the case of an \texttt{n}-type \meta{comma list}, the usual rules
 of space trimming and brace stripping apply.
 \begin{demohigh}
 \ClistSet \lTmpaClist {one,two}
-\ClistVarIfInTF \lTmpaClist {one} {\Result{Yes}} {\Result{No}}
-\ClistVarIfInTF \lTmpaClist {three} {\Result{Yes}} {\Result{No}}
+\ClistVarIfInTF \lTmpaClist {one} {\Return{Yes}} {\Return{No}}
+\ClistVarIfInTF \lTmpaClist {three} {\Return{Yes}} {\Return{No}}
 \end{demohigh}
 %\begin{texnote}
 %The function may fail if the \meta{item} contains \verb|{|, \verb|}|, or \verb|#|

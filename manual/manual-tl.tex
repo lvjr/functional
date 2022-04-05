@@ -65,7 +65,7 @@ Constant that is always empty.
 %will \emph{not} match the simple text input \verb|-NoValue-|, \emph{i.e.}
 %that
 %\begin{demohigh}
-%\TlIfEqTF {\TlUse\cNoValueTl} {-NoValue-} {Result{Yes}} {\Result{No}}
+%\TlIfEqTF {\TlUse\cNoValueTl} {-NoValue-} {Result{Yes}} {\Return{No}}
 %\end{demohigh}
 %The \cs{cNoValueTl} marker is intended for
 %use in creating document-level interfaces, where it serves as an indicator
@@ -623,7 +623,7 @@ receives the \meta{item} as \verb|#1|. For example,
 \TlMapInline {one} {
   \TlPutRight \lTmpaTl {[#1]}
 }
-\Result{\TlUse\lTmpaTl}
+\Return{\TlUse\lTmpaTl}
 \IgnoreSpacesOff
 \end{codehigh}
 produces [o][n][e].
@@ -643,7 +643,7 @@ receives the \meta{item} as \verb|#1|. For example,
 \TlVarMapInline \lTmpkTl {
   \TlPutRight \lTmpaTl {[#1]}
 }
-\Result{\TlUse\lTmpaTl}
+\Return{\TlUse\lTmpaTl}
 \IgnoreSpacesOff
 \end{codehigh}
 produces [o][n][e].
@@ -683,7 +683,7 @@ Its value after the loop is the last \meta{item} in the
 \TlMapVariable {one} \lTmpiTl {
   \TlPutRight \lTmpaTl {\Expand {[\lTmpiTl]}}
 }
-\Result{\TlUse\lTmpaTl}
+\Return{\TlUse\lTmpaTl}
 \IgnoreSpacesOff
 \end{demohigh}
 \end{function}
@@ -705,7 +705,7 @@ or its original value if the \meta{tl var} is blank.
 \TlVarMapVariable \lTmpkTl \lTmpiTl {
   \TlPutRight \lTmpaTl {\Expand {[\lTmpiTl]}}
 }
-\Result{\TlUse\lTmpaTl}
+\Return{\TlUse\lTmpaTl}
 \IgnoreSpacesOff
 \end{demohigh}
 \end{function}
@@ -771,8 +771,8 @@ or its original value if the \meta{tl var} is blank.
 Tests whether the \meta{tl var} is currently defined.  This does not
 check that the \meta{tl var} really is a token list variable.
 \begin{demohigh}
-\TlIfExistTF \lTmpaTl {\Result{Yes}} {\Result{No}}
-\TlIfExistTF \lFooUndefinedTl {\Result{Yes}} {\Result{No}}
+\TlIfExistTF \lTmpaTl {\Return{Yes}} {\Return{No}}
+\TlIfExistTF \lFooUndefinedTl {\Return{Yes}} {\Return{No}}
 \end{demohigh}
 \end{function}
 
@@ -784,8 +784,8 @@ check that the \meta{tl var} really is a token list variable.
 Tests if the \meta{token list} is entirely empty
 (\emph{i.e.}~contains no tokens at all). For example
 \begin{demohigh}
-\TlIfEmptyTF {abc} {\Result{Empty}} {\Result{NonEmpty}}
-\TlIfEmptyTF {} {\Result{Empty}} {\Result{NonEmpty}}
+\TlIfEmptyTF {abc} {\Return{Empty}} {\Return{NonEmpty}}
+\TlIfEmptyTF {} {\Return{Empty}} {\Return{NonEmpty}}
 \end{demohigh}
 \end{function}
 
@@ -798,9 +798,9 @@ Tests if the \meta{token list variable} is entirely empty
 (\emph{i.e.}~contains no tokens at all). For example
 \begin{demohigh}
 \TlSet \lTmpaTl {abc}
-\TlVarIfEmptyTF \lTmpaTl {\Result{Empty}} {\Result{NonEmpty}}
+\TlVarIfEmptyTF \lTmpaTl {\Return{Empty}} {\Return{NonEmpty}}
 \TlClear \lTmpaTl
-\TlVarIfEmptyTF \lTmpaTl {\Result{Empty}} {\Result{NonEmpty}}
+\TlVarIfEmptyTF \lTmpaTl {\Return{Empty}} {\Return{NonEmpty}}
 \end{demohigh}
 \end{function}
 
@@ -815,8 +815,8 @@ Tests if the \meta{token list} consists only of blank spaces
 (explicit tokens with character code $32$ and category code $10$),
 and is \texttt{false} otherwise.
 \begin{demohigh}
-\TlIfEmptyTF {  } {\Result{Yes}} {\Result{No}}
-\TlIfBlankTF {  } {\Result{Yes}} {\Result{No}}
+\TlIfEmptyTF {  } {\Return{Yes}} {\Return{No}}
+\TlIfBlankTF {  } {\Return{Yes}} {\Return{No}}
 \end{demohigh}
 \end{function}
 
@@ -830,15 +830,15 @@ same list of tokens, both in respect of character codes and category
 codes. See \cs{StrIfEq} if category codes are not important.
 For example
 \begin{demohigh}
-\TlIfEqTF {abc} {abc} {\Result{Yes}} {\Result{No}}
-\TlIfEqTF {abc} {xyz} {\Result{Yes}} {\Result{No}}
+\TlIfEqTF {abc} {abc} {\Return{Yes}} {\Return{No}}
+\TlIfEqTF {abc} {xyz} {\Return{Yes}} {\Return{No}}
 \end{demohigh}
 %\begin{demohigh}
 %\TlSet\lTmpaTl{abc}
 %\TlSet\lTmpbTl{abc}
 %\TlSet\lTmpcTl{xyz}
-%\TlIfEqTF{\TlUse\lTmpaTl}{\TlUse\lTmpbTl}{\Result{Yes}}{\Result{No}}
-%\TlIfEqTF{\TlUse\lTmpaTl}{\TlUse\lTmpcTl}{\Result{Yes}}{\Result{No}}
+%\TlIfEqTF{\TlUse\lTmpaTl}{\TlUse\lTmpbTl}{\Return{Yes}}{\Return{No}}
+%\TlIfEqTF{\TlUse\lTmpaTl}{\TlUse\lTmpcTl}{\Return{Yes}}{\Return{No}}
 %\end{demohigh}
 \end{function}
 
@@ -855,8 +855,8 @@ contain and the category codes of those characters). For example
 \TlSet \lTmpaTl {abc}
 \TlSet \lTmpbTl {abc}
 \TlSet \lTmpcTl {xyz}
-\TlVarIfEqTF \lTmpaTl \lTmpbTl {\Result{Yes}} {\Result{No}}
-\TlVarIfEqTF \lTmpaTl \lTmpcTl {\Result{Yes}} {\Result{No}}
+\TlVarIfEqTF \lTmpaTl \lTmpbTl {\Return{Yes}} {\Return{No}}
+\TlVarIfEqTF \lTmpaTl \lTmpcTl {\Return{Yes}} {\Return{No}}
 \end{demohigh}
 See also \cs{StrVarIfEq} for a comparison that ignores category codes.
 \end{function}
@@ -872,8 +872,8 @@ The \meta{token list_2} cannot contain the tokens \verb|{|, \verb|}| or \verb|#|
 (begin-group) or $2$ (end-group), and tokens with category code $6$).
 The search does \emph{not} enter brace (category code $1$/$2$) groups.
 \begin{demohigh}
-\TlIfInTF {hello world} {o} {\Result{Yes}} {\Result{No}}
-\TlIfInTF {hello world} {a} {\Result{Yes}} {\Result{No}}
+\TlIfInTF {hello world} {o} {\Return{Yes}} {\Return{No}}
+\TlIfInTF {hello world} {a} {\Return{Yes}} {\Return{No}}
 \end{demohigh}
 \end{function}
 
@@ -889,8 +889,8 @@ the tokens \verb|{|, \verb|}| or \verb|#|
 (begin-group) or $2$ (end-group), and tokens with category code $6$).
 \begin{demohigh}
 \TlSet \lTmpaTl {hello world}
-\TlVarIfInTF \lTmpaTl {o} {\Result{Yes}} {\Result{No}}
-\TlVarIfInTF \lTmpaTl {a} {\Result{Yes}} {\Result{No}}
+\TlVarIfInTF \lTmpaTl {o} {\Return{Yes}} {\Return{No}}
+\TlVarIfInTF \lTmpaTl {a} {\Return{Yes}} {\Return{No}}
 \end{demohigh}
 \end{function}
 
@@ -905,8 +905,8 @@ begin-group character) or a single brace group, surrounded by
 optional spaces on both sides. In other words, such a token list has
 token count $1$ according to \cs{TlCount}.
 \begin{demohigh}
-\TlIfSingleTF {a} {\Result{Yes}} {\Result{No}}
-\TlIfSingleTF {abc} {\Result{Yes}} {\Result{No}}
+\TlIfSingleTF {a} {\Return{Yes}} {\Return{No}}
+\TlIfSingleTF {abc} {\Return{Yes}} {\Return{No}}
 \end{demohigh}
 \end{function}
 
@@ -922,9 +922,9 @@ surrounded by optional spaces on both sides. In other words, such a
 token list has token count $1$ according to \cs{TlVarCount}.
 \begin{demohigh}
 \TlSet \lTmpaTl {a}
-\TlVarIfSingleTF \lTmpaTl {\Result{Yes}} {\Result{No}}
+\TlVarIfSingleTF \lTmpaTl {\Return{Yes}} {\Return{No}}
 \TlSet \lTmpaTl {abc}
-\TlVarIfSingleTF \lTmpaTl {\Result{Yes}} {\Result{No}}
+\TlVarIfSingleTF \lTmpaTl {\Return{Yes}} {\Return{No}}
 \end{demohigh}
 \end{function}
 
@@ -953,9 +953,9 @@ does nothing if there is no match.
 \TlSet \lTmpcTl {c}
 \TlSet \lTmpkTl {b}
 \TlVarCase \lTmpkTl {
-  \lTmpaTl {\Result {First}}
-  \lTmpbTl {\Result {Second}}
-  \lTmpcTl {\Result {Third}}
+  \lTmpaTl {\Return {First}}
+  \lTmpbTl {\Return {Second}}
+  \lTmpcTl {\Return {Third}}
 }
 \IgnoreSpacesOff
 \end{demohigh}
@@ -990,7 +990,7 @@ input stream (after the code for the appropriate case).
   \lTmpbTl {\IntSet \lTmpkInt {2}}
   \lTmpcTl {\IntSet \lTmpkInt {3}}
 }{
-  \Result {\IntUse \lTmpkInt}
+  \Return {\IntUse \lTmpkInt}
 }
 \IgnoreSpacesOff
 \end{demohigh}
@@ -1020,11 +1020,11 @@ is inserted into the input stream (after the code for the appropriate case).
 \TlSet \lTmpcTl {c}
 \TlSet \lTmpkTl {b}
 \TlVarCaseF \lTmpkTl{
-  \lTmpaTl {\Result {First}}
-  \lTmpbTl {\Result {Second}}
-  \lTmpcTl {\Result {Third}}
+  \lTmpaTl {\Return {First}}
+  \lTmpbTl {\Return {Second}}
+  \lTmpcTl {\Return {Third}}
 }{
-  \Result {No~Match!}
+  \Return {No~Match!}
 }
 \IgnoreSpacesOff
 \end{demohigh}
@@ -1062,9 +1062,9 @@ which does nothing if there is no match, is also available.
   \lTmpbTl {\IntSet \lTmpkInt {2}}
   \lTmpcTl {\IntSet \lTmpkInt {3}}
 }{
-  \Result {\IntUse \lTmpkInt}
+  \Return {\IntUse \lTmpkInt}
 }{
-  \Result {0}
+  \Return {0}
 }
 \IgnoreSpacesOff
 \end{demohigh}

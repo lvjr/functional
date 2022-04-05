@@ -51,14 +51,35 @@ will be created at the same time. \verb!\FooIfBarTF! function has two extra argu
 which are \Arg{true code} and \Arg{false code}.\par
 \end{function}
 
-\section{Collecting Returned Values}
+\section{Return Values of Functions}
 
-\begin{function}{\Result}
+\begin{function}{\Return}
 \begin{syntax}
-\cs{Result} \Arg{tokens}
+\cs{Return} \Arg{tokens}
 \end{syntax}
-Appends \meta{tokens} to \verb!\gResultTl!, which holds the returned value of current function.
-This function is normally used in the \meta{code} of \cs{PrgNewFunction} and \cs{PrgNewConditional}.
+Returns \meta{tokens} as result of current function or conditional.
+This function is normally used in the \meta{code} of \cs{PrgNewFunction}
+or \cs{PrgNewConditional}, and it \emph{must} be the last function evaluated in the \meta{code}.
+If it is missing, the return value of the last function evaluated in the \meta{code}
+is returned. Therefore, the following two examples produce the same output:
+\begin{codehigh}
+\IgnoreSpacesOn
+\PrgNewFunction \MathSquare { m } {
+  \IntSet \lTmpaInt { \IntEval {#1 * #1} }
+  \Return { \Value \lTmpaInt }
+}
+\IgnoreSpacesOff
+\MathSquare{5}
+\end{codehigh}
+\begin{codehigh}
+\IgnoreSpacesOn
+\PrgNewFunction \MathSquare { m } {
+  \IntSet \lTmpaInt { \IntEval {#1 * #1} }
+  \Value \lTmpaInt
+}
+\IgnoreSpacesOff
+\MathSquare{5}
+\end{codehigh}
 \end{function}
 
 \end{document}

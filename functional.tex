@@ -133,7 +133,7 @@ We will compare our first example with a similar \verb!Lua! example:
 \IgnoreSpacesOn
 \PrgNewFunction \MathSquare { m } {
   \IntSet \lTmpaInt { \IntEval {#1 * #1} }
-  \Result { \Value \lTmpaInt }
+  \Return { \Value \lTmpaInt }
 }
 \IgnoreSpacesOff
 \MathSquare{5}
@@ -156,7 +156,7 @@ print(MathSquare(MathSquare(5)))
 %\IgnoreSpacesOn
 %\PrgNewFunction \MathSquare { m }{
 %  \IntSet \lTmpaInt { \IntEval { #1 * #1 } }
-%  \Result { \Value \lTmpaInt }
+%  \Return { \Value \lTmpaInt }
 %}
 %\IgnoreSpacesOff
 %\MathSquare{5}
@@ -166,7 +166,7 @@ print(MathSquare(MathSquare(5)))
 %\PrgNewFunction \MathCubic { m }
 %  {
 %    \IntSet \lTmpaInt { \IntEval { #1 * #1 * #1 } }
-%    \Result { \Value \lTmpaInt }
+%    \Return { \Value \lTmpaInt }
 %  }
 %\IgnoreSpacesOff
 %\MathCubic{2}
@@ -198,9 +198,9 @@ we will compare our factorial example with a similar \verb!Lua! example:
 \IgnoreSpacesOn
 \PrgNewFunction \Fact { m } {
   \IntCompareTF {#1} = {0} {
-    \Result {1}
+    \Return {1}
   }{
-    \Result {\IntMathMult{#1}{\Fact{\IntMathSub{#1}{1}}}}
+    \Return {\IntMathMult{#1}{\Fact{\IntMathSub{#1}{1}}}}
   }
 }
 \IgnoreSpacesOff
@@ -225,9 +225,9 @@ print(Fact(4))
 %\IgnoreSpacesOn
 %\PrgNewFunction \Factorial { m } {
 %  \IntCompareTF {#1} = {0} {
-%    \Result {1}
+%    \Return {1}
 %  }{
-%    \Result { \IntMathMult {#1} { \Factorial { \IntMathSub{#1}{1} } } }
+%    \Return { \IntMathMult {#1} { \Factorial { \IntMathSub{#1}{1} } } }
 %  }
 %}
 %\IgnoreSpacesOff
@@ -349,14 +349,14 @@ For example, the tracing log of the first example in this chapter will be the fo
 %            [I] \IntEval{5*5}
 %                    [I] \Expand{\int_eval:n {5*5}}
 %                    [O] 25
-%                [I] \Result{25}
+%                [I] \Return{25}
 %                [O] 25
 %            [O] 25
 %        [I] \IntSet\lTmpaInt {25}
 %        [O]
 %            [I] \Value\lTmpaInt
 %            [O] 25
-%        [I] \Result{25}
+%        [I] \Return{25}
 %        [O] 25
 %    [O] 25
 %\end{codehigh}
@@ -365,28 +365,28 @@ For example, the tracing log of the first example in this chapter will be the fo
         [I] \IntEval{5*5}
                 [I] \Expand{\int_eval:n {5*5}}
                 [O] 25
-            [I] \Result{25}
+            [I] \Return{25}
             [O] 25
         [O] 25
     [I] \IntSet{\lTmpaInt }{25}
     [O] 
         [I] \Value{\lTmpaInt }
         [O] 25
-    [I] \Result{25}
+    [I] \Return{25}
     [O] 25
 [O] 25
 [I] \MathSquare{25}
         [I] \IntEval{25*25}
                 [I] \Expand{\int_eval:n {25*25}}
                 [O] 625
-            [I] \Result{625}
+            [I] \Return{625}
             [O] 625
         [O] 625
     [I] \IntSet{\lTmpaInt }{625}
     [O] 
         [I] \Value{\lTmpaInt }
         [O] 625
-    [I] \Result{625}
+    [I] \Return{625}
     [O] 625
 [O] 625
 \end{codehigh}
@@ -521,14 +521,35 @@ will be created at the same time. \verb!\FooIfBarTF! function has two extra argu
 which are \Arg{true code} and \Arg{false code}.\par
 \end{function}
 
-\section{Collecting Returned Values}
+\section{Return Values of Functions}
 
-\begin{function}{\Result}
+\begin{function}{\Return}
 \begin{syntax}
-\cs{Result} \Arg{tokens}
+\cs{Return} \Arg{tokens}
 \end{syntax}
-Appends \meta{tokens} to \verb!\gResultTl!, which holds the returned value of current function.
-This function is normally used in the \meta{code} of \cs{PrgNewFunction} and \cs{PrgNewConditional}.
+Returns \meta{tokens} as result of current function or conditional.
+This function is normally used in the \meta{code} of \cs{PrgNewFunction}
+or \cs{PrgNewConditional}, and it \emph{must} be the last function evaluated in the \meta{code}.
+If it is missing, the return value of the last function evaluated in the \meta{code}
+is returned. Therefore, the following two examples produce the same output:
+\begin{codehigh}
+\IgnoreSpacesOn
+\PrgNewFunction \MathSquare { m } {
+  \IntSet \lTmpaInt { \IntEval {#1 * #1} }
+  \Return { \Value \lTmpaInt }
+}
+\IgnoreSpacesOff
+\MathSquare{5}
+\end{codehigh}
+\begin{codehigh}
+\IgnoreSpacesOn
+\PrgNewFunction \MathSquare { m } {
+  \IntSet \lTmpaInt { \IntEval {#1 * #1} }
+  \Value \lTmpaInt
+}
+\IgnoreSpacesOff
+\MathSquare{5}
+\end{codehigh}
 \end{function}
 
 \chapter{Argument Using (\texttt{Use})}
@@ -660,8 +681,8 @@ For example
 Constants that represent \verb|true| and \verb|false|, respectively. Used to
 implement predicates. For example
 \begin{demohigh}
-\BoolVarIfTF \cTrueBool {\Result{True!}} {\Result{False!}}
-\BoolVarIfTF \cFalseBool {\Result{True!}} {\Result{False!}}
+\BoolVarIfTF \cTrueBool {\Return{True!}} {\Return{False!}}
+\BoolVarIfTF \cFalseBool {\Return{True!}} {\Return{False!}}
 \end{demohigh}
 \end{variable}
 
@@ -785,8 +806,8 @@ Tests whether the \meta{boolean} is currently defined.  This does not
 check that the \meta{boolean} really is a boolean variable.
 For example
 \begin{demohigh}
-\BoolIfExistTF \lTmpaBool {\Result{Yes}} {\Result{No}}
-\BoolIfExistTF \lFooUndefinedBool {\Result{Yes}} {\Result{No}}
+\BoolIfExistTF \lTmpaBool {\Return{Yes}} {\Return{No}}
+\BoolIfExistTF \lFooUndefinedBool {\Return{Yes}} {\Return{No}}
 \end{demohigh}
 \end{function}
 
@@ -799,9 +820,9 @@ Tests the current truth of \meta{boolean}, and continues evaluation
 based on this result. For example
 \begin{demohigh}
 \BoolSetTrue \lTmpaBool
-\BoolVarIfTF \lTmpaBool {\Result{True!}} {\Result{False!}}
+\BoolVarIfTF \lTmpaBool {\Return{True!}} {\Return{False!}}
 \BoolSetFalse \lTmpaBool
-\BoolVarIfTF \lTmpaBool {\Result{True!}} {\Result{False!}}
+\BoolVarIfTF \lTmpaBool {\Return{True!}} {\Return{False!}}
 \end{demohigh}
 \end{function}
 
@@ -814,7 +835,7 @@ Evaluates \meta{true code} if \meta{boolean} is \verb!false!,
 and \meta{false code} if \meta{boolean} is \verb!true!.
 For example
 \begin{demohigh}
-\BoolVarNotTF {\IntCompare{3}>{2}} {\Result{Yes}} {\Result{No}}
+\BoolVarNotTF {\IntCompare{3}>{2}} {\Return{Yes}} {\Return{No}}
 \end{demohigh}
 \end{function}
 
@@ -830,7 +851,7 @@ The \meta{boolean_2} is only evaluated if it is needed to determine the result o
 \cs{BoolVarAnd}.
 For example
 \begin{demohigh}
-\BoolVarAndTF {\IntCompare{3}>{2}} {\IntCompare{3}>{4}} {\Result{Yes}} {\Result{No}}
+\BoolVarAndTF {\IntCompare{3}>{2}} {\IntCompare{3}>{4}} {\Return{Yes}} {\Return{No}}
 \end{demohigh}
 \end{function}
 
@@ -846,7 +867,7 @@ The \meta{boolean_2} is only evaluated if it is needed to determine the result o
 \cs{BoolVarOr}.
 For example
 \begin{demohigh}
-\BoolVarOrTF {\IntCompare{3}>{2}} {\IntCompare{3}>{4}} {\Result{Yes}} {\Result{No}}
+\BoolVarOrTF {\IntCompare{3}>{2}} {\IntCompare{3}>{4}} {\Return{Yes}} {\Return{No}}
 \end{demohigh}
 \end{function}
 
@@ -858,7 +879,7 @@ For example
 Implements an \enquote{exclusive or} operation between two booleans.
 For example
 \begin{demohigh}
-\BoolVarXorTF {\IntCompare{3}>{2}} {\IntCompare{3}>{4}} {\Result{Yes}} {\Result{No}}
+\BoolVarXorTF {\IntCompare{3}>{2}} {\IntCompare{3}>{4}} {\Return{Yes}} {\Return{No}}
 \end{demohigh}
 \end{function}
 
@@ -920,7 +941,7 @@ Constant that is always empty.
 %will \emph{not} match the simple text input \verb|-NoValue-|, \emph{i.e.}
 %that
 %\begin{demohigh}
-%\TlIfEqTF {\TlUse\cNoValueTl} {-NoValue-} {Result{Yes}} {\Result{No}}
+%\TlIfEqTF {\TlUse\cNoValueTl} {-NoValue-} {Result{Yes}} {\Return{No}}
 %\end{demohigh}
 %The \cs{cNoValueTl} marker is intended for
 %use in creating document-level interfaces, where it serves as an indicator
@@ -1478,7 +1499,7 @@ receives the \meta{item} as \verb|#1|. For example,
 \TlMapInline {one} {
   \TlPutRight \lTmpaTl {[#1]}
 }
-\Result{\TlUse\lTmpaTl}
+\Return{\TlUse\lTmpaTl}
 \IgnoreSpacesOff
 \end{codehigh}
 produces [o][n][e].
@@ -1498,7 +1519,7 @@ receives the \meta{item} as \verb|#1|. For example,
 \TlVarMapInline \lTmpkTl {
   \TlPutRight \lTmpaTl {[#1]}
 }
-\Result{\TlUse\lTmpaTl}
+\Return{\TlUse\lTmpaTl}
 \IgnoreSpacesOff
 \end{codehigh}
 produces [o][n][e].
@@ -1538,7 +1559,7 @@ Its value after the loop is the last \meta{item} in the
 \TlMapVariable {one} \lTmpiTl {
   \TlPutRight \lTmpaTl {\Expand {[\lTmpiTl]}}
 }
-\Result{\TlUse\lTmpaTl}
+\Return{\TlUse\lTmpaTl}
 \IgnoreSpacesOff
 \end{demohigh}
 \end{function}
@@ -1560,7 +1581,7 @@ or its original value if the \meta{tl var} is blank.
 \TlVarMapVariable \lTmpkTl \lTmpiTl {
   \TlPutRight \lTmpaTl {\Expand {[\lTmpiTl]}}
 }
-\Result{\TlUse\lTmpaTl}
+\Return{\TlUse\lTmpaTl}
 \IgnoreSpacesOff
 \end{demohigh}
 \end{function}
@@ -1626,8 +1647,8 @@ or its original value if the \meta{tl var} is blank.
 Tests whether the \meta{tl var} is currently defined.  This does not
 check that the \meta{tl var} really is a token list variable.
 \begin{demohigh}
-\TlIfExistTF \lTmpaTl {\Result{Yes}} {\Result{No}}
-\TlIfExistTF \lFooUndefinedTl {\Result{Yes}} {\Result{No}}
+\TlIfExistTF \lTmpaTl {\Return{Yes}} {\Return{No}}
+\TlIfExistTF \lFooUndefinedTl {\Return{Yes}} {\Return{No}}
 \end{demohigh}
 \end{function}
 
@@ -1639,8 +1660,8 @@ check that the \meta{tl var} really is a token list variable.
 Tests if the \meta{token list} is entirely empty
 (\emph{i.e.}~contains no tokens at all). For example
 \begin{demohigh}
-\TlIfEmptyTF {abc} {\Result{Empty}} {\Result{NonEmpty}}
-\TlIfEmptyTF {} {\Result{Empty}} {\Result{NonEmpty}}
+\TlIfEmptyTF {abc} {\Return{Empty}} {\Return{NonEmpty}}
+\TlIfEmptyTF {} {\Return{Empty}} {\Return{NonEmpty}}
 \end{demohigh}
 \end{function}
 
@@ -1653,9 +1674,9 @@ Tests if the \meta{token list variable} is entirely empty
 (\emph{i.e.}~contains no tokens at all). For example
 \begin{demohigh}
 \TlSet \lTmpaTl {abc}
-\TlVarIfEmptyTF \lTmpaTl {\Result{Empty}} {\Result{NonEmpty}}
+\TlVarIfEmptyTF \lTmpaTl {\Return{Empty}} {\Return{NonEmpty}}
 \TlClear \lTmpaTl
-\TlVarIfEmptyTF \lTmpaTl {\Result{Empty}} {\Result{NonEmpty}}
+\TlVarIfEmptyTF \lTmpaTl {\Return{Empty}} {\Return{NonEmpty}}
 \end{demohigh}
 \end{function}
 
@@ -1670,8 +1691,8 @@ Tests if the \meta{token list} consists only of blank spaces
 (explicit tokens with character code $32$ and category code $10$),
 and is \texttt{false} otherwise.
 \begin{demohigh}
-\TlIfEmptyTF {  } {\Result{Yes}} {\Result{No}}
-\TlIfBlankTF {  } {\Result{Yes}} {\Result{No}}
+\TlIfEmptyTF {  } {\Return{Yes}} {\Return{No}}
+\TlIfBlankTF {  } {\Return{Yes}} {\Return{No}}
 \end{demohigh}
 \end{function}
 
@@ -1685,15 +1706,15 @@ same list of tokens, both in respect of character codes and category
 codes. See \cs{StrIfEq} if category codes are not important.
 For example
 \begin{demohigh}
-\TlIfEqTF {abc} {abc} {\Result{Yes}} {\Result{No}}
-\TlIfEqTF {abc} {xyz} {\Result{Yes}} {\Result{No}}
+\TlIfEqTF {abc} {abc} {\Return{Yes}} {\Return{No}}
+\TlIfEqTF {abc} {xyz} {\Return{Yes}} {\Return{No}}
 \end{demohigh}
 %\begin{demohigh}
 %\TlSet\lTmpaTl{abc}
 %\TlSet\lTmpbTl{abc}
 %\TlSet\lTmpcTl{xyz}
-%\TlIfEqTF{\TlUse\lTmpaTl}{\TlUse\lTmpbTl}{\Result{Yes}}{\Result{No}}
-%\TlIfEqTF{\TlUse\lTmpaTl}{\TlUse\lTmpcTl}{\Result{Yes}}{\Result{No}}
+%\TlIfEqTF{\TlUse\lTmpaTl}{\TlUse\lTmpbTl}{\Return{Yes}}{\Return{No}}
+%\TlIfEqTF{\TlUse\lTmpaTl}{\TlUse\lTmpcTl}{\Return{Yes}}{\Return{No}}
 %\end{demohigh}
 \end{function}
 
@@ -1710,8 +1731,8 @@ contain and the category codes of those characters). For example
 \TlSet \lTmpaTl {abc}
 \TlSet \lTmpbTl {abc}
 \TlSet \lTmpcTl {xyz}
-\TlVarIfEqTF \lTmpaTl \lTmpbTl {\Result{Yes}} {\Result{No}}
-\TlVarIfEqTF \lTmpaTl \lTmpcTl {\Result{Yes}} {\Result{No}}
+\TlVarIfEqTF \lTmpaTl \lTmpbTl {\Return{Yes}} {\Return{No}}
+\TlVarIfEqTF \lTmpaTl \lTmpcTl {\Return{Yes}} {\Return{No}}
 \end{demohigh}
 See also \cs{StrVarIfEq} for a comparison that ignores category codes.
 \end{function}
@@ -1727,8 +1748,8 @@ The \meta{token list_2} cannot contain the tokens \verb|{|, \verb|}| or \verb|#|
 (begin-group) or $2$ (end-group), and tokens with category code $6$).
 The search does \emph{not} enter brace (category code $1$/$2$) groups.
 \begin{demohigh}
-\TlIfInTF {hello world} {o} {\Result{Yes}} {\Result{No}}
-\TlIfInTF {hello world} {a} {\Result{Yes}} {\Result{No}}
+\TlIfInTF {hello world} {o} {\Return{Yes}} {\Return{No}}
+\TlIfInTF {hello world} {a} {\Return{Yes}} {\Return{No}}
 \end{demohigh}
 \end{function}
 
@@ -1744,8 +1765,8 @@ the tokens \verb|{|, \verb|}| or \verb|#|
 (begin-group) or $2$ (end-group), and tokens with category code $6$).
 \begin{demohigh}
 \TlSet \lTmpaTl {hello world}
-\TlVarIfInTF \lTmpaTl {o} {\Result{Yes}} {\Result{No}}
-\TlVarIfInTF \lTmpaTl {a} {\Result{Yes}} {\Result{No}}
+\TlVarIfInTF \lTmpaTl {o} {\Return{Yes}} {\Return{No}}
+\TlVarIfInTF \lTmpaTl {a} {\Return{Yes}} {\Return{No}}
 \end{demohigh}
 \end{function}
 
@@ -1760,8 +1781,8 @@ begin-group character) or a single brace group, surrounded by
 optional spaces on both sides. In other words, such a token list has
 token count $1$ according to \cs{TlCount}.
 \begin{demohigh}
-\TlIfSingleTF {a} {\Result{Yes}} {\Result{No}}
-\TlIfSingleTF {abc} {\Result{Yes}} {\Result{No}}
+\TlIfSingleTF {a} {\Return{Yes}} {\Return{No}}
+\TlIfSingleTF {abc} {\Return{Yes}} {\Return{No}}
 \end{demohigh}
 \end{function}
 
@@ -1777,9 +1798,9 @@ surrounded by optional spaces on both sides. In other words, such a
 token list has token count $1$ according to \cs{TlVarCount}.
 \begin{demohigh}
 \TlSet \lTmpaTl {a}
-\TlVarIfSingleTF \lTmpaTl {\Result{Yes}} {\Result{No}}
+\TlVarIfSingleTF \lTmpaTl {\Return{Yes}} {\Return{No}}
 \TlSet \lTmpaTl {abc}
-\TlVarIfSingleTF \lTmpaTl {\Result{Yes}} {\Result{No}}
+\TlVarIfSingleTF \lTmpaTl {\Return{Yes}} {\Return{No}}
 \end{demohigh}
 \end{function}
 
@@ -1808,9 +1829,9 @@ does nothing if there is no match.
 \TlSet \lTmpcTl {c}
 \TlSet \lTmpkTl {b}
 \TlVarCase \lTmpkTl {
-  \lTmpaTl {\Result {First}}
-  \lTmpbTl {\Result {Second}}
-  \lTmpcTl {\Result {Third}}
+  \lTmpaTl {\Return {First}}
+  \lTmpbTl {\Return {Second}}
+  \lTmpcTl {\Return {Third}}
 }
 \IgnoreSpacesOff
 \end{demohigh}
@@ -1845,7 +1866,7 @@ input stream (after the code for the appropriate case).
   \lTmpbTl {\IntSet \lTmpkInt {2}}
   \lTmpcTl {\IntSet \lTmpkInt {3}}
 }{
-  \Result {\IntUse \lTmpkInt}
+  \Return {\IntUse \lTmpkInt}
 }
 \IgnoreSpacesOff
 \end{demohigh}
@@ -1875,11 +1896,11 @@ is inserted into the input stream (after the code for the appropriate case).
 \TlSet \lTmpcTl {c}
 \TlSet \lTmpkTl {b}
 \TlVarCaseF \lTmpkTl{
-  \lTmpaTl {\Result {First}}
-  \lTmpbTl {\Result {Second}}
-  \lTmpcTl {\Result {Third}}
+  \lTmpaTl {\Return {First}}
+  \lTmpbTl {\Return {Second}}
+  \lTmpcTl {\Return {Third}}
 }{
-  \Result {No~Match!}
+  \Return {No~Match!}
 }
 \IgnoreSpacesOff
 \end{demohigh}
@@ -1917,9 +1938,9 @@ which does nothing if there is no match, is also available.
   \lTmpbTl {\IntSet \lTmpkInt {2}}
   \lTmpcTl {\IntSet \lTmpkInt {3}}
 }{
-  \Result {\IntUse \lTmpkInt}
+  \Return {\IntUse \lTmpkInt}
 }{
-  \Result {0}
+  \Return {0}
 }
 \IgnoreSpacesOff
 \end{demohigh}
@@ -2376,7 +2397,7 @@ For example,
 \StrMapInline {one} {
   \StrPutRight \lTmpaStr {[#1]}
 }
-\Result{\StrUse\lTmpaStr}
+\Return{\StrUse\lTmpaStr}
 \IgnoreSpacesOff
 \end{codehigh}
 produces [o][n][e].
@@ -2413,7 +2434,7 @@ the (string or token list) \meta{variable} and applies the
 \StrMapVariable {one} \lTmpiStr {
   \StrPutRight \lTmpaStr {\Expand {[\lTmpiStr]}}
 }
-\Result{\StrUse\lTmpaStr}
+\Return{\StrUse\lTmpaStr}
 \IgnoreSpacesOff
 \end{demohigh}
 \end{function}
@@ -2479,8 +2500,8 @@ the (string or token list) \meta{variable} and applies the
 Tests whether the \meta{str var} is currently defined.  This does not
 check that the \meta{str var} really is a string.
 \begin{demohigh}
-\StrIfExistTF\lTmpaStr{\Result{Yes}}{\Result{No}}
-\StrIfExistTF\lFooUndefinedStr{\Result{Yes}}{\Result{No}}
+\StrIfExistTF\lTmpaStr{\Return{Yes}}{\Return{No}}
+\StrIfExistTF\lFooUndefinedStr{\Return{Yes}}{\Return{No}}
 \end{demohigh}
 \end{function}
 
@@ -2493,9 +2514,9 @@ Tests if the \meta{string variable} is entirely empty
 (\emph{i.e.} contains no characters at all).
 \begin{demohigh}
 \StrSet \lTmpaStr {abc}
-\StrVarIfEmptyTF \lTmpaStr {\Result{Empty}} {\Result{NonEmpty}}
+\StrVarIfEmptyTF \lTmpaStr {\Return{Empty}} {\Return{NonEmpty}}
 \StrClear \lTmpaStr
-\StrVarIfEmptyTF \lTmpaStr {\Result{Empty}} {\Result{NonEmpty}}
+\StrVarIfEmptyTF \lTmpaStr {\Return{Empty}} {\Return{NonEmpty}}
 \end{demohigh}
 \end{function}
 
@@ -2517,17 +2538,17 @@ See \cs{TlIfEq} to compare
 tokens (including their category codes) rather than characters.
 For example
 \begin{demohigh}
-\StrIfEqTF {abc} {abc} {\Result{Yes}} {\Result{No}}
-\StrIfEqTF {abc} {xyz} {\Result{Yes}} {\Result{No}}
+\StrIfEqTF {abc} {abc} {\Return{Yes}} {\Return{No}}
+\StrIfEqTF {abc} {xyz} {\Return{Yes}} {\Return{No}}
 \end{demohigh}
 %\begin{demohigh}
 %\StrSet\lTmpaStr{abc}
 %\StrSet\lTmpbStr{abc}
 %\StrSet\lTmpcStr{xyz}
-%\StrIfEqTF{\lTmpaStr}{\lTmpbStr}{\Result{Yes}}{\Result{No}}
-%\StrIfEqTF{\lTmpaStr}{\lTmpcStr}{\Result{Yes}}{\Result{No}}
-%\StrIfEqTF{\StrUse\lTmpaStr}{\StrUse\lTmpbStr}{\Result{Yes}}{\Result{No}}
-%\StrIfEqTF{\StrUse\lTmpaStr}{\StrUse\lTmpcStr}{\Result{Yes}}{\Result{No}}
+%\StrIfEqTF{\lTmpaStr}{\lTmpbStr}{\Return{Yes}}{\Return{No}}
+%\StrIfEqTF{\lTmpaStr}{\lTmpcStr}{\Return{Yes}}{\Return{No}}
+%\StrIfEqTF{\StrUse\lTmpaStr}{\StrUse\lTmpbStr}{\Return{Yes}}{\Return{No}}
+%\StrIfEqTF{\StrUse\lTmpaStr}{\StrUse\lTmpcStr}{\Return{Yes}}{\Return{No}}
 %\end{demohigh}
 \end{function}
 
@@ -2544,8 +2565,8 @@ in the same order.  See \cs{TlVarIfEq} to compare tokens
 \StrSet \lTmpaStr {abc}
 \StrSet \lTmpbStr {abc}
 \StrSet \lTmpcStr {xyz}
-\StrVarIfEqTF \lTmpaStr \lTmpbStr {\Result{Yes}} {\Result{No}}
-\StrVarIfEqTF \lTmpaStr \lTmpcStr {\Result{Yes}} {\Result{No}}
+\StrVarIfEqTF \lTmpaStr \lTmpbStr {\Return{Yes}} {\Return{No}}
+\StrVarIfEqTF \lTmpaStr \lTmpcStr {\Return{Yes}} {\Return{No}}
 \end{demohigh}
 \end{function}
 
@@ -2557,8 +2578,8 @@ in the same order.  See \cs{TlVarIfEq} to compare tokens
 Converts both \meta{token lists} to \meta{strings} and
 tests whether \meta{string_2} is found inside \meta{string_1}.
 \begin{demohigh}
-\StrIfInTF {hello world} {o} {\Result{Yes}}{\Result{No}}
-\StrIfInTF {hello world} {a} {\Result{Yes}}{\Result{No}}
+\StrIfInTF {hello world} {o} {\Return{Yes}}{\Return{No}}
+\StrIfInTF {hello world} {a} {\Return{Yes}}{\Return{No}}
 \end{demohigh}
 \end{function}
 
@@ -2571,8 +2592,8 @@ Converts the \meta{token list} to a \meta{string} and
 tests if that \meta{string} is found in the content of the \meta{str var}.
 \begin{demohigh}
 \StrSet \lTmpaStr {hello world}
-\StrVarIfInTF \lTmpaStr {o} {\Result{Yes}}{\Result{No}}
-\StrVarIfInTF \lTmpaStr {a} {\Result{Yes}}{\Result{No}}
+\StrVarIfInTF \lTmpaStr {o} {\Return{Yes}}{\Return{No}}
+\StrVarIfInTF \lTmpaStr {a} {\Return{Yes}}{\Return{No}}
 \end{demohigh}
 \end{function}
 
@@ -2593,8 +2614,8 @@ order according to the character codes of the characters.  The
 \end{itemize}
 For example:
 \begin{demohigh}
-\StrCompareTF {ab} < {abc} {\Result{Yes}} {\Result{No}}
-\StrCompareTF {ab} < {aa} {\Result{Yes}} {\Result{No}}
+\StrCompareTF {ab} < {abc} {\Return{Yes}} {\Return{No}}
+\StrCompareTF {ab} < {aa} {\Return{Yes}} {\Return{No}}
 \end{demohigh}
 %\begin{texnote}
 %This is a wrapper around the \TeX{} primitive
@@ -2628,9 +2649,9 @@ input stream and other cases are discarded.
 \begin{demohigh}
 \IgnoreSpacesOn
 \StrCase {bbb} {
-  {aaa} {\Result{First}}
-  {bbb} {\Result{Second}}
-  {ccb} {\Result{Third}}
+  {aaa} {\Return{First}}
+  {bbb} {\Return{Second}}
+  {ccb} {\Return{Third}}
 }
 \IgnoreSpacesOff
 \end{demohigh}
@@ -2661,7 +2682,7 @@ input stream (after the code for the appropriate case).
   {bbb} {\TlSet\lTmpkTl{Second}}
   {ccb} {\TlSet\lTmpkTl{Third}}
 }{
-  \Result{\TlUse\lTmpkTl}
+  \Return{\TlUse\lTmpkTl}
 }
 \IgnoreSpacesOff
 \end{demohigh}
@@ -2687,11 +2708,11 @@ match then the \meta{false code} is inserted.
 \begin{demohigh}
 \IgnoreSpacesOn
 \StrCaseF {bbb} {
-  {aaa} {\Result{First}}
-  {bbb} {\Result{Second}}
-  {ccb} {\Result{Third}}
+  {aaa} {\Return{First}}
+  {bbb} {\Return{Second}}
+  {ccb} {\Return{Third}}
 }{
-  \Result{No~Match!}
+  \Return{No~Match!}
 }
 \IgnoreSpacesOff
 \end{demohigh}
@@ -2724,9 +2745,9 @@ match then the \meta{false code} is inserted.
   {bbb} {\TlSet\lTmpkTl{Second}}
   {ccb} {\TlSet\lTmpkTl{Third}}
 }{
-  \Result{\TlUse\lTmpkTl}
+  \Return{\TlUse\lTmpkTl}
 }{
-  \Result{No~Match!}
+  \Return{No~Match!}
 }
 \IgnoreSpacesOff
 \end{demohigh}
@@ -3102,7 +3123,7 @@ For example
 \IntStepInline {1} {3} {30} {
   \TlPutRight \lTmpaTl {[#1]}
 }
-\Result {\Value\lTmpaTl}
+\Return {\Value\lTmpaTl}
 \IgnoreSpacesOff
 \end{codehigh}
 produces [1][4][7][10][13][16][19][22][25][28].
@@ -3127,7 +3148,7 @@ the \meta{code} should make use of the \meta{tl~var}.
 %  \TlPutRight\lTmpaTl{\Value\lTmpiTl}
 %  \TlPutRight\lTmpaTl{~}
 %}
-%\Result{\Value\lTmpaTl}
+%\Return{\Value\lTmpaTl}
 %\IgnoreSpacesOff
 %\end{demohigh}
 \end{function}
@@ -3178,8 +3199,8 @@ Less than    & \texttt{<} \\
 \end{tabular}\par}
 For example
 \begin{demohigh}
-\IntCompareTF {2} > {1} {\Result{Greater}} {\Result{Less}}
-\IntCompareTF {2} > {3} {\Result{Greater}} {\Result{Less}}
+\IntCompareTF {2} > {1} {\Return{Greater}} {\Return{Less}}
+\IntCompareTF {2} > {3} {\Return{Greater}} {\Return{Less}}
 \end{demohigh}
 \end{function}
 
@@ -3637,7 +3658,7 @@ For example
 \FpStepInline {1} {0.1} {1.5} {
   \TlPutRight \lTmpaTl {[#1]}
 }
-\Result {\Value\lTmpaTl}
+\Return {\Value\lTmpaTl}
 \IgnoreSpacesOff
 \end{codehigh}
 produces [1][1.1][1.2][1.3][1.4][1.5].
@@ -3663,7 +3684,7 @@ the \meta{code} should make use of the \meta{tl var}.
 %  \TlPutRight\lTmpaTl{\Value\lTmpiTl}
 %  \TlPutRight\lTmpaTl{~}
 %}
-%\Result{\Value\lTmpaTl}
+%\Return{\Value\lTmpaTl}
 %\IgnoreSpacesOff
 %\end{demohigh}
 \end{function}
@@ -3679,8 +3700,8 @@ Tests whether the \meta{fp var} is currently defined.  This does not
 check that the \meta{fp var} really is a floating point variable.
 For example
 \begin{demohigh}
-\FpIfExistTF \lTmpaFp {\Result{Yes}} {\Result{No}}
-\FpIfExistTF \lMyUndefinedFp {\Result{Yes}} {\Result{No}}
+\FpIfExistTF \lTmpaFp {\Return{Yes}} {\Return{No}}
+\FpIfExistTF \lMyUndefinedFp {\Return{Yes}} {\Return{No}}
 \end{demohigh}
 \end{function}
 
@@ -3692,8 +3713,8 @@ For example
 Compares the \meta{fpexpr_1} and the \meta{fpexpr_2}, and returns
 \texttt{true} if the \meta{relation} is obeyed. For example
 \begin{demohigh}
-\FpCompareTF {1} > {0.9999} {\Result{Greater}} {\Result{Less}}
-\FpCompareTF {1} > {1.0001} {\Result{Greater}} {\Result{Less}}
+\FpCompareTF {1} > {0.9999} {\Return{Greater}} {\Return{Less}}
+\FpCompareTF {1} > {1.0001} {\Return{Greater}} {\Return{Less}}
 \end{demohigh}
 Two floating points
 $x$ and $y$ may obey four mutually exclusive relations:
@@ -3704,7 +3725,7 @@ any value, even another \nan{}, hence $x=x$ is not true for
 a \nan{}.  To test if a value is \nan{}, compare it to an arbitrary
 number with the \enquote{not ordered} relation.\par
 %\begin{demohigh}
-%\FpCompareTF{0/0}?{0}{\Result{Is~a~Nan}}{\Result{Isn't~a~NaN}}
+%\FpCompareTF{0/0}?{0}{\Return{Is~a~Nan}}{\Return{Isn't~a~NaN}}
 %\end{demohigh}
 Tuples are equal if they have the same number of items and items
 compare equal (in particular there must be no \nan{}).
@@ -4029,7 +4050,7 @@ For example
 \DimStepInline {1pt} {0.1pt} {1.5pt} {
   \TlPutRight \lTmpaTl {[#1]}
 }
-\Result {\Value\lTmpaTl}
+\Return {\Value\lTmpaTl}
 \IgnoreSpacesOff
 \end{codehigh}
 produces [1.0pt][1.1pt][1.20001pt][1.30002pt][1.40002pt].
@@ -4054,7 +4075,7 @@ the \meta{code} should make use of the \meta{tl var}.
 %  \TlPutRight\lTmpaTl{\Value\lTmpiTl}
 %  \TlPutRight\lTmpaTl{~}
 %}
-%\Result{\Value\lTmpaTl}
+%\Return{\Value\lTmpaTl}
 %\IgnoreSpacesOff
 %\end{demohigh}
 \end{function}
@@ -4070,8 +4091,8 @@ Tests whether the \meta{dimension} is currently defined.  This does
 not check that the \meta{dimension} really is a dimension variable.
 For example
 \begin{demohigh}
-\DimIfExistTF \lTmpaDim {\Result{Yes}} {\Result{No}}
-\DimIfExistTF \lFooUndefinedDim {\Result{Yes}} {\Result{No}}
+\DimIfExistTF \lTmpaDim {\Return{Yes}} {\Return{No}}
+\DimIfExistTF \lFooUndefinedDim {\Return{Yes}} {\Return{No}}
 \end{demohigh}
 \end{function}
 
@@ -4091,8 +4112,8 @@ Less than    & \verb|<| \\
 \end{tabular}\par}
 For example
 \begin{demohigh}
-\DimCompareTF {1pt} > {0.9999pt} {\Result{Greater}} {\Result{Less}}
-\DimCompareTF {1pt} > {1.0001pt} {\Result{Greater}} {\Result{Less}}
+\DimCompareTF {1pt} > {0.9999pt} {\Return{Greater}} {\Return{Less}}
+\DimCompareTF {1pt} > {1.0001pt} {\Return{Greater}} {\Return{Less}}
 \end{demohigh}
 \end{function}
 
@@ -4157,11 +4178,11 @@ For example
 \IgnoreSpacesOn
 \DimSet \lTmpaDim {5pt}
 \DimCaseF {2\lTmpaDim} {
-  {5pt}     {\Result{Small}}
-  {4pt+6pt} {\Result{Medium}}
-  {-10pt}   {\Result{Negative}}
+  {5pt}     {\Return{Small}}
+  {4pt+6pt} {\Return{Medium}}
+  {-10pt}   {\Return{Negative}}
 }{
-  \Result {No Match}
+  \Return {No Match}
 }
 \IgnoreSpacesOff
 \end{demohigh}
@@ -4192,13 +4213,13 @@ match then the \meta{false code} is inserted.
 %\IgnoreSpacesOn
 %\DimSet\lTmpaDim{5pt}
 %\DimCaseTF{2\lTmpaDim}{
-%  {5pt}     {\Result{Small}}
-%  {4pt+6pt} {\Result{Medium}}
-%  {-10pt}   {\Result{Negative}}
+%  {5pt}     {\Return{Small}}
+%  {4pt+6pt} {\Return{Medium}}
+%  {-10pt}   {\Return{Negative}}
 %}{
-%  \Result{[Some Match]}
+%  \Return{[Some Match]}
 %}{
-%  \Result{[No Match]}
+%  \Return{[No Match]}
 %}
 %\IgnoreSpacesOff
 %\end{demohigh}
@@ -4697,7 +4718,7 @@ it from the \meta{comma list}.
 The \meta{token list variable} is assigned locally.
 \begin{demohigh}
 \ClistSet \lTmpaClist {two,three,four}
-\ClistGetTF \lTmpaClist \lTmpaTl {\Result{Yes}} {\Result{No}}
+\ClistGetTF \lTmpaClist \lTmpaTl {\Return{Yes}} {\Return{No}}
 \end{demohigh}
 \end{function}
 
@@ -4733,7 +4754,7 @@ the item from the \meta{comma list}.
 The \meta{token list variable} is assigned locally.
 \begin{demohigh}
 \ClistSet \lTmpaClist {two,three,four}
-\ClistPopTF \lTmpaClist \lTmpaTl {\Result{Yes}} {\Result{No}}
+\ClistPopTF \lTmpaClist \lTmpaTl {\Return{Yes}} {\Return{No}}
 \end{demohigh}
 \end{function}
 
@@ -4801,7 +4822,7 @@ For example
 \ClistMapInline {one,two,three} {
   \TlPutRight \lTmpaTl {(#1)}
 }
-\Result {\TlUse\lTmpaTl}
+\Return {\TlUse\lTmpaTl}
 \IgnoreSpacesOff
 \end{codehigh}
 produces (one)(two)(three).
@@ -4905,8 +4926,8 @@ list}, or its original value if there were no \meta{item}.  The
 Tests whether the \meta{comma list} is currently defined.  This does
 not check that the \meta{comma list} really is a comma list.
 \begin{demohigh}
-\ClistIfExistTF \lTmpaClist {\Result{Yes}} {\Result{No}}
-\ClistIfExistTF \lFooUndefinedClist {\Result{Yes}} {\Result{No}}
+\ClistIfExistTF \lTmpaClist {\Return{Yes}} {\Return{No}}
+\ClistIfExistTF \lFooUndefinedClist {\Return{Yes}} {\Return{No}}
 \end{demohigh}
 \end{function}
 
@@ -4922,8 +4943,8 @@ outer braces) is empty, while \verb|{ ,{},}| (without outer braces)
 contains one element, which happens to be empty: the comma-list
 is not empty.
 \begin{demohigh}
-\ClistIfEmptyTF {one,two} {\Result{Empty}} {\Result{NonEmpty}}
-\ClistIfEmptyTF { , } {\Result{Empty}} {\Result{NonEmpty}}
+\ClistIfEmptyTF {one,two} {\Return{Empty}} {\Return{NonEmpty}}
+\ClistIfEmptyTF { , } {\Return{Empty}} {\Return{NonEmpty}}
 \end{demohigh}
 \end{function}
 
@@ -4935,9 +4956,9 @@ is not empty.
 Tests if the \meta{comma list} is empty (containing no items).
 \begin{demohigh}
 \ClistSet \lTmpaClist {one,two}
-\ClistVarIfEmptyTF \lTmpaClist {\Result{Empty}} {\Result{NonEmpty}}
+\ClistVarIfEmptyTF \lTmpaClist {\Return{Empty}} {\Return{NonEmpty}}
 \ClistClear \lTmpaClist
-\ClistVarIfEmptyTF \lTmpaClist {\Result{Empty}} {\Result{NonEmpty}}
+\ClistVarIfEmptyTF \lTmpaClist {\Return{Empty}} {\Return{NonEmpty}}
 \end{demohigh}
 \end{function}
  
@@ -4950,8 +4971,8 @@ Tests if the \meta{item} is present in the \meta{comma list}.
 In the case of an \texttt{n}-type \meta{comma list}, the usual rules
 of space trimming and brace stripping apply. For example
 \begin{demohigh}
-\ClistIfInTF { a , {b}  , {b} , c } {b} {\Result{Yes}} {\Result{No}}
-\ClistIfInTF { a , {b}  , {b} , c } {d} {\Result{Yes}} {\Result{No}}
+\ClistIfInTF { a , {b}  , {b} , c } {b} {\Return{Yes}} {\Return{No}}
+\ClistIfInTF { a , {b}  , {b} , c } {d} {\Return{Yes}} {\Return{No}}
 \end{demohigh}
 %\begin{texnote}
 %The function may fail if the \meta{item} contains \verb|{|, \verb|}|, or \verb|#|
@@ -4969,8 +4990,8 @@ In the case of an \texttt{n}-type \meta{comma list}, the usual rules
 of space trimming and brace stripping apply.
 \begin{demohigh}
 \ClistSet \lTmpaClist {one,two}
-\ClistVarIfInTF \lTmpaClist {one} {\Result{Yes}} {\Result{No}}
-\ClistVarIfInTF \lTmpaClist {three} {\Result{Yes}} {\Result{No}}
+\ClistVarIfInTF \lTmpaClist {one} {\Return{Yes}} {\Return{No}}
+\ClistVarIfInTF \lTmpaClist {three} {\Return{Yes}} {\Return{No}}
 \end{demohigh}
 %\begin{texnote}
 %The function may fail if the \meta{item} contains \verb|{|, \verb|}|, or \verb|#|
@@ -5407,7 +5428,7 @@ not defined in this case and should not be relied upon.  If the
 the \meta{sequence}. The \meta{token list variable} is assigned locally.
 \begin{demohigh}
 \SeqSetFromClist \lTmpaSeq {two,three,four}
-\SeqGetTF \lTmpaSeq \lTmpaTl {\Result{Yes}} {\Result{No}}
+\SeqGetTF \lTmpaSeq \lTmpaTl {\Return{Yes}} {\Return{No}}
 \end{demohigh}
 \end{function}
 
@@ -5439,7 +5460,7 @@ not defined in this case and should not be relied upon.  If the
 in the \meta{token list variable}, \emph{i.e.} removes the item from the
 \meta{sequence}. The \meta{token list variable} is assigned locally.
 \begin{demohigh}
-\SeqPopTF \cEmptySeq \lTmpaTl {\Result{Yes}} {\Result{No}}
+\SeqPopTF \cEmptySeq \lTmpaTl {\Return{Yes}} {\Return{No}}
 \end{demohigh}
 \end{function}
 
@@ -5496,7 +5517,7 @@ in the \meta{token list variable} without removing it from the
 The \meta{token list variable} is assigned locally.
 \begin{demohigh}
 \SeqSetFromClist \lTmpaSeq {two,three,four}
-\SeqGetLeftTF \lTmpaSeq \lTmpaTl {\Result{Yes}} {\Result{No}}
+\SeqGetLeftTF \lTmpaSeq \lTmpaTl {\Return{Yes}} {\Return{No}}
 \end{demohigh}
 \end{function}
 
@@ -5532,7 +5553,7 @@ in the \meta{token list variable} without removing it from the
 The \meta{token list variable} is assigned locally.
 \begin{demohigh}
 \SeqSetFromClist \lTmpaSeq {two,three,four}
-\SeqGetRightTF \lTmpaSeq \lTmpaTl {\Result{Yes}} {\Result{No}}
+\SeqGetRightTF \lTmpaSeq \lTmpaTl {\Return{Yes}} {\Return{No}}
 \end{demohigh}
 \end{function}
 
@@ -5567,7 +5588,7 @@ in the \meta{token list variable}, \emph{i.e.} removes the item from the
 \meta{sequence}, then leaves the \meta{true code} in the input stream.
 The \meta{token list variable} is assigned locally.
 \begin{demohigh}
-\SeqPopLeftTF \cEmptySeq \lTmpaTl {\Result{Yes}} {\Result{No}}
+\SeqPopLeftTF \cEmptySeq \lTmpaTl {\Return{Yes}} {\Return{No}}
 \end{demohigh}
 \end{function}
 
@@ -5602,7 +5623,7 @@ in the \meta{token list variable}, \emph{i.e.} removes the item from the
 \meta{sequence}, then leaves the \meta{true code} in the input stream.
 The \meta{token list variable} is assigned locally.
 \begin{demohigh}
-\SeqPopRightTF \cEmptySeq \lTmpaTl {\Result{Yes}} {\Result{No}}
+\SeqPopRightTF \cEmptySeq \lTmpaTl {\Return{Yes}} {\Return{No}}
 \end{demohigh}
 \end{function}
 
@@ -5639,7 +5660,7 @@ The \meta{items} are returned from left to right. For example,
 \SeqVarMapInline \lTmpkSeq {
   \TlPutRight \lTmpaTl {(#1)}
 }
-\Result {\TlUse\lTmpaTl}
+\Return {\TlUse\lTmpaTl}
 \IgnoreSpacesOff
 \end{codehigh}
 produces (one)(two)(three).
@@ -5679,7 +5700,7 @@ or its original value if the \meta{sequence} is empty.  The
 \SeqVarMapVariable \lTmpaSeq \lTmpiTl {
   \IntAdd \lTmpaInt {\lTmpiTl*\lTmpiTl}
 }
-\Result {\IntUse\lTmpaInt}
+\Return {\IntUse\lTmpaInt}
 \IgnoreSpacesOff
 \end{demohigh}
 \end{function}
@@ -5803,8 +5824,8 @@ or its original value if the \meta{sequence} is empty.  The
 Tests whether the \meta{sequence} is currently defined.  This does not
 check that the \meta{sequence} really is a sequence variable.
 \begin{demohigh}
-\SeqIfExistTF \lTmpaSeq {\Result{Yes}} {\Result{No}}
-\SeqIfExistTF \lFooUndefinedSeq {\Result{Yes}} {\Result{No}}
+\SeqIfExistTF \lTmpaSeq {\Return{Yes}} {\Return{No}}
+\SeqIfExistTF \lFooUndefinedSeq {\Return{Yes}} {\Return{No}}
 \end{demohigh}
 \end{function}
 
@@ -5816,9 +5837,9 @@ check that the \meta{sequence} really is a sequence variable.
 Tests if the \meta{sequence} is empty (containing no items).
 \begin{demohigh}
 \SeqSetFromClist \lTmpaSeq {one,two}
-\SeqVarIfEmptyTF \lTmpaSeq {\Result{Empty}} {\Result{NonEmpty}}
+\SeqVarIfEmptyTF \lTmpaSeq {\Return{Empty}} {\Return{NonEmpty}}
 \SeqClear \lTmpaSeq
-\SeqVarIfEmptyTF \lTmpaSeq {\Result{Empty}} {\Result{NonEmpty}}
+\SeqVarIfEmptyTF \lTmpaSeq {\Return{Empty}} {\Return{NonEmpty}}
 \end{demohigh}
 \end{function}
 
@@ -5830,8 +5851,8 @@ Tests if the \meta{sequence} is empty (containing no items).
 Tests if the \meta{item} is present in the \meta{sequence}.
 \begin{demohigh}
 \SeqSetFromClist \lTmpaSeq {one,two}
-\SeqVarIfInTF \lTmpaSeq {one} {\Result{Yes}} {\Result{Not}}
-\SeqVarIfInTF \lTmpaSeq {three} {\Result{Yes}} {\Result{Not}}
+\SeqVarIfInTF \lTmpaSeq {one} {\Return{Yes}} {\Return{Not}}
+\SeqVarIfInTF \lTmpaSeq {three} {\Return{Yes}} {\Return{Not}}
 \end{demohigh}
 \end{function}
 
@@ -6173,7 +6194,7 @@ not be relied upon.  If the \meta{key} is present in the
 stream.  The \meta{token list variable} is assigned locally.
 \begin{demohigh}
 \PropSetFromKeyval \lTmpaProp {key1=one,key2=two,key3=three}
-\PropGetTF \lTmpaProp {key2} \lTmpaTl {\Result{Yes}} {\Result{No}}
+\PropGetTF \lTmpaProp {key2} \lTmpaTl {\Return{Yes}} {\Return{No}}
 \end{demohigh}
 \end{function}
 
@@ -6211,7 +6232,7 @@ in the \meta{token list variable}, \emph{i.e.} removes the item from
 The \meta{token list variable} is assigned locally.
 \begin{demohigh}
 \PropSetFromKeyval \lTmpaProp {key1=one,key2=two,key3=three}
-\PropPopTF \lTmpaProp {key2} \lTmpaTl {\Result{Yes}} {\Result{No}}
+\PropPopTF \lTmpaProp {key2} \lTmpaTl {\Return{Yes}} {\Return{No}}
 \end{demohigh}
 \end{function}
 
@@ -6252,7 +6273,7 @@ For example,
 \PropVarMapInline \lTmpkProp {
   \TlPutRight \lTmpaTl {(#1=#2)}
 }
-\Result {\TlUse\lTmpaTl}
+\Return {\TlUse\lTmpaTl}
 \IgnoreSpacesOff
 \end{codehigh}
 produces (key1=one)(key2=two)(key3=three).
@@ -6340,8 +6361,8 @@ produces (key1=one)(key2=two)(key3=three).
 Tests whether the \meta{property list} is currently defined.  This does not
 check that the \meta{property list} really is a property list variable.
 \begin{demohigh}
-\PropIfExistTF \lTmpaProp {\Result{Yes}} {\Result{No}}
-\PropIfExistTF \lFooUndefinedProp {\Result{Yes}} {\Result{No}}
+\PropIfExistTF \lTmpaProp {\Return{Yes}} {\Return{No}}
+\PropIfExistTF \lFooUndefinedProp {\Return{Yes}} {\Return{No}}
 \end{demohigh}
 \end{function}
 
@@ -6353,9 +6374,9 @@ check that the \meta{property list} really is a property list variable.
 Tests if the \meta{property list} is empty (containing no entries).
 \begin{demohigh}
 \PropSetFromKeyval \lTmpaProp {key1=one,key2=two}
-\PropVarIfEmptyTF \lTmpaProp {\Result{Empty}} {\Result{NonEmpty}}
+\PropVarIfEmptyTF \lTmpaProp {\Return{Empty}} {\Return{NonEmpty}}
 \PropClear \lTmpaProp
-\PropVarIfEmptyTF \lTmpaProp {\Result{Empty}} {\Result{NonEmpty}}
+\PropVarIfEmptyTF \lTmpaProp {\Return{Empty}} {\Return{NonEmpty}}
 \end{demohigh}
 \end{function}
 
@@ -6367,8 +6388,8 @@ Tests if the \meta{key} is present in the \meta{property list},
 making the comparison using the method described by \cs{StrIfEqTF}.
 \begin{demohigh}
 \PropSetFromKeyval \lTmpaProp {key1=one,key2=two}
-\PropVarIfInTF \lTmpaProp {key1} {\Result{Yes}} {\Result{Not}}
-\PropVarIfInTF \lTmpaProp {key3} {\Result{Yes}} {\Result{Not}}
+\PropVarIfInTF \lTmpaProp {key1} {\Return{Yes}} {\Return{Not}}
+\PropVarIfInTF \lTmpaProp {key3} {\Return{Yes}} {\Return{Not}}
 \end{demohigh}
 %\begin{texnote}
 %This function iterates through every key--value pair in the
@@ -6412,16 +6433,16 @@ by functions such as \cs{PropGet} if there is no data to return.
 Tests if the \meta{token} is equal to \cs{qNoValue}.
 \begin{demohigh}
 \ClistGet \cEmptyClist \lTmpaTl
-\QuarkVarIfNoValueTF \lTmpaTl {\Result{NoValue}} {\Result{SomeValue}}
+\QuarkVarIfNoValueTF \lTmpaTl {\Return{NoValue}} {\Return{SomeValue}}
 \end{demohigh}
 \begin{demohigh}
 \SeqPop \cEmptySeq \lTmpaTl
-\QuarkVarIfNoValueTF \lTmpaTl {\Result{NoValue}} {\Result{SomeValue}}
+\QuarkVarIfNoValueTF \lTmpaTl {\Return{NoValue}} {\Return{SomeValue}}
 \end{demohigh}
 \begin{demohigh}
 \PropSetFromKeyval \lTmpaProp {key1=one,key2=two}
 \PropGet \lTmpaProp {key3} \lTmpaTl
-\QuarkVarIfNoValueTF \lTmpaTl {\Result{NoValue}} {\Result{SomeValue}}
+\QuarkVarIfNoValueTF \lTmpaTl {\Return{NoValue}} {\Return{SomeValue}}
 \end{demohigh}
 \end{function}
 
