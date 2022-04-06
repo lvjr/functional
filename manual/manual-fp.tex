@@ -401,9 +401,11 @@ the \meta{code} should make use of the \meta{tl var}.
 
 \section{Float Point Conditionals}
 
-\begin{function}{\FpIfExist,\FpIfExistTF}
+\begin{function}{\FpIfExist,\FpIfExistT,\FpIfExistF,\FpIfExistTF}
 \begin{syntax}
 \cs{FpIfExist} \meta{fp var}
+\cs{FpIfExistT} \meta{fp var} \Arg{true code}
+\cs{FpIfExistF} \meta{fp var} \Arg{false code}
 \cs{FpIfExistTF} \meta{fp var} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests whether the \meta{fp var} is currently defined.  This does not
@@ -415,9 +417,11 @@ For example
 \end{demohigh}
 \end{function}
 
-\begin{function}{\FpCompare,\FpCompareTF}
+\begin{function}{\FpCompare,\FpCompareT,\FpCompareF,\FpCompareTF}
 \begin{syntax}
 \cs{FpCompare} \Arg{fpexpr_1} \meta{relation} \Arg{fpexpr_2}
+\cs{FpCompareT} \Arg{fpexpr_1} \meta{relation} \Arg{fpexpr_2} \Arg{true code}
+\cs{FpCompareF} \Arg{fpexpr_1} \meta{relation} \Arg{fpexpr_2} \Arg{false code}
 \cs{FpCompareTF} \Arg{fpexpr_1} \meta{relation} \Arg{fpexpr_2} \Arg{true code} \Arg{false code}
 \end{syntax}
 Compares the \meta{fpexpr_1} and the \meta{fpexpr_2}, and returns

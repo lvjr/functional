@@ -700,9 +700,11 @@ list}, or its original value if there were no \meta{item}.  The
 
 \section{Comma List Conditionals}
 
-\begin{function}{\ClistIfExist,\ClistIfExistTF}
+\begin{function}{\ClistIfExist,\ClistIfExistT,\ClistIfExistF,\ClistIfExistTF}
 \begin{syntax}
 \cs{ClistIfExist} \meta{comma list}
+\cs{ClistIfExistT} \meta{comma list} \Arg{true code}
+\cs{ClistIfExistF} \meta{comma list} \Arg{false code}
 \cs{ClistIfExistTF} \meta{comma list} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests whether the \meta{comma list} is currently defined.  This does
@@ -713,9 +715,11 @@ not check that the \meta{comma list} really is a comma list.
 \end{demohigh}
 \end{function}
 
-\begin{function}{\ClistIfEmpty,\ClistIfEmptyTF}
+\begin{function}{\ClistIfEmpty,\ClistIfEmptyT,\ClistIfEmptyF,\ClistIfEmptyTF}
 \begin{syntax}
 \cs{ClistIfEmpty} \Arg{comma list}
+\cs{ClistIfEmptyT} \Arg{comma list} \Arg{true code}
+\cs{ClistIfEmptyF} \Arg{comma list} \Arg{false code}
 \cs{ClistIfEmptyTF} \Arg{comma list} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests if the \meta{comma list} is empty (containing no items).
@@ -730,9 +734,11 @@ is not empty.
 \end{demohigh}
 \end{function}
 
-\begin{function}{\ClistVarIfEmpty,\ClistVarIfEmptyTF}
+\begin{function}{\ClistVarIfEmpty,\ClistVarIfEmptyT,\ClistVarIfEmptyF,\ClistVarIfEmptyTF}
 \begin{syntax}
 \cs{ClistVarIfEmpty} \meta{comma list}
+\cs{ClistVarIfEmptyT} \meta{comma list} \Arg{true code}
+\cs{ClistVarIfEmptyF} \meta{comma list} \Arg{false code}
 \cs{ClistVarIfEmptyTF} \meta{comma list} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests if the \meta{comma list} is empty (containing no items).
@@ -744,9 +750,11 @@ Tests if the \meta{comma list} is empty (containing no items).
 \end{demohigh}
 \end{function}
  
-\begin{function}{\ClistIfIn,\ClistIfInTF}
+\begin{function}{\ClistIfIn,\ClistIfInT,\ClistIfInF,\ClistIfInTF}
 \begin{syntax}
 \cs{ClistIfIn} \Arg{comma list} \Arg{item}
+\cs{ClistIfInT} \Arg{comma list} \Arg{item} \Arg{true code}
+\cs{ClistIfInF} \Arg{comma list} \Arg{item} \Arg{false code}
 \cs{ClistIfInTF} \Arg{comma list} \Arg{item} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests if the \meta{item} is present in the \meta{comma list}.
@@ -762,9 +770,11 @@ of space trimming and brace stripping apply. For example
 %\end{texnote}
 \end{function}
 
-\begin{function}{\ClistVarIfIn,\ClistVarIfInTF}
+\begin{function}{\ClistVarIfIn,\ClistVarIfInT,\ClistVarIfInF,\ClistVarIfInTF}
 \begin{syntax}
 \cs{ClistVarIfIn} \meta{comma list} \Arg{item}
+\cs{ClistVarIfInT} \meta{comma list} \Arg{item} \Arg{true code}
+\cs{ClistVarIfInF} \meta{comma list} \Arg{item} \Arg{false code}
 \cs{ClistVarIfInTF} \meta{comma list} \Arg{item} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests if the \meta{item} is present in the \meta{comma list}.

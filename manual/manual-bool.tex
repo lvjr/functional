@@ -131,9 +131,11 @@ Displays the logical truth of the \meta{boolean} on the terminal.
 
 \section{Booleans and Conditionals}
 
-\begin{function}{\BoolIfExist,\BoolIfExistTF}
+\begin{function}{\BoolIfExist,\BoolIfExistT,\BoolIfExistF,\BoolIfExistTF}
 \begin{syntax}
 \cs{BoolIfExist} \meta{boolean}
+\cs{BoolIfExistT} \meta{boolean} \Arg{true code}
+\cs{BoolIfExistF} \meta{boolean} \Arg{false code}
 \cs{BoolIfExistTF} \meta{boolean} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests whether the \meta{boolean} is currently defined.  This does not
@@ -145,9 +147,11 @@ For example
 \end{demohigh}
 \end{function}
 
-\begin{function}{\BoolVarIf,\BoolVarIfTF}
+\begin{function}{\BoolVarIf,\BoolVarIfT,\BoolVarIfF,\BoolVarIfTF}
 \begin{syntax}
 \cs{BoolVarIf} \meta{boolean}
+\cs{BoolVarIfT} \meta{boolean} \Arg{true code}
+\cs{BoolVarIfF} \meta{boolean} \Arg{false code}
 \cs{BoolVarIfTF} \meta{boolean} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests the current truth of \meta{boolean}, and continues evaluation
@@ -160,9 +164,11 @@ based on this result. For example
 \end{demohigh}
 \end{function}
 
-\begin{function}{\BoolVarNot,\BoolVarNotTF}
+\begin{function}{\BoolVarNot,\BoolVarNotT,\BoolVarNotF,\BoolVarNotTF}
 \begin{syntax}
 \cs{BoolVarNot} \meta{boolean}
+\cs{BoolVarNotT} \meta{boolean} \Arg{true code}
+\cs{BoolVarNotF} \meta{boolean} \Arg{false code}
 \cs{BoolVarNotTF} \meta{boolean} \Arg{true code} \Arg{false code}
 \end{syntax}
 Evaluates \meta{true code} if \meta{boolean} is \verb!false!,
@@ -173,9 +179,11 @@ For example
 \end{demohigh}
 \end{function}
 
-\begin{function}{\BoolVarAnd,\BoolVarAndTF}
+\begin{function}{\BoolVarAnd,\BoolVarAndT,\BoolVarAndF,\BoolVarAndTF}
 \begin{syntax}
 \cs{BoolVarAnd} \meta{boolean_1} \meta{boolean_2}
+\cs{BoolVarAndT} \meta{boolean_1} \meta{boolean_2} \Arg{true code}
+\cs{BoolVarAndF} \meta{boolean_1} \meta{boolean_2} \Arg{false code}
 \cs{BoolVarAndTF} \meta{boolean_1} \meta{boolean_2} \Arg{true code} \Arg{false code}
 \end{syntax}
 Implements the \enquote{And} operation between two booleans,
@@ -189,9 +197,11 @@ For example
 \end{demohigh}
 \end{function}
 
-\begin{function}{\BoolVarOr,\BoolVarOrTF}
+\begin{function}{\BoolVarOr,\BoolVarOrT,\BoolVarOrF,\BoolVarOrTF}
 \begin{syntax}
 \cs{BoolVarOr} \meta{boolean_1} \meta{boolean_2}
+\cs{BoolVarOrT} \meta{boolean_1} \meta{boolean_2} \Arg{true code}
+\cs{BoolVarOrF} \meta{boolean_1} \meta{boolean_2} \Arg{false code}
 \cs{BoolVarOrTF} \meta{boolean_1} \meta{boolean_2} \Arg{true code} \Arg{false code}
 \end{syntax}
 Implements the \enquote{Or} operation between two booleans,
@@ -205,9 +215,11 @@ For example
 \end{demohigh}
 \end{function}
 
-\begin{function}{\BoolVarXor,\BoolVarXorTF}
+\begin{function}{\BoolVarXor,\BoolVarXorT,\BoolVarXorF,\BoolVarXorTF}
 \begin{syntax}
 \cs{BoolVarXor} \meta{boolean_1} \meta{boolean_2}
+\cs{BoolVarXorT} \meta{boolean_1} \meta{boolean_2} \Arg{true code}
+\cs{BoolVarXorF} \meta{boolean_1} \meta{boolean_2} \Arg{false code}
 \cs{BoolVarXorTF} \meta{boolean_1} \meta{boolean_2} \Arg{true code} \Arg{false code}
 \end{syntax}
 Implements an \enquote{exclusive or} operation between two booleans.

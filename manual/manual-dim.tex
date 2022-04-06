@@ -356,9 +356,11 @@ the \meta{code} should make use of the \meta{tl var}.
 
 \section{Dimension Conditionals}
 
-\begin{function}{\DimIfExist,\DimIfExistTF}
+\begin{function}{\DimIfExist,\DimIfExistT,\DimIfExistF,\DimIfExistTF}
 \begin{syntax}
 \cs{DimIfExist} \meta{dimension}
+\cs{DimIfExistT} \meta{dimension} \Arg{true code}
+\cs{DimIfExistF} \meta{dimension} \Arg{false code}
 \cs{DimIfExistTF} \meta{dimension} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests whether the \meta{dimension} is currently defined.  This does
@@ -370,9 +372,11 @@ For example
 \end{demohigh}
 \end{function}
 
-\begin{function}{\DimCompare,\DimCompareTF}
+\begin{function}{\DimCompare,\DimCompareT,\DimCompareF,\DimCompareTF}
 \begin{syntax}
 \cs{DimCompare} \Arg{dimexpr_1} \meta{relation} \Arg{dimexpr_2}
+\cs{DimCompareT} \Arg{dimexpr_1} \meta{relation} \Arg{dimexpr_2} \Arg{true code}
+\cs{DimCompareF} \Arg{dimexpr_1} \meta{relation} \Arg{dimexpr_2} \Arg{false code}
 \cs{DimCompareTF} \Arg{dimexpr_1} \meta{relation} \Arg{dimexpr_2} \Arg{true code} \Arg{false code}
 \end{syntax}
 This function first evaluates each of the \meta{dimension expressions}

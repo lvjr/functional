@@ -763,9 +763,11 @@ or its original value if the \meta{tl var} is blank.
 
 \section{Token List Conditionals}
 
-\begin{function}{\TlIfExist,\TlIfExistTF}
+\begin{function}{\TlIfExist,\TlIfExistT,\TlIfExistF,\TlIfExistTF}
 \begin{syntax}
 \cs{TlIfExist} \meta{tl var}
+\cs{TlIfExistT} \meta{tl var} \Arg{true code}
+\cs{TlIfExistF} \meta{tl var} \Arg{false code}
 \cs{TlIfExistTF} \meta{tl var} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests whether the \meta{tl var} is currently defined.  This does not
@@ -776,9 +778,11 @@ check that the \meta{tl var} really is a token list variable.
 \end{demohigh}
 \end{function}
 
-\begin{function}{\TlIfEmpty,\TlIfEmptyTF}
+\begin{function}{\TlIfEmpty,\TlIfEmptyT,\TlIfEmptyF,\TlIfEmptyTF}
 \begin{syntax}
 \cs{TlIfEmpty} \Arg{token list}
+\cs{TlIfEmptyT} \Arg{token list} \Arg{true code}
+\cs{TlIfEmptyF} \Arg{token list} \Arg{false code}
 \cs{TlIfEmptyTF} \Arg{token list} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests if the \meta{token list} is entirely empty
@@ -789,9 +793,11 @@ Tests if the \meta{token list} is entirely empty
 \end{demohigh}
 \end{function}
 
-\begin{function}{\TlVarIfEmpty,\TlVarIfEmptyTF}
+\begin{function}{\TlVarIfEmpty,\TlVarIfEmptyT,\TlVarIfEmptyF,\TlVarIfEmptyTF}
 \begin{syntax}
 \cs{TlVarIfEmpty} \meta{tl~var}
+\cs{TlVarIfEmptyT} \meta{tl~var} \Arg{true code}
+\cs{TlVarIfEmptyF} \meta{tl~var} \Arg{false code}
 \cs{TlVarIfEmptyTF} \meta{tl~var} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests if the \meta{token list variable} is entirely empty
@@ -804,9 +810,11 @@ Tests if the \meta{token list variable} is entirely empty
 \end{demohigh}
 \end{function}
 
-\begin{function}{\TlIfBlank}
+\begin{function}{\TlIfBlank,\TlIfBlankT,\TlIfBlankF,\TlIfBlankTF}
 \begin{syntax}
 \cs{TlIfBlank} \Arg{token list}
+\cs{TlIfBlankT} \Arg{token list} \Arg{true code}
+\cs{TlIfBlankF} \Arg{token list} \Arg{false code}
 \cs{TlIfBlankTF} \Arg{token list} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests if the \meta{token list} consists only of blank spaces
@@ -820,9 +828,11 @@ and is \texttt{false} otherwise.
 \end{demohigh}
 \end{function}
 
-\begin{function}{\TlIfEq,\TlIfEqTF}
+\begin{function}{\TlIfEq,\TlIfEqT,\TlIfEqF,\TlIfEqTF}
 \begin{syntax}
 \cs{TlIfEq} \Arg{token list_1} \Arg{token list_2}
+\cs{TlIfEqT} \Arg{token list_1} \Arg{token list_2} \Arg{true code}
+\cs{TlIfEqF} \Arg{token list_1} \Arg{token list_2} \Arg{false code}
 \cs{TlIfEqTF} \Arg{token list_1} \Arg{token list_2} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests if \meta{token list_1} and \meta{token list_2} contain the
@@ -842,9 +852,11 @@ For example
 %\end{demohigh}
 \end{function}
 
-\begin{function}{\TlVarIfEq,\TlVarIfEqTF}
+\begin{function}{\TlVarIfEq,\TlVarIfEqT,\TlVarIfEqF,\TlVarIfEqTF}
 \begin{syntax}
 \cs{TlVarIfEq} \meta{tl var_1} \meta{tl var_2}
+\cs{TlVarIfEqT} \meta{tl var_1} \meta{tl var_2} \Arg{true code}
+\cs{TlVarIfEqF} \meta{tl var_1} \meta{tl var_2} \Arg{false code}
 \cs{TlVarIfEqTF} \meta{tl var_1} \meta{tl var_2} \Arg{true code} \Arg{false code}
 \end{syntax}
 Compares the content of two \meta{token list variables} and
@@ -861,9 +873,11 @@ contain and the category codes of those characters). For example
 See also \cs{StrVarIfEq} for a comparison that ignores category codes.
 \end{function}
 
-\begin{function}{\TlIfIn,\TlIfInTF}
+\begin{function}{\TlIfIn,\TlIfInT,\TlIfInF,\TlIfInTF}
 \begin{syntax}
 \cs{TlIfIn} \Arg{token list_1} \Arg{token list_2}
+\cs{TlIfInT} \Arg{token list_1} \Arg{token list_2} \Arg{true code}
+\cs{TlIfInF} \Arg{token list_1} \Arg{token list_2} \Arg{false code}
 \cs{TlIfInTF} \Arg{token list_1} \Arg{token list_2} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests if \meta{token list_2} is found inside \meta{token list_1}.
@@ -877,9 +891,11 @@ The search does \emph{not} enter brace (category code $1$/$2$) groups.
 \end{demohigh}
 \end{function}
 
-\begin{function}{\TlVarIfIn,\TlVarIfInTF}
+\begin{function}{\TlVarIfIn,\TlVarIfInT,\TlVarIfInF,\TlVarIfInTF}
 \begin{syntax}
 \cs{TlVarIfIn} \meta{tl var} \Arg{token list}
+\cs{TlVarIfInT} \meta{tl var} \Arg{token list} \Arg{true code}
+\cs{TlVarIfInF} \meta{tl var} \Arg{token list} \Arg{false code}
 \cs{TlVarIfInTF} \meta{tl var} \Arg{token list} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests if the \meta{token list} is found in the content of the
@@ -894,9 +910,11 @@ the tokens \verb|{|, \verb|}| or \verb|#|
 \end{demohigh}
 \end{function}
 
-\begin{function}{\TlIfSingle,\TlIfSingleTF}
+\begin{function}{\TlIfSingle,\TlIfSingleT,\TlIfSingleF,\TlIfSingleTF}
 \begin{syntax}
 \cs{TlIfSingle} \Arg{token list}
+\cs{TlIfSingleT} \Arg{token list} \Arg{true code}
+\cs{TlIfSingleF} \Arg{token list} \Arg{false code}
 \cs{TlIfSingleTF} \Arg{token list} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests if the \meta{token list} has exactly one \meta{item}, \emph{i.e.} is
@@ -910,9 +928,11 @@ token count $1$ according to \cs{TlCount}.
 \end{demohigh}
 \end{function}
 
-\begin{function}{\TlVarIfSingle,\TlVarIfSingleTF}
+\begin{function}{\TlVarIfSingle,\TlVarIfSingleT,\TlVarIfSingleF,\TlVarIfSingleTF}
 \begin{syntax}
 \cs{TlVarIfSingle} \meta{tl var}
+\cs{TlVarIfSingleT} \meta{tl var} \Arg{true code}
+\cs{TlVarIfSingleF} \meta{tl var} \Arg{false code}
 \cs{TlVarIfSingleTF} \meta{tl var} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests if the content of the \meta{tl var} consists of a single \meta{item},

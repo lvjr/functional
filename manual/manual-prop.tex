@@ -504,9 +504,11 @@ produces (key1=one)(key2=two)(key3=three).
 
 \section{Property List Conditionals}
 
-\begin{function}{\PropIfExist}
+\begin{function}{\PropIfExist,\PropIfExistT,\PropIfExistF,\PropIfExistTF}
 \begin{syntax}
 \cs{PropIfExist} \meta{property list}
+\cs{PropIfExistT} \meta{property list} \Arg{true code}
+\cs{PropIfExistF} \meta{property list} \Arg{false code}
 \cs{PropIfExistTF} \meta{property list} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests whether the \meta{property list} is currently defined.  This does not
@@ -517,9 +519,11 @@ check that the \meta{property list} really is a property list variable.
 \end{demohigh}
 \end{function}
 
-\begin{function}{\PropVarIfEmpty}
+\begin{function}{\PropVarIfEmpty,\PropVarIfEmptyT,\PropVarIfEmptyF,\PropVarIfEmptyTF}
 \begin{syntax}
 \cs{PropVarIfEmpty} \meta{property list}
+\cs{PropVarIfEmptyT} \meta{property list} \Arg{true code}
+\cs{PropVarIfEmptyF} \meta{property list} \Arg{false code}
 \cs{PropVarIfEmptyTF} \meta{property list} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests if the \meta{property list} is empty (containing no entries).
@@ -531,9 +535,12 @@ Tests if the \meta{property list} is empty (containing no entries).
 \end{demohigh}
 \end{function}
 
-\begin{function}{\PropVarIfIn}
+\begin{function}{\PropVarIfIn,\PropVarIfInT,\PropVarIfInF,\PropVarIfInTF}
 \begin{syntax}
-\cs{PropVarIfIn} \meta{property list} \Arg{key} \Arg{true code} \Arg{false code}
+\cs{PropVarIfIn} \meta{property list} \Arg{key}
+\cs{PropVarIfInT} \meta{property list} \Arg{key} \Arg{true code}
+\cs{PropVarIfInF} \meta{property list} \Arg{key} \Arg{false code}
+\cs{PropVarIfInTF} \meta{property list} \Arg{key} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests if the \meta{key} is present in the \meta{property list},
 making the comparison using the method described by \cs{StrIfEqTF}.

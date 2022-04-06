@@ -824,9 +824,11 @@ or its original value if the \meta{sequence} is empty.  The
 
 \section{Sequence Conditionals}
 
-\begin{function}{\SeqIfExist,\SeqIfExistTF}
+\begin{function}{\SeqIfExist,\SeqIfExistT,\SeqIfExistF,\SeqIfExistTF}
 \begin{syntax}
 \cs{SeqIfExist} \meta{sequence}
+\cs{SeqIfExistT} \meta{sequence} \Arg{true code}
+\cs{SeqIfExistF} \meta{sequence} \Arg{false code}
 \cs{SeqIfExistTF} \meta{sequence} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests whether the \meta{sequence} is currently defined.  This does not
@@ -837,9 +839,11 @@ check that the \meta{sequence} really is a sequence variable.
 \end{demohigh}
 \end{function}
 
-\begin{function}{\SeqVarIfEmpty,\SeqVarIfEmptyTF}
+\begin{function}{\SeqVarIfEmpty,\SeqVarIfEmptyT,\SeqVarIfEmptyF,\SeqVarIfEmptyTF}
 \begin{syntax}
 \cs{SeqVarIfEmpty} \meta{sequence}
+\cs{SeqVarIfEmptyT} \meta{sequence} \Arg{true code}
+\cs{SeqVarIfEmptyF} \meta{sequence} \Arg{false code}
 \cs{SeqVarIfEmptyTF} \meta{sequence} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests if the \meta{sequence} is empty (containing no items).
@@ -851,9 +855,11 @@ Tests if the \meta{sequence} is empty (containing no items).
 \end{demohigh}
 \end{function}
 
-\begin{function}{\SeqVarIfIn,\SeqVarIfInTF}
+\begin{function}{\SeqVarIfIn,\SeqVarIfInT,\SeqVarIfInF,\SeqVarIfInTF}
 \begin{syntax}
 \cs{SeqVarIfIn} \meta{sequence} \Arg{item}
+\cs{SeqVarIfInT} \meta{sequence} \Arg{item} \Arg{true code}
+\cs{SeqVarIfInF} \meta{sequence} \Arg{item} \Arg{false code}
 \cs{SeqVarIfInTF} \meta{sequence} \Arg{item} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests if the \meta{item} is present in the \meta{sequence}.

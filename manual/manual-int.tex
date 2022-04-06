@@ -409,18 +409,22 @@ the \meta{code} should make use of the \meta{tl~var}.
 
 \section{Integer Conditionals}
 
-\begin{function}{\IntIfExist, \IntIfExistTF}
+\begin{function}{\IntIfExist,\IntIfExistT,\IntIfExistF,\IntIfExistTF}
 \begin{syntax}
 \cs{IntIfExist} \meta{integer}
+\cs{IntIfExistT} \meta{integer} \Arg{true code}
+\cs{IntIfExistF} \meta{integer} \Arg{false code}
 \cs{IntIfExistTF} \meta{integer} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests whether the \meta{integer} is currently defined.  This does not
 check that the \meta{integer} really is an integer variable.
 \end{function}
 
-\begin{function}{\IntIfOdd,\IntIfOddTF}
+\begin{function}{\IntIfOdd,\IntIfOddT,\IntIfOddF,\IntIfOddTF}
 \begin{syntax}
 \cs{IntIfOdd} \Arg{integer expression}
+\cs{IntIfOddT} \Arg{integer expression} \Arg{true code}
+\cs{IntIfOddF} \Arg{integer expression} \Arg{false code}
 \cs{IntIfOddTF} \Arg{integer expression} \Arg{true code} \Arg{false code}
 \end{syntax}
 This function first evaluates the \meta{integer expression}
@@ -428,9 +432,11 @@ as described for \cs{IntEval}.
 It then evaluates if this is odd or even, as appropriate.
 \end{function}
 
-\begin{function}{\IntIfEven,\IntIfEvenTF}
+\begin{function}{\IntIfEven,\IntIfEvenT,\IntIfEvenF,\IntIfEvenTF}
 \begin{syntax}
 \cs{IntIfEven} \Arg{integer expression}
+\cs{IntIfEvenT} \Arg{integer expression} \Arg{true code}
+\cs{IntIfEvenF} \Arg{integer expression} \Arg{false code}
 \cs{IntIfEvenTF} \Arg{integer expression} \Arg{true code} \Arg{false code}
 \end{syntax}
 This function first evaluates the \meta{integer expression}
@@ -438,9 +444,11 @@ as described for \cs{IntEval}.
 It then evaluates if this is even or odd, as appropriate.
 \end{function}
 
-\begin{function}{\IntCompare,\IntCompareTF}
+\begin{function}{\IntCompare,\IntCompareT,\IntCompareF,\IntCompareTF}
 \begin{syntax}
 \cs{IntCompare} \Arg{intexpr_1} \meta{relation} \Arg{intexpr_2}
+\cs{IntCompareT} \Arg{intexpr_1} \meta{relation} \Arg{intexpr_2} \Arg{true code}
+\cs{IntCompareF} \Arg{intexpr_1} \meta{relation} \Arg{intexpr_2} \Arg{false code}
 \cs{IntCompareTF} \Arg{intexpr_1} \meta{relation} \Arg{intexpr_2} \Arg{true code} \Arg{false code}
 \end{syntax}
 This function first evaluates each of the \meta{integer expressions}

@@ -35,9 +35,11 @@ by functions such as \cs{PropGet} if there is no data to return.
 
 \section{Quark Conditionals}
 
-\begin{function}{\QuarkVarIfNoValue,\QuarkVarIfNoValueTF}
+\begin{function}{\QuarkVarIfNoValue,\QuarkVarIfNoValueT,\QuarkVarIfNoValueF,\QuarkVarIfNoValueTF}
 \begin{syntax}
 \cs{QuarkVarIfNoValue} \meta{token}
+\cs{QuarkVarIfNoValueT} \meta{token} \Arg{true code}
+\cs{QuarkVarIfNoValueF} \meta{token} \Arg{false code}
 \cs{QuarkVarIfNoValueTF} \meta{token} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests if the \meta{token} is equal to \cs{qNoValue}.

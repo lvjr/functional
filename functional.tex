@@ -797,9 +797,11 @@ Displays the logical truth of the \meta{boolean} on the terminal.
 
 \section{Booleans and Conditionals}
 
-\begin{function}{\BoolIfExist,\BoolIfExistTF}
+\begin{function}{\BoolIfExist,\BoolIfExistT,\BoolIfExistF,\BoolIfExistTF}
 \begin{syntax}
 \cs{BoolIfExist} \meta{boolean}
+\cs{BoolIfExistT} \meta{boolean} \Arg{true code}
+\cs{BoolIfExistF} \meta{boolean} \Arg{false code}
 \cs{BoolIfExistTF} \meta{boolean} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests whether the \meta{boolean} is currently defined.  This does not
@@ -811,9 +813,11 @@ For example
 \end{demohigh}
 \end{function}
 
-\begin{function}{\BoolVarIf,\BoolVarIfTF}
+\begin{function}{\BoolVarIf,\BoolVarIfT,\BoolVarIfF,\BoolVarIfTF}
 \begin{syntax}
 \cs{BoolVarIf} \meta{boolean}
+\cs{BoolVarIfT} \meta{boolean} \Arg{true code}
+\cs{BoolVarIfF} \meta{boolean} \Arg{false code}
 \cs{BoolVarIfTF} \meta{boolean} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests the current truth of \meta{boolean}, and continues evaluation
@@ -826,9 +830,11 @@ based on this result. For example
 \end{demohigh}
 \end{function}
 
-\begin{function}{\BoolVarNot,\BoolVarNotTF}
+\begin{function}{\BoolVarNot,\BoolVarNotT,\BoolVarNotF,\BoolVarNotTF}
 \begin{syntax}
 \cs{BoolVarNot} \meta{boolean}
+\cs{BoolVarNotT} \meta{boolean} \Arg{true code}
+\cs{BoolVarNotF} \meta{boolean} \Arg{false code}
 \cs{BoolVarNotTF} \meta{boolean} \Arg{true code} \Arg{false code}
 \end{syntax}
 Evaluates \meta{true code} if \meta{boolean} is \verb!false!,
@@ -839,9 +845,11 @@ For example
 \end{demohigh}
 \end{function}
 
-\begin{function}{\BoolVarAnd,\BoolVarAndTF}
+\begin{function}{\BoolVarAnd,\BoolVarAndT,\BoolVarAndF,\BoolVarAndTF}
 \begin{syntax}
 \cs{BoolVarAnd} \meta{boolean_1} \meta{boolean_2}
+\cs{BoolVarAndT} \meta{boolean_1} \meta{boolean_2} \Arg{true code}
+\cs{BoolVarAndF} \meta{boolean_1} \meta{boolean_2} \Arg{false code}
 \cs{BoolVarAndTF} \meta{boolean_1} \meta{boolean_2} \Arg{true code} \Arg{false code}
 \end{syntax}
 Implements the \enquote{And} operation between two booleans,
@@ -855,9 +863,11 @@ For example
 \end{demohigh}
 \end{function}
 
-\begin{function}{\BoolVarOr,\BoolVarOrTF}
+\begin{function}{\BoolVarOr,\BoolVarOrT,\BoolVarOrF,\BoolVarOrTF}
 \begin{syntax}
 \cs{BoolVarOr} \meta{boolean_1} \meta{boolean_2}
+\cs{BoolVarOrT} \meta{boolean_1} \meta{boolean_2} \Arg{true code}
+\cs{BoolVarOrF} \meta{boolean_1} \meta{boolean_2} \Arg{false code}
 \cs{BoolVarOrTF} \meta{boolean_1} \meta{boolean_2} \Arg{true code} \Arg{false code}
 \end{syntax}
 Implements the \enquote{Or} operation between two booleans,
@@ -871,9 +881,11 @@ For example
 \end{demohigh}
 \end{function}
 
-\begin{function}{\BoolVarXor,\BoolVarXorTF}
+\begin{function}{\BoolVarXor,\BoolVarXorT,\BoolVarXorF,\BoolVarXorTF}
 \begin{syntax}
 \cs{BoolVarXor} \meta{boolean_1} \meta{boolean_2}
+\cs{BoolVarXorT} \meta{boolean_1} \meta{boolean_2} \Arg{true code}
+\cs{BoolVarXorF} \meta{boolean_1} \meta{boolean_2} \Arg{false code}
 \cs{BoolVarXorTF} \meta{boolean_1} \meta{boolean_2} \Arg{true code} \Arg{false code}
 \end{syntax}
 Implements an \enquote{exclusive or} operation between two booleans.
@@ -1639,9 +1651,11 @@ or its original value if the \meta{tl var} is blank.
 
 \section{Token List Conditionals}
 
-\begin{function}{\TlIfExist,\TlIfExistTF}
+\begin{function}{\TlIfExist,\TlIfExistT,\TlIfExistF,\TlIfExistTF}
 \begin{syntax}
 \cs{TlIfExist} \meta{tl var}
+\cs{TlIfExistT} \meta{tl var} \Arg{true code}
+\cs{TlIfExistF} \meta{tl var} \Arg{false code}
 \cs{TlIfExistTF} \meta{tl var} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests whether the \meta{tl var} is currently defined.  This does not
@@ -1652,9 +1666,11 @@ check that the \meta{tl var} really is a token list variable.
 \end{demohigh}
 \end{function}
 
-\begin{function}{\TlIfEmpty,\TlIfEmptyTF}
+\begin{function}{\TlIfEmpty,\TlIfEmptyT,\TlIfEmptyF,\TlIfEmptyTF}
 \begin{syntax}
 \cs{TlIfEmpty} \Arg{token list}
+\cs{TlIfEmptyT} \Arg{token list} \Arg{true code}
+\cs{TlIfEmptyF} \Arg{token list} \Arg{false code}
 \cs{TlIfEmptyTF} \Arg{token list} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests if the \meta{token list} is entirely empty
@@ -1665,9 +1681,11 @@ Tests if the \meta{token list} is entirely empty
 \end{demohigh}
 \end{function}
 
-\begin{function}{\TlVarIfEmpty,\TlVarIfEmptyTF}
+\begin{function}{\TlVarIfEmpty,\TlVarIfEmptyT,\TlVarIfEmptyF,\TlVarIfEmptyTF}
 \begin{syntax}
 \cs{TlVarIfEmpty} \meta{tl~var}
+\cs{TlVarIfEmptyT} \meta{tl~var} \Arg{true code}
+\cs{TlVarIfEmptyF} \meta{tl~var} \Arg{false code}
 \cs{TlVarIfEmptyTF} \meta{tl~var} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests if the \meta{token list variable} is entirely empty
@@ -1680,9 +1698,11 @@ Tests if the \meta{token list variable} is entirely empty
 \end{demohigh}
 \end{function}
 
-\begin{function}{\TlIfBlank}
+\begin{function}{\TlIfBlank,\TlIfBlankT,\TlIfBlankF,\TlIfBlankTF}
 \begin{syntax}
 \cs{TlIfBlank} \Arg{token list}
+\cs{TlIfBlankT} \Arg{token list} \Arg{true code}
+\cs{TlIfBlankF} \Arg{token list} \Arg{false code}
 \cs{TlIfBlankTF} \Arg{token list} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests if the \meta{token list} consists only of blank spaces
@@ -1696,9 +1716,11 @@ and is \texttt{false} otherwise.
 \end{demohigh}
 \end{function}
 
-\begin{function}{\TlIfEq,\TlIfEqTF}
+\begin{function}{\TlIfEq,\TlIfEqT,\TlIfEqF,\TlIfEqTF}
 \begin{syntax}
 \cs{TlIfEq} \Arg{token list_1} \Arg{token list_2}
+\cs{TlIfEqT} \Arg{token list_1} \Arg{token list_2} \Arg{true code}
+\cs{TlIfEqF} \Arg{token list_1} \Arg{token list_2} \Arg{false code}
 \cs{TlIfEqTF} \Arg{token list_1} \Arg{token list_2} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests if \meta{token list_1} and \meta{token list_2} contain the
@@ -1718,9 +1740,11 @@ For example
 %\end{demohigh}
 \end{function}
 
-\begin{function}{\TlVarIfEq,\TlVarIfEqTF}
+\begin{function}{\TlVarIfEq,\TlVarIfEqT,\TlVarIfEqF,\TlVarIfEqTF}
 \begin{syntax}
 \cs{TlVarIfEq} \meta{tl var_1} \meta{tl var_2}
+\cs{TlVarIfEqT} \meta{tl var_1} \meta{tl var_2} \Arg{true code}
+\cs{TlVarIfEqF} \meta{tl var_1} \meta{tl var_2} \Arg{false code}
 \cs{TlVarIfEqTF} \meta{tl var_1} \meta{tl var_2} \Arg{true code} \Arg{false code}
 \end{syntax}
 Compares the content of two \meta{token list variables} and
@@ -1737,9 +1761,11 @@ contain and the category codes of those characters). For example
 See also \cs{StrVarIfEq} for a comparison that ignores category codes.
 \end{function}
 
-\begin{function}{\TlIfIn,\TlIfInTF}
+\begin{function}{\TlIfIn,\TlIfInT,\TlIfInF,\TlIfInTF}
 \begin{syntax}
 \cs{TlIfIn} \Arg{token list_1} \Arg{token list_2}
+\cs{TlIfInT} \Arg{token list_1} \Arg{token list_2} \Arg{true code}
+\cs{TlIfInF} \Arg{token list_1} \Arg{token list_2} \Arg{false code}
 \cs{TlIfInTF} \Arg{token list_1} \Arg{token list_2} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests if \meta{token list_2} is found inside \meta{token list_1}.
@@ -1753,9 +1779,11 @@ The search does \emph{not} enter brace (category code $1$/$2$) groups.
 \end{demohigh}
 \end{function}
 
-\begin{function}{\TlVarIfIn,\TlVarIfInTF}
+\begin{function}{\TlVarIfIn,\TlVarIfInT,\TlVarIfInF,\TlVarIfInTF}
 \begin{syntax}
 \cs{TlVarIfIn} \meta{tl var} \Arg{token list}
+\cs{TlVarIfInT} \meta{tl var} \Arg{token list} \Arg{true code}
+\cs{TlVarIfInF} \meta{tl var} \Arg{token list} \Arg{false code}
 \cs{TlVarIfInTF} \meta{tl var} \Arg{token list} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests if the \meta{token list} is found in the content of the
@@ -1770,9 +1798,11 @@ the tokens \verb|{|, \verb|}| or \verb|#|
 \end{demohigh}
 \end{function}
 
-\begin{function}{\TlIfSingle,\TlIfSingleTF}
+\begin{function}{\TlIfSingle,\TlIfSingleT,\TlIfSingleF,\TlIfSingleTF}
 \begin{syntax}
 \cs{TlIfSingle} \Arg{token list}
+\cs{TlIfSingleT} \Arg{token list} \Arg{true code}
+\cs{TlIfSingleF} \Arg{token list} \Arg{false code}
 \cs{TlIfSingleTF} \Arg{token list} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests if the \meta{token list} has exactly one \meta{item}, \emph{i.e.} is
@@ -1786,9 +1816,11 @@ token count $1$ according to \cs{TlCount}.
 \end{demohigh}
 \end{function}
 
-\begin{function}{\TlVarIfSingle,\TlVarIfSingleTF}
+\begin{function}{\TlVarIfSingle,\TlVarIfSingleT,\TlVarIfSingleF,\TlVarIfSingleTF}
 \begin{syntax}
 \cs{TlVarIfSingle} \meta{tl var}
+\cs{TlVarIfSingleT} \meta{tl var} \Arg{true code}
+\cs{TlVarIfSingleF} \meta{tl var} \Arg{false code}
 \cs{TlVarIfSingleTF} \meta{tl var} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests if the content of the \meta{tl var} consists of a single \meta{item},
@@ -2492,22 +2524,26 @@ the (string or token list) \meta{variable} and applies the
 
 \section{String Conditionals}
 
-\begin{function}{\StrIfExist,\StrIfExistTF}
+\begin{function}{\StrIfExist,\StrIfExistT,\StrIfExistF,\StrIfExistTF}
 \begin{syntax}
 \cs{StrIfExist} \meta{str var}
+\cs{StrIfExistT} \meta{str var} \Arg{true code}
+\cs{StrIfExistF} \meta{str var} \Arg{false code}
 \cs{StrIfExistTF} \meta{str var} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests whether the \meta{str var} is currently defined.  This does not
 check that the \meta{str var} really is a string.
 \begin{demohigh}
-\StrIfExistTF\lTmpaStr{\Return{Yes}}{\Return{No}}
-\StrIfExistTF\lFooUndefinedStr{\Return{Yes}}{\Return{No}}
+\StrIfExistTF \lTmpaStr {\Return{Yes}} {\Return{No}}
+\StrIfExistTF \lFooUndefinedStr {\Return{Yes}} {\Return{No}}
 \end{demohigh}
 \end{function}
 
-\begin{function}{\StrVarIfEmpty,\StrVarIfEmptyTF}
+\begin{function}{\StrVarIfEmpty,\StrVarIfEmptyT,\StrVarIfEmptyF,\StrVarIfEmptyTF}
 \begin{syntax}
 \cs{StrVarIfEmpty} \meta{str var}
+\cs{StrVarIfEmptyT} \meta{str var} \Arg{true code}
+\cs{StrVarIfEmptyF} \meta{str var} \Arg{false code}
 \cs{StrVarIfEmptyTF} \meta{str var} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests if the \meta{string variable} is entirely empty
@@ -2520,9 +2556,11 @@ Tests if the \meta{string variable} is entirely empty
 \end{demohigh}
 \end{function}
 
-\begin{function}{\StrIfEq,\StrIfEqTF}
+\begin{function}{\StrIfEq,\StrIfEqT,\StrIfEqF,\StrIfEqTF}
 \begin{syntax}
 \cs{StrIfEq} \Arg{tl_1} \Arg{tl_2}
+\cs{StrIfEqT} \Arg{tl_1} \Arg{tl_2} \Arg{true code}
+\cs{StrIfEqF} \Arg{tl_1} \Arg{tl_2} \Arg{false code}
 \cs{StrIfEqTF} \Arg{tl_1} \Arg{tl_2} \Arg{true code} \Arg{false code}
 \end{syntax}
 Compares the two \meta{token lists} on a character by character
@@ -2552,9 +2590,11 @@ For example
 %\end{demohigh}
 \end{function}
 
-\begin{function}{\StrVarIfEq,\StrVarIfEqTF}
+\begin{function}{\StrVarIfEq,\StrVarIfEqT,\StrVarIfEqF,\StrVarIfEqTF}
 \begin{syntax}
 \cs{StrVarIfEq} \meta{str var_1} \meta{str var_2}
+\cs{StrVarIfEqT} \meta{str var_1} \meta{str var_2} \Arg{true code}
+\cs{StrVarIfEqF} \meta{str var_1} \meta{str var_2} \Arg{false code}
 \cs{StrVarIfEqTF} \meta{str var_1} \meta{str var_2} \Arg{true code} \Arg{false code}
 \end{syntax}
 Compares the content of two \meta{str variables} and
@@ -2570,9 +2610,11 @@ in the same order.  See \cs{TlVarIfEq} to compare tokens
 \end{demohigh}
 \end{function}
 
-\begin{function}{\StrIfIn,\StrIfInTF}
+\begin{function}{\StrIfIn,\StrIfInT,\StrIfInF,\StrIfInTF}
 \begin{syntax}
-\cs{StrIfInTF} \Arg{tl_1} \Arg{tl_2}
+\cs{StrIfIn} \Arg{tl_1} \Arg{tl_2}
+\cs{StrIfInT} \Arg{tl_1} \Arg{tl_2} \Arg{true code}
+\cs{StrIfInF} \Arg{tl_1} \Arg{tl_2} \Arg{false code}
 \cs{StrIfInTF} \Arg{tl_1} \Arg{tl_2} \Arg{true code} \Arg{false code}
 \end{syntax}
 Converts both \meta{token lists} to \meta{strings} and
@@ -2583,9 +2625,11 @@ tests whether \meta{string_2} is found inside \meta{string_1}.
 \end{demohigh}
 \end{function}
 
-\begin{function}{\StrVarIfIn,\StrVarIfInTF}
+\begin{function}{\StrVarIfIn,\StrVarIfInT,\StrVarIfInF,\StrVarIfInTF}
 \begin{syntax}
-\cs{StrVarIfInTF} \meta{str var} \Arg{token list}
+\cs{StrVarIfIn} \meta{str var} \Arg{token list}
+\cs{StrVarIfInT} \meta{str var} \Arg{token list} \Arg{true code}
+\cs{StrVarIfInF} \meta{str var} \Arg{token list} \Arg{false code}
 \cs{StrVarIfInTF} \meta{str var} \Arg{token list} \Arg{true code} \Arg{false code}
 \end{syntax}
 Converts the \meta{token list} to a \meta{string} and
@@ -2597,9 +2641,11 @@ tests if that \meta{string} is found in the content of the \meta{str var}.
 \end{demohigh}
 \end{function}
 
-\begin{function}{\StrCompare,\StrCompareTF}
+\begin{function}{\StrCompare,\StrCompareT,\StrCompareF,\StrCompareTF}
 \begin{syntax}
 \cs{StrCompare} \Arg{tl_1} \meta{relation} \Arg{tl_2}
+\cs{StrCompareT} \Arg{tl_1} \meta{relation} \Arg{tl_2} \Arg{true code}
+\cs{StrCompareF} \Arg{tl_1} \meta{relation} \Arg{tl_2} \Arg{false code}
 \cs{StrCompareTF} \Arg{tl_1} \meta{relation} \Arg{tl_2} \Arg{true code} \Arg{false code}
 \end{syntax}
 Compares the two \meta{token lists} on a character by character
@@ -3155,18 +3201,22 @@ the \meta{code} should make use of the \meta{tl~var}.
 
 \section{Integer Conditionals}
 
-\begin{function}{\IntIfExist, \IntIfExistTF}
+\begin{function}{\IntIfExist,\IntIfExistT,\IntIfExistF,\IntIfExistTF}
 \begin{syntax}
 \cs{IntIfExist} \meta{integer}
+\cs{IntIfExistT} \meta{integer} \Arg{true code}
+\cs{IntIfExistF} \meta{integer} \Arg{false code}
 \cs{IntIfExistTF} \meta{integer} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests whether the \meta{integer} is currently defined.  This does not
 check that the \meta{integer} really is an integer variable.
 \end{function}
 
-\begin{function}{\IntIfOdd,\IntIfOddTF}
+\begin{function}{\IntIfOdd,\IntIfOddT,\IntIfOddF,\IntIfOddTF}
 \begin{syntax}
 \cs{IntIfOdd} \Arg{integer expression}
+\cs{IntIfOddT} \Arg{integer expression} \Arg{true code}
+\cs{IntIfOddF} \Arg{integer expression} \Arg{false code}
 \cs{IntIfOddTF} \Arg{integer expression} \Arg{true code} \Arg{false code}
 \end{syntax}
 This function first evaluates the \meta{integer expression}
@@ -3174,9 +3224,11 @@ as described for \cs{IntEval}.
 It then evaluates if this is odd or even, as appropriate.
 \end{function}
 
-\begin{function}{\IntIfEven,\IntIfEvenTF}
+\begin{function}{\IntIfEven,\IntIfEvenT,\IntIfEvenF,\IntIfEvenTF}
 \begin{syntax}
 \cs{IntIfEven} \Arg{integer expression}
+\cs{IntIfEvenT} \Arg{integer expression} \Arg{true code}
+\cs{IntIfEvenF} \Arg{integer expression} \Arg{false code}
 \cs{IntIfEvenTF} \Arg{integer expression} \Arg{true code} \Arg{false code}
 \end{syntax}
 This function first evaluates the \meta{integer expression}
@@ -3184,9 +3236,11 @@ as described for \cs{IntEval}.
 It then evaluates if this is even or odd, as appropriate.
 \end{function}
 
-\begin{function}{\IntCompare,\IntCompareTF}
+\begin{function}{\IntCompare,\IntCompareT,\IntCompareF,\IntCompareTF}
 \begin{syntax}
 \cs{IntCompare} \Arg{intexpr_1} \meta{relation} \Arg{intexpr_2}
+\cs{IntCompareT} \Arg{intexpr_1} \meta{relation} \Arg{intexpr_2} \Arg{true code}
+\cs{IntCompareF} \Arg{intexpr_1} \meta{relation} \Arg{intexpr_2} \Arg{false code}
 \cs{IntCompareTF} \Arg{intexpr_1} \meta{relation} \Arg{intexpr_2} \Arg{true code} \Arg{false code}
 \end{syntax}
 This function first evaluates each of the \meta{integer expressions}
@@ -3691,9 +3745,11 @@ the \meta{code} should make use of the \meta{tl var}.
 
 \section{Float Point Conditionals}
 
-\begin{function}{\FpIfExist,\FpIfExistTF}
+\begin{function}{\FpIfExist,\FpIfExistT,\FpIfExistF,\FpIfExistTF}
 \begin{syntax}
 \cs{FpIfExist} \meta{fp var}
+\cs{FpIfExistT} \meta{fp var} \Arg{true code}
+\cs{FpIfExistF} \meta{fp var} \Arg{false code}
 \cs{FpIfExistTF} \meta{fp var} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests whether the \meta{fp var} is currently defined.  This does not
@@ -3705,9 +3761,11 @@ For example
 \end{demohigh}
 \end{function}
 
-\begin{function}{\FpCompare,\FpCompareTF}
+\begin{function}{\FpCompare,\FpCompareT,\FpCompareF,\FpCompareTF}
 \begin{syntax}
 \cs{FpCompare} \Arg{fpexpr_1} \meta{relation} \Arg{fpexpr_2}
+\cs{FpCompareT} \Arg{fpexpr_1} \meta{relation} \Arg{fpexpr_2} \Arg{true code}
+\cs{FpCompareF} \Arg{fpexpr_1} \meta{relation} \Arg{fpexpr_2} \Arg{false code}
 \cs{FpCompareTF} \Arg{fpexpr_1} \meta{relation} \Arg{fpexpr_2} \Arg{true code} \Arg{false code}
 \end{syntax}
 Compares the \meta{fpexpr_1} and the \meta{fpexpr_2}, and returns
@@ -4082,9 +4140,11 @@ the \meta{code} should make use of the \meta{tl var}.
 
 \section{Dimension Conditionals}
 
-\begin{function}{\DimIfExist,\DimIfExistTF}
+\begin{function}{\DimIfExist,\DimIfExistT,\DimIfExistF,\DimIfExistTF}
 \begin{syntax}
 \cs{DimIfExist} \meta{dimension}
+\cs{DimIfExistT} \meta{dimension} \Arg{true code}
+\cs{DimIfExistF} \meta{dimension} \Arg{false code}
 \cs{DimIfExistTF} \meta{dimension} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests whether the \meta{dimension} is currently defined.  This does
@@ -4096,9 +4156,11 @@ For example
 \end{demohigh}
 \end{function}
 
-\begin{function}{\DimCompare,\DimCompareTF}
+\begin{function}{\DimCompare,\DimCompareT,\DimCompareF,\DimCompareTF}
 \begin{syntax}
 \cs{DimCompare} \Arg{dimexpr_1} \meta{relation} \Arg{dimexpr_2}
+\cs{DimCompareT} \Arg{dimexpr_1} \meta{relation} \Arg{dimexpr_2} \Arg{true code}
+\cs{DimCompareF} \Arg{dimexpr_1} \meta{relation} \Arg{dimexpr_2} \Arg{false code}
 \cs{DimCompareTF} \Arg{dimexpr_1} \meta{relation} \Arg{dimexpr_2} \Arg{true code} \Arg{false code}
 \end{syntax}
 This function first evaluates each of the \meta{dimension expressions}
@@ -4918,9 +4980,11 @@ list}, or its original value if there were no \meta{item}.  The
 
 \section{Comma List Conditionals}
 
-\begin{function}{\ClistIfExist,\ClistIfExistTF}
+\begin{function}{\ClistIfExist,\ClistIfExistT,\ClistIfExistF,\ClistIfExistTF}
 \begin{syntax}
 \cs{ClistIfExist} \meta{comma list}
+\cs{ClistIfExistT} \meta{comma list} \Arg{true code}
+\cs{ClistIfExistF} \meta{comma list} \Arg{false code}
 \cs{ClistIfExistTF} \meta{comma list} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests whether the \meta{comma list} is currently defined.  This does
@@ -4931,9 +4995,11 @@ not check that the \meta{comma list} really is a comma list.
 \end{demohigh}
 \end{function}
 
-\begin{function}{\ClistIfEmpty,\ClistIfEmptyTF}
+\begin{function}{\ClistIfEmpty,\ClistIfEmptyT,\ClistIfEmptyF,\ClistIfEmptyTF}
 \begin{syntax}
 \cs{ClistIfEmpty} \Arg{comma list}
+\cs{ClistIfEmptyT} \Arg{comma list} \Arg{true code}
+\cs{ClistIfEmptyF} \Arg{comma list} \Arg{false code}
 \cs{ClistIfEmptyTF} \Arg{comma list} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests if the \meta{comma list} is empty (containing no items).
@@ -4948,9 +5014,11 @@ is not empty.
 \end{demohigh}
 \end{function}
 
-\begin{function}{\ClistVarIfEmpty,\ClistVarIfEmptyTF}
+\begin{function}{\ClistVarIfEmpty,\ClistVarIfEmptyT,\ClistVarIfEmptyF,\ClistVarIfEmptyTF}
 \begin{syntax}
 \cs{ClistVarIfEmpty} \meta{comma list}
+\cs{ClistVarIfEmptyT} \meta{comma list} \Arg{true code}
+\cs{ClistVarIfEmptyF} \meta{comma list} \Arg{false code}
 \cs{ClistVarIfEmptyTF} \meta{comma list} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests if the \meta{comma list} is empty (containing no items).
@@ -4962,9 +5030,11 @@ Tests if the \meta{comma list} is empty (containing no items).
 \end{demohigh}
 \end{function}
  
-\begin{function}{\ClistIfIn,\ClistIfInTF}
+\begin{function}{\ClistIfIn,\ClistIfInT,\ClistIfInF,\ClistIfInTF}
 \begin{syntax}
 \cs{ClistIfIn} \Arg{comma list} \Arg{item}
+\cs{ClistIfInT} \Arg{comma list} \Arg{item} \Arg{true code}
+\cs{ClistIfInF} \Arg{comma list} \Arg{item} \Arg{false code}
 \cs{ClistIfInTF} \Arg{comma list} \Arg{item} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests if the \meta{item} is present in the \meta{comma list}.
@@ -4980,9 +5050,11 @@ of space trimming and brace stripping apply. For example
 %\end{texnote}
 \end{function}
 
-\begin{function}{\ClistVarIfIn,\ClistVarIfInTF}
+\begin{function}{\ClistVarIfIn,\ClistVarIfInT,\ClistVarIfInF,\ClistVarIfInTF}
 \begin{syntax}
 \cs{ClistVarIfIn} \meta{comma list} \Arg{item}
+\cs{ClistVarIfInT} \meta{comma list} \Arg{item} \Arg{true code}
+\cs{ClistVarIfInF} \meta{comma list} \Arg{item} \Arg{false code}
 \cs{ClistVarIfInTF} \meta{comma list} \Arg{item} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests if the \meta{item} is present in the \meta{comma list}.
@@ -5816,9 +5888,11 @@ or its original value if the \meta{sequence} is empty.  The
 
 \section{Sequence Conditionals}
 
-\begin{function}{\SeqIfExist,\SeqIfExistTF}
+\begin{function}{\SeqIfExist,\SeqIfExistT,\SeqIfExistF,\SeqIfExistTF}
 \begin{syntax}
 \cs{SeqIfExist} \meta{sequence}
+\cs{SeqIfExistT} \meta{sequence} \Arg{true code}
+\cs{SeqIfExistF} \meta{sequence} \Arg{false code}
 \cs{SeqIfExistTF} \meta{sequence} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests whether the \meta{sequence} is currently defined.  This does not
@@ -5829,9 +5903,11 @@ check that the \meta{sequence} really is a sequence variable.
 \end{demohigh}
 \end{function}
 
-\begin{function}{\SeqVarIfEmpty,\SeqVarIfEmptyTF}
+\begin{function}{\SeqVarIfEmpty,\SeqVarIfEmptyT,\SeqVarIfEmptyF,\SeqVarIfEmptyTF}
 \begin{syntax}
 \cs{SeqVarIfEmpty} \meta{sequence}
+\cs{SeqVarIfEmptyT} \meta{sequence} \Arg{true code}
+\cs{SeqVarIfEmptyF} \meta{sequence} \Arg{false code}
 \cs{SeqVarIfEmptyTF} \meta{sequence} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests if the \meta{sequence} is empty (containing no items).
@@ -5843,9 +5919,11 @@ Tests if the \meta{sequence} is empty (containing no items).
 \end{demohigh}
 \end{function}
 
-\begin{function}{\SeqVarIfIn,\SeqVarIfInTF}
+\begin{function}{\SeqVarIfIn,\SeqVarIfInT,\SeqVarIfInF,\SeqVarIfInTF}
 \begin{syntax}
 \cs{SeqVarIfIn} \meta{sequence} \Arg{item}
+\cs{SeqVarIfInT} \meta{sequence} \Arg{item} \Arg{true code}
+\cs{SeqVarIfInF} \meta{sequence} \Arg{item} \Arg{false code}
 \cs{SeqVarIfInTF} \meta{sequence} \Arg{item} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests if the \meta{item} is present in the \meta{sequence}.
@@ -6353,9 +6431,11 @@ produces (key1=one)(key2=two)(key3=three).
 
 \section{Property List Conditionals}
 
-\begin{function}{\PropIfExist}
+\begin{function}{\PropIfExist,\PropIfExistT,\PropIfExistF,\PropIfExistTF}
 \begin{syntax}
 \cs{PropIfExist} \meta{property list}
+\cs{PropIfExistT} \meta{property list} \Arg{true code}
+\cs{PropIfExistF} \meta{property list} \Arg{false code}
 \cs{PropIfExistTF} \meta{property list} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests whether the \meta{property list} is currently defined.  This does not
@@ -6366,9 +6446,11 @@ check that the \meta{property list} really is a property list variable.
 \end{demohigh}
 \end{function}
 
-\begin{function}{\PropVarIfEmpty}
+\begin{function}{\PropVarIfEmpty,\PropVarIfEmptyT,\PropVarIfEmptyF,\PropVarIfEmptyTF}
 \begin{syntax}
 \cs{PropVarIfEmpty} \meta{property list}
+\cs{PropVarIfEmptyT} \meta{property list} \Arg{true code}
+\cs{PropVarIfEmptyF} \meta{property list} \Arg{false code}
 \cs{PropVarIfEmptyTF} \meta{property list} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests if the \meta{property list} is empty (containing no entries).
@@ -6380,9 +6462,12 @@ Tests if the \meta{property list} is empty (containing no entries).
 \end{demohigh}
 \end{function}
 
-\begin{function}{\PropVarIfIn}
+\begin{function}{\PropVarIfIn,\PropVarIfInT,\PropVarIfInF,\PropVarIfInTF}
 \begin{syntax}
-\cs{PropVarIfIn} \meta{property list} \Arg{key} \Arg{true code} \Arg{false code}
+\cs{PropVarIfIn} \meta{property list} \Arg{key}
+\cs{PropVarIfInT} \meta{property list} \Arg{key} \Arg{true code}
+\cs{PropVarIfInF} \meta{property list} \Arg{key} \Arg{false code}
+\cs{PropVarIfInTF} \meta{property list} \Arg{key} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests if the \meta{key} is present in the \meta{property list},
 making the comparison using the method described by \cs{StrIfEqTF}.
@@ -6425,9 +6510,11 @@ by functions such as \cs{PropGet} if there is no data to return.
 
 \section{Quark Conditionals}
 
-\begin{function}{\QuarkVarIfNoValue,\QuarkVarIfNoValueTF}
+\begin{function}{\QuarkVarIfNoValue,\QuarkVarIfNoValueT,\QuarkVarIfNoValueF,\QuarkVarIfNoValueTF}
 \begin{syntax}
 \cs{QuarkVarIfNoValue} \meta{token}
+\cs{QuarkVarIfNoValueT} \meta{token} \Arg{true code}
+\cs{QuarkVarIfNoValueF} \meta{token} \Arg{false code}
 \cs{QuarkVarIfNoValueTF} \meta{token} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests if the \meta{token} is equal to \cs{qNoValue}.
