@@ -81,17 +81,63 @@
 \cs_set_eq:NN \PrgNewFunction \__fun_new_function:Nnn
 
 \tl_new:N \g__fun_last_result_tl
+\int_new:N \l__fun_cond_arg_count_int
 
 %% #1: function name; #2: argument specification; #3 function body
 \cs_new_protected:Npn \__fun_new_conditional:Nnn #1 #2 #3
   {
     \__fun_new_function:Nnn #1 { #2 } { #3 }
+    \int_set:Nn \l__fun_cond_arg_count_int { \tl_count:n {#2} }
     \tl_set_eq:Nc \l__fun_parameters_called_tl
-      { c__fun_parameter_called_i_ \int_to_roman:n { \l__fun_arg_count_int } _tl }
+      {
+        c__fun_parameter_called_i_
+        \int_to_roman:n { \l__fun_cond_arg_count_int } _tl
+      }
+    %% define function \FooIfBarT for #1=\FooIfBar
     \tl_set_eq:Nc \l__fun_parameters_true_tl
-      { c__fun_parameter_called_ \int_to_roman:n { \l__fun_arg_count_int + 1 } _tl }
+      {
+        c__fun_parameter_called_
+        \int_to_roman:n { \l__fun_cond_arg_count_int + 1 } _tl
+      }
+    \__fun_new_function:cne { \cs_to_str:N #1 T } { #2 n }
+      {
+        #1 \exp_not:V \l__fun_parameters_called_tl
+        \exp_not:n
+          {
+            \tl_set_eq:NN \g__fun_last_result_tl \gResultTl
+            \tl_gclear:N \gResultTl
+            \exp_last_unbraced:NV \bool_if:NT \g__fun_last_result_tl
+          }
+        \exp_not:V \l__fun_parameters_true_tl
+      }
+    %% define function \FooIfBarF for #1=\FooIfBar
     \tl_set_eq:Nc \l__fun_parameters_false_tl
-      { c__fun_parameter_called_ \int_to_roman:n { \l__fun_arg_count_int + 2 } _tl }
+      {
+        c__fun_parameter_called_
+        \int_to_roman:n { \l__fun_cond_arg_count_int + 1 } _tl
+      }
+    \__fun_new_function:cne { \cs_to_str:N #1 F } { #2 n }
+      {
+        #1 \exp_not:V \l__fun_parameters_called_tl
+        \exp_not:n
+          {
+            \tl_set_eq:NN \g__fun_last_result_tl \gResultTl
+            \tl_gclear:N \gResultTl
+            \exp_last_unbraced:NV \bool_if:NF \g__fun_last_result_tl
+          }
+        \exp_not:V \l__fun_parameters_false_tl
+      }
+    %% define function \FooIfBarTF for #1=\FooIfBar
+    \tl_set_eq:Nc \l__fun_parameters_true_tl
+      {
+        c__fun_parameter_called_
+        \int_to_roman:n { \l__fun_cond_arg_count_int + 1 } _tl
+      }
+    \tl_set_eq:Nc \l__fun_parameters_false_tl
+      {
+        c__fun_parameter_called_
+        \int_to_roman:n { \l__fun_cond_arg_count_int + 2 } _tl
+      }
     \__fun_new_function:cne { \cs_to_str:N #1 TF } { #2 n n }
       {
         #1 \exp_not:V \l__fun_parameters_called_tl
