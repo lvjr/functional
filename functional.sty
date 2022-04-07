@@ -737,6 +737,26 @@
       { \Return { \cTrueBool } } { \Return { \cFalseBool } }
   }
 
+\PrgNewFunction \BoolVarDoUntil { N n }
+  {
+    \bool_do_until:Nn #1 {#2}
+  }
+
+\PrgNewFunction \BoolVarDoWhile { N n }
+  {
+    \bool_do_while:Nn #1 {#2}
+  }
+
+\PrgNewFunction \BoolVarUntilDo { N n }
+  {
+    \bool_until_do:Nn #1 {#2}
+  }
+
+\PrgNewFunction \BoolVarWhileDo { N n }
+  {
+    \bool_while_do:Nn #1 {#2}
+  }
+
 %%% --------------------------------------------------------
 %%> \section{Interfaces for Token Lists (Tl)}
 %%% --------------------------------------------------------

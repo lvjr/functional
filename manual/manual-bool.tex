@@ -229,4 +229,104 @@ For example
 \end{demohigh}
 \end{function}
 
+\section{Booleans and Logical Loops}
+
+Loops using either boolean expressions or stored boolean values.
+
+\begin{function}{\BoolDoUntil}
+\begin{syntax}
+\cs{BoolDoUntil} \meta{boolean} \Arg{code}
+\end{syntax}
+Places the \meta{code} in the input stream for \TeX{} to process,
+and then checks the logical value of the \meta{boolean}.  If it is
+\texttt{false} then the \meta{code} is inserted into the input
+stream again and the process loops until the \meta{boolean} is
+\texttt{true}.
+\begin{demohigh}
+\IgnoreSpacesOn
+\BoolSetFalse \lTmpaBool
+\IntZero \lTmpaInt
+\ClistClear \lTmpaClist
+\BoolVarDoUntil \lTmpaBool {
+  \IntIncr \lTmpaInt
+  \ClistPutRight \lTmpaClist {\Value\lTmpaInt}
+  \IntCompareT {\lTmpaInt} = {10} {\BoolSetTrue \lTmpaBool}
+}
+\ClistVarJoin \lTmpaClist {:}
+\IgnoreSpacesOff
+\end{demohigh}
+\end{function}
+
+\begin{function}{\BoolDoWhile}
+\begin{syntax}
+\cs{BoolDoWhile} \meta{boolean} \Arg{code}
+\end{syntax}
+Places the \meta{code} in the input stream for \TeX{} to process,
+and then checks the logical value of the \meta{boolean}.  If it is
+\texttt{true} then the \meta{code} is inserted into the input
+stream again and the process loops until the \meta{boolean} is
+\texttt{false}.
+\begin{demohigh}
+\IgnoreSpacesOn
+\BoolSetTrue \lTmpaBool
+\IntZero \lTmpaInt
+\ClistClear \lTmpaClist
+\BoolVarDoWhile \lTmpaBool {
+  \IntIncr \lTmpaInt
+  \ClistPutRight \lTmpaClist {\Value\lTmpaInt}
+  \IntCompareT {\lTmpaInt} = {10} {\BoolSetFalse \lTmpaBool}
+}
+\ClistVarJoin \lTmpaClist {:}
+\IgnoreSpacesOff
+\end{demohigh}
+\end{function}
+
+\begin{function}{\BoolUntilDo}
+\begin{syntax}
+\cs{BoolUntilDo} \meta{boolean} \Arg{code}
+\end{syntax}
+This function firsts checks the logical value of the \meta{boolean}.
+If it is \texttt{false} the \meta{code} is placed in the input stream
+and expanded. After the completion of the \meta{code} the truth
+of the \meta{boolean} is re-evaluated. The process then loops
+until the \meta{boolean} is \texttt{true}.
+\begin{demohigh}
+\IgnoreSpacesOn
+\BoolSetFalse \lTmpaBool
+\IntZero \lTmpaInt
+\ClistClear \lTmpaClist
+\BoolVarUntilDo \lTmpaBool {
+  \IntIncr \lTmpaInt
+  \ClistPutRight \lTmpaClist {\Value\lTmpaInt}
+  \IntCompareT {\lTmpaInt} = {10} {\BoolSetTrue \lTmpaBool}
+}
+\ClistVarJoin \lTmpaClist {:}
+\IgnoreSpacesOff
+\end{demohigh}
+\end{function}
+
+\begin{function}{\BoolWhileDo}
+\begin{syntax}
+\cs{BoolWhileDo} \meta{boolean} \Arg{code}
+\end{syntax}
+This function firsts checks the logical value of the \meta{boolean}.
+If it is \texttt{true} the \meta{code} is placed in the input stream
+and expanded. After the completion of the \meta{code} the truth
+of the \meta{boolean} is re-evaluated. The process then loops
+until the \meta{boolean} is \texttt{false}.
+\begin{demohigh}
+\IgnoreSpacesOn
+\BoolSetTrue \lTmpaBool
+\IntZero \lTmpaInt
+\ClistClear \lTmpaClist
+\BoolVarWhileDo \lTmpaBool {
+  \IntIncr \lTmpaInt
+  \ClistPutRight \lTmpaClist {\Value\lTmpaInt}
+  \IntCompareT {\lTmpaInt} = {10} {\BoolSetFalse \lTmpaBool}
+}
+\ClistVarJoin \lTmpaClist {:}
+\IgnoreSpacesOff
+\end{demohigh}
+\end{function}
+
 \end{document}
