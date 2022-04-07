@@ -18,7 +18,7 @@
 Creates protected \meta{function} for evaluating the \meta{code}.
 Within the \meta{code}, the parameters (\verb|#1|, \verb|#2|,
 \emph{etc.}) will be replaced by those absorbed by the function.
-The returned value \emph{must} be passed with \cs{Result} function.
+The returned value \emph{must} be passed with \cs{Return} function.
 The definition is global and an error results if the
 \meta{function} is already defined.\par
 The \Arg{argument specification} in a list of letters,
@@ -43,7 +43,7 @@ the argument will be evaluated and replaced with the returned value.
 \end{syntax}
 Creates protected conditional \meta{function} for evaluating the \meta{code}.
 The returned value of the \meta{function} \emph{must} be either \verb!\cTrueBool!
-or \verb!\cFalseBool! and be passed with \cs{Result} function..
+or \verb!\cFalseBool! and be passed with \cs{Return} function..
 The definition is global and an error results if the \meta{function} is already defined.
 \par
 Assume the \meta{function} is \verb!\FooIfBar!, then another function \verb!\FooIfBarTF!

@@ -69,7 +69,7 @@ You can define new functions with \cs{PrgNewFunction} command.
 To make composition of functions work as expected,
 every function \emph{must not} insert directly any token to the input stream.
 Instead, a function \emph{must} pass the result (if any) to \verb!functional! package
-with \cs{Result} command. And \verb!functional! package is responsible for
+with \cs{Return} command. And \verb!functional! package is responsible for
 inserting result tokens to the input stream at the appropriate time.
 
 To remove space tokens inside function code in defining functions,
