@@ -2168,3 +2168,30 @@
       { \Return { \cTrueBool } }  { \Return { \cFalseBool } }
   }
 
+%%% --------------------------------------------------------
+%%> \section{Interfaces to Legacy Concepts (Legacy)}
+%%% --------------------------------------------------------
+
+\PrgNewConditional \LegacyIf { m }
+  {
+    \legacy_if:nTF {#1} { \Return { \cTrueBool } }  { \Return { \cFalseBool } }
+  }
+
+\PrgNewFunction \LegacyIfSetTrue { m }
+  {
+    \__fun_do_assignment:Nnn \c@name
+      { \legacy_if_gset_true:n {#1} } { \legacy_if_set_true:n {#1} }
+  }
+
+\PrgNewFunction \LegacyIfSetFalse { m }
+  {
+    \__fun_do_assignment:Nnn \c@name
+      { \legacy_if_gset_false:n {#1} } { \legacy_if_set_false:n {#1} }
+  }
+
+\PrgNewFunction \LegacyIfSet { m m }
+  {
+    \__fun_do_assignment:Nnn \c@name
+      { \legacy_if_gset:nn {#1} {#2} } { \legacy_if_set:nn {#1} {#2} }
+  }
+
