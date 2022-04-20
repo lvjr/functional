@@ -233,9 +233,9 @@ For example
 
 Loops using either boolean expressions or stored boolean values.
 
-\begin{function}{\BoolDoUntil}
+\begin{function}{\BoolVarDoUntil}
 \begin{syntax}
-\cs{BoolDoUntil} \meta{boolean} \Arg{code}
+\cs{BoolVarDoUntil} \meta{boolean} \Arg{code}
 \end{syntax}
 Places the \meta{code} in the input stream for \TeX{} to process,
 and then checks the logical value of the \meta{boolean}.  If it is
@@ -257,9 +257,9 @@ stream again and the process loops until the \meta{boolean} is
 \end{demohigh}
 \end{function}
 
-\begin{function}{\BoolDoWhile}
+\begin{function}{\BoolVarDoWhile}
 \begin{syntax}
-\cs{BoolDoWhile} \meta{boolean} \Arg{code}
+\cs{BoolVarDoWhile} \meta{boolean} \Arg{code}
 \end{syntax}
 Places the \meta{code} in the input stream for \TeX{} to process,
 and then checks the logical value of the \meta{boolean}.  If it is
@@ -281,9 +281,9 @@ stream again and the process loops until the \meta{boolean} is
 \end{demohigh}
 \end{function}
 
-\begin{function}{\BoolUntilDo}
+\begin{function}{\BoolVarUntilDo}
 \begin{syntax}
-\cs{BoolUntilDo} \meta{boolean} \Arg{code}
+\cs{BoolVarUntilDo} \meta{boolean} \Arg{code}
 \end{syntax}
 This function firsts checks the logical value of the \meta{boolean}.
 If it is \texttt{false} the \meta{code} is placed in the input stream
@@ -305,9 +305,9 @@ until the \meta{boolean} is \texttt{true}.
 \end{demohigh}
 \end{function}
 
-\begin{function}{\BoolWhileDo}
+\begin{function}{\BoolVarWhileDo}
 \begin{syntax}
-\cs{BoolWhileDo} \meta{boolean} \Arg{code}
+\cs{BoolVarWhileDo} \meta{boolean} \Arg{code}
 \end{syntax}
 This function firsts checks the logical value of the \meta{boolean}.
 If it is \texttt{true} the \meta{code} is placed in the input stream

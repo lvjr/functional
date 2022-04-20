@@ -451,17 +451,15 @@ applies the \meta{inline function} to every \meta{character} in the
 \meta{str var} including spaces.
 The \meta{inline function} should consist of code which
 receives the \meta{character} as \verb|#1|.
-For example,
-\begin{codehigh}
+\begin{demohigh}
 \IgnoreSpacesOn
 \StrClear \lTmpaStr
 \StrMapInline {one} {
   \StrPutRight \lTmpaStr {[#1]}
 }
-\Return{\StrUse\lTmpaStr}
+\StrUse \lTmpaStr
 \IgnoreSpacesOff
-\end{codehigh}
-produces [o][n][e].
+\end{demohigh}
 \end{function}
 
 %\begin{function}{\StrMapTokens, \StrVarMapTokens}
@@ -495,7 +493,7 @@ the (string or token list) \meta{variable} and applies the
 \StrMapVariable {one} \lTmpiStr {
   \StrPutRight \lTmpaStr {\Expand {[\lTmpiStr]}}
 }
-\Return{\StrUse\lTmpaStr}
+\StrUse \lTmpaStr
 \IgnoreSpacesOff
 \end{demohigh}
 \end{function}

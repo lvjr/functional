@@ -317,17 +317,15 @@ Then for each \meta{value} from the \meta{initial value} to the
 \meta{value}), the \meta{code} is inserted into the input stream
 with \verb|#1| replaced by the current \meta{value}.  Thus the
 \meta{code} should define a function of one argument (\verb|#1|).
-For example
-\begin{codehigh}
+\begin{demohigh}
 \IgnoreSpacesOn
 \TlClear \lTmpaTl
 \DimStepInline {1pt} {0.1pt} {1.5pt} {
   \TlPutRight \lTmpaTl {[#1]}
 }
-\Return {\Value\lTmpaTl}
+\TlUse \lTmpaTl
 \IgnoreSpacesOff
-\end{codehigh}
-produces [1.0pt][1.1pt][1.20001pt][1.30002pt][1.40002pt].
+\end{demohigh}
 \end{function}
 
 \begin{function}{\DimStepVariable}

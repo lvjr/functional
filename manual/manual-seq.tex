@@ -660,18 +660,17 @@ The \meta{token list variable} is assigned locally.
 Applies \meta{inline function} to every \meta{item} stored
 within the \meta{sequence}. The \meta{inline function} should
 consist of code which will receive the \meta{item} as \verb|#1|.
-The \meta{items} are returned from left to right. For example,
-\begin{codehigh}
+The \meta{items} are returned from left to right.
+\begin{demohigh}
 \IgnoreSpacesOn
 \SeqSetFromClist \lTmpkSeq {one,two,three}
 \TlClear \lTmpaTl
 \SeqVarMapInline \lTmpkSeq {
   \TlPutRight \lTmpaTl {(#1)}
 }
-\Return {\TlUse\lTmpaTl}
+\TlUse \lTmpaTl
 \IgnoreSpacesOff
-\end{codehigh}
-produces (one)(two)(three).
+\end{demohigh}
 \end{function}
 
 %\begin{function}{\SeqVarMapTokens}
@@ -708,7 +707,7 @@ or its original value if the \meta{sequence} is empty.  The
 \SeqVarMapVariable \lTmpaSeq \lTmpiTl {
   \IntAdd \lTmpaInt {\lTmpiTl*\lTmpiTl}
 }
-\Return {\IntUse\lTmpaInt}
+\IntUse \lTmpaInt
 \IgnoreSpacesOff
 \end{demohigh}
 \end{function}

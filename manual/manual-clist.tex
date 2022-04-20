@@ -42,7 +42,7 @@ initially contains no items.
 \ClistNew \lFooSomeClist
 \end{codehigh}
 \end{function}
- 
+
 \begin{function}{\ClistConst}
 \begin{syntax}
 \cs{ClistConst} \meta{clist var} \Arg{comma list}
@@ -287,7 +287,7 @@ To append some \meta{tokens} as a single \meta{item} even if the
 \ClistVarJoin \lTmpaClist { and }
 \end{demohigh}
 \end{function}
- 
+
 \begin{function}{\ClistPutRight}
 \begin{syntax}
 \cs{ClistPutRight} \meta{comma list} \verb|{|\meta{item_1},\ldots{},\meta{item_n}\verb|}|
@@ -305,14 +305,14 @@ To append some \meta{tokens} as a single \meta{item} even if the
 \ClistVarJoin \lTmpaClist { and }
 \end{demohigh}
 \end{function}
- 
+
 \section{Modifying Comma Lists}
- 
+
 While comma lists are normally used as ordered lists, it may be
 necessary to modify the content. The functions here may be used
 to update comma lists, while retaining the order of the unaffected
 entries.
- 
+
 \begin{function}{\ClistVarRemoveDuplicates}
 \begin{syntax}
 \cs{ClistVarRemoveDuplicates} \meta{comma list}
@@ -334,7 +334,7 @@ comparison takes place on a token basis, as for \cs{TlIfEqTF}.
 %(assuming the usual \TeX{} category codes apply).
 %\end{texnote}
 \end{function}
- 
+
 \begin{function}{\ClistVarRemoveAll}
 \begin{syntax}
 \cs{ClistVarRemoveAll} \meta{comma list} \Arg{item}
@@ -352,7 +352,7 @@ The \meta{item} comparison takes place on a token basis, as for
 %(assuming the usual \TeX{} category codes apply).
 %\end{texnote}
 \end{function}
- 
+
 \begin{function}{\ClistVarReverse}
 \begin{syntax}
 \cs{ClistVarReverse} \meta{comma list}
@@ -364,7 +364,7 @@ Reverses the order of items stored in the \meta{comma list}.
 \ClistVarJoin \lTmpaClist {,}
 \end{demohigh}
 \end{function}
- 
+
 %\begin{function}{\ClistVarSort}
 %\begin{syntax}
 %\cs{ClistVarSort} \meta{clist var} \Arg{comparison code}
@@ -414,7 +414,7 @@ calculated by \cs{ClistCount}) then the function returns nothing.
 %or \texttt{e}-type argument expansion.
 %\end{texnote}
 \end{function}
- 
+
 \begin{function}{\ClistVarItem}
 \begin{syntax}
 \cs{ClistVarItem} \meta{comma list} \Arg{integer expression}
@@ -438,7 +438,7 @@ calculated by \cs{ClistVarCount}) then the function returns nothing.
 %or \texttt{e}-type argument expansion.
 %\end{texnote}
 \end{function}
- 
+
 \begin{function}{\ClistRandItem,\ClistVarRandItem}
 \begin{syntax}
 \cs{ClistRandItem} \Arg{comma list}
@@ -461,14 +461,14 @@ If the \meta{comma list} has no item, the result is empty.
 \end{function}
 
 \section{Comma Lists as Stacks}
- 
+
 Comma lists can be used as stacks, where data is pushed to and popped
 from the top of the comma list. (The left of a comma list is the top, for
 performance reasons.) The stack functions for comma lists are not
 intended to be mixed with the general ordered data functions detailed
 in the previous section: a comma list should either be used as an
 ordered data type or as a stack, but not in both ways.
- 
+
 \begin{function}{\ClistGet}
 \begin{syntax}
 \cs{ClistGet} \meta{comma list} \meta{token list variable}
@@ -555,13 +555,13 @@ Spaces are removed from both sides of each item as for any
 \end{function}
 
 \section{Mapping over Comma Lists}
- 
+
 %The functions described in this section apply a specified function
 %to each item of a comma list.
 %All mappings are done at the current group level, \emph{i.e.} any
 %local assignments made by the \meta{function} or \meta{code} discussed
 %below remain in effect after the loop.
- 
+
 When the comma list is given explicitly, %as an \texttt{n}-type argument,
 spaces are trimmed around each item.
 If the result of trimming spaces is empty, the item is ignored.
@@ -570,7 +570,7 @@ and the result is passed to the mapped function. Thus, if the
 comma list that is being mapped is \verb*|{a , {{b} }, ,{}, {c},}|
 then the arguments passed to the mapped function are
 `\verb*|a|', `\verb*|{b} |', an empty argument, and `\verb*|c|'.
- 
+
 When the comma list is given as a variable, spaces
 have already been trimmed on input, and items are simply stripped
 of one set of braces if any. This case is more efficient than using
@@ -597,17 +597,15 @@ Applies \meta{inline function} to every \meta{item} stored
 within the \meta{comma list}. The \meta{inline function} should
 consist of code which receives the \meta{item} as \verb|#1|.
 The \meta{items} are returned from left to right.
-For example
-\begin{codehigh}
+\begin{demohigh}
 \IgnoreSpacesOn
 \TlClear \lTmpaTl
 \ClistMapInline {one,two,three} {
   \TlPutRight \lTmpaTl {(#1)}
 }
-\Return {\TlUse\lTmpaTl}
+\TlUse \lTmpaTl
 \IgnoreSpacesOff
-\end{codehigh}
-produces (one)(two)(three).
+\end{demohigh}
 \end{function}
 
 \begin{function}{\ClistMapVariable,\ClistVarMapVariable}
@@ -631,7 +629,7 @@ list}, or its original value if there were no \meta{item}.  The
 \IgnoreSpacesOff
 \end{demohigh}
 \end{function}
- 
+
 %\begin{function}{\ClistMapTokens,\ClistVarMapTokens}
 %\begin{syntax}
 %\cs{ClistMapTokens} \Arg{comma list} \Arg{code}
@@ -642,7 +640,7 @@ list}, or its original value if there were no \meta{item}.  The
 %trailing brace group.  If the \meta{code} consists of a single
 %function this is equivalent to \cs{ClistMapFunction} or \cs{ClistVarMapFunction}.
 %\end{function}
- 
+
 %\begin{function}{\ClistMapBreak}
 %\begin{syntax}
 %\cs{ClistMapBreak}
@@ -669,7 +667,7 @@ list}, or its original value if there were no \meta{item}.  The
 %function.
 %\end{texnote}
 %\end{function}
-% 
+%
 %\begin{function}{\ClistMapBreakDo}
 %\begin{syntax}
 %\cs{ClistMapBreakDo} \Arg{code}
@@ -749,7 +747,7 @@ Tests if the \meta{comma list} is empty (containing no items).
 \ClistVarIfEmptyTF \lTmpaClist {\Return{Empty}} {\Return{NonEmpty}}
 \end{demohigh}
 \end{function}
- 
+
 \begin{function}{\ClistIfIn,\ClistIfInT,\ClistIfInF,\ClistIfInTF}
 \begin{syntax}
 \cs{ClistIfIn} \Arg{comma list} \Arg{item}

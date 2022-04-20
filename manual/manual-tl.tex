@@ -616,17 +616,16 @@ below remain in effect after the loop.
 \end{syntax}
 Applies the \meta{inline function} to every \meta{item} stored within the
 \meta{token list}. The \meta{inline function}  should consist of code which
-receives the \meta{item} as \verb|#1|. For example,
-\begin{codehigh}
+receives the \meta{item} as \verb|#1|.
+\begin{demohigh}
 \IgnoreSpacesOn
 \TlClear \lTmpaTl
 \TlMapInline {one} {
   \TlPutRight \lTmpaTl {[#1]}
 }
-\Return{\TlUse\lTmpaTl}
+\TlUse \lTmpaTl
 \IgnoreSpacesOff
-\end{codehigh}
-produces [o][n][e].
+\end{demohigh}
 \end{function}
 
 \begin{function}{\TlVarMapInline}
@@ -635,18 +634,17 @@ produces [o][n][e].
 \end{syntax}
 Applies the \meta{inline function} to every \meta{item} stored within the
 \meta{tl var}. The \meta{inline function} should consist of code which
-receives the \meta{item} as \verb|#1|. For example,
-\begin{codehigh}
+receives the \meta{item} as \verb|#1|.
+\begin{demohigh}
 \IgnoreSpacesOn
 \TlClear \lTmpaTl
 \TlSet \lTmpkTl {one}
 \TlVarMapInline \lTmpkTl {
   \TlPutRight \lTmpaTl {[#1]}
 }
-\Return{\TlUse\lTmpaTl}
+\TlUse \lTmpaTl
 \IgnoreSpacesOff
-\end{codehigh}
-produces [o][n][e].
+\end{demohigh}
 \end{function}
 
 %\begin{function}{\TlMapTokens,\TlVarMapTokens}

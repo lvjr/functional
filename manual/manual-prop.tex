@@ -416,18 +416,16 @@ consist of code which receives the \meta{key} as \verb|#1| and the
 \meta{value} as \verb|#2|.
 The order in which \meta{entries} are returned is not defined and
 should not be relied upon.
-For example,
-\begin{codehigh}
+\begin{demohigh}
 \IgnoreSpacesOn
 \PropSetFromKeyval \lTmpkProp {key1=one,key2=two,key3=three}
 \TlClear \lTmpaTl
 \PropVarMapInline \lTmpkProp {
   \TlPutRight \lTmpaTl {(#1=#2)}
 }
-\Return {\TlUse\lTmpaTl}
+\TlUse \lTmpaTl
 \IgnoreSpacesOff
-\end{codehigh}
-produces (key1=one)(key2=two)(key3=three).
+\end{demohigh}
 \end{function}
 
 %\begin{function}{\PropVarMapTokens}
