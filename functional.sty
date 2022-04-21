@@ -488,10 +488,16 @@
     \__fun_put_result:n { #1 }
   }
 
+%% The result is returned only if the function is not nested in another function
 \cs_new_protected:Npn \__fun_return_result:
   {
-    \int_compare:nNnT { \g__fun_nesting_level_int } = { 0 }
-      { \tl_use:N \gResultTl }
+    \int_compare:nNnT { \g__fun_nesting_level_int } = { 0 } { \fun_use_result: }
+  }
+
+%% This public function is used in functional library of tabularray package
+\cs_new_protected:Npn \fun_use_result:
+  {
+    \tl_use:N \gResultTl
   }
 
 \str_new:N \l__fun_variable_name_str
