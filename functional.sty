@@ -2178,6 +2178,60 @@
   }
 
 %%% --------------------------------------------------------
+%%> \section{Interfaces for Files (File)}
+%%% --------------------------------------------------------
+
+\msg_new:nnn { functional } { file-not-found } { File ~ "#1" ~ not ~ found! }
+
+\PrgNewFunction \FileInput { m }
+  {
+    \file_get:nnN {#1} {} \l@FunxTl
+    \quark_if_no_value:NTF \l@FunxTl
+      { \msg_error:nnn { functional } { file-not-found } { #1 } }
+      { \TlUse \l@FunxTl }
+  }
+
+\PrgNewFunction \FileIfExistInput { m }
+  {
+    \file_get:nnN {#1} {} \l@FunxTl
+    \quark_if_no_value:NF \l@FunxTl { \TlUse \l@FunxTl }
+  }
+
+\PrgNewFunction \FileIfExistInputF { m n }
+  {
+    \file_get:nnN {#1} {} \l@FunxTl
+    \quark_if_no_value:NTF \l@FunxTl { #2 } { \TlUse \l@FunxTl }
+  }
+
+\cs_set_eq:NN \FileInputStop \file_input_stop:
+
+\PrgNewFunction \FileGet { m m M }
+  {
+    \file_get:nnN {#1} {#2} #3
+    \__fun_quark_upgrade_no_value:N #3
+  }
+
+\PrgNewFunction \FileGetT { m m M n }
+  {
+    \file_get:nnNT {#1} {#2} #3 {#4}
+  }
+
+\PrgNewFunction \FileGetF { m m M n }
+  {
+    \file_get:nnNF {#1} {#2} #3 {#4}
+  }
+
+\PrgNewFunction \FileGetTF { m m M n n }
+  {
+    \file_get:nnNTF {#1} {#2} #3 {#4} {#5}
+  }
+
+\PrgNewConditional \FileIfExist { m }
+  {
+    \file_if_exist:nTF {#1} { \Return { \cTrueBool } }  { \Return { \cFalseBool } }
+  }
+
+%%% --------------------------------------------------------
 %%> \section{Interfaces for Quarks (Quark)}
 %%% --------------------------------------------------------
 
