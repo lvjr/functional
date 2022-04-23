@@ -2242,6 +2242,55 @@
   }
 
 %%% --------------------------------------------------------
+%%> \section{Interfaces for Text Processing (Text)}
+%%% --------------------------------------------------------
+
+\PrgNewFunction \TextExpand { m }
+  {
+    \Expand { \text_expand:n {#1} }
+  }
+
+\PrgNewFunction \TextLowercase { m }
+  {
+    \Expand { \text_lowercase:n {#1} }
+  }
+
+\PrgNewFunction \TextUppercase { m }
+  {
+    \Expand { \text_uppercase:n {#1} }
+  }
+
+\PrgNewFunction \TextTitlecase { m }
+  {
+    \Expand { \text_titlecase:n {#1} }
+  }
+
+\PrgNewFunction \TextTitlecaseFirst { m }
+  {
+    \Expand { \text_titlecase_first:n {#1} }
+  }
+
+\PrgNewFunction \TextLangLowercase { m m }
+  {
+    \Expand { \text_lowercase:nn {#1} {#2} }
+  }
+
+\PrgNewFunction \TextLangUppercase { m m }
+  {
+    \Expand { \text_uppercase:nn {#1} {#2} }
+  }
+
+\PrgNewFunction \TextLangTitlecase { m m }
+  {
+    \Expand { \text_titlecase:nn {#1} {#2} }
+  }
+
+\PrgNewFunction \TextLangTitlecaseFirst { m m }
+  {
+    \Expand { \text_titlecase_first:nn {#1} {#2} }
+  }
+
+%%% --------------------------------------------------------
 %%> \section{Interfaces for Files (File)}
 %%% --------------------------------------------------------
 
