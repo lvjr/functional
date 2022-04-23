@@ -1,0 +1,147 @@
+% -*- coding: utf-8 -*-
+% !TEX program = lualatex
+\documentclass[oneside]{book}
+
+\input{manual.sty}
+\CodeHigh{lite}
+
+\begin{document}
+
+\chapter{Text Processing (\texttt{Text})}
+
+This module deals with manipulation of (formatted) text; such material is
+comprised of a restricted set of token list content. The functions provided
+here concern conversion of textual content for example in case changing,
+%generation of bookmarks and extraction to tags.
+Begin-group and end-group tokens in the \meta{text}
+are normalized and become \verb|{| and \verb|}|, respectively.
+
+\section{Case Changing}
+
+These case changing functions are designed to work with Unicode input only.
+As such, UTF-8 input is assumed for \emph{all} engines.
+When used with XeTeX or LuaTeX a full range of Unicode transformations
+are enabled. Specifically, the standard mappings
+here follow those defined by the \href{http://www.unicode.org}
+{Unicode Consortium} in \texttt{UnicodeData.txt} and
+\texttt{SpecialCasing.txt}. In the case of $8$-bit engines, mappings
+are provided for characters which can be represented in output typeset
+using the \verb|T1|, \verb|T2| and \verb|LGR| font encodings.
+Thus for example \texttt{ä} can be
+case-changed using pdfTeX.  For pTeX only the ASCII range is
+covered as the engine treats input outside of this range as east Asian.
+
+%Importantly, notice that these functions are intended for working with
+%user \emph{text for typesetting}. For case changing programmatic data see
+%the \pkg{Str} module and discussion there of \cs{StrLowercase},
+%\cs{StrUppercase} and \cs{StrFoldcase}.
+
+\begin{function}{\TextExpand}
+\begin{syntax}
+\cs{TextExpand} \Arg{text}
+\end{syntax}
+Takes user input \meta{text} and expands the content.
+Protected commands (typically formatting) are left in place,
+and no processing takes place of math mode material.
+%(as delimited by pairs given in \cs{l_text_math_delims_tl}
+%or as the argument to commands listed in \cs{l_text_math_arg_tl}).
+Commands which are neither engine- nor \LaTeX{} protected are expanded exhaustively.
+%Any commands listed in \cs{l_text_expand_exclude_tl},
+%\cs{l_text_accents_tl} and \cs{l_text_letterlike_tl} are excluded from expansion.
+\end{function}
+
+\begin{function}{\TextLowercase,\TextUppercase,\TextTitlecase,\TextTitlecaseFirst}
+\begin{syntax}
+\cs{TextLowercase}  \Arg{tokens}
+\cs{TextUppercase}  \Arg{tokens}
+\cs{TextTitlecase}  \Arg{tokens}
+\cs{TextTitlecaseFirst}  \Arg{tokens}
+\end{syntax}
+Takes user input \meta{text} first applies \cs{TextExpand}, then
+transforms the case of character tokens as specified by the
+function name. The category code of letters are not changed by this
+process (at least where they can be represented by the engine as a single
+token: $8$-bit engines may require active characters).
+\par
+Upper- and lowercase have the obvious meanings. Titlecasing may be regarded
+informally as converting the first character of the \meta{tokens} to
+uppercase and the rest to lowercase. However, the process is more complex
+than this as there are some situations where a single lowercase character
+maps to a special form, for example \texttt{ij} in Dutch which becomes
+\texttt{IJ}.
+\par
+For titlecasing, note that there are two functions available. The
+function \cs{TextTitlecase} applies (broadly) uppercasing to the first
+letter of the input, then lowercasing to the remainder. In contrast,
+\cs{TextTitlecaseFirst} \emph{only} carries out the uppercasing operation,
+and leaves the balance of the input unchanged.
+%Determining whether non-letter characters at the start of text should switch
+%from upper- to lowercasing is controllable.
+%When \cs{l_text_titlecase_check_letter_bool} is \texttt{true},
+%characters which are not letters (category code $11$) are
+%left unchanged and \enquote{skipped}: the first \emph{letter} is uppercased.
+%(With $8$-bit engines, this is extended to active characters which form
+%part of a multi-byte letter codepoint.) When
+%\cs{l_text_titlecase_check_letter_bool} is \texttt{false}, the first
+%character is uppercased, and the rest lowercased, irrespective of the nature
+%of the character.
+\par
+Case changing does not take place within math mode material. For example:
+\begin{demohigh}
+\TextUppercase {Text $y=mx+c$ with {Braces}}
+\end{demohigh}
+\begin{demohigh}
+\TextLowercase {Text $Y=mX+c$ with {Braces}}
+\end{demohigh}
+%The arguments of commands listed in \cs{l_text_case_exclude_arg_tl}
+%are excluded from case changing; the latter are entirely non-textual
+%content (such as labels).
+\end{function}
+
+\begin{function}{\TextLangLowercase,\TextLangUppercase,\TextLangTitlecase,\TextLangTitlecaseFirst}
+\begin{syntax}
+\cs{TextLangLowercase} \Arg{language} \Arg{tokens}
+\cs{TextLangUppercase} \Arg{language} \Arg{tokens}
+\cs{TextLangTitlecase} \Arg{language} \Arg{tokens}
+\cs{TextLangTitlecaseFirst} \Arg{language} \Arg{tokens}
+\end{syntax}
+Takes user input \meta{text} first applies \cs{TextExpand}, then
+transforms the case of character tokens as specified by the
+function name. The category code of letters are not changed by this
+process (at least where they can be represented by the engine as a single
+token: $8$-bit engines may require active characters).
+\par
+These conversions are language-sensitive, and follow Unicode Consortium guidelines.
+Currently, the languages recognised for special handling are as follows.
+\begin{itemize}
+\item Azeri and Turkish (\texttt{az} and \texttt{tr}).
+  The case pairs I/i-dotless and I-dot/i are activated for these
+  languages. The combining dot mark is removed when lowercasing
+  I-dot and introduced when upper casing i-dotless.
+\item German (\texttt{de-alt}).
+  An alternative mapping for German in which the lowercase
+  \emph{Eszett} maps to a \emph{gro\ss{}es Eszett}. Since there is
+  a \verb|T1| slot for the \emph{gro\ss{}es Eszett} in \verb|T1|, this
+  tailoring \emph{is} available with pdfTeX as well as in the
+  Unicode \TeX{} engines.
+\item Greek (\texttt{el}).
+  Removes accents from Greek letters when uppercasing; titlecasing
+  leaves accents in place. (At present this is implemented only
+  for Unicode engines.)
+\item Lithuanian (\texttt{lt}).
+  The lowercase letters i and j should retain a dot above when the
+  accents grave, acute or tilde are present. This is implemented for
+  lowercasing of the relevant uppercase letters both when input as
+  single Unicode codepoints and when using combining accents. The
+  combining dot is removed when uppercasing in these cases. Note that
+  \emph{only} the accents used in Lithuanian are covered: the behaviour
+  of other accents are not modified.
+\item Dutch (\texttt{nl}).
+  Capitalisation of \texttt{ij} at the beginning of titlecased
+  input produces \texttt{IJ} rather than \texttt{Ij}. The output
+  retains two separate letters, thus this transformation \emph{is}
+  available using pdfTeX.
+\end{itemize}
+\end{function}
+
+\end{document}

@@ -1,0 +1,114 @@
+% -*- coding: utf-8 -*-
+% !TEX program = lualatex
+\documentclass[oneside]{book}
+
+\input{manual.sty}
+\CodeHigh{lite}
+
+\begin{document}
+
+\chapter{Token Manipulation (\texttt{Token})}
+
+\begin{function}{\CharLowercase,\CharUppercase,\CharTitlecase,\CharFoldcase}
+\begin{syntax}
+\cs{CharLowercase} \meta{char}
+\cs{CharUppercase} \meta{char}
+\cs{CharTitlecase} \meta{char}
+\cs{CharFoldcase} \meta{char}
+\end{syntax}
+Converts the \meta{char} to the equivalent case-changed character
+as detailed by the function name (see %\cs{StrFoldcase} and
+\cs{TextTitlecase} for details of these terms). The case mapping
+is carried out with no context-dependence (\emph{cf.} \cs{TextUppercase},
+\emph{etc.}) These functions generate characters with the category code
+of the \meta{char} (i.e. only the character code changes).
+\end{function}
+
+\begin{function}{\CharStrLowercase,\CharStrUppercase,\CharStrTitlecase,\CharStrFoldcase}
+\begin{syntax}
+\cs{CharStrLowercase} \meta{char}
+\cs{CharStrUppercase} \meta{char}
+\cs{CharStrTitlecase} \meta{char}
+\cs{CharStrFoldcase} \meta{char}
+\end{syntax}
+Converts the \meta{char} to the equivalent case-changed character
+as detailed by the function name (see %\cs{StrFoldcase} and
+\cs{TextTitlecase} for details of these terms). The case mapping
+is carried out with no context-dependence (\emph{cf.} \cs{TextUppercase},
+\emph{etc.}) These functions generate \enquote{other} (category code $12$)
+characters.
+\end{function}
+
+\begin{function}{\CharSetLccode}
+\begin{syntax}
+\cs{CharSetLccode} \Arg{intexpr_1} \Arg{intexpr_2}
+\end{syntax}
+Sets up the behaviour of the \meta{character} when
+found inside \cs{TextLowercase}, such that \meta{character_1}
+will be converted into \meta{character_2}. The two \meta{characters}
+may be specified using an \meta{integer expression} for the character code
+concerned. This may include the \TeX{} \verb|`|\meta{character}
+method for converting a single character into its character code:
+\begin{codehigh}
+\CharSetLccode {`\A} {`\a} % Standard behaviour
+\CharSetLccode {`\A} {`\A + 32}
+\CharSetLccode {65} {97}
+\end{codehigh}
+The setting applies within the current \TeX{} group.
+\end{function}
+
+\begin{function}{\CharSetUccode}
+\begin{syntax}
+\cs{CharSetUccode} \Arg{intexpr_1} \Arg{intexpr_2}
+\end{syntax}
+Sets up the behaviour of the \meta{character} when
+found inside \cs{TextUppercase}, such that \meta{character_1}
+will be converted into \meta{character_2}. The two \meta{characters}
+may be specified using an \meta{integer expression} for the character code
+concerned. This may include the \TeX{} \verb|`|\meta{character}
+method for converting a single character into its character code:
+\begin{codehigh}
+\CharSetUccode {`\a} {`\A} % Standard behaviour
+\CharSetUccode {`\a} {`\a - 32}
+\CharSetUccode {97} {65}
+\end{codehigh}
+The setting applies within the current \TeX{} group.
+\end{function}
+
+\begin{function}{\CharValueLccode}
+\begin{syntax}
+\cs{CharValueLccode} \Arg{integer expression}
+\end{syntax}
+Returns the current lower case code of the \meta{character} with
+character code given by the
+\meta{integer expression}.
+\end{function}
+
+\begin{function}{\CharValueUccode}
+\begin{syntax}
+\cs{CharValueUccode} \Arg{integer expression}
+\end{syntax}
+Returns the current upper case code of the \meta{character} with
+character code given by the
+\meta{integer expression}.
+\end{function}
+
+%\begin{function}{\CharShowValueLccode}
+%\begin{syntax}
+%\cs{CharShowValueLccode} \Arg{integer expression}
+%\end{syntax}
+%Displays the current lower case code of the \meta{character} with
+%character code given by the \meta{integer expression} on the
+%terminal.
+%\end{function}
+%
+%\begin{function}{\CharShowValueUccode}
+%\begin{syntax}
+%\cs{CharShowValueUccode} \Arg{integer expression}
+%\end{syntax}
+%Displays the current upper case code of the \meta{character} with
+%character code given by the \meta{integer expression} on the
+%terminal.
+%\end{function}
+
+\end{document}
