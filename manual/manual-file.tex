@@ -1,0 +1,110 @@
+% -*- coding: utf-8 -*-
+% !TEX program = lualatex
+\documentclass[oneside]{book}
+
+\input{manual.sty}
+\CodeHigh{lite}
+
+\begin{document}
+
+\chapter{Files (\texttt{File})}
+
+This module provides functions for working with external files.
+%Some of these functions apply to an entire file, and have prefix \cs{File},
+%while others are used to work with files on a line by line basis and have
+%prefix \cs{Ior} (reading) or \cs{Iow} (writing).
+
+It is important to remember that when reading external files \TeX{}
+attempts to locate them using both the operating system path and entries in the
+\TeX{} file database (most \TeX{} systems use such a database). Thus the
+\enquote{current path} for \TeX{} is somewhat broader than that for other
+programs.
+
+For functions which expect a \meta{file name} argument, this argument
+may contain both literal items and expandable content, which should on
+full expansion be the desired file name.
+%Active characters (as declared in \cs{l_char_active_seq}) are \emph{not}
+%expanded, allowing the direct use of these in file names.
+Quote tokens (\verb|"|) are not permitted in file names as they are reserved
+for internal use by some \TeX{} primitives.
+
+Spaces are trimmed at the beginning and end of the file name:
+this reflects the fact that some file systems do not allow or interact
+unpredictably with spaces in these positions. When no extension is given,
+this will trim spaces from the start of the name only.
+
+\section{File Operation Functions}
+
+\begin{function}{\FileInput}
+\begin{syntax}
+\cs{FileInput} \Arg{file name}
+\end{syntax}
+Searches for \meta{file name} in the path as detailed for
+\cs{FileIfExistTF}, and if found reads in the file and
+returns the contents. All files read are recorded
+for information and the file name stack is updated by this
+function. An error is raised if the file is not found.
+\end{function}
+
+\begin{function}{\FileIfExistInput,\FileIfExistInputF}
+\begin{syntax}
+\cs{FileIfExistInput} \Arg{file name}
+\cs{FileIfExistInputF} \Arg{file name} \Arg{false code}
+\end{syntax}
+Searches for \meta{file name} using the current \TeX{} search path.
+%and the additional paths included in \cs{l_file_search_path_seq}.
+If found then reads in the file and returns the contents as described
+for \cs{FileInput}, otherwise inserts the \meta{false code}.
+Note that these functions do not raise
+an error if the file is not found, in contrast to \cs{FileInput}.
+\end{function}
+
+\begin{function}{\FileGet,\FileGetT,\FileGetF,\FileGetTF}
+\begin{syntax}
+\cs{FileGet} \Arg{filename} \Arg{setup} \meta{tl}
+\cs{FileGetT} \Arg{filename} \Arg{setup} \meta{tl} \Arg{true code}
+\cs{FileGetF} \Arg{filename} \Arg{setup} \meta{tl} \Arg{false code}
+\cs{FileGetTF} \Arg{filename} \Arg{setup} \meta{tl} \Arg{true code} \Arg{false code}
+\end{syntax}
+Defines \meta{tl} to the contents of \meta{filename}.
+Category codes may need to be set appropriately via the \meta{setup}
+argument.
+The non-branching version sets the \meta{tl} to \cs{qNoValue} if the file is
+not found. The branching version runs the \meta{true code} after the
+assignment to \meta{tl} if the file is found, and \meta{false code}
+otherwise.
+\end{function}
+
+\begin{function}{\FileIfExist,\FileIfExistT,\FileIfExistF,\FileIfExistTF}
+\begin{syntax}
+\cs{FileIfExist} \Arg{file name}
+\cs{FileIfExistT} \Arg{file name} \Arg{true code}
+\cs{FileIfExistF} \Arg{file name} \Arg{false code}
+\cs{FileIfExistTF} \Arg{file name} \Arg{true code} \Arg{false code}
+\end{syntax}
+Searches for \meta{file name} using the current \TeX{} search path.
+%and the additional paths controlled by \cs{l_file_search_path_seq}.
+\end{function}
+
+%\begin{function}{\FileInputStop}
+%\begin{syntax}
+%\cs{FileInputStop}
+%\end{syntax}
+%Ends the reading of a file started by \cs{file_input:n} or similar before
+%the end of the file is reached. Where the file reading is being terminated
+%due to an error, \cs{msg_critical:nn(nn)}
+%should be preferred.
+%\begin{texnote}
+%This function must be used on a line on its own: \TeX{} reads files
+%line-by-line and so any additional tokens in the \enquote{current} line
+%will still be read.
+%\par
+%This is also true if the function is hidden inside another function
+%(which will be the normal case), i.e., all tokens on the same line
+%in the source file are still processed. Putting it on a line by itself
+%in the definition doesn't help as it is the line where it is used that
+%counts!
+%\end{texnote}
+%\end{function}
+
+\end{document}
