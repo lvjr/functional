@@ -2178,6 +2178,70 @@
   }
 
 %%% --------------------------------------------------------
+%%> \section{Interfaces for Token Manipulation (Token)}
+%%% --------------------------------------------------------
+
+\PrgNewFunction \CharLowercase { M }
+  {
+    \Expand { \char_lowercase:N #1 }
+  }
+
+\PrgNewFunction \CharUppercase { M }
+  {
+    \Expand { \char_uppercase:N #1 }
+  }
+
+\PrgNewFunction \CharTitlecase { M }
+  {
+    \Expand { \char_titlecase:N #1 }
+  }
+
+\PrgNewFunction \CharFoldcase { M }
+  {
+    \Expand { \char_foldcase:N #1 }
+  }
+
+\PrgNewFunction \CharStrLowercase { M }
+  {
+    \Expand { \char_str_lowercase:N #1 }
+  }
+
+\PrgNewFunction \CharStrUppercase { M }
+  {
+    \Expand { \char_str_uppercase:N #1 }
+  }
+
+\PrgNewFunction \CharStrTitlecase { M }
+  {
+    \Expand { \char_str_titlecase:N #1 }
+  }
+
+\PrgNewFunction \CharStrFoldcase { M }
+  {
+    \Expand { \char_str_foldcase:N #1 }
+  }
+
+\PrgNewFunction \CharSetLccode { m m }
+  {
+    \char_set_lccode:nn {#1} {#2}
+  }
+
+\PrgNewFunction \CharValueLccode { m }
+  {
+    \Expand { \char_value_lccode:n {#1} }
+  }
+
+\PrgNewFunction \CharSetUccode { m m }
+  {
+    \char_set_uccode:nn {#1} {#2}
+  }
+
+\PrgNewFunction \CharValueUccode { m }
+  {
+    \Expand { \char_value_uccode:n {#1} }
+  }
+
+%%% --------------------------------------------------------
 %%> \section{Interfaces for Files (File)}
 %%% --------------------------------------------------------
 
