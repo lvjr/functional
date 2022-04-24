@@ -476,7 +476,7 @@
   {
     \tl_gput_right:Nn \gResultTl { #1 }
   }
-\cs_generate_variant:Nn \__fun_put_result:n { e, V }
+\cs_generate_variant:Nn \__fun_put_result:n { V, e, f, o }
 
 \PrgNewFunction \Return { m }
   {
@@ -638,8 +638,16 @@
   {
     \exp_args:Nc \__fun_put_result:n { #1 }
   }
+\PrgNewFunction \ExpName { m }
+  {
+    \exp_args:Nc \__fun_put_result:n { #1 }
+  }
 
 \PrgNewFunction \Value { M }
+  {
+    \__fun_put_result:V #1
+  }
+\PrgNewFunction \ExpValue { M }
   {
     \__fun_put_result:V #1
   }
@@ -648,13 +656,27 @@
   {
     \__fun_put_result:e { #1 }
   }
+\PrgNewFunction \ExpWhole { m }
+  {
+    \__fun_put_result:e { #1 }
+  }
+
+\PrgNewFunction \ExpPartial { m }
+  {
+    \__fun_put_result:f { #1 }
+  }
+
+\PrgNewFunction \ExpOnce { m }
+  {
+    \__fun_put_result:o { #1 }
+  }
 
 \cs_set_eq:NN \UnExpand    \exp_not:n
 \cs_set_eq:NN \NoExpand    \exp_not:N
 \cs_set_eq:NN \OnlyName    \exp_not:c
 \cs_set_eq:NN \OnlyValue   \exp_not:V
-\cs_set_eq:NN \OnlyExpandF \exp_not:f
-\cs_set_eq:NN \OnlyExpandO \exp_not:o
+\cs_set_eq:NN \OnlyPartial \exp_not:f
+\cs_set_eq:NN \OnlyOnce    \exp_not:o
 
 \PrgNewFunction \UseOne { n } { \Return { #1 } }
 
