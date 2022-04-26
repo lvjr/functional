@@ -491,7 +491,7 @@
 \int_new:N \l__fun_return_level_int
 
 %% By default, the result is returned only if the function is not
-%% nested in another function, but this behavious can be customized
+%% nested in another function, but this behavior can be customized
 \cs_new_protected:Npn \__fun_return_result:
   {
     \int_compare:nNnT { \g__fun_nesting_level_int } = { \l__fun_return_level_int }
