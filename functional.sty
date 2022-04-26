@@ -488,17 +488,36 @@
     \__fun_put_result:n { #1 }
   }
 
-%% The result is returned only if the function is not nested in another function
+\int_new:N \l__fun_return_level_int
+
+%% By default, the result is returned only if the function is not
+%% nested in another function, but this behavious can be customized
 \cs_new_protected:Npn \__fun_return_result:
   {
-    \int_compare:nNnT { \g__fun_nesting_level_int } = { 0 } { \FunUseResult }
+    \int_compare:nNnT { \g__fun_nesting_level_int } = { \l__fun_return_level_int }
+      { \__fun_use_result: }
   }
 
-%% This public command is used in functional library of tabularray package
-\cs_new_protected:Npn \FunUseResult
+\cs_new_protected:Npn \__fun_use_result_default:
   {
     \tl_use:N \gResultTl
   }
+
+%% Set current nesting level and return processor
+\cs_new_protected:Npn \fun_set_return_processor:n #1
+  {
+    \int_set_eq:NN \l__fun_return_level_int \g__fun_nesting_level_int
+    \cs_set_protected:Npn \__fun_use_result: { #1 }
+  }
+
+%% Set default return processor
+\cs_new_protected:Npn \fun_set_return_processor_default:
+  {
+    \int_set:Nn \l__fun_return_level_int {0}
+    \cs_set_eq:NN \__fun_use_result: \__fun_use_result_default:
+  }
+
+\fun_set_return_processor_default:
 
 \str_new:N \l__fun_variable_name_str
 \str_new:N \l__fun_variable_name_a_str
@@ -545,6 +564,46 @@
     \__fun_group_end:
     \__fun_if_global_variable:NTF #1 { #2 } { #3 }
     \__fun_group_begin:
+  }
+
+\tl_new:N \l__fun_eval_result_tl
+\int_new:N \g__fun_nesting_level_saved_int
+
+%% Evaluate all functions in #1 and replace them with their return values
+%% We don't define it with \PrgNewFunction for better tracing log
+\cs_new_protected:Npn \PrgEvalAll #1
+  {
+    \tl_clear:N \l__fun_eval_result_tl
+    \fun_set_return_processor:n
+      {
+        \exp_last_unbraced:NV \__fun_eval_all_aux:n \gResultTl
+      }
+    \__fun_eval_all_aux:n #1 \q_stop
+    \fun_set_return_processor_default:
+  }
+
+\cs_new_protected:Npn \__fun_eval_all_aux:n #1
+  {
+    \tl_if_single_token:nTF {#1}
+      {
+        \token_if_eq_meaning:NNF #1 \q_stop
+          {
+            \bool_lazy_and:nnTF
+              { \token_if_cs_p:N #1 }
+              { \cs_if_exist_p:c { __fun_defined_ \cs_to_str:N #1 : w } }
+              { #1 }
+              {
+                \tl_put_right:Nn \l__fun_eval_result_tl {#1}
+                \__fun_eval_all_aux:n
+              }
+          }
+      }
+      {
+        %% The braces enclosing a single token (such as {x}) are removed
+        %% but I guess there is no harm inside \int_eval:n or \fp_eval:n
+        \tl_put_right:Nn \l__fun_eval_result_tl { {#1} }
+        \__fun_eval_all_aux:n
+      }
   }
 
 \bool_new:N \l__fun_scoping_bool
@@ -1198,9 +1257,13 @@
 \int_new:N \gTmpiInt   \int_new:N \gTmpjInt   \int_new:N \gTmpkInt
 \int_new:N \g@Funx@Int \int_new:N \g@Funy@Int \int_new:N \g@Funz@Int
 
-\PrgNewFunction \IntEval { m }
+\PrgNewFunction \IntEval { n }
   {
-    \Return { \Expand { \int_eval:n { #1 } } }
+    \PrgEvalAll {#1}
+    %% We expand \l__fun_eval_result_tl first to make tracing log more readable
+    \tl_set:Ne \l@Funx@Tl
+      { \exp_not:N \int_eval:n { \exp_not:V \l__fun_eval_result_tl } }
+    \exp_args:NV \Expand \l@Funx@Tl
   }
 
 \PrgNewFunction \IntMathAdd { m m }
