@@ -503,21 +503,29 @@
     \tl_use:N \gResultTl
   }
 
-%% Set current nesting level and return processor
-\cs_new_protected:Npn \fun_set_return_processor:n #1
-  {
-    \int_set_eq:NN \l__fun_return_level_int \g__fun_nesting_level_int
-    \cs_set_protected:Npn \__fun_use_result: { #1 }
-  }
-
 %% Set default return processor
-\cs_new_protected:Npn \fun_set_return_processor_default:
+\cs_new_protected:Npn \__fun_set_return_processor_default:
   {
     \int_set:Nn \l__fun_return_level_int {0}
     \cs_set_eq:NN \__fun_use_result: \__fun_use_result_default:
   }
 
-\fun_set_return_processor_default:
+\__fun_set_return_processor_default:
+
+%% Set current nesting level and return processor
+\cs_new_protected:Npn \__fun_set_return_processor:n #1
+  {
+    \int_set_eq:NN \l__fun_return_level_int \g__fun_nesting_level_int
+    \cs_set_protected:Npn \__fun_use_result: { #1 }
+  }
+
+%% #1: return processor; #2: code to run
+\cs_new_protected:Npn \fun_run_return_processor:nn #1 #2
+  {
+    \__fun_set_return_processor:n {#1}
+    #2
+    \__fun_set_return_processor_default:
+  }
 
 \str_new:N \l__fun_variable_name_str
 \str_new:N \l__fun_variable_name_a_str
@@ -574,12 +582,9 @@
 \cs_new_protected:Npn \PrgEvalAll #1
   {
     \tl_clear:N \l__fun_eval_result_tl
-    \fun_set_return_processor:n
-      {
-        \exp_last_unbraced:NV \__fun_eval_all_aux:n \gResultTl
-      }
-    \__fun_eval_all_aux:n #1 \q_stop
-    \fun_set_return_processor_default:
+    \fun_run_return_processor:nn
+      { \exp_last_unbraced:NV \__fun_eval_all_aux:n \gResultTl }
+      { \__fun_eval_all_aux:n #1 \q_stop }
   }
 
 \cs_new_protected:Npn \__fun_eval_all_aux:n #1
