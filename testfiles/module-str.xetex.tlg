@@ -23,9 +23,11 @@ TEST 2: Testing \StrLog
 TEST 3: Testing \StrSet 
 ============================================================
     [I] \IntMathMult{4}{5}
-            [I] \Value{\l@FunTmpxInt }
-            [O] 20
-        [I] \Return{20}
+            [I] \PrgEvalArgs{m}{\int_eval:n {(4)*(5)}}
+                [I] \Return{\int_eval:n {(4)*(5)}}
+                [O] \int_eval:n {(4)*(5)}
+            [O] \int_eval:n {(4)*(5)}
+        [I] \Expand{\int_eval:n {(4)*(5)}}
         [O] 20
     [O] 20
 [I] \StrSet{\lTmpiStr }{20}

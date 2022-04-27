@@ -4,7 +4,7 @@ Don't change this file in any respect.
 TEST 1: Testing \IntEval 
 ============================================================
 [I] \IntEval{(1+4)*(2-3)/5}
-        [I] \PrgEvalOneArg\int_eval:n {(1+4)*(2-3)/5}
+        [I] \PrgEvalArgs{m}{\int_eval:n {(1+4)*(2-3)/5}}
             [I] \Return{\int_eval:n {(1+4)*(2-3)/5}}
             [O] \int_eval:n {(1+4)*(2-3)/5}
         [O] \int_eval:n {(1+4)*(2-3)/5}
@@ -16,15 +16,19 @@ TEST 1: Testing \IntEval
 TEST 2: Testing \IntMathAdd 
 ============================================================
 [I] \IntMathAdd{7}{3}
-        [I] \Value{\l@FunTmpxInt }
-        [O] 10
-    [I] \Return{10}
+        [I] \PrgEvalArgs{m}{\int_eval:n {(7)+(3)}}
+            [I] \Return{\int_eval:n {(7)+(3)}}
+            [O] \int_eval:n {(7)+(3)}
+        [O] \int_eval:n {(7)+(3)}
+    [I] \Expand{\int_eval:n {(7)+(3)}}
     [O] 10
 [O] 10
 [I] \IntMathAdd{8-1}{2+1}
-        [I] \Value{\l@FunTmpxInt }
-        [O] 10
-    [I] \Return{10}
+        [I] \PrgEvalArgs{m}{\int_eval:n {(8-1)+(2+1)}}
+            [I] \Return{\int_eval:n {(8-1)+(2+1)}}
+            [O] \int_eval:n {(8-1)+(2+1)}
+        [O] \int_eval:n {(8-1)+(2+1)}
+    [I] \Expand{\int_eval:n {(8-1)+(2+1)}}
     [O] 10
 [O] 10
 ============================================================
@@ -32,15 +36,19 @@ TEST 2: Testing \IntMathAdd
 TEST 3: Testing \IntMathSub 
 ============================================================
 [I] \IntMathSub{7}{3}
-        [I] \Value{\l@FunTmpxInt }
-        [O] 4
-    [I] \Return{4}
+        [I] \PrgEvalArgs{m}{\int_eval:n {(7)-(3)}}
+            [I] \Return{\int_eval:n {(7)-(3)}}
+            [O] \int_eval:n {(7)-(3)}
+        [O] \int_eval:n {(7)-(3)}
+    [I] \Expand{\int_eval:n {(7)-(3)}}
     [O] 4
 [O] 4
 [I] \IntMathSub{8-1}{2+1}
-        [I] \Value{\l@FunTmpxInt }
-        [O] 4
-    [I] \Return{4}
+        [I] \PrgEvalArgs{m}{\int_eval:n {(8-1)-(2+1)}}
+            [I] \Return{\int_eval:n {(8-1)-(2+1)}}
+            [O] \int_eval:n {(8-1)-(2+1)}
+        [O] \int_eval:n {(8-1)-(2+1)}
+    [I] \Expand{\int_eval:n {(8-1)-(2+1)}}
     [O] 4
 [O] 4
 ============================================================
@@ -48,15 +56,19 @@ TEST 3: Testing \IntMathSub
 TEST 4: Testing \IntMathMult 
 ============================================================
 [I] \IntMathMult{7}{3}
-        [I] \Value{\l@FunTmpxInt }
-        [O] 21
-    [I] \Return{21}
+        [I] \PrgEvalArgs{m}{\int_eval:n {(7)*(3)}}
+            [I] \Return{\int_eval:n {(7)*(3)}}
+            [O] \int_eval:n {(7)*(3)}
+        [O] \int_eval:n {(7)*(3)}
+    [I] \Expand{\int_eval:n {(7)*(3)}}
     [O] 21
 [O] 21
 [I] \IntMathMult{8-1}{2+1}
-        [I] \Value{\l@FunTmpxInt }
-        [O] 21
-    [I] \Return{21}
+        [I] \PrgEvalArgs{m}{\int_eval:n {(8-1)*(2+1)}}
+            [I] \Return{\int_eval:n {(8-1)*(2+1)}}
+            [O] \int_eval:n {(8-1)*(2+1)}
+        [O] \int_eval:n {(8-1)*(2+1)}
+    [I] \Expand{\int_eval:n {(8-1)*(2+1)}}
     [O] 21
 [O] 21
 ============================================================
@@ -64,10 +76,18 @@ TEST 4: Testing \IntMathMult
 TEST 5: Testing \IntMathDiv 
 ============================================================
 [I] \IntMathDiv{8}{3}
+        [I] \PrgEvalArgs{mm}{\int_div_round:nn {8}{3}}
+            [I] \Return{\int_div_round:nn {8}{3}}
+            [O] \int_div_round:nn {8}{3}
+        [O] \int_div_round:nn {8}{3}
     [I] \Expand{\int_div_round:nn {8}{3}}
     [O] 3
 [O] 3
 [I] \IntMathDiv{9-1}{2+1}
+        [I] \PrgEvalArgs{mm}{\int_div_round:nn {9-1}{2+1}}
+            [I] \Return{\int_div_round:nn {9-1}{2+1}}
+            [O] \int_div_round:nn {9-1}{2+1}
+        [O] \int_div_round:nn {9-1}{2+1}
     [I] \Expand{\int_div_round:nn {9-1}{2+1}}
     [O] 3
 [O] 3
@@ -76,7 +96,7 @@ TEST 5: Testing \IntMathDiv
 TEST 6: Testing \IntMathDivTruncate 
 ============================================================
 [I] \IntMathDivTruncate{8}{3}
-        [I] \PrgEvalTwoArgs\int_div_truncate:nn {8}{3}
+        [I] \PrgEvalArgs{mm}{\int_div_truncate:nn {8}{3}}
             [I] \Return{\int_div_truncate:nn {8}{3}}
             [O] \int_div_truncate:nn {8}{3}
         [O] \int_div_truncate:nn {8}{3}
@@ -84,7 +104,7 @@ TEST 6: Testing \IntMathDivTruncate
     [O] 2
 [O] 2
 [I] \IntMathDivTruncate{9-1}{2+1}
-        [I] \PrgEvalTwoArgs\int_div_truncate:nn {9-1}{2+1}
+        [I] \PrgEvalArgs{mm}{\int_div_truncate:nn {9-1}{2+1}}
             [I] \Return{\int_div_truncate:nn {9-1}{2+1}}
             [O] \int_div_truncate:nn {9-1}{2+1}
         [O] \int_div_truncate:nn {9-1}{2+1}
@@ -96,10 +116,18 @@ TEST 6: Testing \IntMathDivTruncate
 TEST 7: Testing \IntMathSign 
 ============================================================
 [I] \IntMathSign{5}
+        [I] \PrgEvalArgs{m}{\int_sign:n {5}}
+            [I] \Return{\int_sign:n {5}}
+            [O] \int_sign:n {5}
+        [O] \int_sign:n {5}
     [I] \Expand{\int_sign:n {5}}
     [O] 1
 [O] 1
 [I] \IntMathSign{-2}
+        [I] \PrgEvalArgs{m}{\int_sign:n {-2}}
+            [I] \Return{\int_sign:n {-2}}
+            [O] \int_sign:n {-2}
+        [O] \int_sign:n {-2}
     [I] \Expand{\int_sign:n {-2}}
     [O] -1
 [O] -1
@@ -108,10 +136,18 @@ TEST 7: Testing \IntMathSign
 TEST 8: Testing \IntMathAbs 
 ============================================================
 [I] \IntMathAbs{5}
+        [I] \PrgEvalArgs{m}{\int_abs:n {5}}
+            [I] \Return{\int_abs:n {5}}
+            [O] \int_abs:n {5}
+        [O] \int_abs:n {5}
     [I] \Expand{\int_abs:n {5}}
     [O] 5
 [O] 5
 [I] \IntMathAbs{-2}
+        [I] \PrgEvalArgs{m}{\int_abs:n {-2}}
+            [I] \Return{\int_abs:n {-2}}
+            [O] \int_abs:n {-2}
+        [O] \int_abs:n {-2}
     [I] \Expand{\int_abs:n {-2}}
     [O] 2
 [O] 2
@@ -120,6 +156,10 @@ TEST 8: Testing \IntMathAbs
 TEST 9: Testing \IntMathMax 
 ============================================================
 [I] \IntMathMax{5}{2}
+        [I] \PrgEvalArgs{mm}{\int_max:nn {5}{2}}
+            [I] \Return{\int_max:nn {5}{2}}
+            [O] \int_max:nn {5}{2}
+        [O] \int_max:nn {5}{2}
     [I] \Expand{\int_max:nn {5}{2}}
     [O] 5
 [O] 5
@@ -128,6 +168,10 @@ TEST 9: Testing \IntMathMax
 TEST 10: Testing \IntMathMin 
 ============================================================
 [I] \IntMathMin{5}{2}
+        [I] \PrgEvalArgs{mm}{\int_min:nn {5}{2}}
+            [I] \Return{\int_min:nn {5}{2}}
+            [O] \int_min:nn {5}{2}
+        [O] \int_min:nn {5}{2}
     [I] \Expand{\int_min:nn {5}{2}}
     [O] 2
 [O] 2
@@ -136,6 +180,10 @@ TEST 10: Testing \IntMathMin
 TEST 11: Testing \IntMathMod 
 ============================================================
 [I] \IntMathMod{28}{5}
+        [I] \PrgEvalArgs{mm}{\int_mod:nn {28}{5}}
+            [I] \Return{\int_mod:nn {28}{5}}
+            [O] \int_mod:nn {28}{5}
+        [O] \int_mod:nn {28}{5}
     [I] \Expand{\int_mod:nn {28}{5}}
     [O] 3
 [O] 3
