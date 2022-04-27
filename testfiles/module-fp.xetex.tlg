@@ -14,8 +14,8 @@ TEST 1: Testing \FpEval
 TEST 2: Testing \FpMathAdd 
 ============================================================
 [I] \FpMathAdd{2.8}{3.7}
-        [I] \FpUse{\l@Funx@Fp }
-                [I] \Expand{\fp_use:N \l@Funx@Fp }
+        [I] \FpUse{\l@FunTmpxFp }
+                [I] \Expand{\fp_use:N \l@FunTmpxFp }
                 [O] 6.5
             [I] \Return{6.5}
             [O] 6.5
@@ -24,8 +24,8 @@ TEST 2: Testing \FpMathAdd
     [O] 6.5
 [O] 6.5
 [I] \FpMathAdd{3.8-1}{2.7+1}
-        [I] \FpUse{\l@Funx@Fp }
-                [I] \Expand{\fp_use:N \l@Funx@Fp }
+        [I] \FpUse{\l@FunTmpxFp }
+                [I] \Expand{\fp_use:N \l@FunTmpxFp }
                 [O] 6.5
             [I] \Return{6.5}
             [O] 6.5
@@ -38,8 +38,8 @@ TEST 2: Testing \FpMathAdd
 TEST 3: Testing \FpMathSub 
 ============================================================
 [I] \FpMathSub{2.8}{3.7}
-        [I] \FpUse{\l@Funx@Fp }
-                [I] \Expand{\fp_use:N \l@Funx@Fp }
+        [I] \FpUse{\l@FunTmpxFp }
+                [I] \Expand{\fp_use:N \l@FunTmpxFp }
                 [O] -0.9
             [I] \Return{-0.9}
             [O] -0.9
@@ -48,8 +48,8 @@ TEST 3: Testing \FpMathSub
     [O] -0.9
 [O] -0.9
 [I] \FpMathSub{3.8-1}{2.7+1}
-        [I] \FpUse{\l@Funx@Fp }
-                [I] \Expand{\fp_use:N \l@Funx@Fp }
+        [I] \FpUse{\l@FunTmpxFp }
+                [I] \Expand{\fp_use:N \l@FunTmpxFp }
                 [O] -0.9
             [I] \Return{-0.9}
             [O] -0.9
@@ -62,8 +62,8 @@ TEST 3: Testing \FpMathSub
 TEST 4: Testing \FpMathMult 
 ============================================================
 [I] \FpMathMult{2.8}{3.7}
-        [I] \FpUse{\l@Funx@Fp }
-                [I] \Expand{\fp_use:N \l@Funx@Fp }
+        [I] \FpUse{\l@FunTmpxFp }
+                [I] \Expand{\fp_use:N \l@FunTmpxFp }
                 [O] 10.36
             [I] \Return{10.36}
             [O] 10.36
@@ -72,8 +72,8 @@ TEST 4: Testing \FpMathMult
     [O] 10.36
 [O] 10.36
 [I] \FpMathMult{3.8-1}{2.7+1}
-        [I] \FpUse{\l@Funx@Fp }
-                [I] \Expand{\fp_use:N \l@Funx@Fp }
+        [I] \FpUse{\l@FunTmpxFp }
+                [I] \Expand{\fp_use:N \l@FunTmpxFp }
                 [O] 10.36
             [I] \Return{10.36}
             [O] 10.36
@@ -86,8 +86,8 @@ TEST 4: Testing \FpMathMult
 TEST 5: Testing \FpMathDiv 
 ============================================================
 [I] \FpMathDiv{2.8}{3.7}
-        [I] \FpUse{\l@Funx@Fp }
-                [I] \Expand{\fp_use:N \l@Funx@Fp }
+        [I] \FpUse{\l@FunTmpxFp }
+                [I] \Expand{\fp_use:N \l@FunTmpxFp }
                 [O] 0.7567567567567568
             [I] \Return{0.7567567567567568}
             [O] 0.7567567567567568
@@ -96,8 +96,8 @@ TEST 5: Testing \FpMathDiv
     [O] 0.7567567567567568
 [O] 0.7567567567567568
 [I] \FpMathDiv{3.8-1}{2.7+1}
-        [I] \FpUse{\l@Funx@Fp }
-                [I] \Expand{\fp_use:N \l@Funx@Fp }
+        [I] \FpUse{\l@FunTmpxFp }
+                [I] \Expand{\fp_use:N \l@FunTmpxFp }
                 [O] 0.7567567567567568
             [I] \Return{0.7567567567567568}
             [O] 0.7567567567567568

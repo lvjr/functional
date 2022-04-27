@@ -16,13 +16,13 @@ TEST 1: Testing \IntEval
 TEST 2: Testing \IntMathAdd 
 ============================================================
 [I] \IntMathAdd{7}{3}
-        [I] \Value{\l@Funx@Int }
+        [I] \Value{\l@FunTmpxInt }
         [O] 10
     [I] \Return{10}
     [O] 10
 [O] 10
 [I] \IntMathAdd{8-1}{2+1}
-        [I] \Value{\l@Funx@Int }
+        [I] \Value{\l@FunTmpxInt }
         [O] 10
     [I] \Return{10}
     [O] 10
@@ -32,13 +32,13 @@ TEST 2: Testing \IntMathAdd
 TEST 3: Testing \IntMathSub 
 ============================================================
 [I] \IntMathSub{7}{3}
-        [I] \Value{\l@Funx@Int }
+        [I] \Value{\l@FunTmpxInt }
         [O] 4
     [I] \Return{4}
     [O] 4
 [O] 4
 [I] \IntMathSub{8-1}{2+1}
-        [I] \Value{\l@Funx@Int }
+        [I] \Value{\l@FunTmpxInt }
         [O] 4
     [I] \Return{4}
     [O] 4
@@ -48,13 +48,13 @@ TEST 3: Testing \IntMathSub
 TEST 4: Testing \IntMathMult 
 ============================================================
 [I] \IntMathMult{7}{3}
-        [I] \Value{\l@Funx@Int }
+        [I] \Value{\l@FunTmpxInt }
         [O] 21
     [I] \Return{21}
     [O] 21
 [O] 21
 [I] \IntMathMult{8-1}{2+1}
-        [I] \Value{\l@Funx@Int }
+        [I] \Value{\l@FunTmpxInt }
         [O] 21
     [I] \Return{21}
     [O] 21

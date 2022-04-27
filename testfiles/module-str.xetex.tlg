@@ -23,7 +23,7 @@ TEST 2: Testing \StrLog
 TEST 3: Testing \StrSet 
 ============================================================
     [I] \IntMathMult{4}{5}
-            [I] \Value{\l@Funx@Int }
+            [I] \Value{\l@FunTmpxInt }
             [O] 20
         [I] \Return{20}
         [O] 20

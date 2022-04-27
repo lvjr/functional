@@ -556,10 +556,10 @@
 \PrgNewFunction \PrgEvalTwoArgs { N n n }
   {
     \PrgEvalAll {#2}
-    \tl_set_eq:NN \l@Funx@Tl \gResultTl
+    \tl_set_eq:NN \l@FunTmpxTl \gResultTl
     \PrgEvalAll {#3}
     \exp_args:Ne \Return
-      { \exp_not:N #1 { \exp_not:V \l@Funx@Tl } { \exp_not:V \gResultTl } }
+      { \exp_not:N #1 { \exp_not:V \l@FunTmpxTl } { \exp_not:V \gResultTl } }
   }
 
 \tl_new:N \l__fun_eval_result_tl
@@ -798,13 +798,13 @@
 \bool_const:Nn \cTrueBool { \c_true_bool }
 \bool_const:Nn \cFalseBool { \c_false_bool }
 
-\bool_new:N \lTmpaBool   \bool_new:N \lTmpbBool   \bool_new:N \lTmpcBool
-\bool_new:N \lTmpiBool   \bool_new:N \lTmpjBool   \bool_new:N \lTmpkBool
-\bool_new:N \l@Funx@Bool \bool_new:N \l@Funy@Bool \bool_new:N \l@Funz@Bool
+\bool_new:N \lTmpaBool     \bool_new:N \lTmpbBool     \bool_new:N \lTmpcBool
+\bool_new:N \lTmpiBool     \bool_new:N \lTmpjBool     \bool_new:N \lTmpkBool
+\bool_new:N \l@FunTmpxBool \bool_new:N \l@FunTmpyBool \bool_new:N \l@FunTmpzBool
 
-\bool_new:N \gTmpaBool   \bool_new:N \gTmpbBool   \bool_new:N \gTmpcBool
-\bool_new:N \gTmpiBool   \bool_new:N \gTmpjBool   \bool_new:N \gTmpkBool
-\bool_new:N \g@Funx@Bool \bool_new:N \g@Funy@Bool \bool_new:N \g@Funz@Bool
+\bool_new:N \gTmpaBool     \bool_new:N \gTmpbBool     \bool_new:N \gTmpcBool
+\bool_new:N \gTmpiBool     \bool_new:N \gTmpjBool     \bool_new:N \gTmpkBool
+\bool_new:N \g@FunTmpxBool \bool_new:N \g@FunTmpyBool \bool_new:N \g@FunTmpzBool
 
 \PrgNewFunction \BoolNew { M } { \bool_new:N #1 }
 
@@ -898,13 +898,13 @@
 \tl_set_eq:NN \cSpaceTl \c_space_tl
 \tl_set_eq:NN \cNoValueTl \c_novalue_tl
 
-\tl_new:N \lTmpaTl   \tl_new:N \lTmpbTl   \tl_new:N \lTmpcTl
-\tl_new:N \lTmpiTl   \tl_new:N \lTmpjTl   \tl_new:N \lTmpkTl
-\tl_new:N \l@Funx@Tl \tl_new:N \l@Funy@Tl \tl_new:N \l@Funz@Tl
+\tl_new:N \lTmpaTl     \tl_new:N \lTmpbTl     \tl_new:N \lTmpcTl
+\tl_new:N \lTmpiTl     \tl_new:N \lTmpjTl     \tl_new:N \lTmpkTl
+\tl_new:N \l@FunTmpxTl \tl_new:N \l@FunTmpyTl \tl_new:N \l@FunTmpzTl
 
-\tl_new:N \gTmpaTl   \tl_new:N \gTmpbTl   \tl_new:N \gTmpcTl
-\tl_new:N \gTmpiTl   \tl_new:N \gTmpjTl   \tl_new:N \gTmpkTl
-\tl_new:N \g@Funx@Tl \tl_new:N \g@Funy@Tl \tl_new:N \g@Funz@Tl
+\tl_new:N \gTmpaTl     \tl_new:N \gTmpbTl     \tl_new:N \gTmpcTl
+\tl_new:N \gTmpiTl     \tl_new:N \gTmpjTl     \tl_new:N \gTmpkTl
+\tl_new:N \g@FunTmpxTl \tl_new:N \g@FunTmpyTl \tl_new:N \g@FunTmpzTl
 
 \PrgNewFunction \TlNew { M } { \tl_new:N #1 }
 
@@ -1106,13 +1106,13 @@
 \str_set_eq:NN \cUnderscoreStr \c_underscore_str
 \str_set_eq:NN \cZeroStr       \c_zero_str
 
-\str_new:N \lTmpaStr   \str_new:N \lTmpbStr   \str_new:N \lTmpcStr
-\str_new:N \lTmpiStr   \str_new:N \lTmpjStr   \str_new:N \lTmpkStr
-\str_new:N \l@Funx@Str \str_new:N \l@Funy@Str \str_new:N \l@Funz@Str
+\str_new:N \lTmpaStr     \str_new:N \lTmpbStr     \str_new:N \lTmpcStr
+\str_new:N \lTmpiStr     \str_new:N \lTmpjStr     \str_new:N \lTmpkStr
+\str_new:N \l@FunTmpxStr \str_new:N \l@FunTmpyStr \str_new:N \l@FunTmpzStr
 
-\str_new:N \gTmpaStr   \str_new:N \gTmpbStr   \str_new:N \gTmpcStr
-\str_new:N \gTmpiStr   \str_new:N \gTmpjStr   \str_new:N \gTmpkStr
-\str_new:N \g@Funx@Str \str_new:N \g@Funy@Str \str_new:N \g@Funz@Str
+\str_new:N \gTmpaStr     \str_new:N \gTmpbStr     \str_new:N \gTmpcStr
+\str_new:N \gTmpiStr     \str_new:N \gTmpjStr     \str_new:N \gTmpkStr
+\str_new:N \g@FunTmpxStr \str_new:N \g@FunTmpyStr \str_new:N \g@FunTmpzStr
 
 \PrgNewFunction \StrNew { M } { \str_new:N #1 }
 
@@ -1295,13 +1295,13 @@
 \cs_set_eq:NN \cMaxRegisterInt \c_max_register_int
 \cs_set_eq:NN \cMaxCharInt     \c_max_char_in
 
-\int_new:N \lTmpaInt   \int_new:N \lTmpbInt   \int_new:N \lTmpcInt
-\int_new:N \lTmpiInt   \int_new:N \lTmpjInt   \int_new:N \lTmpkInt
-\int_new:N \l@Funx@Int \int_new:N \l@Funy@Int \int_new:N \l@Funz@Int
+\int_new:N \lTmpaInt     \int_new:N \lTmpbInt     \int_new:N \lTmpcInt
+\int_new:N \lTmpiInt     \int_new:N \lTmpjInt     \int_new:N \lTmpkInt
+\int_new:N \l@FunTmpxInt \int_new:N \l@FunTmpyInt \int_new:N \l@FunTmpzInt
 
-\int_new:N \gTmpaInt   \int_new:N \gTmpbInt   \int_new:N \gTmpcInt
-\int_new:N \gTmpiInt   \int_new:N \gTmpjInt   \int_new:N \gTmpkInt
-\int_new:N \g@Funx@Int \int_new:N \g@Funy@Int \int_new:N \g@Funz@Int
+\int_new:N \gTmpaInt     \int_new:N \gTmpbInt     \int_new:N \gTmpcInt
+\int_new:N \gTmpiInt     \int_new:N \gTmpjInt     \int_new:N \gTmpkInt
+\int_new:N \g@FunTmpxInt \int_new:N \g@FunTmpyInt \int_new:N \g@FunTmpzInt
 
 \PrgNewFunction \IntEval { n }
   {
@@ -1310,20 +1310,20 @@
 
 \PrgNewFunction \IntMathAdd { m m }
   {
-    \int_set:Nn \l@Funx@Int { \int_eval:n { (#1) + (#2) } }
-    \Return { \Value \l@Funx@Int }
+    \int_set:Nn \l@FunTmpxInt { \int_eval:n { (#1) + (#2) } }
+    \Return { \Value \l@FunTmpxInt }
   }
 
 \PrgNewFunction \IntMathSub { m m }
   {
-    \int_set:Nn \l@Funx@Int { \int_eval:n { (#1) - (#2) } }
-    \Return { \Value \l@Funx@Int }
+    \int_set:Nn \l@FunTmpxInt { \int_eval:n { (#1) - (#2) } }
+    \Return { \Value \l@FunTmpxInt }
   }
 
 \PrgNewFunction \IntMathMult { m m }
   {
-    \int_set:Nn \l@Funx@Int { \int_eval:n { (#1) * (#2) } }
-    \Return { \Value \l@Funx@Int }
+    \int_set:Nn \l@FunTmpxInt { \int_eval:n { (#1) * (#2) } }
+    \Return { \Value \l@FunTmpxInt }
   }
 
 \PrgNewFunction \IntMathDiv { m m }
@@ -1452,13 +1452,13 @@
 \fp_set_eq:NN \cPiFp        \c_pi_fp
 \fp_set_eq:NN \cOneDegreeFp \c_one_degree_fp
 
-\fp_new:N \lTmpaFp   \fp_new:N \lTmpbFp   \fp_new:N \lTmpcFp
-\fp_new:N \lTmpiFp   \fp_new:N \lTmpjFp   \fp_new:N \lTmpkFp
-\fp_new:N \l@Funx@Fp \fp_new:N \l@Funy@Fp \fp_new:N \l@Funz@Fp
+\fp_new:N \lTmpaFp     \fp_new:N \lTmpbFp     \fp_new:N \lTmpcFp
+\fp_new:N \lTmpiFp     \fp_new:N \lTmpjFp     \fp_new:N \lTmpkFp
+\fp_new:N \l@FunTmpxFp \fp_new:N \l@FunTmpyFp \fp_new:N \l@FunTmpzFp
 
-\fp_new:N \gTmpaFp   \fp_new:N \gTmpbFp   \fp_new:N \gTmpcFp
-\fp_new:N \gTmpiFp   \fp_new:N \gTmpjFp   \fp_new:N \gTmpkFp
-\fp_new:N \g@Funx@Fp \fp_new:N \g@Funy@Fp \fp_new:N \g@Funz@Fp
+\fp_new:N \gTmpaFp     \fp_new:N \gTmpbFp     \fp_new:N \gTmpcFp
+\fp_new:N \gTmpiFp     \fp_new:N \gTmpjFp     \fp_new:N \gTmpkFp
+\fp_new:N \g@FunTmpxFp \fp_new:N \g@FunTmpyFp \fp_new:N \g@FunTmpzFp
 
 \PrgNewFunction \FpEval { m }
   {
@@ -1467,26 +1467,26 @@
 
 \PrgNewFunction \FpMathAdd { m m }
   {
-    \fp_set:Nn \l@Funx@Fp { \fp_eval:n { (#1) + (#2) } }
-    \Return { \FpUse \l@Funx@Fp }
+    \fp_set:Nn \l@FunTmpxFp { \fp_eval:n { (#1) + (#2) } }
+    \Return { \FpUse \l@FunTmpxFp }
   }
 
 \PrgNewFunction \FpMathSub { m m }
   {
-    \fp_set:Nn \l@Funx@Fp { \fp_eval:n { (#1) - (#2) } }
-    \Return { \FpUse \l@Funx@Fp }
+    \fp_set:Nn \l@FunTmpxFp { \fp_eval:n { (#1) - (#2) } }
+    \Return { \FpUse \l@FunTmpxFp }
   }
 
 \PrgNewFunction \FpMathMult { m m }
   {
-    \fp_set:Nn \l@Funx@Fp { \fp_eval:n { (#1) * (#2) } }
-    \Return { \FpUse \l@Funx@Fp }
+    \fp_set:Nn \l@FunTmpxFp { \fp_eval:n { (#1) * (#2) } }
+    \Return { \FpUse \l@FunTmpxFp }
   }
 
 \PrgNewFunction \FpMathDiv { m m }
   {
-    \fp_set:Nn \l@Funx@Fp { \fp_eval:n { (#1) / (#2) } }
-    \Return { \FpUse \l@Funx@Fp }
+    \fp_set:Nn \l@FunTmpxFp { \fp_eval:n { (#1) / (#2) } }
+    \Return { \FpUse \l@FunTmpxFp }
   }
 
 \PrgNewFunction \FpMathSign { m }
@@ -1582,13 +1582,13 @@
 \cs_set_eq:NN \cMaxDim  \c_max_dim
 \cs_set_eq:NN \cZeroDim \c_zero_dim
 
-\dim_new:N \lTmpaDim   \dim_new:N \lTmpbDim   \dim_new:N \lTmpcDim
-\dim_new:N \lTmpiDim   \dim_new:N \lTmpjDim   \dim_new:N \lTmpkDim
-\dim_new:N \l@Funx@Dim \dim_new:N \l@Funy@Dim \dim_new:N \l@Funz@Dim
+\dim_new:N \lTmpaDim     \dim_new:N \lTmpbDim     \dim_new:N \lTmpcDim
+\dim_new:N \lTmpiDim     \dim_new:N \lTmpjDim     \dim_new:N \lTmpkDim
+\dim_new:N \l@FunTmpxDim \dim_new:N \l@FunTmpyDim \dim_new:N \l@FunTmpzDim
 
-\dim_new:N \gTmpaDim   \dim_new:N \gTmpbDim   \dim_new:N \gTmpcDim
-\dim_new:N \gTmpiDim   \dim_new:N \gTmpjDim   \dim_new:N \gTmpkDim
-\dim_new:N \g@Funx@Dim \dim_new:N \g@Funy@Dim \dim_new:N \g@Funz@Dim
+\dim_new:N \gTmpaDim     \dim_new:N \gTmpbDim     \dim_new:N \gTmpcDim
+\dim_new:N \gTmpiDim     \dim_new:N \gTmpjDim     \dim_new:N \gTmpkDim
+\dim_new:N \g@FunTmpxDim \dim_new:N \g@FunTmpyDim \dim_new:N \g@FunTmpzDim
 
 \PrgNewFunction \DimEval { m }
   {
@@ -1597,14 +1597,14 @@
 
 \PrgNewFunction \DimMathAdd { m m }
   {
-    \dim_set:Nn \l@Funx@Dim { \dim_eval:n { (#1) + (#2) } }
-    \Return { \Value \l@Funx@Dim }
+    \dim_set:Nn \l@FunTmpxDim { \dim_eval:n { (#1) + (#2) } }
+    \Return { \Value \l@FunTmpxDim }
   }
 
 \PrgNewFunction \DimMathSub { m m }
   {
-    \dim_set:Nn \l@Funx@Dim { \dim_eval:n { (#1) - (#2) } }
-    \Return { \Value \l@Funx@Dim }
+    \dim_set:Nn \l@FunTmpxDim { \dim_eval:n { (#1) - (#2) } }
+    \Return { \Value \l@FunTmpxDim }
   }
 
 \PrgNewFunction \DimMathSign { m }
@@ -1713,13 +1713,15 @@
 %%> \section{Interfaces for Comma Separated Lists (Clist)}
 %%% --------------------------------------------------------
 
-\clist_new:N \lTmpaClist   \clist_new:N \lTmpbClist   \clist_new:N \lTmpcClist
-\clist_new:N \lTmpiClist   \clist_new:N \lTmpjClist   \clist_new:N \lTmpkClist
-\clist_new:N \l@Funx@Clist \clist_new:N \l@Funy@Clist \clist_new:N \l@Funz@Clist
+\clist_new:N \lTmpaClist \clist_new:N \lTmpbClist \clist_new:N \lTmpcClist
+\clist_new:N \lTmpiClist \clist_new:N \lTmpjClist \clist_new:N \lTmpkClist
 
-\clist_new:N \gTmpaClist   \clist_new:N \gTmpbClist   \clist_new:N \gTmpcClist
-\clist_new:N \gTmpiClist   \clist_new:N \gTmpjClist   \clist_new:N \gTmpkClist
-\clist_new:N \g@Funx@Clist \clist_new:N \g@Funy@Clist \clist_new:N \g@Funz@Clist
+\clist_new:N \gTmpaClist \clist_new:N \gTmpbClist \clist_new:N \gTmpcClist
+\clist_new:N \gTmpiClist \clist_new:N \gTmpjClist \clist_new:N \gTmpkClist
+
+\clist_new:N \l@FunTmpxClist \clist_new:N \g@FunTmpxClist
+\clist_new:N \l@FunTmpyClist \clist_new:N \g@FunTmpyClist
+\clist_new:N \l@FunTmpzClist \clist_new:N \g@FunTmpzClist
 
 \clist_set_eq:NN \cEmptyClist \c_empty_clist
 
@@ -1926,13 +1928,13 @@
 %%> \section{Interfaces for Sequences and Stacks (Seq)}
 %%% --------------------------------------------------------
 
-\seq_new:N \lTmpaSeq   \seq_new:N \lTmpbSeq   \seq_new:N \lTmpcSeq
-\seq_new:N \lTmpiSeq   \seq_new:N \lTmpjSeq   \seq_new:N \lTmpkSeq
-\seq_new:N \l@Funx@Seq \seq_new:N \l@Funy@Seq \seq_new:N \l@Funz@Seq
+\seq_new:N \lTmpaSeq     \seq_new:N \lTmpbSeq     \seq_new:N \lTmpcSeq
+\seq_new:N \lTmpiSeq     \seq_new:N \lTmpjSeq     \seq_new:N \lTmpkSeq
+\seq_new:N \l@FunTmpxSeq \seq_new:N \l@FunTmpySeq \seq_new:N \l@FunTmpzSeq
 
-\seq_new:N \gTmpaSeq   \seq_new:N \gTmpbSeq   \seq_new:N \gTmpcSeq
-\seq_new:N \gTmpiSeq   \seq_new:N \gTmpjSeq   \seq_new:N \gTmpkSeq
-\seq_new:N \g@Funx@Seq \seq_new:N \g@Funy@Seq \seq_new:N \g@Funz@Seq
+\seq_new:N \gTmpaSeq     \seq_new:N \gTmpbSeq     \seq_new:N \gTmpcSeq
+\seq_new:N \gTmpiSeq     \seq_new:N \gTmpjSeq     \seq_new:N \gTmpkSeq
+\seq_new:N \g@FunTmpxSeq \seq_new:N \g@FunTmpySeq \seq_new:N \g@FunTmpzSeq
 
 \seq_set_eq:NN \cEmptySeq \c_empty_seq
 
@@ -2172,13 +2174,13 @@
 %%> \section{Interfaces for Property Lists (Prop)}
 %%% --------------------------------------------------------
 
-\prop_new:N \lTmpaProp   \prop_new:N \lTmpbProp   \prop_new:N \lTmpcProp
-\prop_new:N \lTmpiProp   \prop_new:N \lTmpjProp   \prop_new:N \lTmpkProp
-\prop_new:N \l@Funx@Prop \prop_new:N \l@Funy@Prop \prop_new:N \l@Funz@Prop
+\prop_new:N \lTmpaProp     \prop_new:N \lTmpbProp     \prop_new:N \lTmpcProp
+\prop_new:N \lTmpiProp     \prop_new:N \lTmpjProp     \prop_new:N \lTmpkProp
+\prop_new:N \l@FunTmpxProp \prop_new:N \l@FunTmpyProp \prop_new:N \l@FunTmpzProp
 
-\prop_new:N \gTmpaProp   \prop_new:N \gTmpbProp   \prop_new:N \gTmpcProp
-\prop_new:N \gTmpiProp   \prop_new:N \gTmpjProp   \prop_new:N \gTmpkProp
-\prop_new:N \g@Funx@Prop \prop_new:N \g@Funy@Prop \prop_new:N \g@Funz@Prop
+\prop_new:N \gTmpaProp     \prop_new:N \gTmpbProp     \prop_new:N \gTmpcProp
+\prop_new:N \gTmpiProp     \prop_new:N \gTmpjProp     \prop_new:N \gTmpkProp
+\prop_new:N \g@FunTmpxProp \prop_new:N \g@FunTmpyProp \prop_new:N \g@FunTmpzProp
 
 \prop_set_eq:NN \cEmptyProp \c_empty_prop
 
@@ -2425,22 +2427,22 @@
 
 \PrgNewFunction \FileInput { m }
   {
-    \file_get:nnN {#1} {} \l@FunxTl
-    \quark_if_no_value:NTF \l@FunxTl
+    \file_get:nnN {#1} {} \l@FunTmpxTl
+    \quark_if_no_value:NTF \l@FunTmpxTl
       { \msg_error:nnn { functional } { file-not-found } { #1 } }
-      { \TlUse \l@FunxTl }
+      { \TlUse \l@FunTmpxTl }
   }
 
 \PrgNewFunction \FileIfExistInput { m }
   {
-    \file_get:nnN {#1} {} \l@FunxTl
-    \quark_if_no_value:NF \l@FunxTl { \TlUse \l@FunxTl }
+    \file_get:nnN {#1} {} \l@FunTmpxTl
+    \quark_if_no_value:NF \l@FunTmpxTl { \TlUse \l@FunTmpxTl }
   }
 
 \PrgNewFunction \FileIfExistInputF { m n }
   {
-    \file_get:nnN {#1} {} \l@FunxTl
-    \quark_if_no_value:NTF \l@FunxTl { #2 } { \TlUse \l@FunxTl }
+    \file_get:nnN {#1} {} \l@FunTmpxTl
+    \quark_if_no_value:NTF \l@FunTmpxTl { #2 } { \TlUse \l@FunTmpxTl }
   }
 
 \cs_set_eq:NN \FileInputStop \file_input_stop:

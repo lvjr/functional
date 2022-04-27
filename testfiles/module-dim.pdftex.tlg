@@ -14,13 +14,13 @@ TEST 1: Testing \DimEval
 TEST 2: Testing \DimMathAdd 
 ============================================================
 [I] \DimMathAdd{2.8pt}{3.7pt}
-        [I] \Value{\l@Funx@Dim }
+        [I] \Value{\l@FunTmpxDim }
         [O] 6.5pt
     [I] \Return{6.5pt}
     [O] 6.5pt
 [O] 6.5pt
 [I] \DimMathAdd{3.8pt-1pt}{2.7pt+1pt}
-        [I] \Value{\l@Funx@Dim }
+        [I] \Value{\l@FunTmpxDim }
         [O] 6.5pt
     [I] \Return{6.5pt}
     [O] 6.5pt
@@ -30,13 +30,13 @@ TEST 2: Testing \DimMathAdd
 TEST 3: Testing \DimMathSub 
 ============================================================
 [I] \DimMathSub{2.8pt}{3.7pt}
-        [I] \Value{\l@Funx@Dim }
+        [I] \Value{\l@FunTmpxDim }
         [O] -0.9pt
     [I] \Return{-0.9pt}
     [O] -0.9pt
 [O] -0.9pt
 [I] \DimMathSub{3.8pt-1pt}{2.7pt+1pt}
-        [I] \Value{\l@Funx@Dim }
+        [I] \Value{\l@FunTmpxDim }
         [O] -0.9pt
     [I] \Return{-0.9pt}
     [O] -0.9pt
