@@ -533,9 +533,7 @@
   {
     \group_begin:
     \__fun_set_return_processor:n {#1}
-    \tl_clear:N \l__fun_eval_result_tl
     #2
-    \tl_gset_eq:NN \gResultTl \l__fun_eval_result_tl
     \group_end:
   }
 
@@ -572,7 +570,11 @@
   {
     \fun_run_return_processor:nn
       { \exp_last_unbraced:NV \__fun_eval_all_aux:n \gResultTl }
-      { \__fun_eval_all_aux:n #1 \q_stop }
+      {
+        \tl_clear:N \l__fun_eval_result_tl
+        \__fun_eval_all_aux:n #1 \q_stop
+        \tl_gset_eq:NN \gResultTl \l__fun_eval_result_tl
+      }
   }
 
 \cs_new_protected:Npn \__fun_eval_all_aux:n #1
