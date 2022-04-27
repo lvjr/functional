@@ -24,6 +24,10 @@
 
 \prg_generate_conditional_variant:Nnn \str_if_eq:nn { Ve } { TF }
 
+%%% --------------------------------------------------------
+%%> \subsection{Creating New Functions and Conditionals}
+%%% --------------------------------------------------------
+
 \tl_new:N \gResultTl
 \int_new:N \l__fun_arg_count_int
 \tl_new:N \l__fun_parameters_defined_tl
@@ -472,6 +476,10 @@
 \cs_set_eq:NN \BreakDo \prg_break:n
 \cs_set_eq:NN \PrgBreakDo \prg_break:n
 
+%%% --------------------------------------------------------
+%%> \subsection{Return Values and Return Processors}
+%%% --------------------------------------------------------
+
 \cs_new_protected:Npn \__fun_put_result:n #1
   {
     \tl_gput_right:Nn \gResultTl { #1 }
@@ -531,52 +539,9 @@
     \group_end:
   }
 
-\str_new:N \l__fun_variable_name_str
-\str_new:N \l__fun_variable_name_a_str
-\str_new:N \l__fun_variable_name_b_str
-
-\prg_new_protected_conditional:Npnn \__fun_if_global_variable:N #1 { TF }
-  {
-    \str_set:Ne \l__fun_variable_name_str { \cs_to_str:N #1 }
-    \str_set:Ne \l__fun_variable_name_b_str
-      { \str_item:Nn \l__fun_variable_name_str { 2 } }
-    \str_if_eq:VeTF
-      \l__fun_variable_name_b_str
-      { \str_uppercase:f { \l__fun_variable_name_b_str } }
-      {
-        \str_set:Ne \l__fun_variable_name_a_str
-          { \str_head:N \l__fun_variable_name_str }
-        \str_case:VnF \l__fun_variable_name_a_str
-          {
-            { l } { \prg_return_false: }
-            { g } { \prg_return_true: }
-          }
-          { \__fun_if_set_local: }
-      }
-      { \__fun_if_set_local: }
-  }
-
-\bool_new:N \g__fun_variable_local_bool
-
-\cs_new:Npn \__fun_if_set_local:
-  {
-    \bool_if:NTF \g__fun_variable_local_bool
-      {
-        \bool_gset_false:N \g__fun_variable_local_bool
-        \prg_return_false:
-      }
-      { \prg_return_true: }
-  }
-
-\PrgNewFunction \Local { } { \bool_gset_true:N \g__fun_variable_local_bool }
-
-%% We must not put an assignment inside a group
-\cs_new_protected:Npn \__fun_do_assignment:Nnn #1 #2 #3
-  {
-    \__fun_group_end:
-    \__fun_if_global_variable:NTF #1 { #2 } { #3 }
-    \__fun_group_begin:
-  }
+%%% --------------------------------------------------------
+%%> \subsection{Evaluating Functions inside Arguments}
+%%% --------------------------------------------------------
 
 %% Evaluate functions in argument #2 before calling #1{#2}
 %% We expand \gResultTl first to make tracing log more readable
@@ -631,6 +596,61 @@
         \__fun_eval_all_aux:n
       }
   }
+
+%%% --------------------------------------------------------
+%%> \subsection{Checking for Local or Global Variables}
+%%% --------------------------------------------------------
+
+\str_new:N \l__fun_variable_name_str
+\str_new:N \l__fun_variable_name_a_str
+\str_new:N \l__fun_variable_name_b_str
+
+\prg_new_protected_conditional:Npnn \__fun_if_global_variable:N #1 { TF }
+  {
+    \str_set:Ne \l__fun_variable_name_str { \cs_to_str:N #1 }
+    \str_set:Ne \l__fun_variable_name_b_str
+      { \str_item:Nn \l__fun_variable_name_str { 2 } }
+    \str_if_eq:VeTF
+      \l__fun_variable_name_b_str
+      { \str_uppercase:f { \l__fun_variable_name_b_str } }
+      {
+        \str_set:Ne \l__fun_variable_name_a_str
+          { \str_head:N \l__fun_variable_name_str }
+        \str_case:VnF \l__fun_variable_name_a_str
+          {
+            { l } { \prg_return_false: }
+            { g } { \prg_return_true: }
+          }
+          { \__fun_if_set_local: }
+      }
+      { \__fun_if_set_local: }
+  }
+
+\bool_new:N \g__fun_variable_local_bool
+
+\cs_new:Npn \__fun_if_set_local:
+  {
+    \bool_if:NTF \g__fun_variable_local_bool
+      {
+        \bool_gset_false:N \g__fun_variable_local_bool
+        \prg_return_false:
+      }
+      { \prg_return_true: }
+  }
+
+\PrgNewFunction \Local { } { \bool_gset_true:N \g__fun_variable_local_bool }
+
+%% We must not put an assignment inside a group
+\cs_new_protected:Npn \__fun_do_assignment:Nnn #1 #2 #3
+  {
+    \__fun_group_end:
+    \__fun_if_global_variable:NTF #1 { #2 } { #3 }
+    \__fun_group_begin:
+  }
+
+%%% --------------------------------------------------------
+%%> \subsection{Setting Functional Package}
+%%% --------------------------------------------------------
 
 \bool_new:N \l__fun_scoping_bool
 
