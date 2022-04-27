@@ -4,6 +4,10 @@ Don't change this file in any respect.
 TEST 1: Testing \IntEval 
 ============================================================
 [I] \IntEval{(1+4)*(2-3)/5}
+        [I] \PrgEvalOneArg\int_eval:n {(1+4)*(2-3)/5}
+            [I] \Return{\int_eval:n {(1+4)*(2-3)/5}}
+            [O] \int_eval:n {(1+4)*(2-3)/5}
+        [O] \int_eval:n {(1+4)*(2-3)/5}
     [I] \Expand{\int_eval:n {(1+4)*(2-3)/5}}
     [O] -1
 [O] -1
@@ -72,10 +76,18 @@ TEST 5: Testing \IntMathDiv
 TEST 6: Testing \IntMathDivTruncate 
 ============================================================
 [I] \IntMathDivTruncate{8}{3}
+        [I] \PrgEvalTwoArgs\int_div_truncate:nn {8}{3}
+            [I] \Return{\int_div_truncate:nn {8}{3}}
+            [O] \int_div_truncate:nn {8}{3}
+        [O] \int_div_truncate:nn {8}{3}
     [I] \Expand{\int_div_truncate:nn {8}{3}}
     [O] 2
 [O] 2
 [I] \IntMathDivTruncate{9-1}{2+1}
+        [I] \PrgEvalTwoArgs\int_div_truncate:nn {9-1}{2+1}
+            [I] \Return{\int_div_truncate:nn {9-1}{2+1}}
+            [O] \int_div_truncate:nn {9-1}{2+1}
+        [O] \int_div_truncate:nn {9-1}{2+1}
     [I] \Expand{\int_div_truncate:nn {9-1}{2+1}}
     [O] 2
 [O] 2

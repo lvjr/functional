@@ -520,11 +520,15 @@
   }
 
 %% #1: return processor; #2: code to run
+%% We do it inside groups for nesting processors to make correct results
 \cs_new_protected:Npn \fun_run_return_processor:nn #1 #2
   {
+    \group_begin:
     \__fun_set_return_processor:n {#1}
+    \tl_clear:N \l__fun_eval_result_tl
     #2
-    \__fun_set_return_processor_default:
+    \tl_gset_eq:NN \gResultTl \l__fun_eval_result_tl
+    \group_end:
   }
 
 \str_new:N \l__fun_variable_name_str
@@ -574,14 +578,31 @@
     \__fun_group_begin:
   }
 
+%% Evaluate functions in argument #2 before calling #1{#2}
+%% We expand \gResultTl first to make tracing log more readable
+\PrgNewFunction \PrgEvalOneArg { N n }
+  {
+    \PrgEvalAll {#2}
+    \exp_args:Ne \Return { \exp_not:N #1 { \exp_not:V \gResultTl } }
+  }
+
+%% Evaluate functions in argument #2 and #3 before calling #1{#2}{#3}
+%% We expand \gResultTl first to make tracing log more readable
+\PrgNewFunction \PrgEvalTwoArgs { N n n }
+  {
+    \PrgEvalAll {#2}
+    \tl_set_eq:NN \l@Funx@Tl \gResultTl
+    \PrgEvalAll {#3}
+    \exp_args:Ne \Return
+      { \exp_not:N #1 { \exp_not:V \l@Funx@Tl } { \exp_not:V \gResultTl } }
+  }
+
 \tl_new:N \l__fun_eval_result_tl
-\int_new:N \g__fun_nesting_level_saved_int
 
 %% Evaluate all functions in #1 and replace them with their return values
 %% We don't define it with \PrgNewFunction for better tracing log
 \cs_new_protected:Npn \PrgEvalAll #1
   {
-    \tl_clear:N \l__fun_eval_result_tl
     \fun_run_return_processor:nn
       { \exp_last_unbraced:NV \__fun_eval_all_aux:n \gResultTl }
       { \__fun_eval_all_aux:n #1 \q_stop }
@@ -1264,11 +1285,7 @@
 
 \PrgNewFunction \IntEval { n }
   {
-    \PrgEvalAll {#1}
-    %% We expand \l__fun_eval_result_tl first to make tracing log more readable
-    \tl_set:Ne \l@Funx@Tl
-      { \exp_not:N \int_eval:n { \exp_not:V \l__fun_eval_result_tl } }
-    \exp_args:NV \Expand \l@Funx@Tl
+    \Expand { \PrgEvalOneArg \int_eval:n {#1} }
   }
 
 \PrgNewFunction \IntMathAdd { m m }
@@ -1294,9 +1311,9 @@
     \Expand { \int_div_round:nn { #1 } { #2 } }
   }
 
-\PrgNewFunction \IntMathDivTruncate { m m }
+\PrgNewFunction \IntMathDivTruncate { n n }
   {
-    \Expand { \int_div_truncate:nn { #1 } { #2 } }
+    \Expand { \PrgEvalTwoArgs \int_div_truncate:nn { #1 } { #2 } }
   }
 
 \PrgNewFunction \IntMathSign { m } { \Expand { \int_sign:n { #1 } } }
