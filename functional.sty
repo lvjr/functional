@@ -551,15 +551,17 @@
     \exp_args:Ne \Return { \exp_not:N #1 { \exp_not:V \gResultTl } }
   }
 
+\tl_new:N \l@FunFirstResultTl
+
 %% Evaluate functions in argument #2 and #3 before calling #1{#2}{#3}
 %% We expand \gResultTl first to make tracing log more readable
 \PrgNewFunction \PrgEvalTwoArgs { N n n }
   {
     \PrgEvalAll {#2}
-    \tl_set_eq:NN \l@FunTmpxTl \gResultTl
+    \tl_set_eq:NN \l@FunFirstResultTl \gResultTl
     \PrgEvalAll {#3}
     \exp_args:Ne \Return
-      { \exp_not:N #1 { \exp_not:V \l@FunTmpxTl } { \exp_not:V \gResultTl } }
+      { \exp_not:N #1 { \exp_not:V \l@FunFirstResultTl } { \exp_not:V \gResultTl } }
   }
 
 \tl_new:N \l__fun_eval_result_tl
