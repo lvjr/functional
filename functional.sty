@@ -1441,70 +1441,39 @@
 \fp_new:N \gTmpiFp     \fp_new:N \gTmpjFp     \fp_new:N \gTmpkFp
 \fp_new:N \g@FunTmpxFp \fp_new:N \g@FunTmpyFp \fp_new:N \g@FunTmpzFp
 
-\PrgNewFunction \FpEval { m }
-  {
-    \Return { \Expand { \fp_eval:n { #1 } } }
-  }
+\PrgNewFunction \FpEval { e } { \Expand { \fp_eval:n {#1} } }
 
-\PrgNewFunction \FpMathAdd { m m }
-  {
-    \fp_set:Nn \l@FunTmpxFp { \fp_eval:n { (#1) + (#2) } }
-    \Return { \FpUse \l@FunTmpxFp }
-  }
+\PrgNewFunction \FpMathAdd { e e } { \Expand { \fp_eval:n { (#1) + (#2) } } }
 
-\PrgNewFunction \FpMathSub { m m }
-  {
-    \fp_set:Nn \l@FunTmpxFp { \fp_eval:n { (#1) - (#2) } }
-    \Return { \FpUse \l@FunTmpxFp }
-  }
+\PrgNewFunction \FpMathSub { e e } { \Expand { \fp_eval:n { (#1) - (#2) } } }
 
-\PrgNewFunction \FpMathMult { m m }
-  {
-    \fp_set:Nn \l@FunTmpxFp { \fp_eval:n { (#1) * (#2) } }
-    \Return { \FpUse \l@FunTmpxFp }
-  }
+\PrgNewFunction \FpMathMult { e e } { \Expand { \fp_eval:n { (#1) * (#2) } } }
 
-\PrgNewFunction \FpMathDiv { m m }
-  {
-    \fp_set:Nn \l@FunTmpxFp { \fp_eval:n { (#1) / (#2) } }
-    \Return { \FpUse \l@FunTmpxFp }
-  }
+\PrgNewFunction \FpMathDiv { e e } { \Expand { \fp_eval:n { (#1) / (#2) } } }
 
-\PrgNewFunction \FpMathSign { m }
-  {
-    \Return { \Expand { \fp_sign:n { #1 } } }
-  }
+\PrgNewFunction \FpMathSign { e } { \Expand { \fp_sign:n {#1} } }
 
-\PrgNewFunction \FpMathAbs { m }
-  {
-    \Return { \Expand { \fp_abs:n { #1 } } }
-  }
+\PrgNewFunction \FpMathAbs { e } { \Expand { \fp_abs:n {#1} } }
 
-\PrgNewFunction \FpMathMax { m m }
-  {
-    \Return { \Expand { \fp_max:nn { #1 } { #2 } } }
-  }
+\PrgNewFunction \FpMathMax { e e } { \Expand { \fp_max:nn {#1} {#2} } }
 
-\PrgNewFunction \FpMathMin { m m }
-  {
-    \Return { \Expand { \fp_min:nn { #1 } { #2 } } }
-  }
+\PrgNewFunction \FpMathMin { e e } { \Expand { \fp_min:nn {#1} {#2} } }
 
 \PrgNewFunction \FpNew { M } { \fp_new:N #1 }
 
-\PrgNewFunction \FpConst { M m } { \fp_const:Nn #1 {#2} }
+\PrgNewFunction \FpConst { M e } { \fp_const:Nn #1 {#2} }
 
-\PrgNewFunction \FpUse { M } { \Return { \Expand { \fp_use:N #1 } } }
+\PrgNewFunction \FpUse { M } { \Expand { \fp_use:N #1 } }
 
-\PrgNewFunction \FpLog { m } { \fp_log:n { #1 } }
+\PrgNewFunction \FpLog { e } { \fp_log:n {#1} }
 
 \PrgNewFunction \FpVarLog { M } { \fp_log:N #1 }
 
-\PrgNewFunction \FpShow { m } { \fp_show:n { #1 } }
+\PrgNewFunction \FpShow { e } { \fp_show:n {#1} }
 
 \PrgNewFunction \FpVarShow { M } { \fp_show:N #1 }
 
-\PrgNewFunction \FpSet { M m }
+\PrgNewFunction \FpSet { M e }
   {
     \__fun_do_assignment:Nnn #1 { \fp_gset:Nn #1 {#2} } { \fp_set:Nn #1 {#2} }
   }
@@ -1524,24 +1493,24 @@
     \__fun_do_assignment:Nnn #1 { \fp_gzero_new:N #1 } { \fp_zero_new:N #1 }
   }
 
-\PrgNewFunction \FpAdd { M m }
+\PrgNewFunction \FpAdd { M e }
   {
     \__fun_do_assignment:Nnn #1 { \fp_gadd:Nn #1 {#2} } { \fp_add:Nn #1 {#2} }
   }
 
-\PrgNewFunction \FpSub { M m }
+\PrgNewFunction \FpSub { M e }
   {
     \__fun_do_assignment:Nnn #1 { \fp_gsub:Nn #1 {#2} } { \fp_sub:Nn #1 {#2} }
   }
 
-\PrgNewFunction \FpStepInline { m m m n }
+\PrgNewFunction \FpStepInline { e e e n }
   {
-    \fp_step_inline:nnnn { #1 } { #2 } { #3 } { #4 }
+    \fp_step_inline:nnnn {#1} {#2} {#3} {#4}
   }
 
-\PrgNewFunction \FpStepVariable { m m m M n }
+\PrgNewFunction \FpStepVariable { e e e M n }
   {
-    \fp_step_variable:nnnNn { #1 } { #2 } { #3 } #4 { #5 }
+    \fp_step_variable:nnnNn {#1} {#2} {#3} #4 {#5}
   }
 
 \PrgNewConditional \FpIfExist { M }
@@ -1549,7 +1518,7 @@
     \fp_if_exist:NTF #1 { \Return { \cTrueBool } } { \Return { \cFalseBool } }
   }
 
-\PrgNewConditional \FpCompare { m N m }
+\PrgNewConditional \FpCompare { e N e }
   {
     \fp_compare:nNnTF {#1} #2 {#3}
       { \Return { \cTrueBool } }

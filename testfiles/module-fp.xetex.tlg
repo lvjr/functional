@@ -4,9 +4,7 @@ Don't change this file in any respect.
 TEST 1: Testing \FpEval 
 ============================================================
 [I] \FpEval{(1.2+3.4)*(5.6-7.8)/9}
-        [I] \Expand{\fp_eval:n {(1.2+3.4)*(5.6-7.8)/9}}
-        [O] -1.124444444444444
-    [I] \Return{-1.124444444444444}
+    [I] \Expand{\fp_eval:n {(1.2+3.4)*(5.6-7.8)/9}}
     [O] -1.124444444444444
 [O] -1.124444444444444
 ============================================================
@@ -14,23 +12,11 @@ TEST 1: Testing \FpEval
 TEST 2: Testing \FpMathAdd 
 ============================================================
 [I] \FpMathAdd{2.8}{3.7}
-        [I] \FpUse{\l@FunTmpxFp }
-                [I] \Expand{\fp_use:N \l@FunTmpxFp }
-                [O] 6.5
-            [I] \Return{6.5}
-            [O] 6.5
-        [O] 6.5
-    [I] \Return{6.5}
+    [I] \Expand{\fp_eval:n {(2.8)+(3.7)}}
     [O] 6.5
 [O] 6.5
 [I] \FpMathAdd{3.8-1}{2.7+1}
-        [I] \FpUse{\l@FunTmpxFp }
-                [I] \Expand{\fp_use:N \l@FunTmpxFp }
-                [O] 6.5
-            [I] \Return{6.5}
-            [O] 6.5
-        [O] 6.5
-    [I] \Return{6.5}
+    [I] \Expand{\fp_eval:n {(3.8-1)+(2.7+1)}}
     [O] 6.5
 [O] 6.5
 ============================================================
@@ -38,23 +24,11 @@ TEST 2: Testing \FpMathAdd
 TEST 3: Testing \FpMathSub 
 ============================================================
 [I] \FpMathSub{2.8}{3.7}
-        [I] \FpUse{\l@FunTmpxFp }
-                [I] \Expand{\fp_use:N \l@FunTmpxFp }
-                [O] -0.9
-            [I] \Return{-0.9}
-            [O] -0.9
-        [O] -0.9
-    [I] \Return{-0.9}
+    [I] \Expand{\fp_eval:n {(2.8)-(3.7)}}
     [O] -0.9
 [O] -0.9
 [I] \FpMathSub{3.8-1}{2.7+1}
-        [I] \FpUse{\l@FunTmpxFp }
-                [I] \Expand{\fp_use:N \l@FunTmpxFp }
-                [O] -0.9
-            [I] \Return{-0.9}
-            [O] -0.9
-        [O] -0.9
-    [I] \Return{-0.9}
+    [I] \Expand{\fp_eval:n {(3.8-1)-(2.7+1)}}
     [O] -0.9
 [O] -0.9
 ============================================================
@@ -62,23 +36,11 @@ TEST 3: Testing \FpMathSub
 TEST 4: Testing \FpMathMult 
 ============================================================
 [I] \FpMathMult{2.8}{3.7}
-        [I] \FpUse{\l@FunTmpxFp }
-                [I] \Expand{\fp_use:N \l@FunTmpxFp }
-                [O] 10.36
-            [I] \Return{10.36}
-            [O] 10.36
-        [O] 10.36
-    [I] \Return{10.36}
+    [I] \Expand{\fp_eval:n {(2.8)*(3.7)}}
     [O] 10.36
 [O] 10.36
 [I] \FpMathMult{3.8-1}{2.7+1}
-        [I] \FpUse{\l@FunTmpxFp }
-                [I] \Expand{\fp_use:N \l@FunTmpxFp }
-                [O] 10.36
-            [I] \Return{10.36}
-            [O] 10.36
-        [O] 10.36
-    [I] \Return{10.36}
+    [I] \Expand{\fp_eval:n {(3.8-1)*(2.7+1)}}
     [O] 10.36
 [O] 10.36
 ============================================================
@@ -86,23 +48,11 @@ TEST 4: Testing \FpMathMult
 TEST 5: Testing \FpMathDiv 
 ============================================================
 [I] \FpMathDiv{2.8}{3.7}
-        [I] \FpUse{\l@FunTmpxFp }
-                [I] \Expand{\fp_use:N \l@FunTmpxFp }
-                [O] 0.7567567567567568
-            [I] \Return{0.7567567567567568}
-            [O] 0.7567567567567568
-        [O] 0.7567567567567568
-    [I] \Return{0.7567567567567568}
+    [I] \Expand{\fp_eval:n {(2.8)/(3.7)}}
     [O] 0.7567567567567568
 [O] 0.7567567567567568
 [I] \FpMathDiv{3.8-1}{2.7+1}
-        [I] \FpUse{\l@FunTmpxFp }
-                [I] \Expand{\fp_use:N \l@FunTmpxFp }
-                [O] 0.7567567567567568
-            [I] \Return{0.7567567567567568}
-            [O] 0.7567567567567568
-        [O] 0.7567567567567568
-    [I] \Return{0.7567567567567568}
+    [I] \Expand{\fp_eval:n {(3.8-1)/(2.7+1)}}
     [O] 0.7567567567567568
 [O] 0.7567567567567568
 ============================================================
@@ -110,15 +60,11 @@ TEST 5: Testing \FpMathDiv
 TEST 6: Testing \FpMathSign 
 ============================================================
 [I] \FpMathSign{3.5}
-        [I] \Expand{\fp_sign:n {3.5}}
-        [O] 1
-    [I] \Return{1}
+    [I] \Expand{\fp_sign:n {3.5}}
     [O] 1
 [O] 1
 [I] \FpMathSign{-2.7}
-        [I] \Expand{\fp_sign:n {-2.7}}
-        [O] -1
-    [I] \Return{-1}
+    [I] \Expand{\fp_sign:n {-2.7}}
     [O] -1
 [O] -1
 ============================================================
@@ -126,15 +72,11 @@ TEST 6: Testing \FpMathSign
 TEST 7: Testing \FpMathAbs 
 ============================================================
 [I] \FpMathAbs{3.5}
-        [I] \Expand{\fp_abs:n {3.5}}
-        [O] 3.5
-    [I] \Return{3.5}
+    [I] \Expand{\fp_abs:n {3.5}}
     [O] 3.5
 [O] 3.5
 [I] \FpMathAbs{-2.7}
-        [I] \Expand{\fp_abs:n {-2.7}}
-        [O] 2.7
-    [I] \Return{2.7}
+    [I] \Expand{\fp_abs:n {-2.7}}
     [O] 2.7
 [O] 2.7
 ============================================================
@@ -142,9 +84,7 @@ TEST 7: Testing \FpMathAbs
 TEST 8: Testing \FpMathMax 
 ============================================================
 [I] \FpMathMax{3.5}{-2.7}
-        [I] \Expand{\fp_max:nn {3.5}{-2.7}}
-        [O] 3.5
-    [I] \Return{3.5}
+    [I] \Expand{\fp_max:nn {3.5}{-2.7}}
     [O] 3.5
 [O] 3.5
 ============================================================
@@ -152,9 +92,7 @@ TEST 8: Testing \FpMathMax
 TEST 9: Testing \FpMathMin 
 ============================================================
 [I] \FpMathMin{3.5}{-2.7}
-        [I] \Expand{\fp_min:nn {3.5}{-2.7}}
-        [O] -2.7
-    [I] \Return{-2.7}
+    [I] \Expand{\fp_min:nn {3.5}{-2.7}}
     [O] -2.7
 [O] -2.7
 ============================================================
@@ -164,9 +102,7 @@ TEST 10: Testing \FpConst
 [I] \FpConst{\cMyPiFp }{3.1415926}
 [O] 
 [I] \FpUse{\cMyPiFp }
-        [I] \Expand{\fp_use:N \cMyPiFp }
-        [O] 3.1415926
-    [I] \Return{3.1415926}
+    [I] \Expand{\fp_use:N \cMyPiFp }
     [O] 3.1415926
 [O] 3.1415926
 ============================================================
@@ -183,9 +119,7 @@ TEST 12: Testing \FpSet
 [I] \FpSet{\lTmpaFp }{4/7}
 [O] 
 [I] \FpUse{\lTmpaFp }
-        [I] \Expand{\fp_use:N \lTmpaFp }
-        [O] 0.5714285714285714
-    [I] \Return{0.5714285714285714}
+    [I] \Expand{\fp_use:N \lTmpaFp }
     [O] 0.5714285714285714
 [O] 0.5714285714285714
 ============================================================
@@ -195,9 +129,7 @@ TEST 13: Testing \FpSetEq
 [I] \FpSetEq{\lTmpaFp }{\cPiFp }
 [O] 
 [I] \FpUse{\lTmpaFp }
-        [I] \Expand{\fp_use:N \lTmpaFp }
-        [O] 3.141592653589793
-    [I] \Return{3.141592653589793}
+    [I] \Expand{\fp_use:N \lTmpaFp }
     [O] 3.141592653589793
 [O] 3.141592653589793
 ============================================================
@@ -209,9 +141,7 @@ TEST 14: Testing \FpZero
 [I] \FpZero{\lTmpaFp }
 [O] 
 [I] \FpUse{\lTmpaFp }
-        [I] \Expand{\fp_use:N \lTmpaFp }
-        [O] 0
-    [I] \Return{0}
+    [I] \Expand{\fp_use:N \lTmpaFp }
     [O] 0
 [O] 0
 ============================================================
@@ -221,9 +151,7 @@ TEST 15: Testing \FpZeroNew
 [I] \FpZeroNew{\lFooSomeFp }
 [O] 
 [I] \FpUse{\lFooSomeFp }
-        [I] \Expand{\fp_use:N \lFooSomeFp }
-        [O] 0
-    [I] \Return{0}
+    [I] \Expand{\fp_use:N \lFooSomeFp }
     [O] 0
 [O] 0
 ============================================================
@@ -235,9 +163,7 @@ TEST 16: Testing \FpAdd
 [I] \FpAdd{\lTmpaFp }{2.11}
 [O] 
 [I] \FpUse{\lTmpaFp }
-        [I] \Expand{\fp_use:N \lTmpaFp }
-        [O] 7.41
-    [I] \Return{7.41}
+    [I] \Expand{\fp_use:N \lTmpaFp }
     [O] 7.41
 [O] 7.41
 ============================================================
@@ -249,9 +175,7 @@ TEST 17: Testing \FpSub
 [I] \FpSub{\lTmpaFp }{2.11}
 [O] 
 [I] \FpUse{\lTmpaFp }
-        [I] \Expand{\fp_use:N \lTmpaFp }
-        [O] 3.19
-    [I] \Return{3.19}
+    [I] \Expand{\fp_use:N \lTmpaFp }
     [O] 3.19
 [O] 3.19
 ============================================================
