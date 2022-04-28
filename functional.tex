@@ -133,8 +133,8 @@ We will compare our first example with a similar \verb!Lua! example:
 \begin{codehigh}
 \IgnoreSpacesOn
 \PrgNewFunction \MathSquare { m } {
-  \IntSet \lTmpaInt { \IntEval {#1 * #1} }
-  \Return { \Value \lTmpaInt }
+  \IntSet \lTmpaInt {\IntEval {#1 * #1}}
+  \Return {\Value \lTmpaInt}
 }
 \IgnoreSpacesOff
 \MathSquare{5}
@@ -194,21 +194,21 @@ you'd better put function definitions inside \verb!\IgnoreSpacesOn! and
 At the end of this section,
 we will compare our factorial example with a similar \verb!Lua! example:
 
-\begin{minipage}{0.69\textwidth}
+\begin{minipage}{0.65\textwidth}
 \begin{codehigh}
 \IgnoreSpacesOn
 \PrgNewFunction \Fact { m } {
   \IntCompareTF {#1} = {0} {
     \Return {1}
   }{
-    \Return {\IntMathMult{#1}{\Fact{\IntMathSub{#1}{1}}}}
+    \Return {\IntEval{#1*\Fact{\IntEval{#1-1}}}}
   }
 }
 \IgnoreSpacesOff
 \Fact{4}
 \end{codehigh}
 \end{minipage}%
-\begin{minipage}{0.31\textwidth}
+\begin{minipage}{0.35\textwidth}
 \begin{code}
 -- define a function --
 function Fact (n)
@@ -536,8 +536,8 @@ is returned. Therefore, the following two examples produce the same output:
 \begin{codehigh}
 \IgnoreSpacesOn
 \PrgNewFunction \MathSquare { m } {
-  \IntSet \lTmpaInt { \IntEval {#1 * #1} }
-  \Return { \Value \lTmpaInt }
+  \IntSet \lTmpaInt {\IntEval {#1 * #1}}
+  \Return {\Value \lTmpaInt}
 }
 \IgnoreSpacesOff
 \MathSquare{5}
@@ -545,7 +545,7 @@ is returned. Therefore, the following two examples produce the same output:
 \begin{codehigh}
 \IgnoreSpacesOn
 \PrgNewFunction \MathSquare { m } {
-  \IntSet \lTmpaInt { \IntEval {#1 * #1} }
+  \IntSet \lTmpaInt {\IntEval {#1 * #1}}
   \Value \lTmpaInt
 }
 \IgnoreSpacesOff

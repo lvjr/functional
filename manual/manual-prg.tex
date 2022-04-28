@@ -65,8 +65,8 @@ is returned. Therefore, the following two examples produce the same output:
 \begin{codehigh}
 \IgnoreSpacesOn
 \PrgNewFunction \MathSquare { m } {
-  \IntSet \lTmpaInt { \IntEval {#1 * #1} }
-  \Return { \Value \lTmpaInt }
+  \IntSet \lTmpaInt {\IntEval {#1 * #1}}
+  \Return {\Value \lTmpaInt}
 }
 \IgnoreSpacesOff
 \MathSquare{5}
@@ -74,7 +74,7 @@ is returned. Therefore, the following two examples produce the same output:
 \begin{codehigh}
 \IgnoreSpacesOn
 \PrgNewFunction \MathSquare { m } {
-  \IntSet \lTmpaInt { \IntEval {#1 * #1} }
+  \IntSet \lTmpaInt {\IntEval {#1 * #1}}
   \Value \lTmpaInt
 }
 \IgnoreSpacesOff
