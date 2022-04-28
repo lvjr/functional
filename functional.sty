@@ -1331,19 +1331,19 @@
 
 \PrgNewFunction \IntNew { M } { \int_new:N #1 }
 
-\PrgNewFunction \IntConst { M m } { \int_const:Nn #1 { #2 } }
+\PrgNewFunction \IntConst { M e } { \int_const:Nn #1 { #2 } }
 
-\PrgNewFunction \IntLog { m } { \int_log:n { #1 } }
+\PrgNewFunction \IntLog { e } { \int_log:n { #1 } }
 
 \PrgNewFunction \IntVarLog { M } { \int_log:N #1 }
 
-\PrgNewFunction \IntShow { m } { \int_show:n { #1 } }
+\PrgNewFunction \IntShow { e } { \int_show:n { #1 } }
 
 \PrgNewFunction \IntVarShow { M } { \int_show:N #1 }
 
 \PrgNewFunction \IntUse { M } { \Return { \Value #1 } }
 
-\PrgNewFunction \IntSet { M m }
+\PrgNewFunction \IntSet { M e }
   {
     \__fun_do_assignment:Nnn #1 { \int_gset:Nn #1 {#2} } { \int_set:Nn #1 {#2} }
   }
@@ -1373,22 +1373,22 @@
     \__fun_do_assignment:Nnn #1 { \int_gdecr:N #1 } { \int_decr:N #1 }
   }
 
-\PrgNewFunction \IntAdd { M m }
+\PrgNewFunction \IntAdd { M e }
   {
     \__fun_do_assignment:Nnn #1 { \int_gadd:Nn #1 {#2} } { \int_add:Nn #1 {#2} }
   }
 
-\PrgNewFunction \IntSub { M m }
+\PrgNewFunction \IntSub { M e }
   {
     \__fun_do_assignment:Nnn #1 { \int_gsub:Nn #1 {#2} } { \int_sub:Nn #1 {#2} }
   }
 
-\PrgNewFunction \IntStepInline { m m m n }
+\PrgNewFunction \IntStepInline { e e e n }
   {
     \int_step_inline:nnnn { #1 } { #2 } { #3 } { #4 }
   }
 
-\PrgNewFunction \IntStepVariable { m m m M n }
+\PrgNewFunction \IntStepVariable { e e e M n }
   {
     \int_step_variable:nnnNn { #1 } { #2 } { #3 } #4 { #5 }
   }
@@ -1398,27 +1398,27 @@
     \int_if_exist:NTF #1 { \Return { \cTrueBool } } { \Return { \cFalseBool } }
   }
 
-\PrgNewConditional \IntIfOdd { m }
+\PrgNewConditional \IntIfOdd { e }
   {
     \int_if_odd:nTF { #1 } { \Return { \cTrueBool } } { \Return { \cFalseBool } }
   }
 
-\PrgNewConditional \IntIfEven { m }
+\PrgNewConditional \IntIfEven { e }
   {
     \int_if_even:nTF { #1 } { \Return { \cTrueBool } } { \Return { \cFalseBool } }
   }
 
-\PrgNewConditional \IntCompare { m N m }
+\PrgNewConditional \IntCompare { e N e }
   {
     \int_compare:nNnTF {#1} #2 {#3}
       { \Return { \cTrueBool } }
       { \Return { \cFalseBool } }
   }
 
-\PrgNewFunction \IntCase   { m m }     { \int_case:nn {#1} {#2} }
-\PrgNewFunction \IntCaseT  { m m n }   { \int_case:nnT {#1} {#2} {#3} }
-\PrgNewFunction \IntCaseF  { m m n }   { \int_case:nnF {#1} {#2} {#3} }
-\PrgNewFunction \IntCaseTF { m m n n } { \int_case:nnTF {#1} {#2} {#3} {#4} }
+\PrgNewFunction \IntCase   { e m }     { \int_case:nn {#1} {#2} }
+\PrgNewFunction \IntCaseT  { e m n }   { \int_case:nnT {#1} {#2} {#3} }
+\PrgNewFunction \IntCaseF  { e m n }   { \int_case:nnF {#1} {#2} {#3} }
+\PrgNewFunction \IntCaseTF { e m n n } { \int_case:nnTF {#1} {#2} {#3} {#4} }
 
 %%% --------------------------------------------------------
 %%> \section{Interfaces for Floating Point Numbers (Fp)}
