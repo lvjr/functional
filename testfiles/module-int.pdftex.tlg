@@ -7,6 +7,18 @@ TEST 1: Testing \IntEval
     [I] \Expand{\int_eval:n {(1+4)*(2-3)/5}}
     [O] -1
 [O] -1
+    [I] \StrCount{12\TeX 34}
+        [I] \Expand{\str_count:n {12\TeX 34}}
+        [O] 9
+    [O] 9
+    [I] \TlCount{12\TeX 34}
+        [I] \Expand{\tl_count:n {12\TeX 34}}
+        [O] 5
+    [O] 5
+[I] \IntEval{9-5}
+    [I] \Expand{\int_eval:n {9-5}}
+    [O] 4
+[O] 4
 ============================================================
 ============================================================
 TEST 2: Testing \IntMathAdd 

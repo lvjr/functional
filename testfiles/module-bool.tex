@@ -15,7 +15,9 @@
 \ENDTEST
 
 \BEGINTEST{Testing \BoolSet}
-\BoolSet \lTmpaBool {\IntCompare {3} < {2}}
+\BoolSet \lTmpaBool {\IntCompare{3}<{4}}
+\BoolVarLog \lTmpaBool
+\BoolSet \lTmpaBool {\IntCompare{3}<{4} && \StrIfEq{abc}{uvw}}
 \BoolVarLog \lTmpaBool
 \ENDTEST
 
@@ -36,7 +38,7 @@
 \ENDTEST
 
 \BEGINTEST{Testing \BoolLog}
-\BoolLog \lTmpaBool 
+\BoolLog \lTmpaBool
 \ENDTEST
 
 \BEGINTEST{Testing \BoolIfExist}

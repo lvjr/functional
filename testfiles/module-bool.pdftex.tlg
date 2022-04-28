@@ -16,11 +16,24 @@ TEST 1: Testing \BoolConst
 ============================================================
 TEST 2: Testing \BoolSet 
 ============================================================
-    [I] \IntCompare{3}<{2}
+    [I] \IntCompare{3}<{4}
+        [I] \Return{\cTrueBool }
+        [O] \cTrueBool 
+    [O] \cTrueBool 
+[I] \BoolSet{\lTmpaBool }{\cTrueBool }
+[O] 
+[I] \BoolVarLog{\lTmpaBool }
+> \lTmpaBool=true.
+[O] 
+    [I] \IntCompare{3}<{4}
+        [I] \Return{\cTrueBool }
+        [O] \cTrueBool 
+    [O] \cTrueBool 
+    [I] \StrIfEq{abc}{uvw}
         [I] \Return{\cFalseBool }
         [O] \cFalseBool 
     [O] \cFalseBool 
-[I] \BoolSet{\lTmpaBool }{\cFalseBool }
+[I] \BoolSet{\lTmpaBool }{\cTrueBool &&\cFalseBool }
 [O] 
 [I] \BoolVarLog{\lTmpaBool }
 > \lTmpaBool=false.
