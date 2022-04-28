@@ -87,6 +87,8 @@
   \underline{\textsl{#1}}%
 }
 
+\usepackage{amsmath}
+
 \usepackage{hyperref}
 \hypersetup{
   colorlinks=true,
@@ -699,6 +701,34 @@ function. However, they may be overwritten by other
 code and so should only be used for short-term storage.
 \end{variable}
 
+\section{Boolean Expressions}
+
+As we have a boolean datatype and predicate functions returning
+boolean \meta{true} or \meta{false} values, it seems only fitting
+that we also provide a parser for \meta{boolean expressions}.
+
+A boolean expression is an expression which given input in the form
+of predicate functions and boolean variables, return boolean
+\meta{true} or \meta{false}. It supports the logical operations And,
+Or and Not as the well-known infix operators \verb|&&| and \verb"||" and
+prefix~\verb|!| with their usual precedences (namely, \verb|&&| binds
+more tightly than \verb"||"). In addition to this, parentheses can be
+used to isolate sub-expressions. For example,
+\begin{codehigh}
+\IntCompare {1} = {1} &&
+  (
+    \IntCompare {2} = {3} ||
+    \IntCompare {4} < {4} ||
+    \StrIfEq {abc} {def}
+  ) &&
+! \IntCompare {2} = {4}
+\end{codehigh}
+is a valid boolean expression.
+
+Contrarily to some other programming languages, the operators \verb|&&| and
+\verb"||" evaluate both operands in all cases, even when the first
+operand is enough to determine the result.
+
 \section{Creating and Setting Booleans}
 
 \begin{function}{\BoolNew}
@@ -732,7 +762,11 @@ Evaluates the \meta{boolean expression} and sets the \meta{boolean} variable to
 the logical truth of this evaluation.
 For example
 \begin{codehigh}
-\BoolSet \lTmpaBool {\IntCompare{3}<{2}}
+\BoolSet \lTmpaBool {\IntCompare{3}<{4}}
+\BoolVarLog \lTmpaBool
+\end{codehigh}
+\begin{codehigh}
+\BoolSet \lTmpaBool {\IntCompare{3}<{4} && \StrIfEq{abc}{uvw}}
 \BoolVarLog \lTmpaBool
 \end{codehigh}
 \end{function}
@@ -854,8 +888,8 @@ For example
 Implements the \enquote{And} operation between two booleans,
 hence is \texttt{true} if both are \texttt{true}.
 %Contrarily to the infix operator \verb|&&|,
-The \meta{boolean_2} is only evaluated if it is needed to determine the result of
-\cs{BoolVarAnd}.
+%The \meta{boolean_2} is only evaluated if it is needed to determine the result of
+%\cs{BoolVarAnd}.
 For example
 \begin{demohigh}
 \BoolVarAndTF {\IntCompare{3}>{2}} {\IntCompare{3}>{4}} {\Return{Yes}} {\Return{No}}
@@ -872,8 +906,8 @@ For example
 Implements the \enquote{Or} operation between two booleans,
 hence is \texttt{true} if either one is \texttt{true}.
 %Contrarily to the infix operator \verb"||",
-The \meta{boolean_2} is only evaluated if it is needed to determine the result of
-\cs{BoolVarOr}.
+%The \meta{boolean_2} is only evaluated if it is needed to determine the result of
+%\cs{BoolVarOr}.
 For example
 \begin{demohigh}
 \BoolVarOrTF {\IntCompare{3}>{2}} {\IntCompare{3}>{4}} {\Return{Yes}} {\Return{No}}
@@ -2930,7 +2964,56 @@ function. However, they may be overwritten by other
 code and so should only be used for short-term storage.
 \end{variable}
 
-\section{Integer Expressions}
+\section{The Syntax of Integer Expressions}
+
+An \meta{integer expression} should consist,
+after evaluation of functions defined with \cs{PrgNewFunction}
+and expansion, of \texttt{+}, \texttt{-}, \texttt{*}, \texttt{/},
+\texttt{(}, \texttt{)} and of course integer operands.  The result
+is calculated by applying standard mathematical rules with the
+following peculiarities:
+\begin{itemize}
+\item \texttt{/} denotes division rounded to the closest integer with
+ties rounded away from zero;
+\item there is an error and the overall expression evaluates to zero
+whenever the absolute value of any intermediate result exceeds
+$2^{31}-1$, except in the case of scaling operations
+$a$\texttt{*}$b$\texttt{/}$c$, for which $a$\texttt{*}$b$ may be
+arbitrarily large (but the operands $a$, $b$, $c$ are still
+constrained to an absolute value at most $2^{31}-1$);
+\item parentheses may not appear after unary \texttt{+} or
+\texttt{-}, namely placing \texttt{+(} or \texttt{-(} at the start
+of an expression or after \texttt{+}, \texttt{-}, \texttt{*},
+\texttt{/} or~\texttt{(} leads to an error.
+\end{itemize}
+Each integer operand can be either an integer variable (with no need
+for \cs{IntUse}) or an integer denotation.
+For example both of the following give the same result
+because \cs{lFooSomeTl} expands to the integer denotation~$5$
+while the integer variable \cs{lFooSomeInt} takes the value~$4$.
+\begin{demohigh}
+\IntEval {5 +  4 * 3 - (3 + 4 * 5)}
+\end{demohigh}
+\begin{demohigh}
+\TlNew \lFooSomeTl
+\TlSet \lFooSomeTl {5}
+\IntNew \lFooSomeInt
+\IntSet \lFooSomeInt {4}
+\IntEval {\lFooSomeTl +  \lFooSomeInt * 3 - (3 + 4 * 5)}
+\end{demohigh}
+
+%\begin{texnote}
+%As all \TeX{} integers, integer operands can also be:
+%\tn{value}\Arg{\LaTeXe{} counter}; dimension or skip variables,
+%converted to integers in~\texttt{sp}; the character code of some
+%character given as \texttt{`}\meta{char} or
+%\texttt{`\textbackslash}\meta{char}; octal numbers given as
+%\texttt{'} followed by digits from \texttt{0} to \texttt{7}; or
+%hexadecimal numbers given as \verb|"| followed by digits and upper case
+%letters from \texttt{A} to~\texttt{F}.
+%\end{texnote}
+
+\section{Using Integer Expressions}
 
 \begin{function}{\IntEval}
 \begin{syntax}
@@ -2943,6 +3026,9 @@ for negative results \texttt{-}~followed by such a sequence, and
 \texttt{0}~for zero. For example
 \begin{demohigh}
 \IntEval {(1+4)*(2-3)/5}
+\end{demohigh}
+\begin{demohigh}
+\IntEval {\StrCount{12\TeX34} - \TlCount{12\TeX34}}
 \end{demohigh}
 \end{function}
 
@@ -3492,7 +3578,112 @@ function. However, they may be overwritten by other
 code and so should only be used for short-term storage.
 \end{variable}
 
-\section{Floating Point Expressions}
+\section{The Syntax of Floating Point Expressions}
+
+A decimal floating point number is one which is stored as a significand and a
+separate exponent. The module implements expandably a wide set of
+arithmetic, trigonometric, and other operations on decimal floating point
+numbers, to be used within floating point expressions. Floating point
+expressions support the following operations with their usual
+precedence.
+\begin{itemize}
+\item Basic arithmetic: addition $x+y$, subtraction $x-y$,
+multiplication $x*y$, division $x/y$, square root $\sqrt{x}$,
+and parentheses.
+\item Comparison operators: $x\mathop{\mathtt{<}}y$,
+$x\mathop{\mathtt{<=}}y$, $x\mathop{\mathtt{>?}}y$,
+$x\mathop{\mathtt{!=}}y$ \emph{etc.}
+\item Boolean logic: sign $\operatorname{sign} x$,
+negation $\mathop{!}x$, conjunction
+$x\mathop{\&\&}y$, disjunction $x\mathop{\vert\vert}y$, ternary
+operator $x\mathop{?}y\mathop{:}z$.
+\item Exponentials: $\exp x$, $\ln x$, $x^y$, $\operatorname{logb} x$.
+\item Integer factorial: $\operatorname{fact} x$.
+\item Trigonometry: $\sin x$, $\cos x$, $\tan x$, $\cot x$, $\sec
+x$, $\csc x$ expecting their arguments in radians, and
+$\operatorname{sind} x$, $\operatorname{cosd} x$,
+$\operatorname{tand} x$, $\operatorname{cotd} x$,
+$\operatorname{secd} x$, $\operatorname{cscd} x$ expecting their
+arguments in degrees.
+\item Inverse trigonometric functions: $\operatorname{asin} x$,
+$\operatorname{acos} x$, $\operatorname{atan} x$,
+$\operatorname{acot} x$, $\operatorname{asec} x$,
+$\operatorname{acsc} x$ giving a result in radians, and
+$\operatorname{asind} x$, $\operatorname{acosd} x$,
+$\operatorname{atand} x$, $\operatorname{acotd} x$,
+$\operatorname{asecd} x$, $\operatorname{acscd} x$ giving a result
+in degrees.
+%\item [\emph{(not yet)}] Hyperbolic functions and their inverse
+%functions: $\sinh x$, $\cosh x$, $\tanh x$, $\coth x$,
+%$\operatorname{sech} x$, $\operatorname{csch}$, and
+%$\operatorname{asinh} x$, $\operatorname{acosh} x$,
+%$\operatorname{atanh} x$, $\operatorname{acoth} x$,
+%$\operatorname{asech} x$, $\operatorname{acsch} x$.
+\item Extrema: $\max(x_{1},x_{2},\ldots)$, $\min(x_{1},x_{2},\ldots)$,
+$\operatorname{abs}(x)$.
+\item Rounding functions, controlled by two optional
+values,  $n$ (number of places, $0$ by default) and
+$t$ (behavior on a tie, $\nan$ by default):
+\begin{itemize}
+\item $\operatorname{trunc}(x,n)$ rounds towards zero,
+\item $\operatorname{floor}(x,n)$ rounds towards $-\infty$,
+\item $\operatorname{ceil}(x,n)$ rounds towards $+\infty$,
+\item $\operatorname{round}(x,n,t)$ rounds to the closest value, with
+ties rounded to an even value by default, towards zero if $t=0$,
+towards $+\infty$ if $t>0$ and towards $-\infty$ if $t<0$.
+\end{itemize}
+%And \emph{(not yet)} modulo, and \enquote{quantize}.
+\item Random numbers: $\mathop{rand}()$, $\mathop{randint}(m,n)$.
+\item Constants: \texttt{pi}, \texttt{deg} (one degree in radians).
+\item Dimensions, automatically expressed in points, \emph{e.g.},
+\texttt{pc} is $12$.
+\item Automatic conversion (no need for \cs{IntUse}, etc) of
+integer, dimension, and skip variables to floating point numbers,
+expressing dimensions in points and ignoring the stretch and
+shrink components of skips.
+\item Tuples: $(x_1,\ldots{},x_n)$ that can be stored in variables,
+added together, multiplied or divided by a floating point number,
+and nested.
+\end{itemize}
+Floating point numbers can be given either explicitly (in a form such
+as \verb|1.234e-34|, or \verb|-.0001|), or as a stored floating point variable,
+which is automatically replaced by its current value.
+A \enquote{floating point} is a floating point number or a tuple thereof.
+%See section \ref{sec:l3fp:fp-floats} for a description of what a floating point is,
+%section \ref{sec:l3fp:fp-precedence} for details about how an expression is
+%parsed, and section \ref{sec:l3fp:fp-operations} to know what the various
+%operations do.  Some operations may raise exceptions (error messages),
+%described in section \ref{sec:l3fp:fp-exceptions}.
+
+An example of use could be the following.
+\begin{demohigh}
+\LaTeX{} can now compute: $ \frac{\sin(3.5)}{2} + 2\cdot 10^{-3}
+= \FpEval {sin(3.5)/2 + 2e-3} $.
+\end{demohigh}
+
+The operation \texttt{round} can be used to limit the result's
+precision. Adding $+0$ avoids the possibly undesirable output \verb|-0|,
+replacing it by \verb|+0|.
+
+%However, the \pkg{l3fp} module is mostly meant
+%as an underlying tool for higher-level commands.  For example, one
+%could provide a function to typeset nicely the result of floating
+%point computations.
+%\begin{verbatim}
+%\documentclass{article}
+%\usepackage{xparse, siunitx}
+%\ExplSyntaxOn
+%\NewDocumentCommand { \calcnum } { m }
+%{ \num { \fp_to_scientific:n {#1} } }
+%\ExplSyntaxOff
+%\begin{document}
+%\calcnum { 2 pi * sin ( 2.3 ^ 5 ) }
+%\end{document}
+%\end{verbatim}
+%See the documentation of \pkg{siunitx} for various options of
+%\cs{num}.
+
+\section{Using Floating Point Expressions}
 
 \begin{function}{\FpEval}
 \begin{syntax}

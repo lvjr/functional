@@ -43,7 +43,56 @@ function. However, they may be overwritten by other
 code and so should only be used for short-term storage.
 \end{variable}
 
-\section{Integer Expressions}
+\section{The Syntax of Integer Expressions}
+
+An \meta{integer expression} should consist,
+after evaluation of functions defined with \cs{PrgNewFunction}
+and expansion, of \texttt{+}, \texttt{-}, \texttt{*}, \texttt{/},
+\texttt{(}, \texttt{)} and of course integer operands.  The result
+is calculated by applying standard mathematical rules with the
+following peculiarities:
+\begin{itemize}
+\item \texttt{/} denotes division rounded to the closest integer with
+ties rounded away from zero;
+\item there is an error and the overall expression evaluates to zero
+whenever the absolute value of any intermediate result exceeds
+$2^{31}-1$, except in the case of scaling operations
+$a$\texttt{*}$b$\texttt{/}$c$, for which $a$\texttt{*}$b$ may be
+arbitrarily large (but the operands $a$, $b$, $c$ are still
+constrained to an absolute value at most $2^{31}-1$);
+\item parentheses may not appear after unary \texttt{+} or
+\texttt{-}, namely placing \texttt{+(} or \texttt{-(} at the start
+of an expression or after \texttt{+}, \texttt{-}, \texttt{*},
+\texttt{/} or~\texttt{(} leads to an error.
+\end{itemize}
+Each integer operand can be either an integer variable (with no need
+for \cs{IntUse}) or an integer denotation.
+For example both of the following give the same result
+because \cs{lFooSomeTl} expands to the integer denotation~$5$
+while the integer variable \cs{lFooSomeInt} takes the value~$4$.
+\begin{demohigh}
+\IntEval {5 +  4 * 3 - (3 + 4 * 5)}
+\end{demohigh}
+\begin{demohigh}
+\TlNew \lFooSomeTl
+\TlSet \lFooSomeTl {5}
+\IntNew \lFooSomeInt
+\IntSet \lFooSomeInt {4}
+\IntEval {\lFooSomeTl +  \lFooSomeInt * 3 - (3 + 4 * 5)}
+\end{demohigh}
+
+%\begin{texnote}
+%As all \TeX{} integers, integer operands can also be:
+%\tn{value}\Arg{\LaTeXe{} counter}; dimension or skip variables,
+%converted to integers in~\texttt{sp}; the character code of some
+%character given as \texttt{`}\meta{char} or
+%\texttt{`\textbackslash}\meta{char}; octal numbers given as
+%\texttt{'} followed by digits from \texttt{0} to \texttt{7}; or
+%hexadecimal numbers given as \verb|"| followed by digits and upper case
+%letters from \texttt{A} to~\texttt{F}.
+%\end{texnote}
+
+\section{Using Integer Expressions}
 
 \begin{function}{\IntEval}
 \begin{syntax}
@@ -56,6 +105,9 @@ for negative results \texttt{-}~followed by such a sequence, and
 \texttt{0}~for zero. For example
 \begin{demohigh}
 \IntEval {(1+4)*(2-3)/5}
+\end{demohigh}
+\begin{demohigh}
+\IntEval {\StrCount{12\TeX34} - \TlCount{12\TeX34}}
 \end{demohigh}
 \end{function}
 

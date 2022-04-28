@@ -34,6 +34,34 @@ function. However, they may be overwritten by other
 code and so should only be used for short-term storage.
 \end{variable}
 
+\section{Boolean Expressions}
+
+As we have a boolean datatype and predicate functions returning
+boolean \meta{true} or \meta{false} values, it seems only fitting
+that we also provide a parser for \meta{boolean expressions}.
+
+A boolean expression is an expression which given input in the form
+of predicate functions and boolean variables, return boolean
+\meta{true} or \meta{false}. It supports the logical operations And,
+Or and Not as the well-known infix operators \verb|&&| and \verb"||" and
+prefix~\verb|!| with their usual precedences (namely, \verb|&&| binds
+more tightly than \verb"||"). In addition to this, parentheses can be
+used to isolate sub-expressions. For example,
+\begin{codehigh}
+\IntCompare {1} = {1} &&
+  (
+    \IntCompare {2} = {3} ||
+    \IntCompare {4} < {4} ||
+    \StrIfEq {abc} {def}
+  ) &&
+! \IntCompare {2} = {4}
+\end{codehigh}
+is a valid boolean expression.
+
+Contrarily to some other programming languages, the operators \verb|&&| and
+\verb"||" evaluate both operands in all cases, even when the first
+operand is enough to determine the result.
+
 \section{Creating and Setting Booleans}
 
 \begin{function}{\BoolNew}
@@ -67,7 +95,11 @@ Evaluates the \meta{boolean expression} and sets the \meta{boolean} variable to
 the logical truth of this evaluation.
 For example
 \begin{codehigh}
-\BoolSet \lTmpaBool {\IntCompare{3}<{2}}
+\BoolSet \lTmpaBool {\IntCompare{3}<{4}}
+\BoolVarLog \lTmpaBool
+\end{codehigh}
+\begin{codehigh}
+\BoolSet \lTmpaBool {\IntCompare{3}<{4} && \StrIfEq{abc}{uvw}}
 \BoolVarLog \lTmpaBool
 \end{codehigh}
 \end{function}
@@ -189,8 +221,8 @@ For example
 Implements the \enquote{And} operation between two booleans,
 hence is \texttt{true} if both are \texttt{true}.
 %Contrarily to the infix operator \verb|&&|,
-The \meta{boolean_2} is only evaluated if it is needed to determine the result of
-\cs{BoolVarAnd}.
+%The \meta{boolean_2} is only evaluated if it is needed to determine the result of
+%\cs{BoolVarAnd}.
 For example
 \begin{demohigh}
 \BoolVarAndTF {\IntCompare{3}>{2}} {\IntCompare{3}>{4}} {\Return{Yes}} {\Return{No}}
@@ -207,8 +239,8 @@ For example
 Implements the \enquote{Or} operation between two booleans,
 hence is \texttt{true} if either one is \texttt{true}.
 %Contrarily to the infix operator \verb"||",
-The \meta{boolean_2} is only evaluated if it is needed to determine the result of
-\cs{BoolVarOr}.
+%The \meta{boolean_2} is only evaluated if it is needed to determine the result of
+%\cs{BoolVarOr}.
 For example
 \begin{demohigh}
 \BoolVarOrTF {\IntCompare{3}>{2}} {\IntCompare{3}>{4}} {\Return{Yes}} {\Return{No}}
