@@ -807,11 +807,11 @@
 
 \PrgNewFunction \BoolNew { M } { \bool_new:N #1 }
 
-\PrgNewFunction \BoolConst { M m } { \bool_const:Nn #1 { #2 } }
+\PrgNewFunction \BoolConst { M e } { \bool_const:Nn #1 {#2} }
 
-\PrgNewFunction \BoolSet { M m } {
+\PrgNewFunction \BoolSet { M e } {
   \__fun_do_assignment:Nnn #1
-    { \bool_gset:Nn #1 { #2 } } { \bool_set:Nn #1 { #2 } }
+    { \bool_gset:Nn #1 {#2} } { \bool_set:Nn #1 {#2} }
 }
 
 \PrgNewFunction \BoolSetTrue { M }
@@ -830,11 +830,11 @@
       { \bool_gset_eq:NN #1 #2 } { \bool_set_eq:NN #1 #2 }
   }
 
-\PrgNewFunction \BoolLog { m } { \bool_log:n { #1 } }
+\PrgNewFunction \BoolLog { e } { \bool_log:n {#1} }
 
 \PrgNewFunction \BoolVarLog { M } { \bool_log:N #1 }
 
-\PrgNewFunction \BoolShow { m } { \bool_show:n { #1 } }
+\PrgNewFunction \BoolShow { e } { \bool_show:n {#1} }
 
 \PrgNewFunction \BoolVarShow { M } { \bool_show:N #1 }
 
@@ -843,7 +843,7 @@
     \bool_if_exist:NTF #1 { \Return { \cTrueBool } } { \Return { \cFalseBool } }
   }
 
-\PrgNewConditional \BoolVarIf { M } { \Return { #1 } }
+\PrgNewConditional \BoolVarIf { M } { \Return {#1} }
 
 \PrgNewConditional \BoolVarNot { M }
   {
