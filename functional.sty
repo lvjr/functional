@@ -337,6 +337,8 @@
 \cs_generate_variant:Nn \__fun_new_with_arg_ix:Nnn { NnV }
 
 \tl_new:N \l__fun_argtype_tl
+\tl_const:Nn \c__fun_argtype_e_tl { e }
+\tl_const:Nn \c__fun_argtype_E_tl { E }
 \tl_const:Nn \c__fun_argtype_m_tl { m }
 \tl_const:Nn \c__fun_argtype_M_tl { M }
 \tl_const:Nn \c__fun_argtype_n_tl { n }
@@ -354,6 +356,14 @@
         \__fun_one_argument_get:eN { \__fun_argtype_index_use: } \l__fun_argument_tl
         \tl_case:Nn \l__fun_argtype_tl
           {
+            \c__fun_argtype_e_tl
+              {
+                \__fun_evaluate_all_and_put_argument:N \l__fun_argument_tl
+              }
+            \c__fun_argtype_E_tl
+              {
+                \__fun_evaluate_all_and_put_argument:N \l__fun_argument_tl
+              }
             \c__fun_argtype_m_tl
               {
                 \__fun_evaluate_and_put_argument:N \l__fun_argument_tl
@@ -374,6 +384,12 @@
       }
     \__fun_arguments_log:N #1
     \__fun_arguments_called:c { __fun_defined_ \cs_to_str:N #1 : w }
+  }
+
+\cs_new_protected:Npn \__fun_evaluate_all_and_put_argument:N #1
+  {
+    \__fun_eval_all:V #1
+    \__fun_arguments_gput:e { { \exp_not:V \gResultTl } }
   }
 
 \cs_new_protected:Npn \__fun_evaluate_and_put_argument:N #1
@@ -541,49 +557,10 @@
 %%> \subsection{Evaluating Functions inside Arguments}
 %%% --------------------------------------------------------
 
-%% Evaluate arguments before calling a function
-%% #1: argument specification; #2 function with args
-\PrgNewFunction \PrgEvalArgs { n n }
-  {
-    \use:c { __fun_prg_eval_args_ #1 : n } {#2}
-  }
-
-\cs_new_protected:Npn \__fun_prg_eval_args_m:n #1
-  {
-    \__fun_prg_eval_args_m:Nn #1
-  }
-
-\cs_new_protected:Npn \__fun_prg_eval_args_mm:n #1
-  {
-    \__fun_prg_eval_args_mm:Nnn #1
-  }
-
-%% Evaluate functions in argument #2 before calling #1{#2}
-%% We expand result first to make tracing log more readable
-\cs_new_protected:Npn \__fun_prg_eval_args_m:Nn #1 #2
-  {
-    \PrgEvalAll {#2}
-    \exp_args:Ne \Return { \exp_not:N #1 { \exp_not:V \gResultTl } }
-  }
-
-\tl_new:N \l@FunFirstResultTl
-
-%% Evaluate functions in argument #2 and #3 before calling #1{#2}{#3}
-%% We expand resultsl first to make tracing log more readable
-\cs_new_protected:Npn \__fun_prg_eval_args_mm:Nnn #1 #2 #3
-  {
-    \PrgEvalAll {#2}
-    \tl_set_eq:NN \l@FunFirstResultTl \gResultTl
-    \PrgEvalAll {#3}
-    \exp_args:Ne \Return
-      { \exp_not:N #1 { \exp_not:V \l@FunFirstResultTl } { \exp_not:V \gResultTl } }
-  }
-
 \tl_new:N \l__fun_eval_result_tl
 
 %% Evaluate all functions in #1 and replace them with their return values
-%% We don't define it with \PrgNewFunction for better tracing log
-\cs_new_protected:Npn \PrgEvalAll #1
+\cs_new_protected:Npn \__fun_eval_all:n #1
   {
     \fun_run_return_processor:nn
       { \exp_last_unbraced:NV \__fun_eval_all_aux:n \gResultTl }
@@ -593,6 +570,7 @@
         \tl_gset_eq:NN \gResultTl \l__fun_eval_result_tl
       }
   }
+\cs_generate_variant:Nn \__fun_eval_all:n { V }
 
 \cs_new_protected:Npn \__fun_eval_all_aux:n #1
   {
@@ -1324,65 +1302,32 @@
 \int_new:N \gTmpiInt     \int_new:N \gTmpjInt     \int_new:N \gTmpkInt
 \int_new:N \g@FunTmpxInt \int_new:N \g@FunTmpyInt \int_new:N \g@FunTmpzInt
 
-\PrgNewFunction \IntEval { n }
+\PrgNewFunction \IntEval { e } { \Expand { \int_eval:n {#1} } }
+
+\PrgNewFunction \IntMathAdd { e e } { \Expand { \int_eval:n { (#1) + (#2) } } }
+
+\PrgNewFunction \IntMathSub { e e } { \Expand { \int_eval:n { (#1) - (#2) } } }
+
+\PrgNewFunction \IntMathMult { e e } { \Expand { \int_eval:n { (#1) * (#2) } } }
+
+\PrgNewFunction \IntMathDiv { e e } { \Expand { \int_div_round:nn {#1} {#2} } }
+
+\PrgNewFunction \IntMathDivTruncate { e e }
   {
-    \Expand { \PrgEvalArgs { m } { \int_eval:n {#1} } }
+    \Expand { \int_div_truncate:nn {#1} {#2} }
   }
 
-\PrgNewFunction \IntMathAdd { n n }
-  {
-    \Expand { \PrgEvalArgs { m } { \int_eval:n { (#1) + (#2) } } }
-  }
+\PrgNewFunction \IntMathSign { e } { \Expand { \int_sign:n {#1} } }
 
-\PrgNewFunction \IntMathSub { n n }
-  {
-    \Expand { \PrgEvalArgs { m } { \int_eval:n { (#1) - (#2) } } }
-  }
+\PrgNewFunction \IntMathAbs { e } { \Expand { \int_abs:n {#1} } }
 
-\PrgNewFunction \IntMathMult { n n }
-  {
-    \Expand { \PrgEvalArgs { m } { \int_eval:n { (#1) * (#2) } } }
-  }
+\PrgNewFunction \IntMathMax { e e } { \Expand { \int_max:nn {#1} {#2} } }
 
-\PrgNewFunction \IntMathDiv { n n }
-  {
-    \Expand { \PrgEvalArgs { m m } { \int_div_round:nn {#1} {#2} } }
-  }
+\PrgNewFunction \IntMathMin { e e } { \Expand { \int_min:nn {#1} {#2} } }
 
-\PrgNewFunction \IntMathDivTruncate { n n }
-  {
-    \Expand { \PrgEvalArgs { m m } { \int_div_truncate:nn {#1} {#2} } }
-  }
+\PrgNewFunction \IntMathMod { e e } { \Expand { \int_mod:nn {#1} {#2} } }
 
-\PrgNewFunction \IntMathSign { n }
-  {
-    \Expand { \PrgEvalArgs { m } { \int_sign:n {#1} } }
-  }
-
-\PrgNewFunction \IntMathAbs { n }
-  {
-    \Expand { \PrgEvalArgs { m } { \int_abs:n {#1} } }
-  }
-
-\PrgNewFunction \IntMathMax { n n }
-  {
-    \Expand { \PrgEvalArgs { m m } { \int_max:nn {#1} {#2} } }
-  }
-
-\PrgNewFunction \IntMathMin { n n }
-  {
-    \Expand { \PrgEvalArgs { m m } { \int_min:nn {#1} {#2} } }
-  }
-
-\PrgNewFunction \IntMathMod { n n }
-  {
-    \Expand { \PrgEvalArgs { m m } { \int_mod:nn {#1} {#2} } }
-  }
-
-\PrgNewFunction \IntMathRand { n n }
-  {
-    \Expand { \PrgEvalArgs { m m } { \int_rand:nn {#1} {#2} } }
-  }
+\PrgNewFunction \IntMathRand { e e } { \Expand { \int_rand:nn {#1} {#2} } }
 
 \PrgNewFunction \IntNew { M } { \int_new:N #1 }
 
