@@ -3354,6 +3354,28 @@ with \verb|#1| replaced by the current \meta{value}. Thus the
 \end{demohigh}
 \end{function}
 
+\begin{function}{\IntStepOneInline}
+\begin{syntax}
+\cs{IntStepOneInline} \Arg{initial value} \Arg{final value} \Arg{code}
+\end{syntax}
+This function first evaluates the \meta{initial value} and \meta{final value},
+all of which should be integer expressions.
+Then for each \meta{value} from the \meta{initial value} to the
+\meta{final value} in turn (using a fixed step of $1$ between each
+\meta{value}), the \meta{code} is inserted into the input stream
+with \verb|#1| replaced by the current \meta{value}. Thus the
+\meta{code} should define a function of one argument~(\verb|#1|).
+\begin{demohigh}
+\IgnoreSpacesOn
+\TlClear \lTmpaTl
+\IntStepOneInline {1} {10} {
+  \TlPutRight \lTmpaTl {[#1]}
+}
+\TlUse \lTmpaTl
+\IgnoreSpacesOff
+\end{demohigh}
+\end{function}
+
 \begin{function}{\IntStepVariable}
 \begin{syntax}
 \cs{IntStepVariable} \Arg{initial value} \Arg{step} \Arg{final value} \meta{tl var} \Arg{code}
@@ -3376,6 +3398,19 @@ the \meta{code} should make use of the \meta{tl~var}.
 %\Return{\Value\lTmpaTl}
 %\IgnoreSpacesOff
 %\end{demohigh}
+\end{function}
+
+\begin{function}{\IntStepOneVariable}
+\begin{syntax}
+\cs{IntStepOneVariable} \Arg{initial value} \Arg{final value} \meta{tl var} \Arg{code}
+\end{syntax}
+This function first evaluates the \meta{initial value} and \meta{final value},
+all of which should be integer expressions.
+Then for each \meta{value} from the \meta{initial value} to the
+\meta{final value} in turn (using a fixed stop of $1$ between each
+\meta{value}), the \meta{code} is evaluated,
+with the \meta{tl~var} defined as the current \meta{value}. Thus
+the \meta{code} should make use of the \meta{tl~var}.
 \end{function}
 
 \section{Integer Conditionals}

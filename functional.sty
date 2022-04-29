@@ -1385,12 +1385,22 @@
 
 \PrgNewFunction \IntStepInline { e e e n }
   {
-    \int_step_inline:nnnn { #1 } { #2 } { #3 } { #4 }
+    \int_step_inline:nnnn {#1} {#2} {#3} {#4}
+  }
+
+\PrgNewFunction \IntStepOneInline { e e n }
+  {
+    \int_step_inline:nnn {#1} {#2} {#3}
   }
 
 \PrgNewFunction \IntStepVariable { e e e M n }
   {
-    \int_step_variable:nnnNn { #1 } { #2 } { #3 } #4 { #5 }
+    \int_step_variable:nnnNn {#1} {#2} {#3} #4 {#5}
+  }
+
+\PrgNewFunction \IntStepOneVariable { e e M n }
+  {
+    \int_step_variable:nnNn {#1} {#2} #3 {#4}
   }
 
 \PrgNewConditional \IntIfExist { M }
