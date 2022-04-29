@@ -24,6 +24,15 @@
 
 \prg_generate_conditional_variant:Nnn \str_if_eq:nn { Ve } { TF }
 
+\cs_new_protected:Npn \__fun_ignore_spaces_on:
+  {
+    \ExplSyntaxOn
+    \char_set_catcode_math_subscript:N \_
+    \char_set_catcode_other:N \:
+  }
+\cs_set_eq:NN \IgnoreSpacesOn \__fun_ignore_spaces_on:
+\cs_set_eq:NN \IgnoreSpacesOff \ExplSyntaxOff
+
 %%% --------------------------------------------------------
 %%> \subsection{Creating New Functions and Conditionals}
 %%% --------------------------------------------------------
@@ -724,15 +733,6 @@
   }
 
 \Functional { scoping = false, tracing = false }
-
-\cs_new_protected:Npn \__fun_ignore_spaces_on:
-  {
-    \ExplSyntaxOn
-    \char_set_catcode_math_subscript:N \_
-    \char_set_catcode_other:N \:
-  }
-\cs_set_eq:NN \IgnoreSpacesOn \__fun_ignore_spaces_on:
-\cs_set_eq:NN \IgnoreSpacesOff \ExplSyntaxOff
 
 %%% --------------------------------------------------------
 %%> \section{Interfaces for Argument Using (Use)}
