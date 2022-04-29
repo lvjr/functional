@@ -98,6 +98,11 @@
 \IntUse \lFooSomeInt
 \ENDTEST
 
+\BEGINTEST{Testing \IntReplicate}
+\IntReplicate {4} {Hello}
+\TlSet \lTmpaTl {\IntReplicate {3} {\qNoValue}}
+\ENDTEST
+
 \BEGINTEST{Testing \IntStepInline}
 \IgnoreSpacesOn
 \TlClear \lTmpaTl
@@ -105,6 +110,16 @@
   \TlPutRight \lTmpaTl {[#1]}
 }
 \Return {\Value\lTmpaTl}
+\IgnoreSpacesOff
+\ENDTEST
+
+\BEGINTEST{Testing \IntStepOneInline}
+\IgnoreSpacesOn
+\TlClear \lTmpaTl
+\IntStepOneInline {1} {10} {
+  \TlPutRight \lTmpaTl {[#1]}
+}
+\Value \lTmpaTl
 \IgnoreSpacesOff
 \ENDTEST
 

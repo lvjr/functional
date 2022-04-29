@@ -201,7 +201,21 @@ TEST 17: Testing \IntZeroNew
 [O] 0
 ============================================================
 ============================================================
-TEST 18: Testing \IntStepInline 
+TEST 18: Testing \IntReplicate 
+============================================================
+[I] \IntReplicate{4}{Hello}
+    [I] \Return{HelloHelloHelloHello}
+    [O] HelloHelloHelloHello
+[O] HelloHelloHelloHello
+    [I] \IntReplicate{3}{\qNoValue }
+        [I] \Return{\qNoValue \qNoValue \qNoValue }
+        [O] \qNoValue \qNoValue \qNoValue 
+    [O] \qNoValue \qNoValue \qNoValue 
+[I] \TlSet{\lTmpaTl }{\qNoValue \qNoValue \qNoValue }
+[O] 
+============================================================
+============================================================
+TEST 19: Testing \IntStepInline 
 ============================================================
 [I] \TlClear{\lTmpaTl }
 [O] 
@@ -233,7 +247,37 @@ TEST 18: Testing \IntStepInline
 [O] [1][4][7][10][13][16][19][22][25][28]
 ============================================================
 ============================================================
-TEST 19: Testing \IntIfExist 
+TEST 20: Testing \IntStepOneInline 
+============================================================
+[I] \TlClear{\lTmpaTl }
+[O] 
+[I] \IntStepOneInline{1}{10}{\TlPutRight \lTmpaTl {[##1]}}
+    [I] \TlPutRight{\lTmpaTl }{[1]}
+    [O] 
+    [I] \TlPutRight{\lTmpaTl }{[2]}
+    [O] 
+    [I] \TlPutRight{\lTmpaTl }{[3]}
+    [O] 
+    [I] \TlPutRight{\lTmpaTl }{[4]}
+    [O] 
+    [I] \TlPutRight{\lTmpaTl }{[5]}
+    [O] 
+    [I] \TlPutRight{\lTmpaTl }{[6]}
+    [O] 
+    [I] \TlPutRight{\lTmpaTl }{[7]}
+    [O] 
+    [I] \TlPutRight{\lTmpaTl }{[8]}
+    [O] 
+    [I] \TlPutRight{\lTmpaTl }{[9]}
+    [O] 
+    [I] \TlPutRight{\lTmpaTl }{[10]}
+    [O] 
+[O] 
+[I] \Value{\lTmpaTl }
+[O] [1][2][3][4][5][6][7][8][9][10]
+============================================================
+============================================================
+TEST 21: Testing \IntIfExist 
 ============================================================
 [I] \IntIfExistTF{\lTmpaInt }{\Return {Yes}}{\Return {No}}
     [I] \IntIfExist{\lTmpaInt }
@@ -253,7 +297,7 @@ TEST 19: Testing \IntIfExist
 [O] No
 ============================================================
 ============================================================
-TEST 20: Testing \IntIfOdd 
+TEST 22: Testing \IntIfOdd 
 ============================================================
 [I] \IntIfOddTF{3+2}{\Return {Yes}}{\Return {No}}
     [I] \IntIfOdd{3+2}
@@ -265,7 +309,7 @@ TEST 20: Testing \IntIfOdd
 [O] Yes
 ============================================================
 ============================================================
-TEST 21: Testing \IntIfEven 
+TEST 23: Testing \IntIfEven 
 ============================================================
 [I] \IntIfEvenTF{3+2}{\Return {Yes}}{\Return {No}}
     [I] \IntIfEven{3+2}
@@ -277,7 +321,7 @@ TEST 21: Testing \IntIfEven
 [O] No
 ============================================================
 ============================================================
-TEST 22: Testing \IntCaseF 
+TEST 24: Testing \IntCaseF 
 ============================================================
 [I] \IntCaseF{2*5}{{5}{Small}{4+6}{Medium}{-2*10}{Negative}}{Noidea!}
 [O] 
