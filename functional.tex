@@ -3304,6 +3304,17 @@ current content of the \meta{integer}. For example
 
 \section{Integer Step Functions}
 
+\begin{function}{\IntReplicate}
+\begin{syntax}
+\cs{IntReplicate} \Arg{integer expression} \Arg{tokens}
+\end{syntax}
+Evaluates the \meta{integer expression} (which should be zero or positive)
+and returns the resulting number of copies of the \meta{tokens}.
+\begin{demohigh}
+\IntReplicate {4} {Hello}
+\end{demohigh}
+\end{function}
+
 %\begin{function}{\IntStepFunction}
 %\begin{syntax}
 %\cs{IntStepFunction} \Arg{initial value} \Arg{step} \Arg{final value} \meta{function}
