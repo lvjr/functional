@@ -495,6 +495,9 @@
   }
 \cs_generate_variant:Nn \__fun_arguments_gput:n { e }
 
+\cs_if_exist:NF \Do { \PrgNewFunction \Do { n } { #1 } }
+\PrgNewFunction \PrgDo { n } { #1 }
+
 \cs_set_eq:NN \Break \prg_break:
 \cs_set_eq:NN \PrgBreak \prg_break:
 
