@@ -628,6 +628,19 @@
     \exp_args:NNo \tl_set:Nn \gResultTl { \__fun_two_arg_cmd:nn {#1} {#2} }
   }
 
+\PrgNewFunction \PrgFillThreeArgCmd { m m m n }
+  {
+    \cs_set:Npn \__fun_three_arg_cmd:nnn ##1 ##2 ##3 {#4}
+    \exp_args:NNo \tl_set:Nn \gResultTl { \__fun_three_arg_cmd:nnn {#1} {#2} {#3} }
+  }
+
+\PrgNewFunction \PrgFillFourArgCmd { m m m m n }
+  {
+    \cs_set:Npn \__fun_four_arg_cmd:nnnn ##1 ##2 ##3 ##4 {#5}
+    \exp_args:NNo \tl_set:Nn \gResultTl
+      { \__fun_four_arg_cmd:nnnn {#1} {#2} {#3} {#4} }
+  }
+
 %%% --------------------------------------------------------
 %%> \subsection{Checking for Local or Global Variables}
 %%% --------------------------------------------------------
