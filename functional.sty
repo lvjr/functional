@@ -616,25 +616,25 @@
 %% but at the same time avoid evaluating the leading function in \gResultTl,
 %% therefore we need to use \tl_set:Nn command instead of \TlSet function.
 
-\PrgNewFunction \PrgFillOneArgCmd { m n }
+\PrgNewFunction \PrgRunOneArgCode { m n }
   {
     \cs_set:Npn \__fun_one_arg_cmd:n ##1 {#2}
     \exp_args:NNo \tl_set:Nn \gResultTl { \__fun_one_arg_cmd:n {#1} }
   }
 
-\PrgNewFunction \PrgFillTwoArgCmd { m m n }
+\PrgNewFunction \PrgRunTwoArgCode { m m n }
   {
     \cs_set:Npn \__fun_two_arg_cmd:nn ##1 ##2 {#3}
     \exp_args:NNo \tl_set:Nn \gResultTl { \__fun_two_arg_cmd:nn {#1} {#2} }
   }
 
-\PrgNewFunction \PrgFillThreeArgCmd { m m m n }
+\PrgNewFunction \PrgRunThreeArgCode { m m m n }
   {
     \cs_set:Npn \__fun_three_arg_cmd:nnn ##1 ##2 ##3 {#4}
     \exp_args:NNo \tl_set:Nn \gResultTl { \__fun_three_arg_cmd:nnn {#1} {#2} {#3} }
   }
 
-\PrgNewFunction \PrgFillFourArgCmd { m m m m n }
+\PrgNewFunction \PrgRunFourArgCode { m m m m n }
   {
     \cs_set:Npn \__fun_four_arg_cmd:nnnn ##1 ##2 ##3 ##4 {#5}
     \exp_args:NNo \tl_set:Nn \gResultTl
