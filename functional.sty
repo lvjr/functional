@@ -2327,6 +2327,281 @@
   }
 
 %%% --------------------------------------------------------
+%%> \section{Interfaces for Regular Expressions (Regex)}
+%%% --------------------------------------------------------
+
+\regex_new:N \lTmpaRegex  \regex_new:N \lTmpbRegex  \regex_new:N \lTmpcRegex
+\regex_new:N \lTmpiRegex  \regex_new:N \lTmpjRegex  \regex_new:N \lTmpkRegex
+
+\regex_new:N \gTmpaRegex  \regex_new:N \gTmpbRegex  \regex_new:N \gTmpcRegex
+\regex_new:N \gTmpiRegex  \regex_new:N \gTmpjRegex  \regex_new:N \gTmpkRegex
+
+\regex_new:N \l@FunTmpxRegex  \regex_new:N \g@FunTmpxRegex
+\regex_new:N \l@FunTmpyRegex  \regex_new:N \g@FunTmpyRegex
+\regex_new:N \l@FunTmpzRegex  \regex_new:N \g@FunTmpzRegex
+
+\PrgNewFunction \RegexNew { M } { \regex_new:N #1 }
+
+\PrgNewFunction \RegexSet { M m }
+  {
+    \__fun_do_assignment:Nnn #1
+     { \regex_gset:Nn #1 {#2} } { \regex_set:Nn #1 {#2} }
+  }
+
+\PrgNewFunction \RegexConst { M m } { \regex_const:Nn #1 {#2} }
+
+\PrgNewFunction \RegexLog { m } { \regex_log:n {#1} }
+
+\PrgNewFunction \RegexVarLog { M } { \regex_log:N #1 }
+
+\PrgNewFunction \RegexShow { m } { \regex_show:n {#1} }
+
+\PrgNewFunction \RegexVarShow { M } { \regex_show:N #1 }
+
+\PrgNewConditional \RegexMatch { m m }
+  {
+    \regex_match:nnTF {#1} {#2}
+      { \Return { \cTrueBool } }  { \Return { \cFalseBool } }
+  }
+
+\PrgNewConditional \RegexVarMatch { M m }
+  {
+    \regex_match:NnTF #1 {#2}
+      { \Return { \cTrueBool } }  { \Return { \cFalseBool } }
+  }
+
+\PrgNewFunction \RegexCount { m m M }
+  {
+    \regex_count:nnN {#1} {#2} #3
+  }
+
+\PrgNewFunction \RegexVarCount { M m M }
+  {
+    \regex_count:NnN #1 {#2} #3
+  }
+
+\PrgNewFunction \RegexMatchCase { m m }
+  {
+    \regex_match_case:nn {#1} {#2}
+  }
+\PrgNewFunction \RegexMatchCaseT { m m n }
+  {
+    \regex_match_case:nnT {#1} {#2} {#3}
+  }
+\PrgNewFunction \RegexMatchCaseF { m m n }
+  {
+    \regex_match_case:nnF {#1} {#2} {#3}
+  }
+\PrgNewFunction \RegexMatchCaseTF { m m n n }
+  {
+    \regex_match_case:nnTF {#1} {#2} {#3} {#4}
+  }
+
+\PrgNewFunction \RegexExtractOnce { m m M }
+  {
+    \regex_extract_once:nnN {#1} {#2} #3
+  }
+\PrgNewFunction \RegexExtractOnceT { m m M n }
+  {
+    \regex_extract_once:nnNT {#1} {#2} #3 {#4}
+  }
+\PrgNewFunction \RegexExtractOnceF { m m M n }
+  {
+    \regex_extract_once:nnNF {#1} {#2} #3 {#4}
+  }
+\PrgNewFunction \RegexExtractOnceTF { m m M n n }
+  {
+    \regex_extract_once:nnNTF {#1} {#2} #3 {#4} {#5}
+  }
+
+\PrgNewFunction \RegexVarExtractOnce { M m M }
+  {
+    \regex_extract_once:NnN #1 {#2} #3
+  }
+\PrgNewFunction \RegexVarExtractOnceT { M m M n }
+  {
+    \regex_extract_once:NnNT #1 {#2} #3 {#4}
+  }
+\PrgNewFunction \RegexVarExtractOnceF { M m M n }
+  {
+    \regex_extract_once:NnNF #1 {#2} #3 {#4}
+  }
+\PrgNewFunction \RegexVarExtractOnceTF { M m M n n }
+  {
+    \regex_extract_once:NnNTF #1 {#2} #3 {#4} {#5}
+  }
+
+\PrgNewFunction \RegexExtractAll { m m M }
+  {
+    \regex_extract_all:nnN {#1} {#2} #3
+  }
+\PrgNewFunction \RegexExtractAllT { m m M n }
+  {
+    \regex_extract_all:nnNT {#1} {#2} #3 {#4}
+  }
+\PrgNewFunction \RegexExtractAllF { m m M n }
+  {
+    \regex_extract_all:nnNF {#1} {#2} #3 {#4}
+  }
+\PrgNewFunction \RegexExtractAllTF { m m M n n }
+  {
+    \regex_extract_all:nnNTF {#1} {#2} #3 {#4} {#5}
+  }
+
+\PrgNewFunction \RegexVarExtractAll { M m M }
+  {
+    \regex_extract_all:NnN #1 {#2} #3
+  }
+\PrgNewFunction \RegexVarExtractAllT { M m M n }
+  {
+    \regex_extract_all:NnNT #1 {#2} #3 {#4}
+  }
+\PrgNewFunction \RegexVarExtractAllF { M m M n }
+  {
+    \regex_extract_all:NnNF #1 {#2} #3 {#4}
+  }
+\PrgNewFunction \RegexVarExtractAllTF { M m M n n }
+  {
+    \regex_extract_all:NnNTF #1 {#2} #3 {#4} {#5}
+  }
+
+\PrgNewFunction \RegexSplit { m m M }
+  {
+    \regex_split:nnN {#1} {#2} #3
+  }
+\PrgNewFunction \RegexSplitT { m m M n }
+  {
+    \regex_split:nnNT {#1} {#2} #3 {#4}
+  }
+\PrgNewFunction \RegexSplitF { m m M n }
+  {
+    \regex_split:nnNF {#1} {#2} #3 {#4}
+  }
+\PrgNewFunction \RegexSplitTF { m m M n n }
+  {
+    \regex_split:nnNTF {#1} {#2} #3 {#4} {#5}
+  }
+
+\PrgNewFunction \RegexVarSplit { M m M }
+  {
+    \regex_split:NnN #1 {#2} #3
+  }
+\PrgNewFunction \RegexVarSplitT { M m M n }
+  {
+    \regex_split:NnNT #1 {#2} #3 {#4}
+  }
+\PrgNewFunction \RegexVarSplitF { M m M n }
+  {
+    \regex_split:NnNF #1 {#2} #3 {#4}
+  }
+\PrgNewFunction \RegexVarSplitTF { M m M n n }
+  {
+    \regex_split:NnNTF #1 {#2} #3 {#4} {#5}
+  }
+
+\PrgNewFunction \RegexReplaceOnce { m m M }
+  {
+    \regex_replace_once:nnN {#1} {#2} #3
+  }
+\PrgNewFunction \RegexReplaceOnceT { m m M n }
+  {
+    \regex_replace_once:nnNT {#1} {#2} #3 {#4}
+  }
+\PrgNewFunction \RegexReplaceOnceF { m m M n }
+  {
+    \regex_replace_once:nnNF {#1} {#2} #3 {#4}
+  }
+\PrgNewFunction \RegexReplaceOnceTF { m m M n n }
+  {
+    \regex_replace_once:nnNTF {#1} {#2} #3 {#4} {#5}
+  }
+
+\PrgNewFunction \RegexVarReplaceOnce { M m M }
+  {
+    \regex_replace_once:NnN #1 {#2} #3
+  }
+\PrgNewFunction \RegexVarReplaceOnceT { M m M n }
+  {
+    \regex_replace_once:NnNT #1 {#2} #3 {#4}
+  }
+\PrgNewFunction \RegexVarReplaceOnceF { M m M n }
+  {
+    \regex_replace_once:NnNF #1 {#2} #3 {#4}
+  }
+\PrgNewFunction \RegexVarReplaceOnceTF { M m M n n }
+  {
+    \regex_replace_once:NnNTF #1 {#2} #3 {#4} {#5}
+  }
+
+\PrgNewFunction \RegexReplaceAll { m m M }
+  {
+    \regex_replace_all:nnN {#1} {#2} #3
+  }
+\PrgNewFunction \RegexReplaceAllT { m m M n }
+  {
+    \regex_replace_all:nnNT {#1} {#2} #3 {#4}
+  }
+\PrgNewFunction \RegexReplaceAllF { m m M n }
+  {
+    \regex_replace_all:nnNF {#1} {#2} #3 {#4}
+  }
+\PrgNewFunction \RegexReplaceAllTF { m m M n n }
+  {
+    \regex_replace_all:nnNTF {#1} {#2} #3 {#4} {#5}
+  }
+
+\PrgNewFunction \RegexVarReplaceAll { M m M }
+  {
+    \regex_replace_all:NnN #1 {#2} #3
+  }
+\PrgNewFunction \RegexVarReplaceAllT { M m M n }
+  {
+    \regex_replace_all:NnNT #1 {#2} #3 {#4}
+  }
+\PrgNewFunction \RegexVarReplaceAllF { M m M n }
+  {
+    \regex_replace_all:NnNF #1 {#2} #3 {#4}
+  }
+\PrgNewFunction \RegexVarReplaceAllTF { M m M n n }
+  {
+    \regex_replace_all:NnNTF #1 {#2} #3 {#4} {#5}
+  }
+
+\PrgNewFunction \RegexReplaceCaseOnce { m M }
+  {
+    \regex_replace_case_once:nN {#1} #2
+  }
+\PrgNewFunction \RegexReplaceCaseOnceT { m M n }
+  {
+    \regex_replace_case_once:nN {#1} #2 {#3}
+  }
+\PrgNewFunction \RegexReplaceCaseOnceF { m M n }
+  {
+    \regex_replace_case_once:nN {#1} #2 {#3}
+  }
+\PrgNewFunction \RegexReplaceCaseOnceTF { m M n n }
+  {
+    \regex_replace_case_once:nN {#1} #2 {#3} {#4}
+  }
+
+\PrgNewFunction \RegexReplaceCaseAll { m M }
+  {
+    \regex_replace_case_all:nN {#1} #2
+  }
+\PrgNewFunction \RegexReplaceCaseAllT { m M n }
+  {
+    \regex_replace_case_all:nN {#1} #2 {#3}
+  }
+\PrgNewFunction \RegexReplaceCaseAllF { m M n }
+  {
+    \regex_replace_case_all:nN {#1} #2 {#3}
+  }
+\PrgNewFunction \RegexReplaceCaseAllTF { m M n n }
+  {
+    \regex_replace_case_all:nN {#1} #2 {#3} {#4}
+  }
+
+%%% --------------------------------------------------------
 %%> \section{Interfaces for Token Manipulation (Token)}
 %%% --------------------------------------------------------
 
