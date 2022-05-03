@@ -34,6 +34,84 @@
 \cs_set_eq:NN \IgnoreSpacesOff \ExplSyntaxOff
 
 %%% --------------------------------------------------------
+%%> \subsection{Setting Functional Package}
+%%% --------------------------------------------------------
+
+\bool_new:N \l__fun_scoping_bool
+
+\cs_new_protected:Npn \__fun_scoping_true:
+  {
+    \cs_set_eq:NN \__fun_group_begin: \group_begin:
+    \cs_set_eq:NN \__fun_group_end: \group_end:
+  }
+
+\cs_new_protected:Npn \__fun_scoping_false:
+  {
+    \cs_set_eq:NN \__fun_group_begin: \scan_stop:
+    \cs_set_eq:NN \__fun_group_end: \scan_stop:
+  }
+
+\cs_new_protected:Npn \__fun_scoping_set:
+  {
+    \bool_if:NTF \l__fun_scoping_bool
+      { \__fun_scoping_true: } { \__fun_scoping_false: }
+  }
+
+\bool_new:N \l__fun_tracing_bool
+\tl_new:N \l__tracing_text_tl
+
+\cs_new_protected:Npn \__fun_tracing_log_on:n #1
+  {
+    \tl_set:Ne \l__tracing_text_tl
+      {
+        \prg_replicate:nn
+          { \int_eval:n { (\g__fun_nesting_level_int - 1) * 4 } } { ~ }
+      }
+    \tl_put_right:Nn \l__tracing_text_tl { #1 }
+    \iow_log:V \l__tracing_text_tl
+  }
+\cs_generate_variant:Nn \__fun_tracing_log_on:n { e, V }
+
+\cs_new_protected:Npn \__fun_tracing_log_off:n #1 { }
+\cs_new_protected:Npn \__fun_tracing_log_off:e #1 { }
+\cs_new_protected:Npn \__fun_tracing_log_off:V #1 { }
+
+\cs_new_protected:Npn \__fun_tracing_true:
+  {
+    \cs_set_eq:NN \__fun_tracing_log:n \__fun_tracing_log_on:n
+    \cs_set_eq:NN \__fun_tracing_log:e \__fun_tracing_log_on:e
+    \cs_set_eq:NN \__fun_tracing_log:V \__fun_tracing_log_on:V
+  }
+
+\cs_new_protected:Npn \__fun_tracing_false:
+  {
+    \cs_set_eq:NN \__fun_tracing_log:n \__fun_tracing_log_off:n
+    \cs_set_eq:NN \__fun_tracing_log:e \__fun_tracing_log_off:e
+    \cs_set_eq:NN \__fun_tracing_log:V \__fun_tracing_log_off:V
+  }
+
+\cs_new_protected:Npn \__fun_tracing_set:
+  {
+    \bool_if:NTF \l__fun_tracing_bool
+      { \__fun_tracing_true: } { \__fun_tracing_false: }
+  }
+
+\keys_define:nn { functional }
+  {
+    scoping .bool_set:N = \l__fun_scoping_bool,
+    tracing .bool_set:N = \l__fun_tracing_bool,
+  }
+
+\NewDocumentCommand \Functional { m }
+  {
+    \keys_set:nn { functional } { #1 }
+    \__fun_scoping_set:
+    \__fun_tracing_set:
+  }
+
+\Functional { scoping = false, tracing = false }
+
+%%% --------------------------------------------------------
 %%> \subsection{Creating New Functions and Conditionals}
 %%% --------------------------------------------------------
 
@@ -691,84 +769,6 @@
     \__fun_if_global_variable:NTF #1 { #2 } { #3 }
     \__fun_group_begin:
   }
-
-%%% --------------------------------------------------------
-%%> \subsection{Setting Functional Package}
-%%% --------------------------------------------------------
-
-\bool_new:N \l__fun_scoping_bool
-
-\cs_new_protected:Npn \__fun_scoping_true:
-  {
-    \cs_set_eq:NN \__fun_group_begin: \group_begin:
-    \cs_set_eq:NN \__fun_group_end: \group_end:
-  }
-
-\cs_new_protected:Npn \__fun_scoping_false:
-  {
-    \cs_set_eq:NN \__fun_group_begin: \scan_stop:
-    \cs_set_eq:NN \__fun_group_end: \scan_stop:
-  }
-
-\cs_new_protected:Npn \__fun_scoping_set:
-  {
-    \bool_if:NTF \l__fun_scoping_bool
-      { \__fun_scoping_true: } { \__fun_scoping_false: }
-  }
-
-\bool_new:N \l__fun_tracing_bool
-\tl_new:N \l__tracing_text_tl
-
-\cs_new_protected:Npn \__fun_tracing_log_on:n #1
-  {
-    \tl_set:Ne \l__tracing_text_tl
-      {
-        \prg_replicate:nn
-          { \int_eval:n { (\g__fun_nesting_level_int - 1) * 4 } } { ~ }
-      }
-    \tl_put_right:Nn \l__tracing_text_tl { #1 }
-    \iow_log:V \l__tracing_text_tl
-  }
-\cs_generate_variant:Nn \__fun_tracing_log_on:n { e, V }
-
-\cs_new_protected:Npn \__fun_tracing_log_off:n #1 { }
-\cs_new_protected:Npn \__fun_tracing_log_off:e #1 { }
-\cs_new_protected:Npn \__fun_tracing_log_off:V #1 { }
-
-\cs_new_protected:Npn \__fun_tracing_true:
-  {
-    \cs_set_eq:NN \__fun_tracing_log:n \__fun_tracing_log_on:n
-    \cs_set_eq:NN \__fun_tracing_log:e \__fun_tracing_log_on:e
-    \cs_set_eq:NN \__fun_tracing_log:V \__fun_tracing_log_on:V
-  }
-
-\cs_new_protected:Npn \__fun_tracing_false:
-  {
-    \cs_set_eq:NN \__fun_tracing_log:n \__fun_tracing_log_off:n
-    \cs_set_eq:NN \__fun_tracing_log:e \__fun_tracing_log_off:e
-    \cs_set_eq:NN \__fun_tracing_log:V \__fun_tracing_log_off:V
-  }
-
-\cs_new_protected:Npn \__fun_tracing_set:
-  {
-    \bool_if:NTF \l__fun_tracing_bool
-      { \__fun_tracing_true: } { \__fun_tracing_false: }
-  }
-
-\keys_define:nn { functional }
-  {
-    scoping .bool_set:N = \l__fun_scoping_bool,
-    tracing .bool_set:N = \l__fun_tracing_bool,
-  }
-
-\NewDocumentCommand \Functional { m }
-  {
-    \keys_set:nn { functional } { #1 }
-    \__fun_scoping_set:
-    \__fun_tracing_set:
-  }
-
-\Functional { scoping = false, tracing = false }
 
 %%% --------------------------------------------------------
 %%> \section{Interfaces for Argument Using (Use)}
