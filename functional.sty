@@ -171,13 +171,6 @@
 
 \cs_set_eq:NN \PrgNewFunction \__fun_new_function:Nnn
 
-\PrgNewFunction \PrgSetEqFunction { N N }
-  {
-    \cs_set_eq:NN #1 #2
-    \cs_set_eq:cc { __fun_defined_ \cs_to_str:N #1 : w }
-      { __fun_defined_ \cs_to_str:N #2 : w }
-  }
-
 \tl_new:N \g__fun_last_result_tl
 \int_new:N \l__fun_cond_arg_count_int
 
@@ -579,6 +572,17 @@
       { g__fun_arguments_ \int_use:N \g__fun_nesting_level_int _tl } { #1 }
   }
 \cs_generate_variant:Nn \__fun_arguments_gput:n { e }
+
+%%% --------------------------------------------------------
+%%> \subsection{Creating Some Useful Functions}
+%%% --------------------------------------------------------
+
+\PrgNewFunction \PrgSetEqFunction { N N }
+  {
+    \cs_set_eq:NN #1 #2
+    \cs_set_eq:cc { __fun_defined_ \cs_to_str:N #1 : w }
+      { __fun_defined_ \cs_to_str:N #2 : w }
+  }
 
 \cs_if_exist:NF \Do { \PrgNewFunction \Do { n } { #1 } }
 \PrgNewFunction \PrgDo { n } { #1 }
