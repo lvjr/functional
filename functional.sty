@@ -694,6 +694,21 @@
   }
 
 %%% --------------------------------------------------------
+%%> \subsection{Printing Contents to the Input Stream}
+%%% --------------------------------------------------------
+
+\PrgNewFunction \PrgPrint { m }
+  {
+    \tl_log:n {running PrgPrint}
+    \int_set_eq:NN \l__fun_return_level_int \g__fun_nesting_level_int
+    #1
+    \int_zero:N \l__fun_return_level_int
+    \tl_gclear:N \gResultTl
+  }
+
+\PrgSetEqFunction \Print \PrgPrint
+
+%%% --------------------------------------------------------
 %%> \subsection{Filling Arguments into Inline Commands}
 %%% --------------------------------------------------------
 
