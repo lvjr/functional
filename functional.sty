@@ -608,10 +608,7 @@
     \__fun_put_result:n { #1 }
   }
 %% Obsolete function, will be removed in the future
-\PrgNewFunction \Result { m }
-  {
-    \__fun_put_result:n { #1 }
-  }
+\PrgSetEqFunction \Result \Return
 
 \int_new:N \l__fun_return_level_int
 
@@ -804,28 +801,19 @@
   {
     \exp_args:Nc \__fun_put_result:n { #1 }
   }
-\PrgNewFunction \ExpName { m }
-  {
-    \exp_args:Nc \__fun_put_result:n { #1 }
-  }
+\PrgSetEqFunction \ExpName \Name
 
 \PrgNewFunction \Value { M }
   {
     \__fun_put_result:V #1
   }
-\PrgNewFunction \ExpValue { M }
-  {
-    \__fun_put_result:V #1
-  }
+\PrgSetEqFunction \ExpValue \Value
 
 \PrgNewFunction \Expand { m }
   {
     \__fun_put_result:e { #1 }
   }
-\PrgNewFunction \ExpWhole { m }
-  {
-    \__fun_put_result:e { #1 }
-  }
+\PrgSetEqFunction \ExpWhole \Expand
 
 \PrgNewFunction \ExpPartial { m }
   {
