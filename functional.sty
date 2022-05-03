@@ -171,6 +171,13 @@
 
 \cs_set_eq:NN \PrgNewFunction \__fun_new_function:Nnn
 
+\PrgNewFunction \PrgSetEqFunction { N N }
+  {
+    \cs_set_eq:NN #1 #2
+    \cs_set_eq:cc { __fun_defined_ \cs_to_str:N #1 : w }
+      { __fun_defined_ \cs_to_str:N #2 : w }
+  }
+
 \tl_new:N \g__fun_last_result_tl
 \int_new:N \l__fun_cond_arg_count_int
 
