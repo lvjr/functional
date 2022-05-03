@@ -608,7 +608,11 @@
     \__fun_put_result:n { #1 }
   }
 %% Obsolete function, will be removed in the future
-\PrgSetEqFunction \Result \Return
+%% We can not define it with \PrgSetEqFunction
+\PrgNewFunction \Result { m }
+  {
+    \__fun_put_result:n { #1 }
+  }
 
 \int_new:N \l__fun_return_level_int
 
