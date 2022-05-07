@@ -34,6 +34,11 @@
   \tl_set:Nn \lTmpaTl {#1}
   \regex_replace_once:nnN { \_ } { \c{MySubScript} } \lTmpaTl
 }
+\NewDocumentCommand\RelaceUnderScoreAll{m}{
+  \tl_set:Nn \lTmpaTl {#1}
+  \regex_replace_all:nnN { \_ } { \c{_} } \lTmpaTl
+  \lTmpaTl
+}
 \ExplSyntaxOff
 
 \NewDocumentEnvironment{variable}{om}{
@@ -64,8 +69,8 @@
 
 \NewDocumentEnvironment{texnote}{}{}{}
 
-\NewDocumentCommand\cs{m}{%
-  \texttt{\bfseries\color{purple3}\expandafter\string\csname#1\endcsname}%
+\NewDocumentCommand\cs{O{}m}{%
+  \texttt{\bfseries\color{purple3}\cBackslashStr\RelaceUnderScoreAll{#2}}%
 }
 \NewDocumentCommand\meta{m}{%
   \RelaceChacters{#1}%
@@ -86,6 +91,26 @@
 \RenewDocumentCommand\emph{m}{%
   \underline{\textsl{#1}}%
 }
+
+\newenvironment{l3regex-syntax}
+  {\begin{itemize}\def\\{\char`\\}\def\makelabel##1{\hss\llap{\ttfamily##1}}}
+  {\end{itemize}}
+
+\usepackage{shortvrb}
+
+\NewDocumentCommand \MyMakeShortVerb {} {%
+  \MakeShortVerb \|%
+  \MakeShortVerb \"%
+}
+\NewDocumentCommand \MyDeleteShortVerb {} {%
+  \DeleteShortVerb \|%
+  \DeleteShortVerb \"%
+}
+
+\AtBeginDocument{\MyMakeShortVerb}
+\AtEndDocument{\MyDeleteShortVerb}
+\AddToHook{env/demohigh/before}{\MyDeleteShortVerb}
+\AddToHook{env/demohigh/after}{\MyMakeShortVerb}
 
 \usepackage{amsmath}
 

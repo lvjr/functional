@@ -1,0 +1,1081 @@
+% -*- coding: utf-8 -*-
+% !TEX program = lualatex
+\documentclass[oneside]{book}
+
+\input{manual.sty}
+\CodeHigh{lite}
+
+\begin{document}
+
+\chapter{Regular Expressions (\texttt{Regex})}
+
+This module provides regular expression testing,
+extraction of submatches, splitting, and replacement, all acting
+on token lists. The syntax of regular expressions is mostly a subset
+of the \textsc{pcre} syntax (and very close to \textsc{posix}),
+with some additions
+due to the fact that \TeX{} manipulates tokens rather than characters.
+For performance reasons, only a limited set of features are implemented.
+Notably, back-references are not supported.
+
+Let us give a few examples. The following example replace the first
+occurrence of \enquote{\texttt{at}} with \enquote{\texttt{is}}
+in the token list variable \cs{lTmpaTl}.
+\begin{demohigh}
+\TlSet \lTmpaTl {That cat.}
+\RegexReplaceOnce {at} {is} \lTmpaTl
+\TlUse \lTmpaTl
+\end{demohigh}
+A more complicated example is
+a pattern to emphasize each word and add a comma after it:
+\begin{demohigh}
+\TlSet \lTmpaTl {That cat.}
+\RegexReplaceAll {\w+} {\c{underline} \cB\{ \0 \cE\} ,} \lTmpaTl
+\TlUse \lTmpaTl
+\end{demohigh}
+The |\w| sequence represents any \enquote{word} character, and |+|
+indicates that the |\w| sequence should be repeated as many times as
+possible (at least once), hence matching a word in the input token
+list. In the replacement text, |\0| denotes the full match (here, a
+word).  The command |\underline| is inserted using |\c{underline}|,
+and its argument |\0| is put between braces |\cB\{| and |\cE\}|.
+
+If a regular expression is to be used several times,
+it can be compiled once, and stored in a regex
+variable using \cs{RegexSet}. For example,
+\begin{codehigh}
+\RegexNew \lFooRegex
+\RegexSet \lFooRegex {\c{begin} \cB. (\c[^BE].*) \cE.}
+\end{codehigh}
+stores in \cs{lFooRegex} a regular expression which matches the
+starting marker for an environment: \cs[no-index]{begin}, followed by a
+begin-group token (|\cB.|), then any number of tokens which are
+neither begin-group nor end-group character tokens (|\c[^BE].*|),
+ending with an end-group token (|\cE.|). As explained later,
+the parentheses \enquote{capture} the result of |\c[^BE].*|,
+giving us access to the name of the environment when doing
+replacements.
+
+\section{Regular Expression Variables}
+
+If a regular expression is to be used several times,
+it is better to compile it once rather than doing it
+each time the regular expression is used. The compiled
+regular expression is stored in a variable. All
+of this module's functions can be given their
+regular expression argument either as an explicit string
+or as a compiled regular expression.
+
+\begin{variable}{\lTmpaRegex,\lTmpbRegex,\lTmpcRegex,\lTmpiRegex,\lTmpjRegex,\lTmpkRegex}
+Scratch regex variables for local assignment. These are never used by
+\verb!function! package, and so are safe for use with any function.
+However, they may be overwritten by other non-kernel
+code and so should only be used for short-term storage.
+\end{variable}
+
+\begin{variable}{\gTmpaRegex,\gTmpbRegex,\gTmpcRegex,\gTmpiRegex,\gTmpjRegex,\gTmpkRegex}
+Scratch regex variables for global assignment. These are never used by
+\verb!function! package, and so are safe for use with any function.
+However, they may be overwritten by other non-kernel
+code and so should only be used for short-term storage.
+\end{variable}
+
+\begin{function}{\RegexNew}
+\begin{syntax}
+\cs{RegexNew} \meta{regex var}
+\end{syntax}
+Creates a new \meta{regex var} or raises an error if the
+name is already taken. The declaration is global. The
+\meta{regex var} is initially such that it never matches.
+\end{function}
+
+\begin{function}{\RegexSet}
+\begin{syntax}
+\cs{RegexSet} \meta{regex var} \Arg{regex}
+\end{syntax}
+Stores a compiled version of the \meta{regular expression} in the
+\meta{regex var}. For instance, this function can be
+used as
+\begin{codehigh}
+\RegexNew \lMyRegex
+\RegexSet \lMyRegex {my\ (simple\ )? reg(ex|ular\ expression)}
+\end{codehigh}
+\end{function}
+
+\begin{function}{\RegexConst}
+\begin{syntax}
+\cs{RegexConst} \meta{regex var} \Arg{regex}
+\end{syntax}
+Creates a new constant \meta{regex var} or raises an error if the name
+is already taken.  The value of the \meta{regex var} is set
+globally to the compiled version of the \meta{regular expression}.
+\end{function}
+
+\begin{function}{\RegexLog,\RegexVarLog,\RegexShow,\RegexVarShow}
+\begin{syntax}
+\cs{RegexLog} \Arg{regex}
+\cs{RegexVarLog} \meta{regex var}
+\cs{RegexShow} \Arg{regex}
+\cs{RegexVarShow} \meta{regex var}
+\end{syntax}
+Displays in the terminal or writes in the log file (respectively)
+how \pkg{l3regex} interprets the \meta{regex}. For instance,
+\cs{RegexShow} \verb+{\A X|Y}+ shows
+\begin{codehigh}
++-branch
+  anchor at start (\A)
+  char code 88 (X)
++-branch
+  char code 89 (Y)
+\end{codehigh}
+indicating that the anchor |\A| only applies to the first branch:
+the second branch is not anchored to the beginning of the match.
+\end{function}
+
+\section{Regular Expression Matching}
+
+\begin{function}{\RegexMatch,\RegexMatchT,\RegexMatchF,\RegexMatchTF}
+\begin{syntax}
+\cs{RegexMatch} \Arg{regex} \Arg{token list}
+\cs{RegexMatchT} \Arg{regex} \Arg{token list} \Arg{true code}
+\cs{RegexMatchF} \Arg{regex} \Arg{token list} \Arg{false code}
+\cs{RegexMatchTF} \Arg{regex} \Arg{token list} \Arg{true code} \Arg{false code}
+\end{syntax}
+Tests whether the \meta{regular expression} matches any part
+of the \meta{token list}. For instance,
+\begin{demohigh}
+\RegexMatchTF {b [cde]*} {abecdcx} {\Print{True}} {\Print{False}}
+\RegexMatchTF {[b-dq-w]} {example} {\Print{True}} {\Print{False}}
+\end{demohigh}
+\end{function}
+
+\begin{function}{\RegexVarMatch,\RegexVarMatchT,\RegexVarMatchF,\RegexVarMatchTF}
+\begin{syntax}
+\cs{RegexVarMatch} \meta{regex var} \Arg{token list}
+\cs{RegexVarMatchT} \meta{regex var} \Arg{token list} \Arg{true code}
+\cs{RegexVarMatchF} \meta{regex var} \Arg{token list} \Arg{false code}
+\cs{RegexVarMatchTF} \meta{regex var} \Arg{token list} \Arg{true code} \Arg{false code}
+\end{syntax}
+Tests whether the \meta{regex var} matches any part of the \meta{token list}.
+\end{function}
+
+\begin{function}{\RegexCount,\RegexVarCount}
+\begin{syntax}
+\cs{RegexCount} \Arg{regex} \Arg{token list} \meta{int var}
+\cs{RegexVarCount} \meta{regex var} \Arg{token list} \meta{int var}
+\end{syntax}
+Sets \meta{int var} within the current \TeX{} group level
+equal to the number of times
+\meta{regular expression} appears in \meta{token list}.
+The search starts by finding the left-most longest match,
+respecting greedy and lazy (non-greedy) operators. Then the search
+starts again from the character following the last character
+of the previous match, until reaching the end of the token list.
+Infinite loops are prevented in the case where the regular expression
+can match an empty token list: then we count one match between each
+pair of characters. For instance,
+\begin{demohigh}
+\IntNew \lFooInt
+\RegexCount {(b+|c)} {abbababcbb} \lFooInt
+\IntUse \lFooInt
+\end{demohigh}
+\end{function}
+
+\begin{function}{\RegexMatchCase}
+\begin{syntax}
+\cs{RegexMatchCase}
+~ ~ |{|
+~ ~ ~ ~ \Arg{regex_1} \Arg{code case_1}
+~ ~ ~ ~ \Arg{regex_2} \Arg{code case_2}
+~ ~ ~ ~ \ldots
+~ ~ ~ ~ \Arg{regex_n} \Arg{code case_n}
+~ ~ |}| \Arg{token list}
+\end{syntax}
+Determines which of the \meta{regular expressions} matches at the earliest
+point in the \meta{token list}, and leaves the corresponding \meta{code_i}.
+If several \meta{regex} match starting at the same point,
+then the first one in the list is selected and the others are discarded.
+Each \meta{regex} can either be given as a regex variable or as an explicit
+regular expression.
+\par
+In detail, for each starting position in the \meta{token list}, each
+of the \meta{regex} is searched in turn.  If one of them matches
+then the corresponding \meta{code} is used and everything else is
+discarded, while if none of the \meta{regex} match at a given
+position then the next starting position is attempted.  If none of
+the \meta{regex} match anywhere in the \meta{token list} then
+nothing is left in the input stream.  Note that this differs from
+nested \cs{RegexMatch} statements since all \meta{regex} are
+attempted at each position rather than attempting to match
+\meta{regex_1} at every position before moving on to \meta{regex_2}.
+\end{function}
+
+\begin{function}{\RegexMatchCaseT}
+\begin{syntax}
+\cs{RegexMatchCaseT}
+~ ~ |{|
+~ ~ ~ ~ \Arg{regex_1} \Arg{code case_1}
+~ ~ ~ ~ \Arg{regex_2} \Arg{code case_2}
+~ ~ ~ ~ \ldots
+~ ~ ~ ~ \Arg{regex_n} \Arg{code case_n}
+~ ~ |}| \Arg{token list}
+~ ~ \Arg{true code}
+\end{syntax}
+Determines which of the \meta{regular expressions} matches at the
+earliest point in the \meta{token list}, and leaves the
+corresponding \meta{code_i} followed by the \meta{true code} in the
+input stream. If several \meta{regex} match starting at the same
+point, then the first one in the list is selected and the others are
+discarded. Each \meta{regex} can either be given
+as a regex variable or as an explicit regular expression.
+\end{function}
+
+\begin{function}{\RegexMatchCaseF}
+\begin{syntax}
+\cs{RegexMatchCaseF}
+~ ~ |{|
+~ ~ ~ ~ \Arg{regex_1} \Arg{code case_1}
+~ ~ ~ ~ \Arg{regex_2} \Arg{code case_2}
+~ ~ ~ ~ \ldots
+~ ~ ~ ~ \Arg{regex_n} \Arg{code case_n}
+~ ~ |}| \Arg{token list}
+~ ~ \Arg{false code}
+\end{syntax}
+Determines which of the \meta{regular expressions} matches at the
+earliest point in the \meta{token list}, and leaves the
+corresponding \meta{code_i}.
+If several \meta{regex} match starting at the same
+point, then the first one in the list is selected and the others are
+discarded.  If none of the \meta{regex} match, the \meta{false code}
+is left in the input stream.  Each \meta{regex} can either be given
+as a regex variable or as an explicit regular expression.
+\end{function}
+
+\begin{function}{\RegexMatchCaseTF}
+\begin{syntax}
+\cs{RegexMatchCaseTF}
+~ ~ |{|
+~ ~ ~ ~ \Arg{regex_1} \Arg{code case_1}
+~ ~ ~ ~ \Arg{regex_2} \Arg{code case_2}
+~ ~ ~ ~ \ldots
+~ ~ ~ ~ \Arg{regex_n} \Arg{code case_n}
+~ ~ |}| \Arg{token list}
+~ ~ \Arg{true code} \Arg{false code}
+\end{syntax}
+Determines which of the \meta{regular expressions} matches at the
+earliest point in the \meta{token list}, and leaves the
+corresponding \meta{code_i} followed by the \meta{true code} in the
+input stream.  If several \meta{regex} match starting at the same
+point, then the first one in the list is selected and the others are
+discarded.  If none of the \meta{regex} match, the \meta{false code}
+is left in the input stream.  Each \meta{regex} can either be given
+as a regex variable or as an explicit regular expression.
+\end{function}
+
+\section{Regular Expression Submatch Extraction}
+
+\begin{function}{\RegexExtractOnce,\RegexExtractOnceT,\RegexExtractOnceF,\RegexExtractOnceTF}
+\begin{syntax}
+\cs{RegexExtractOnce} \Arg{regex} \Arg{token list} \meta{seq var}
+\cs{RegexExtractOnceT} \Arg{regex} \Arg{token list} \meta{seq var} \Arg{true code}
+\cs{RegexExtractOnceF} \Arg{regex} \Arg{token list} \meta{seq var} \Arg{false code}
+\cs{RegexExtractOnceTF} \Arg{regex} \Arg{token list} \meta{seq var} \Arg{true code} \Arg{false code}
+\end{syntax}
+Finds the first match of the \meta{regular expression} in the
+\meta{token list}. If it exists, the match is stored as the first
+item of the \meta{seq var}, and further items are the contents of
+capturing groups, in the order of their opening parenthesis. The
+\meta{seq var} is assigned locally. If there is no match, the
+\meta{seq var} is cleared.  The testing versions insert the
+\meta{true code} into the input stream if a match was found, and the
+\meta{false code} otherwise.
+\par
+For instance, assume that you type
+\begin{codehigh}
+\RegexExtractOnce {\A(La)?TeX(!*)\Z} {LaTeX!!!} \lTmpaSeq
+\end{codehigh}
+Then the regular expression (anchored at the start with |\A| and
+at the end with |\Z|) must match the whole token list. The first
+capturing group, |(La)?|, matches |La|, and the second capturing
+group, |(!*)|, matches |!!!|. Thus, \cs{lTmpaSeq} contains as a result
+the items |{LaTeX!!!}|, |{La}|, and |{!!!}|.
+Note that the $n$-th item of \cs{lTmpaSeq}, as obtained using
+\cs{SeqVarItem}, correspond to the submatch numbered $(n-1)$ in
+functions such as \cs{RegexReplaceOnce}.
+\end{function}
+
+\begin{function}{\RegexVarExtractOnce,\RegexVarExtractOnceT,\RegexVarExtractOnceF,\RegexVarExtractOnceTF}
+\begin{syntax}
+\cs{RegexVarExtractOnce} \meta{regex var} \Arg{token list} \meta{seq var}
+\cs{RegexVarExtractOnceT} \meta{regex var} \Arg{token list} \meta{seq var} \Arg{true code}
+\cs{RegexVarExtractOnceF} \meta{regex var} \Arg{token list} \meta{seq var} \Arg{false code}
+\cs{RegexVarExtractOnceTF} \meta{regex var} \Arg{token list} \meta{seq var} \Arg{true code} \Arg{false code}
+\end{syntax}
+Finds the first match of the \meta{regex var} in the
+\meta{token list}. If it exists, the match is stored as the first
+item of the \meta{seq var}, and further items are the contents of
+capturing groups, in the order of their opening parenthesis. The
+\meta{seq var} is assigned locally. If there is no match, the
+\meta{seq var} is cleared.  The testing versions insert the
+\meta{true code} into the input stream if a match was found, and the
+\meta{false code} otherwise.
+\end{function}
+
+\begin{function}{\RegexExtractAll,\RegexExtractAllT,\RegexExtractAllF,\RegexExtractAllTF}
+\begin{syntax}
+\cs{RegexExtractAll} \Arg{regex} \Arg{token list} \meta{seq var}
+\cs{RegexExtractAllT} \Arg{regex} \Arg{token list} \meta{seq var} \Arg{true code}
+\cs{RegexExtractAllF} \Arg{regex} \Arg{token list} \meta{seq var} \Arg{false code}
+\cs{RegexExtractAllTF} \Arg{regex} \Arg{token list} \meta{seq var} \Arg{true code} \Arg{false code}
+\end{syntax}
+Finds all matches of the \meta{regular expression}
+in the \meta{token list}, and stores all the submatch information
+in a single sequence (concatenating the results of
+multiple \cs{RegexExtractOnce} calls).
+The \meta{seq var} is assigned locally. If there is no match,
+the \meta{seq var} is cleared.
+The testing versions insert the \meta{true code} into the input
+stream if a match was found, and the \meta{false code} otherwise.
+For instance, assume that you type
+\begin{codehigh}
+\RegexExtractAll {\w+} {Hello, world!} \lTmpaSeq
+\end{codehigh}
+Then the regular expression matches twice, the resulting
+sequence contains the two items |{Hello}| and |{world}|.
+\end{function}
+
+\begin{function}{\RegexVarExtractAll,\RegexVarExtractAllT,\RegexVarExtractAllF,\RegexVarExtractAllTF}
+\begin{syntax}
+\cs{RegexVarExtractAll} \meta{regex var} \Arg{token list} \meta{seq var}
+\cs{RegexVarExtractAllT} \meta{regex var} \Arg{token list} \meta{seq var} \Arg{true code}
+\cs{RegexVarExtractAllF} \meta{regex var} \Arg{token list} \meta{seq var} \Arg{false code}
+\cs{RegexVarExtractAllTF} \meta{regex var} \Arg{token list} \meta{seq var} \Arg{true code} \Arg{false code}
+\end{syntax}
+Finds all matches of the \meta{regex var}
+in the \meta{token list}, and stores all the submatch information
+in a single sequence (concatenating the results of
+multiple \cs{RegexVarExtractOnce} calls).
+The \meta{seq var} is assigned locally. If there is no match,
+the \meta{seq var} is cleared.
+The testing versions insert the \meta{true code} into the input
+stream if a match was found, and the \meta{false code} otherwise.
+\end{function}
+
+\begin{function}{\RegexSplit,\RegexSplitT,\RegexSplitF,\RegexSplitTF}
+\begin{syntax}
+\cs{RegexSplit} \Arg{regular expression} \Arg{token list} \meta{seq var}
+\cs{RegexSplitT} \Arg{regular expression} \Arg{token list} \meta{seq var} \Arg{true code}
+\cs{RegexSplitF} \Arg{regular expression} \Arg{token list} \meta{seq var} \Arg{false code}
+\cs{RegexSplitTF} \Arg{regular expression} \Arg{token list} \meta{seq var} \Arg{true code} \Arg{false code}
+\end{syntax}
+Splits the \meta{token list} into a sequence of parts, delimited by
+matches of the \meta{regular expression}. If the \meta{regular expression}
+has capturing groups, then the token lists that they match are stored as
+items of the sequence as well. The assignment to \meta{seq var} is local.
+If no match is found the resulting \meta{seq var} has the
+\meta{token list} as its sole item. If the \meta{regular expression}
+matches the empty token list, then the \meta{token list} is split
+into single tokens.
+The testing versions insert the \meta{true code} into the input
+stream if a match was found, and the \meta{false code} otherwise.
+For example, after
+\begin{codehigh}
+\SeqNew \lPathSeq
+\RegexSplit {/} {the/path/for/this/file.tex} \lPathSeq
+\end{codehigh}
+the sequence |\lPathSeq| contains the items |{the}|, |{path}|,
+|{for}|, |{this}|, and |{file.tex}|.
+\end{function}
+
+\begin{function}{\RegexVarSplit,\RegexVarSplitT,\RegexVarSplitF,\RegexVarSplitTF}
+\begin{syntax}
+\cs{RegexVarSplit} \meta{regex var} \Arg{token list} \meta{seq var}
+\cs{RegexVarSplitT} \meta{regex var} \Arg{token list} \meta{seq var} \Arg{true code}
+\cs{RegexVarSplitF} \meta{regex var} \Arg{token list} \meta{seq var} \Arg{false code}
+\cs{RegexVarSplitTF} \meta{regex var} \Arg{token list} \meta{seq var} \Arg{true code} \Arg{false code}
+\end{syntax}
+Splits the \meta{token list} into a sequence of parts, delimited by
+matches of the \meta{regular expression}. If the \meta{regex var}
+has capturing groups, then the token lists that they match are stored as
+items of the sequence as well. The assignment to \meta{seq var} is local.
+If no match is found the resulting \meta{seq var} has the
+\meta{token list} as its sole item. If the \meta{regular expression}
+matches the empty token list, then the \meta{token list} is split
+into single tokens.
+The testing versions insert the \meta{true code} into the input
+stream if a match was found, and the \meta{false code} otherwise.
+\end{function}
+
+\section{Regular Expression Replacement}
+
+\begin{function}{\RegexReplaceOnce,\RegexReplaceOnceT,\RegexReplaceOnceT,\RegexReplaceOnceTF}
+\begin{syntax}
+\cs{RegexReplaceOnce} \Arg{regular expression} \Arg{replacement} \meta{tl var}
+\cs{RegexReplaceOnceT} \Arg{regular expression} \Arg{replacement} \meta{tl var} \Arg{true code}
+\cs{RegexReplaceOnceF} \Arg{regular expression} \Arg{replacement} \meta{tl var} \Arg{false code}
+\cs{RegexReplaceOnceTF} \Arg{regular expression} \Arg{replacement} \meta{tl var} \Arg{true code} \Arg{false code}
+\end{syntax}
+Searches for the \meta{regular expression} in the contents of the
+\meta{tl var} and replaces the first match with the
+\meta{replacement}. In the \meta{replacement},
+|\0| represents the full match, |\1| represent the contents of the
+first capturing group, |\2| of the second, \emph{etc.}
+The result is assigned locally to \meta{tl var}.
+\end{function}
+
+\begin{function}{\RegexReplaceOnce,\RegexReplaceOnceT,\RegexReplaceOnceT,\RegexReplaceOnceTF}
+\begin{syntax}
+\cs{RegexVarReplaceOnce} \meta{regex var} \Arg{replacement} \meta{tl var}
+\cs{RegexVarReplaceOnceT} \meta{regex var} \Arg{replacement} \meta{tl var} \Arg{true code}
+\cs{RegexVarReplaceOnceF} \meta{regex var} \Arg{replacement} \meta{tl var} \Arg{false code}
+\cs{RegexVarReplaceOnceTF} \meta{regex var} \Arg{replacement} \meta{tl var} \Arg{true code} \Arg{false code}
+\end{syntax}
+Searches for the \meta{regex var} in the contents of the
+\meta{tl var} and replaces the first match with the
+\meta{replacement}. In the \meta{replacement},
+|\0| represents the full match, |\1| represent the contents of the
+first capturing group, |\2| of the second, \emph{etc.}
+The result is assigned locally to \meta{tl var}.
+\end{function}
+
+\begin{function}{\RegexReplaceAll,\RegexReplaceAllT,\RegexReplaceAllF,\RegexReplaceAllTF}
+\begin{syntax}
+\cs{RegexReplaceAll} \Arg{regular expression} \Arg{replacement} \meta{tl var}
+\cs{RegexReplaceAllT} \Arg{regular expression} \Arg{replacement} \meta{tl var} \Arg{true code}
+\cs{RegexReplaceAllF} \Arg{regular expression} \Arg{replacement} \meta{tl var} \Arg{false code}
+\cs{RegexReplaceAllTF} \Arg{regular expression} \Arg{replacement} \meta{tl var} \Arg{true code} \Arg{false code}
+\end{syntax}
+Replaces all occurrences of the \meta{regex var} in the
+contents of the \meta{tl var}
+by the \meta{replacement}, where |\0| represents
+the full match, |\1| represent the contents of the first capturing
+group, |\2| of the second, \emph{etc.} Every match is treated
+independently, and matches cannot overlap.  The result is assigned
+locally to \meta{tl~var}.
+\end{function}
+
+\begin{function}{\RegexVarReplaceAll,\RegexVarReplaceAllT,\RegexVarReplaceAllF,\RegexVarReplaceAllTF}
+\begin{syntax}
+\cs{RegexVarReplaceAll} \meta{regex var} \Arg{replacement} \meta{tl var}
+\cs{RegexVarReplaceAllT} \meta{regex var} \Arg{replacement} \meta{tl var} \Arg{true code}
+\cs{RegexVarReplaceAllF} \meta{regex var} \Arg{replacement} \meta{tl var} \Arg{false code}
+\cs{RegexVarReplaceAllTF} \meta{regex var} \Arg{replacement} \meta{tl var} \Arg{true code} \Arg{false code}
+\end{syntax}
+Replaces all occurrences of the \meta{regular expression} in the
+contents of the \meta{tl var}
+by the \meta{replacement}, where |\0| represents
+the full match, |\1| represent the contents of the first capturing
+group, |\2| of the second, \emph{etc.} Every match is treated
+independently, and matches cannot overlap.  The result is assigned
+locally to \meta{tl var}.
+\end{function}
+
+\begin{function}{\RegexReplaceCaseOnce}
+\begin{syntax}
+\cs{RegexReplaceCaseOnce}
+~ ~ |{|
+~ ~ ~ ~ \Arg{regex_1} \Arg{replacement_1}
+~ ~ ~ ~ \Arg{regex_2} \Arg{replacement_2}
+~ ~ ~ ~ \ldots
+~ ~ ~ ~ \Arg{regex_n} \Arg{replacement_n}
+~ ~ |}| \meta{tl var}
+\end{syntax}
+Replaces the earliest match of the regular expression
+"(?|"\meta{regex_1}"|"\dots"|"\meta{regex_n}")" in the \meta{token list variable}
+by the \meta{replacement} corresponding to which \meta{regex_i} matched.
+If none of the \meta{regex} match, then the
+\meta{tl var} is not modified. Each \meta{regex} can either be given as a regex
+variable or as an explicit regular expression.
+\par
+In detail, for each starting position in the \meta{token list}, each
+of the \meta{regex} is searched in turn.  If one of them matches
+then it is replaced by the corresponding \meta{replacement} as
+described for \cs{RegexReplaceOnce}.  This is equivalent to
+checking with \cs{RegexMatchCase} which \meta{regex} matches,
+then performing the replacement with \cs{RegexReplaceOnce}.
+\end{function}
+
+\begin{function}{\RegexReplaceCaseOnceT}
+\begin{syntax}
+\cs{RegexReplaceCaseOnceT}
+~ ~ |{|
+~ ~ ~ ~ \Arg{regex_1} \Arg{replacement_1}
+~ ~ ~ ~ \Arg{regex_2} \Arg{replacement_2}
+~ ~ ~ ~ \ldots
+~ ~ ~ ~ \Arg{regex_n} \Arg{replacement_n}
+~ ~ |}| \meta{tl var}
+~ ~ \Arg{true code}
+\end{syntax}
+Replaces the earliest match of the regular expression
+"(?|"\meta{regex_1}"|"\dots"|"\meta{regex_n}")" in the \meta{token list variable}
+by the \meta{replacement} corresponding to which
+\meta{regex_i} matched, then leaves the \meta{true code} in the
+input stream. If none of the \meta{regex} match, then the
+\meta{tl var} is not modified. Each \meta{regex} can either be given as a regex
+variable or as an explicit regular expression.
+\end{function}
+
+\begin{function}{\RegexReplaceCaseOnceF}
+\begin{syntax}
+\cs{RegexReplaceCaseOnceF}
+~ ~ |{|
+~ ~ ~ ~ \Arg{regex_1} \Arg{replacement_1}
+~ ~ ~ ~ \Arg{regex_2} \Arg{replacement_2}
+~ ~ ~ ~ \ldots
+~ ~ ~ ~ \Arg{regex_n} \Arg{replacement_n}
+~ ~ |}| \meta{tl var}
+~ ~ \Arg{false code}
+\end{syntax}
+Replaces the earliest match of the regular expression
+"(?|"\meta{regex_1}"|"\dots"|"\meta{regex_n}")" in the \meta{token list variable}
+by the \meta{replacement} corresponding to which
+\meta{regex_i} matched. If none of the \meta{regex} match, then the
+\meta{tl var} is not modified, and the \meta{false code} is left in
+the input stream.  Each \meta{regex} can either be given as a regex
+variable or as an explicit regular expression.
+\end{function}
+
+\begin{function}{\RegexReplaceCaseOnceTF}
+\begin{syntax}
+\cs{RegexReplaceCaseOnceTF}
+~ ~ |{|
+~ ~ ~ ~ \Arg{regex_1} \Arg{replacement_1}
+~ ~ ~ ~ \Arg{regex_2} \Arg{replacement_2}
+~ ~ ~ ~ \ldots
+~ ~ ~ ~ \Arg{regex_n} \Arg{replacement_n}
+~ ~ |}| \meta{tl var}
+~ ~ \Arg{true code} \Arg{false code}
+\end{syntax}
+Replaces the earliest match of the regular expression
+"(?|"\meta{regex_1}"|"\dots"|"\meta{regex_n}")" in the \meta{token list variable}
+by the \meta{replacement} corresponding to which
+\meta{regex_i} matched, then leaves the \meta{true code} in the
+input stream.  If none of the \meta{regex} match, then the
+\meta{tl var} is not modified, and the \meta{false code} is left in
+the input stream.  Each \meta{regex} can either be given as a regex
+variable or as an explicit regular expression.
+\end{function}
+
+\begin{function}{\RegexReplaceCaseAll}
+\begin{syntax}
+\cs{RegexReplaceCaseAll}
+~ ~ |{|
+~ ~ ~ ~ \Arg{regex_1} \Arg{replacement_1}
+~ ~ ~ ~ \Arg{regex_2} \Arg{replacement_2}
+~ ~ ~ ~ \ldots
+~ ~ ~ ~ \Arg{regex_n} \Arg{replacement_n}
+~ ~ |}| \meta{tl var}
+\end{syntax}
+Replaces all occurrences of all \meta{regex} in the \meta{token~list}
+by the corresponding \meta{replacement}. Every match is
+treated independently, and matches cannot overlap. The result is
+assigned locally to \meta{tl var}.
+\par
+In detail, for each starting position in the \meta{token list}, each
+of the \meta{regex} is searched in turn.  If one of them matches
+then it is replaced by the corresponding \meta{replacement}, and the
+search resumes at the position that follows this match (and
+replacement).  For instance
+%% FIXME
+%\begin{codehigh}
+%\TlSet \lTmpaTl {Hello, world!}
+%\RegexReplaceCaseAll
+%  {
+%    {[A-Za-z]+} {``\0''}
+%    {\b}        {---}
+%    {.}         {[\0]}
+%  } \lTmpaTl
+%\end{codehigh}
+\begin{codehigh}
+\TlSet \lTmpaTl {Hello, world!}
+\RegexReplaceCaseAll
+  {
+    {[A-Za-z]+} {``\0''}
+    {\b} {---}
+    {.} {[\0]}
+  } \lTmpaTl
+\end{codehigh}
+results in \cs{lTmpaTl} having the contents
+\verb*|``Hello''---[,][ ]``world''---[!]|.  Note in particular that
+the word-boundary assertion |\b| did not match at the start of words
+because the case |[A-Za-z]+| matched at these positions.  To change
+this, one could simply swap the order of the two cases in the
+argument of \cs{RegexReplaceCaseAll}.
+\end{function}
+
+\begin{function}{\RegexReplaceCaseAllT}
+\begin{syntax}
+\cs{RegexReplaceCaseAllT}
+~ ~ |{|
+~ ~ ~ ~ \Arg{regex_1} \Arg{replacement_1}
+~ ~ ~ ~ \Arg{regex_2} \Arg{replacement_2}
+~ ~ ~ ~ \ldots
+~ ~ ~ ~ \Arg{regex_n} \Arg{replacement_n}
+~ ~ |}| \meta{tl var}
+~ ~ \Arg{true code}
+\end{syntax}
+Replaces all occurrences of all \meta{regex} in the \meta{token~list}
+by the corresponding \meta{replacement}.  Every match is
+treated independently, and matches cannot overlap. The result is
+assigned locally to \meta{tl var}, and the \meta{true code}
+is left in the input stream if any replacement was made.
+\end{function}
+
+\begin{function}{\RegexReplaceCaseAllF}
+\begin{syntax}
+\cs{RegexReplaceCaseAllF}
+~ ~ |{|
+~ ~ ~ ~ \Arg{regex_1} \Arg{replacement_1}
+~ ~ ~ ~ \Arg{regex_2} \Arg{replacement_2}
+~ ~ ~ ~ \ldots
+~ ~ ~ ~ \Arg{regex_n} \Arg{replacement_n}
+~ ~ |}| \meta{tl var}
+~ ~ \Arg{false code}
+\end{syntax}
+Replaces all occurrences of all \meta{regex} in the \meta{token~list}
+by the corresponding \meta{replacement}.  Every match is
+treated independently, and matches cannot overlap. The result is
+assigned locally to \meta{tl var}, and the \meta{false code} is left
+in the input stream if not any replacement was made.
+\end{function}
+
+\begin{function}{\RegexReplaceCaseAllTF}
+\begin{syntax}
+\cs{RegexReplaceCaseAllTF}
+~ ~ |{|
+~ ~ ~ ~ \Arg{regex_1} \Arg{replacement_1}
+~ ~ ~ ~ \Arg{regex_2} \Arg{replacement_2}
+~ ~ ~ ~ \ldots
+~ ~ ~ ~ \Arg{regex_n} \Arg{replacement_n}
+~ ~ |}| \meta{tl var}
+~ ~ \Arg{true code} \Arg{false code}
+\end{syntax}
+Replaces all occurrences of all \meta{regex} in the \meta{token
+list} by the corresponding \meta{replacement}.  Every match is
+treated independently, and matches cannot overlap.  The result is
+assigned locally to \meta{tl var}, and the \meta{true code} or
+\meta{false code} is left in the input stream depending on whether
+any replacement was made or not.
+\end{function}
+
+\section{Syntax of Regular Expressions}
+
+\subsection{Regular Expression Examples}
+
+We start with a few examples, and encourage the reader to apply
+\cs{RegexShow} to these regular expressions.
+\begin{itemize}
+\item |Cat| matches the word \enquote{Cat} capitalized in this way,
+  but also matches the beginning of the word \enquote{Cattle}: use
+  |\bCat\b| to match a complete word only.
+\item |[abc]| matches one letter among \enquote{a}, \enquote{b},
+  \enquote{c}; the pattern \verb"(a|b|c)" matches the same three
+  possible letters (but see the discussion of submatches below).
+\item |[A-Za-z]*| matches any number (due to the quantifier
+  \verb"*") of Latin letters (not accented).
+\item |\c{[A-Za-z]*}| matches a control sequence made of Latin
+  letters.
+\item |\_[^\_]*\_| matches an underscore, any number of characters
+  other than underscore, and another underscore; it is equivalent to
+  |\_.*?\_| where |.| matches arbitrary characters and the
+  lazy quantifier |*?| means to match as few characters as
+  possible, thus avoiding matching underscores.
+\item |[\+\-]?\d+| matches an explicit integer with at most one
+  sign.
+\item \verb*"[\+\-\ ]*\d+\ *" matches an explicit integer with any
+  number of $+$ and $-$ signs, with spaces allowed except within the
+  mantissa, and surrounded by spaces.
+\item \verb*"[\+\-\ ]*(\d+|\d*\.\d+)\ *" matches an explicit integer or
+  decimal number; using \verb*"[.,]" instead of \verb*"\." would allow
+  the comma as a decimal marker.
+\item
+  \verb*"[\+\-\ ]*(\d+|\d*\.\d+)\ *((?i)pt|in|[cem]m|ex|[bs]p|[dn]d|[pcn]c)\ *"
+  \allowbreak matches an explicit dimension with any unit that \TeX{} knows, where
+  \verb*"(?i)" means to treat lowercase and uppercase letters
+  identically.
+\item \verb*"[\+\-\ ]*((?i)nan|inf|(\d+|\d*\.\d+)(\ *e[\+\-\ ]*\d+)?)\ *"
+  matches an explicit floating point number or the special values
+  \verb*"nan" and \verb*"inf" (with signs and spaces allowed).
+\item \verb*"[\+\-\ ]*(\d+|\cC.)\ *" matches an explicit integer or
+  control sequence (without checking whether it is an integer
+  variable).
+\item |\G.*?\K| at the beginning of a regular expression matches and
+  discards (due to |\K|) everything between the end of the previous
+  match (|\G|) and what is matched by the rest of the regular
+  expression; this is useful in \cs{RegexReplaceAll} when the
+  goal is to extract matches or submatches in a finer way than with
+  \cs{RegexExtractAll}.
+\end{itemize}
+While it is impossible for a regular expression to match only integer
+expressions, \newline\verb*"[\+\-\(]*\d+\)*([\+\-*/][\+\-\(]*\d+\)*)*" matches among
+other things all valid integer expressions (made only with explicit
+integers).  One should follow it with further testing.
+
+\subsection{Characters in Regular Expressions}
+
+Most characters match exactly themselves,
+with an arbitrary category code. Some characters are
+special and must be escaped with a backslash (\emph{e.g.}, |\*|
+matches a star character). Some escape sequences of
+the form backslash--letter also have a special meaning
+(for instance |\d| matches any digit). As a rule,
+\begin{itemize}
+\item every alphanumeric character (\texttt{A}--\texttt{Z},
+  \texttt{a}--\texttt{z}, \texttt{0}--\texttt{9}) matches
+  exactly itself, and should not be escaped, because
+  |\A|, |\B|, \ldots{} have special meanings;
+\item non-alphanumeric printable ASCII characters can (and should)
+  always be escaped: many of them have special meanings (\emph{e.g.},
+  use |\(|, |\)|, |\?|, |\.|, |\^|);
+\item spaces should always be escaped (even in character
+  classes);
+\item any other character may be escaped or not, without any
+  effect: both versions match exactly that character.
+\end{itemize}
+Note that these rules play nicely with the fact that many
+non-alphanumeric characters are difficult to input into \TeX{}
+under normal category codes. For instance, |\\abc\%|
+matches the characters |\abc%| (with arbitrary category codes),
+but does not match the control sequence |\abc| followed by a
+percent character. Matching control sequences can be done
+using the |\c|\Arg{regex} syntax (see below).
+
+Any special character which appears at a place where its special
+behaviour cannot apply matches itself instead (for instance, a
+quantifier appearing at the beginning of a string), after raising a
+warning.
+
+Characters.
+\begin{l3regex-syntax}
+  \item[\\x\{hh\ldots{}\}] Character with hex code \texttt{hh\ldots{}}
+  \item[\\xhh] Character with hex code \texttt{hh}.
+  \item[\\a] Alarm (hex 07).
+  \item[\\e] Escape (hex 1B).
+  \item[\\f] Form-feed (hex 0C).
+  \item[\\n] New line (hex 0A).
+  \item[\\r] Carriage return (hex 0D).
+  \item[\\t] Horizontal tab (hex 09).
+\end{l3regex-syntax}
+
+\subsection{Characters Classes}
+
+Character types.
+\begin{l3regex-syntax}
+  \item[.] A single period matches any token.
+  \item[\\d] Any decimal digit.
+  \item[\\h] Any horizontal space character,
+    equivalent to |[\ \^^I]|: space and tab.
+  \item[\\s] Any space character,
+    equivalent to |[\ \^^I\^^J\^^L\^^M]|.
+  \item[\\v] Any vertical space character,
+    equivalent to |[\^^J\^^K\^^L\^^M]|. Note that |\^^K| is a vertical space,
+    but not a space, for compatibility with Perl.
+  \item[\\w] Any word character, \emph{i.e.},
+    alphanumerics and underscore, equivalent to the explicit
+    class |[A-Za-z0-9\_]|.
+  \item[\\D] Any token not matched by |\d|.
+  \item[\\H] Any token not matched by |\h|.
+  \item[\\N] Any token other than the |\n| character (hex 0A).
+  \item[\\S] Any token not matched by |\s|.
+  \item[\\V] Any token not matched by |\v|.
+  \item[\\W] Any token not matched by |\w|.
+\end{l3regex-syntax}
+Of those, |.|, |\D|, |\H|, |\N|, |\S|, |\V|, and |\W| match arbitrary
+control sequences.
+
+Character classes match exactly one token in the subject.
+\begin{l3regex-syntax}
+  \item[{[\ldots{}]}] Positive character class.
+    Matches any of the specified tokens.
+  \item[{[\char`\^\ldots{}]}] Negative character class.
+    Matches any token other than the specified characters.
+  \item[{x-y}] Within a character class, this denotes a range (can be
+    used with escaped characters).
+  \item[{[:\meta{name}:]}] Within a character class (one more set of
+    brackets), this denotes the \textsc{posix} character class
+    \meta{name}, which can be \texttt{alnum}, \texttt{alpha},
+    \texttt{ascii}, \texttt{blank}, \texttt{cntrl}, \texttt{digit},
+    \texttt{graph}, \texttt{lower}, \texttt{print}, \texttt{punct},
+    \texttt{space}, \texttt{upper}, \texttt{word}, or \texttt{xdigit}.
+  \item[{[:\char`\^\meta{name}:]}] Negative \textsc{posix} character class.
+\end{l3regex-syntax}
+For instance, |[a-oq-z\cC.]| matches any lowercase latin letter
+except |p|, as well as control sequences (see below for a description
+of |\c|).
+
+In character classes, only |[|, |^|, |-|, |]|, |\| and spaces are
+special, and should be escaped. Other non-alphanumeric characters can
+still be escaped without harm. Any escape sequence which matches a
+single character (|\d|, |\D|, \emph{etc.}) is supported in character
+classes.  If the first character is |^|, then
+the meaning of the character class is inverted; |^| appearing anywhere
+else in the range is not special.  If the first character (possibly
+following a leading |^|) is |]| then it does not need to be escaped
+since ending the range there would make it empty.
+Ranges of characters
+can be expressed using |-|, for instance, |[\D 0-5]| and |[^6-9]| are
+equivalent.
+
+\subsection{Structure: Alternatives, Groups, Repetitions}
+
+Quantifiers (repetition).
+\begin{l3regex-syntax}
+  \item[?] $0$ or $1$, greedy.
+  \item[??] $0$ or $1$, lazy.
+  \item[*] $0$ or more, greedy.
+  \item[*?] $0$ or more, lazy.
+  \item[+] $1$ or more, greedy.
+  \item[+?] $1$ or more, lazy.
+  \item[\{$n$\}] Exactly $n$.
+  \item[\{$n,$\}] $n$ or more, greedy.
+  \item[\{$n,$\}?] $n$ or more, lazy.
+  \item[\{$n,m$\}] At least $n$, no more than $m$, greedy.
+  \item[\{$n,m$\}?] At least $n$, no more than $m$, lazy.
+\end{l3regex-syntax}
+For greedy quantifiers the regex code will first investigate matches
+that involve as many repetitions as possible, while for lazy
+quantifiers it investigates matches with as few repetitions as
+possible first.
+
+Alternation and capturing groups.
+\begin{l3regex-syntax}
+  \item[A\char`|B\char`|C] Either one of \texttt{A}, \texttt{B},
+    or \texttt{C}, investigating \texttt{A} first.
+  \item[(\ldots{})] Capturing group.
+  \item[(?:\ldots{})] Non-capturing group.
+  \item[(?\char`|\ldots{})] Non-capturing group which resets
+    the group number for capturing groups in each alternative.
+    The following group is numbered with the first unused
+    group number.
+\end{l3regex-syntax}
+
+Capturing groups are a means of extracting information about the
+match. Parenthesized groups are labelled in the order of their
+opening parenthesis, starting at $1$. The contents of those groups
+corresponding to the \enquote{best} match (leftmost longest)
+can be extracted and stored in a sequence of token lists using for
+instance \cs{RegexExtractOnceTF}.
+
+The |\K| escape sequence resets the beginning of the match to the
+current position in the token list. This only affects what is reported
+as the full match. For instance,
+\begin{codehigh}
+\RegexExtractAll {a \K .} {a123aaxyz} \lFooSeq
+\end{codehigh}
+results in \cs{lFooSeq} containing the items |{1}| and |{a}|: the
+true matches are |{a1}| and |{aa}|, but they are trimmed by the use of
+|\K|. The |\K| command does not affect capturing groups: for instance,
+\begin{codehigh}
+\RegexExtractOnce {(. \K c)+ \d} {acbc3} \lFooSeq
+\end{codehigh}
+results in \cs{lFooSeq} containing the items |{c3}| and |{bc}|: the
+true match is |{acbc3}|, with first submatch |{bc}|, but |\K| resets
+the beginning of the match to the last position where it appears.
+
+\subsection{Matching Exact Tokens}
+
+The |\c| escape sequence allows to test the category code of tokens,
+and match control sequences. Each character category is represented
+by a single uppercase letter:
+\begin{itemize}
+\item |C| for control sequences;
+\item |B| for begin-group tokens;
+\item |E| for end-group tokens;
+\item |M| for math shift;
+\item |T| for alignment tab tokens;
+\item |P| for macro parameter tokens;
+\item |U| for superscript tokens (up);
+\item |D| for subscript tokens (down);
+\item |S| for spaces;
+\item |L| for letters;
+\item |O| for others; and
+\item |A| for active characters.
+\end{itemize}
+The |\c| escape sequence is used as follows.
+\begin{l3regex-syntax}
+  \item[\\c\Arg{regex}] A control sequence whose csname matches the
+    \meta{regex}, anchored at the beginning and end, so that |\c{begin}|
+    matches exactly \cs[no-index]{begin}, and nothing else.
+  \item[\\cX] Applies to the next object, which can be a character,
+    escape character sequence such as |\x{0A}|, character class, or
+    group, and forces this object to only match tokens with category
+    |X| (any of |CBEMTPUDSLOA|. For instance, |\cL[A-Z\d]| matches
+    uppercase letters and digits of category code letter, |\cC.|
+    matches any control sequence, and |\cO(abc)| matches |abc| where
+    each character has category other.\footnote{This last example also
+    captures \enquote{\texttt{abc}} as a regex group; to avoid this
+    use a non-capturing group \texttt{\textbackslash cO(?:abc)}.}
+  \item[{\\c[XYZ]}] Applies to the next object, and forces it to only
+    match tokens with category |X|, |Y|, or |Z| (each being any of
+    |CBEMTPUDSLOA|). For instance, |\c[LSO](..)| matches two tokens of
+    category letter, space, or other.
+  \item[{\\c[\char`\^XYZ]}] Applies to the next object and prevents it
+    from matching any token with category |X|, |Y|, or |Z| (each being
+    any of |CBEMTPUDSLOA|). For instance, |\c[^O]\d| matches digits
+    which have any category different from other.
+\end{l3regex-syntax}
+The category code tests can be used inside classes; for instance,
+|[\cO\d \c[LO][A-F]]| matches what \TeX{} considers as hexadecimal
+digits, namely digits with category other, or uppercase letters from
+|A| to |F| with category either letter or other. Within a group
+affected by a category code test, the outer test can be overridden by
+a nested test: for instance, |\cL(ab\cO\*cd)| matches |ab*cd| where
+all characters are of category letter, except |*| which has category
+other.
+
+The |\u| escape sequence allows to insert the contents of a token list
+directly into a regular expression or a replacement, avoiding the need
+to escape special characters. Namely, |\u|\Arg{var name} matches
+the exact contents (both character codes and category codes) of the
+variable \cs[no-index]{\meta{var name}}. %,
+%which are obtained by applying \cs{exp_not:v} \Arg{var name} at the
+%time the regular expression is compiled.
+Within a |\c{...}|
+control sequence matching, the |\u| escape sequence only expands its
+argument once. %, in effect performing \cs{tl_to_str:v}.
+Quantifiers are supported.
+
+The |\ur| escape sequence allows to insert the contents of a |regex|
+variable into a larger regular expression.  For instance,
+|A\ur{lTmpaRegex}D| matches the tokens |A| and |D| separated by
+something that matches the regular expression
+\cs{lTmpaRegex}.  This behaves as if a non-capturing group
+were surrounding \cs{lTmpaRegex}, and any group contained
+in \cs{lTmpaRegex} is converted to a non-capturing group.
+Quantifiers are supported.
+
+For instance, if \cs{lTmpaRegex} has value \verb"B|C",
+then |A\ur{l_tmpa_regex}D| is equivalent to \verb"A(?:B|C)D" (matching
+|ABD| or |ACD|) and not to \verb"AB|CD" (matching |AB| or |CD|).  To
+get the latter effect, it is simplest to use \TeX{}'s expansion
+machinery directly: if \cs{lTmpaTl} contains
+\verb"B|C" then the following two lines show the same result:
+\begin{codehigh}
+\RegexShow {A \u{lTmpaTl} D}
+\RegexShow {A B | C D}
+\end{codehigh}
+
+\subsection{Miscellaneous}
+
+Anchors and simple assertions.
+\begin{l3regex-syntax}
+  \item[\\b] Word boundary: either the previous token is matched by
+    |\w| and the next by |\W|, or the opposite. For this purpose,
+    the ends of the token list are considered as |\W|.
+  \item[\\B] Not a word boundary: between two |\w| tokens
+    or two |\W| tokens (including the boundary).
+  \item[\char`^ \textrm{or} \\A]
+    Start of the subject token list.
+  \item[\char`$\textrm{,} \\Z \textrm{or} \\z] %^^A $
+    End of the subject token list.
+  \item[\\G] Start of the current match. This is only different from |^|
+    in the case of multiple matches: for instance
+    |\RegexCount {\G a} {aaba} \lTmpaInt| yields $2$, but
+    replacing |\G| by |^| would result in \cs{lTmpaInt} holding the
+    value $1$.
+\end{l3regex-syntax}
+
+The option |(?i)| makes the match case insensitive (identifying
+\texttt{A}--\texttt{Z} with \texttt{a}--\texttt{z}; no Unicode support
+yet). This applies until the end of the group in which it appears, and
+can be reverted using |(?-i)|. For instance, in
+\verb"(?i)(a(?-i)b|c)d", the letters |a| and |d| are affected by the
+|i| option. Characters within ranges and classes are affected
+individually: |(?i)[Y-\\]| is equivalent to |[YZ\[\\yz]|, and
+|(?i)[^aeiou]| matches any character which is not a vowel. Neither
+character properties, nor |\c{...}| nor |\u{...}| are affected by the
+|i| option.
+%^^A \]
+
+\section{Syntax of the Replacement Text}
+
+Most of the features described in regular expressions do not make
+sense within the replacement text.  Backslash introduces various
+special constructions, described further below:
+\begin{itemize}
+  \item |\0| is the whole match;
+  \item |\1| is the submatch that was matched by the first (capturing)
+    group |(...)|; similarly for |\2|, \ldots{}, |\9| and
+    |\g{|\meta{number}|}|;
+  \item \verb*|\ | inserts a space (spaces are ignored when not
+    escaped);
+  \item |\a|, |\e|, |\f|, |\n|, |\r|, |\t|, |\xhh|, |\x{hhh}|
+    correspond to single characters as in regular expressions;
+  \item |\c|\Arg{cs name} inserts a control sequence;
+  \item |\c|\meta{category}\meta{character} (see below);
+  \item |\u|\Arg{tl var name} inserts the contents of the
+    \meta{tl var} (see below).
+\end{itemize}
+Characters other than backslash and space are simply inserted in the
+result (but since the replacement text is first converted to a string,
+one should also escape characters that are special for \TeX{}, for
+instance use |\#|).  Non-alphanumeric characters can always be safely
+escaped with a backslash.
+
+For instance,
+\begin{demohigh}
+\TlSet \lTmpaTl {Hello, world!}
+\RegexReplaceAll {([er]?l|o) .} {(\0--\1)} \lTmpaTl
+\TlUse \lTmpaTl
+\end{demohigh}
+
+The submatches are numbered according to the order in which the
+opening parenthesis of capturing groups appear in the regular
+expression to match.  The $n$-th submatch is empty if there are fewer
+than $n$ capturing groups or for capturing groups that appear in
+alternatives that were not used for the match.  In case a capturing
+group matches several times during a match (due to quantifiers) only
+the last match is used in the replacement text. Submatches always keep
+the same category codes as in the original token list.
+
+By default, the category code of characters inserted by the
+replacement are determined by the prevailing category code regime at
+the time where the replacement is made, with two exceptions:
+\begin{itemize}
+\item space characters (with character code $32$) inserted with
+  \verb*|\ | or |\x20| or |\x{20}| have category code $10$ regardless
+  of the prevailing category code regime;
+\item if the category code would be $0$ (escape), $5$ (newline),
+  $9$ (ignore), $14$ (comment) or $15$ (invalid), it is replaced by
+  $12$ (other) instead.
+\end{itemize}
+The escape sequence |\c| allows to insert characters
+with arbitrary category codes, as well as control sequences.
+\begin{l3regex-syntax}
+\item[\\cX(\ldots{})] Produces the characters \enquote{\ldots{}} with
+  category |X|, which must be one of |CBEMTPUDSLOA| as in regular
+  expressions.  Parentheses are optional for a single character (which
+  can be an escape sequence).  When nested, the innermost category
+  code applies, for instance |\cL(Hello\cS\ world)!| gives this text
+  with standard category codes.
+\item[\\c\Arg{text}] Produces the control sequence with csname
+  \meta{text}.  The \meta{text} may contain references to the
+  submatches |\0|, |\1|, and so on, as in the example for |\u| below.
+\end{l3regex-syntax}
+
+The escape sequence |\u|\Arg{var name} allows to insert the
+contents of the variable with name \meta{var name} directly into
+the replacement, giving an easier control of category codes.  When
+nested in |\c{|\ldots{}|}| and |\u{|\ldots{}|}| constructions, the
+|\u| and |\c| escape sequences %perform \cs{tl_to_str:v}, namely
+extract the value of the control sequence and turn it into a string.
+Matches can also be used within the arguments of |\c| and |\u|.  For
+instance,
+\begin{demohigh}
+\TlSet \lMyOneTl {first}
+\TlSet \lMyTwoTl {\underline{second}}
+\TlSet \lTmpaTl {One,Two,One,One}
+\RegexReplaceAll {[^,]+} {\u{lMy\0Tl}} \lTmpaTl
+\TlUse \lTmpaTl
+\end{demohigh}
+
+Regex replacement is also a convenient way to produce token lists
+with arbitrary category codes.  For instance
+\begin{codehigh}
+\TlClear \lTmpaTl
+\RegexReplaceAll { } {\cU\% \cA\~} \lTmpaTl
+\end{codehigh}
+results in \cs{lTmpaTl} containing the percent character
+with category code $7$ (superscript) and an active tilde character.
+
+\end{document}
