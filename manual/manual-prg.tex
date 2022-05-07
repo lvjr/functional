@@ -37,21 +37,41 @@ is: if the argument starts with a function defined with \cs{PrgNewFunction},
 the argument will be evaluated and replaced with the returned value.
 \end{function}
 
+\begin{function}{\PrgSetEqFunction}
+\begin{syntax}
+\cs{PrgSetEqFunction} \meta{function_1} \meta{function_2}
+\end{syntax}
+Sets \meta{function_1} as an alias of \meta{function_2}.
+\end{function}
+
 \begin{function}{\PrgNewConditional}
 \begin{syntax}
 \cs{PrgNewConditional} \meta{function} \Arg{argument specification} \Arg{code}
 \end{syntax}
 Creates protected conditional \meta{function} for evaluating the \meta{code}.
-The returned value of the \meta{function} \emph{must} be either \verb!\cTrueBool!
-or \verb!\cFalseBool! and be passed with \cs{Return} function..
+The returned value of the \meta{function} \emph{must} be either |\cTrueBool|
+or |\cFalseBool| and be passed with \cs{Return} function..
 The definition is global and an error results if the \meta{function} is already defined.
 \par
-Assume the \meta{function} is \verb!\FooIfBar!, then another function \verb!\FooIfBarTF!
-will be created at the same time. \verb!\FooIfBarTF! function has two extra arguments
-which are \Arg{true code} and \Arg{false code}.\par
+Assume the \meta{function} is |\FooIfBar|, then another three functions
+are also created at the same time: |\FooIfBarT|, |\FooIfBarF|, and |\FooIfBarTF|.
+They have extra arguments which are \Arg{true code} or/and \Arg{false code}.
+For example, if you write
+\begin{codehigh}
+\PrgNewConditional \FooIfBar {Mm} {code with return value \cTrueBool or \cFalseBool}
+\end{codehigh}
+Then the following four functions are created:
+\begin{itemize}
+ \item |\FooIfBar| \meta{arg_1} \Arg{arg_2}
+ \item |\FooIfBarT| \meta{arg_1} \Arg{arg_2} \Arg{true code}
+ \item |\FooIfBarF| \meta{arg_1} \Arg{arg_2} \Arg{false code}
+ \item |\FooIfBarTF| \meta{arg_1} \Arg{arg_2} \Arg{true code} \Arg{false code}
+\end{itemize}
 \end{function}
 
-\section{Return Values of Functions}
+\section{Returning Values and Printing Tokens}
+
+Just like \LuaTeX, \pkg{functional} package also provides \cs{Return} and \cs{Print} functions.
 
 \begin{function}{\Return}
 \begin{syntax}
@@ -80,6 +100,41 @@ is returned. Therefore, the following two examples produce the same output:
 \IgnoreSpacesOff
 \MathSquare{5}
 \end{codehigh}
+\pkg{Functional} package takes care of return values,
+and only print them to the input stream if the outer most functions are evaluated.
+\end{function}
+
+\begin{function}{\Print}
+\begin{syntax}
+\cs{Print} \Arg{tokens}
+\end{syntax}
+Prints \meta{tokens} directly to the input stream.
+If there is no function defined with \cs{PrgNewFunction} in \meta{tokens},
+you can omit \cs{Print} and write only \meta{tokens}.
+But if there is any function defined with \cs{PrgNewFunction} in \meta{tokens},
+you \emph{have to} use \cs{Print} function.
+\end{function}
+
+\section{Running Code with Anonymous Functions}
+
+\begin{function}{\Do}
+\begin{syntax}
+\cs{Do} \Arg{code}
+\end{syntax}
+Treats \meta{code} as an anonymous function without arguments and evaluates it.
+\end{function}
+
+\begin{function}{\PrgRunOneArgCode,\PrgRunTwoArgCode,\PrgRunThreeArgCode,\PrgRunFourArgCode}
+\begin{syntax}
+\cs{PrgRunOneArgCode} \Arg{arg_1} \Arg{code}
+\cs{PrgRunTwoArgCode} \Arg{arg_1} \Arg{arg_2} \Arg{code}
+\cs{PrgRunThreeArgCode} \Arg{arg_1} \Arg{arg_2} \Arg{arg_3} \Arg{code}
+\cs{PrgRunFourArgCode} \Arg{arg_1} \Arg{arg_2} \Arg{arg_3} \Arg{arg_4} \Arg{code}
+\end{syntax}
+Treats \meta{code} as an anonymous function with one to four arguments respectively,
+and evaluates it. In evaluating the \meta{code}, \pkg{functional} package first evaluates
+\meta{arg_1} to \meta{arg_4}, then replaces |#1| to |#4| in \meta{code}
+with the return values respectively.
 \end{function}
 
 \end{document}
