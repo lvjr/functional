@@ -3,7 +3,7 @@
 \documentclass[oneside]{book}
 \usepackage[a4paper,margin=2.5cm]{geometry}
 
-\newcommand*{\myversion}{2022E}
+\newcommand*{\myversion}{2022F}
 \newcommand*{\mydate}{Version \myversion\ (\the\year-\mylpad\month-\mylpad\day)}
 \newcommand*{\mylpad}[1]{\ifnum#1<10 0\the#1\else\the#1\fi}
 
@@ -131,19 +131,19 @@
 
 \begin{document}
 
-\title{\sffamily LaTeX2 \textcolor{green3}{Functional} Interfaces for LaTeX3 Programming Layer}
+\title{\sffamily Intuitive \textcolor{green3}{Functional} Programming Interface for LaTeX2}
 \author{Jianrui Lyu (tolvjr@163.com)\\\url{https://github.com/lvjr/functional}}
 \date{\mydate\vspace{1cm}\\\myabstract\vspace{10cm}}
 
 \newcommand\myabstract{\parbox{\linewidth}{\hrule\vspace{0.8em}\large
-LaTeX3 programming layer (\textsf{expl3}) is very powerful for advanced users,
-but it is a little complicated for normal users.
-This \textcolor{green3}{\sffamily functional} package aims to provide
-intuitive LaTeX2 functional interfaces for it.
+This package provides an intuitive functional programming interface for LaTeX2,
+which is an alternative choice to \textsf{expl3} or LuaTeX,
+if you want to do programming in LaTeX.
 \par\vspace{0.5em}
-Although there are functions in LaTeX3, the evaluation of them is from outside to inside.
+Although there are functions in LaTeX3 programming layer (\textsf{expl3}),
+the evaluation of them is from outside to inside.
 With this package, the evaluation of functions is from inside to outside,
-which is the same as other programming languages such as \texttt{JavaScript} or \texttt{Lua}.
+which is the same as other programming languages such as \texttt{Lua}.
 In this way, it is rather easy to debug code too.
 \par\vspace{0.5em}
 Note that many paragraphs in this manual are copied from the documentation of \textsf{expl3}.
