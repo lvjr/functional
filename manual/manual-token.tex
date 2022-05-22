@@ -9,102 +9,102 @@
 
 \chapter{Token Manipulation (\texttt{Token})}
 
-\begin{function}{\CharLowercase,\CharUppercase,\CharTitlecase,\CharFoldcase}
+\begin{function}{\charLowercase,\charUppercase,\charTitlecase,\charFoldcase}
 \begin{syntax}
-\cs{CharLowercase} \meta{char}
-\cs{CharUppercase} \meta{char}
-\cs{CharTitlecase} \meta{char}
-\cs{CharFoldcase} \meta{char}
+\cs{charLowercase} \meta{char}
+\cs{charUppercase} \meta{char}
+\cs{charTitlecase} \meta{char}
+\cs{charFoldcase} \meta{char}
 \end{syntax}
 Converts the \meta{char} to the equivalent case-changed character
-as detailed by the function name (see %\cs{StrFoldcase} and
-\cs{TextTitlecase} for details of these terms). The case mapping
-is carried out with no context-dependence (\emph{cf.} \cs{TextUppercase},
+as detailed by the function name (see %\cs{strFoldcase} and
+\cs{textTitlecase} for details of these terms). The case mapping
+is carried out with no context-dependence (\emph{cf.} \cs{textUppercase},
 \emph{etc.}) These functions generate characters with the category code
 of the \meta{char} (i.e. only the character code changes).
 \end{function}
 
-\begin{function}{\CharStrLowercase,\CharStrUppercase,\CharStrTitlecase,\CharStrFoldcase}
+\begin{function}{\charStrLowercase,\charStrUppercase,\charStrTitlecase,\charStrFoldcase}
 \begin{syntax}
-\cs{CharStrLowercase} \meta{char}
-\cs{CharStrUppercase} \meta{char}
-\cs{CharStrTitlecase} \meta{char}
-\cs{CharStrFoldcase} \meta{char}
+\cs{charStrLowercase} \meta{char}
+\cs{charStrUppercase} \meta{char}
+\cs{charStrTitlecase} \meta{char}
+\cs{charStrFoldcase} \meta{char}
 \end{syntax}
 Converts the \meta{char} to the equivalent case-changed character
-as detailed by the function name (see %\cs{StrFoldcase} and
-\cs{TextTitlecase} for details of these terms). The case mapping
-is carried out with no context-dependence (\emph{cf.} \cs{TextUppercase},
+as detailed by the function name (see %\cs{strFoldcase} and
+\cs{textTitlecase} for details of these terms). The case mapping
+is carried out with no context-dependence (\emph{cf.} \cs{textUppercase},
 \emph{etc.}) These functions generate \enquote{other} (category code $12$)
 characters.
 \end{function}
 
-\begin{function}{\CharSetLccode}
+\begin{function}{\charSetLccode}
 \begin{syntax}
-\cs{CharSetLccode} \Arg{intexpr_1} \Arg{intexpr_2}
+\cs{charSetLccode} \Arg{intexpr_1} \Arg{intexpr_2}
 \end{syntax}
 Sets up the behaviour of the \meta{character} when
-found inside \cs{TextLowercase}, such that \meta{character_1}
+found inside \cs{textLowercase}, such that \meta{character_1}
 will be converted into \meta{character_2}. The two \meta{characters}
 may be specified using an \meta{integer expression} for the character code
 concerned. This may include the \TeX{} \verb|`|\meta{character}
 method for converting a single character into its character code:
 \begin{codehigh}
-\CharSetLccode {`\A} {`\a} % Standard behaviour
-\CharSetLccode {`\A} {`\A + 32}
-\CharSetLccode {65} {97}
+\charSetLccode {`\A} {`\a} % Standard behaviour
+\charSetLccode {`\A} {`\A + 32}
+\charSetLccode {65} {97}
 \end{codehigh}
 The setting applies within the current \TeX{} group.
 \end{function}
 
-\begin{function}{\CharSetUccode}
+\begin{function}{\charSetUccode}
 \begin{syntax}
-\cs{CharSetUccode} \Arg{intexpr_1} \Arg{intexpr_2}
+\cs{charSetUccode} \Arg{intexpr_1} \Arg{intexpr_2}
 \end{syntax}
 Sets up the behaviour of the \meta{character} when
-found inside \cs{TextUppercase}, such that \meta{character_1}
+found inside \cs{textUppercase}, such that \meta{character_1}
 will be converted into \meta{character_2}. The two \meta{characters}
 may be specified using an \meta{integer expression} for the character code
 concerned. This may include the \TeX{} \verb|`|\meta{character}
 method for converting a single character into its character code:
 \begin{codehigh}
-\CharSetUccode {`\a} {`\A} % Standard behaviour
-\CharSetUccode {`\a} {`\a - 32}
-\CharSetUccode {97} {65}
+\charSetUccode {`\a} {`\A} % Standard behaviour
+\charSetUccode {`\a} {`\a - 32}
+\charSetUccode {97} {65}
 \end{codehigh}
 The setting applies within the current \TeX{} group.
 \end{function}
 
-\begin{function}{\CharValueLccode}
+\begin{function}{\charValueLccode}
 \begin{syntax}
-\cs{CharValueLccode} \Arg{integer expression}
+\cs{charValueLccode} \Arg{integer expression}
 \end{syntax}
 Returns the current lower case code of the \meta{character} with
 character code given by the
 \meta{integer expression}.
 \end{function}
 
-\begin{function}{\CharValueUccode}
+\begin{function}{\charValueUccode}
 \begin{syntax}
-\cs{CharValueUccode} \Arg{integer expression}
+\cs{charValueUccode} \Arg{integer expression}
 \end{syntax}
 Returns the current upper case code of the \meta{character} with
 character code given by the
 \meta{integer expression}.
 \end{function}
 
-%\begin{function}{\CharShowValueLccode}
+%\begin{function}{\charShowValueLccode}
 %\begin{syntax}
-%\cs{CharShowValueLccode} \Arg{integer expression}
+%\cs{charShowValueLccode} \Arg{integer expression}
 %\end{syntax}
 %Displays the current lower case code of the \meta{character} with
 %character code given by the \meta{integer expression} on the
 %terminal.
 %\end{function}
 %
-%\begin{function}{\CharShowValueUccode}
+%\begin{function}{\charShowValueUccode}
 %\begin{syntax}
-%\cs{CharShowValueUccode} \Arg{integer expression}
+%\cs{charShowValueUccode} \Arg{integer expression}
 %\end{syntax}
 %Displays the current upper case code of the \meta{character} with
 %character code given by the \meta{integer expression} on the

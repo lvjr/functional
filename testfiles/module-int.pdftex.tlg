@@ -1,329 +1,329 @@
 This is a generated file for the l3build validation system.
 Don't change this file in any respect.
 ============================================================
-TEST 1: Testing \IntEval 
+TEST 1: Testing \intEval 
 ============================================================
-[I] \IntEval{(1+4)*(2-3)/5}
-    [I] \Expand{\int_eval:n {(1+4)*(2-3)/5}}
+[I] \intEval{(1+4)*(2-3)/5}
+    [I] \expWhole{\int_eval:n {(1+4)*(2-3)/5}}
     [O] -1
 [O] -1
-    [I] \StrCount{12\TeX 34}
-        [I] \Expand{\str_count:n {12\TeX 34}}
+    [I] \strCount{12\TeX 34}
+        [I] \expWhole{\str_count:n {12\TeX 34}}
         [O] 9
     [O] 9
-    [I] \TlCount{12\TeX 34}
-        [I] \Expand{\tl_count:n {12\TeX 34}}
+    [I] \tlCount{12\TeX 34}
+        [I] \expWhole{\tl_count:n {12\TeX 34}}
         [O] 5
     [O] 5
-[I] \IntEval{9-5}
-    [I] \Expand{\int_eval:n {9-5}}
+[I] \intEval{9-5}
+    [I] \expWhole{\int_eval:n {9-5}}
     [O] 4
 [O] 4
 ============================================================
 ============================================================
-TEST 2: Testing \IntMathAdd 
+TEST 2: Testing \intMathAdd 
 ============================================================
-[I] \IntMathAdd{7}{3}
-    [I] \Expand{\int_eval:n {(7)+(3)}}
+[I] \intMathAdd{7}{3}
+    [I] \expWhole{\int_eval:n {(7)+(3)}}
     [O] 10
 [O] 10
-[I] \IntMathAdd{8-1}{2+1}
-    [I] \Expand{\int_eval:n {(8-1)+(2+1)}}
+[I] \intMathAdd{8-1}{2+1}
+    [I] \expWhole{\int_eval:n {(8-1)+(2+1)}}
     [O] 10
 [O] 10
 ============================================================
 ============================================================
-TEST 3: Testing \IntMathSub 
+TEST 3: Testing \intMathSub 
 ============================================================
-[I] \IntMathSub{7}{3}
-    [I] \Expand{\int_eval:n {(7)-(3)}}
+[I] \intMathSub{7}{3}
+    [I] \expWhole{\int_eval:n {(7)-(3)}}
     [O] 4
 [O] 4
-[I] \IntMathSub{8-1}{2+1}
-    [I] \Expand{\int_eval:n {(8-1)-(2+1)}}
+[I] \intMathSub{8-1}{2+1}
+    [I] \expWhole{\int_eval:n {(8-1)-(2+1)}}
     [O] 4
 [O] 4
 ============================================================
 ============================================================
-TEST 4: Testing \IntMathMult 
+TEST 4: Testing \intMathMult 
 ============================================================
-[I] \IntMathMult{7}{3}
-    [I] \Expand{\int_eval:n {(7)*(3)}}
+[I] \intMathMult{7}{3}
+    [I] \expWhole{\int_eval:n {(7)*(3)}}
     [O] 21
 [O] 21
-[I] \IntMathMult{8-1}{2+1}
-    [I] \Expand{\int_eval:n {(8-1)*(2+1)}}
+[I] \intMathMult{8-1}{2+1}
+    [I] \expWhole{\int_eval:n {(8-1)*(2+1)}}
     [O] 21
 [O] 21
 ============================================================
 ============================================================
-TEST 5: Testing \IntMathDiv 
+TEST 5: Testing \intMathDiv 
 ============================================================
-[I] \IntMathDiv{8}{3}
-    [I] \Expand{\int_div_round:nn {8}{3}}
+[I] \intMathDiv{8}{3}
+    [I] \expWhole{\int_div_round:nn {8}{3}}
     [O] 3
 [O] 3
-[I] \IntMathDiv{9-1}{2+1}
-    [I] \Expand{\int_div_round:nn {9-1}{2+1}}
+[I] \intMathDiv{9-1}{2+1}
+    [I] \expWhole{\int_div_round:nn {9-1}{2+1}}
     [O] 3
 [O] 3
 ============================================================
 ============================================================
-TEST 6: Testing \IntMathDivTruncate 
+TEST 6: Testing \intMathDivTruncate 
 ============================================================
-[I] \IntMathDivTruncate{8}{3}
-    [I] \Expand{\int_div_truncate:nn {8}{3}}
+[I] \intMathDivTruncate{8}{3}
+    [I] \expWhole{\int_div_truncate:nn {8}{3}}
     [O] 2
 [O] 2
-[I] \IntMathDivTruncate{9-1}{2+1}
-    [I] \Expand{\int_div_truncate:nn {9-1}{2+1}}
+[I] \intMathDivTruncate{9-1}{2+1}
+    [I] \expWhole{\int_div_truncate:nn {9-1}{2+1}}
     [O] 2
 [O] 2
 ============================================================
 ============================================================
-TEST 7: Testing \IntMathSign 
+TEST 7: Testing \intMathSign 
 ============================================================
-[I] \IntMathSign{5}
-    [I] \Expand{\int_sign:n {5}}
+[I] \intMathSign{5}
+    [I] \expWhole{\int_sign:n {5}}
     [O] 1
 [O] 1
-[I] \IntMathSign{-2}
-    [I] \Expand{\int_sign:n {-2}}
+[I] \intMathSign{-2}
+    [I] \expWhole{\int_sign:n {-2}}
     [O] -1
 [O] -1
 ============================================================
 ============================================================
-TEST 8: Testing \IntMathAbs 
+TEST 8: Testing \intMathAbs 
 ============================================================
-[I] \IntMathAbs{5}
-    [I] \Expand{\int_abs:n {5}}
+[I] \intMathAbs{5}
+    [I] \expWhole{\int_abs:n {5}}
     [O] 5
 [O] 5
-[I] \IntMathAbs{-2}
-    [I] \Expand{\int_abs:n {-2}}
+[I] \intMathAbs{-2}
+    [I] \expWhole{\int_abs:n {-2}}
     [O] 2
 [O] 2
 ============================================================
 ============================================================
-TEST 9: Testing \IntMathMax 
+TEST 9: Testing \intMathMax 
 ============================================================
-[I] \IntMathMax{5}{2}
-    [I] \Expand{\int_max:nn {5}{2}}
+[I] \intMathMax{5}{2}
+    [I] \expWhole{\int_max:nn {5}{2}}
     [O] 5
 [O] 5
 ============================================================
 ============================================================
-TEST 10: Testing \IntMathMin 
+TEST 10: Testing \intMathMin 
 ============================================================
-[I] \IntMathMin{5}{2}
-    [I] \Expand{\int_min:nn {5}{2}}
+[I] \intMathMin{5}{2}
+    [I] \expWhole{\int_min:nn {5}{2}}
     [O] 2
 [O] 2
 ============================================================
 ============================================================
-TEST 11: Testing \IntMathMod 
+TEST 11: Testing \intMathMod 
 ============================================================
-[I] \IntMathMod{28}{5}
-    [I] \Expand{\int_mod:nn {28}{5}}
+[I] \intMathMod{28}{5}
+    [I] \expWhole{\int_mod:nn {28}{5}}
     [O] 3
 [O] 3
 ============================================================
 ============================================================
-TEST 12: Testing \IntConst 
+TEST 12: Testing \intConst 
 ============================================================
-[I] \IntConst{\cFooSomeInt }{3*5}
+[I] \intConst{\cFooSomeInt }{3*5}
 [O] 
-[I] \IntUse{\cFooSomeInt }
-        [I] \Value{\cFooSomeInt }
+[I] \intUse{\cFooSomeInt }
+        [I] \expValue{\cFooSomeInt }
         [O] 15
-    [I] \Return{15}
+    [I] \prgReturn{15}
     [O] 15
 [O] 15
 ============================================================
 ============================================================
-TEST 13: Testing \IntLog 
+TEST 13: Testing \intLog 
 ============================================================
-[I] \IntLog{3+2}
+[I] \intLog{3+2}
 > 3+2=5.
 [O] 
 ============================================================
 ============================================================
-TEST 14: Testing \IntSet 
+TEST 14: Testing \intSet 
 ============================================================
-[I] \IntSet{\lTmpaInt }{3+5}
+[I] \intSet{\lTmpaInt }{3+5}
 [O] 
-[I] \IntUse{\lTmpaInt }
-        [I] \Value{\lTmpaInt }
+[I] \intUse{\lTmpaInt }
+        [I] \expValue{\lTmpaInt }
         [O] 8
-    [I] \Return{8}
+    [I] \prgReturn{8}
     [O] 8
 [O] 8
 ============================================================
 ============================================================
-TEST 15: Testing \IntSetEq 
+TEST 15: Testing \intSetEq 
 ============================================================
-[I] \IntZeroNew{\lFooSomeInt }
+[I] \intZeroNew{\lFooSomeInt }
 \lFooSomeInt=\count...
 [O] 
-[I] \IntSetEq{\lFooSomeInt }{\cOneInt }
+[I] \intSetEq{\lFooSomeInt }{\cOneInt }
 [O] 
-[I] \IntUse{\lFooSomeInt }
-        [I] \Value{\lFooSomeInt }
+[I] \intUse{\lFooSomeInt }
+        [I] \expValue{\lFooSomeInt }
         [O] 1
-    [I] \Return{1}
+    [I] \prgReturn{1}
     [O] 1
 [O] 1
 ============================================================
 ============================================================
-TEST 16: Testing \IntZero 
+TEST 16: Testing \intZero 
 ============================================================
-[I] \IntSet{\lTmpaInt }{5}
+[I] \intSet{\lTmpaInt }{5}
 [O] 
-[I] \IntZero{\lTmpaInt }
+[I] \intZero{\lTmpaInt }
 [O] 
-[I] \IntUse{\lTmpaInt }
-        [I] \Value{\lTmpaInt }
+[I] \intUse{\lTmpaInt }
+        [I] \expValue{\lTmpaInt }
         [O] 0
-    [I] \Return{0}
+    [I] \prgReturn{0}
     [O] 0
 [O] 0
 ============================================================
 ============================================================
-TEST 17: Testing \IntZeroNew 
+TEST 17: Testing \intZeroNew 
 ============================================================
-[I] \IntZeroNew{\lFooSomeInt }
+[I] \intZeroNew{\lFooSomeInt }
 [O] 
-[I] \IntUse{\lFooSomeInt }
-        [I] \Value{\lFooSomeInt }
+[I] \intUse{\lFooSomeInt }
+        [I] \expValue{\lFooSomeInt }
         [O] 0
-    [I] \Return{0}
+    [I] \prgReturn{0}
     [O] 0
 [O] 0
 ============================================================
 ============================================================
-TEST 18: Testing \IntReplicate 
+TEST 18: Testing \intReplicate 
 ============================================================
-[I] \IntReplicate{4}{Hello}
-    [I] \Return{HelloHelloHelloHello}
+[I] \intReplicate{4}{Hello}
+    [I] \prgReturn{HelloHelloHelloHello}
     [O] HelloHelloHelloHello
 [O] HelloHelloHelloHello
-    [I] \IntReplicate{3}{\qNoValue }
-        [I] \Return{\qNoValue \qNoValue \qNoValue }
+    [I] \intReplicate{3}{\qNoValue }
+        [I] \prgReturn{\qNoValue \qNoValue \qNoValue }
         [O] \qNoValue \qNoValue \qNoValue 
     [O] \qNoValue \qNoValue \qNoValue 
-[I] \TlSet{\lTmpaTl }{\qNoValue \qNoValue \qNoValue }
+[I] \tlSet{\lTmpaTl }{\qNoValue \qNoValue \qNoValue }
 [O] 
 ============================================================
 ============================================================
-TEST 19: Testing \IntStepInline 
+TEST 19: Testing \intStepInline 
 ============================================================
-[I] \TlClear{\lTmpaTl }
+[I] \tlClear{\lTmpaTl }
 [O] 
-[I] \IntStepInline{1}{3}{30}{\TlPutRight \lTmpaTl {[##1]}}
-    [I] \TlPutRight{\lTmpaTl }{[1]}
+[I] \intStepInline{1}{3}{30}{\tlPutRight \lTmpaTl {[##1]}}
+    [I] \tlPutRight{\lTmpaTl }{[1]}
     [O] 
-    [I] \TlPutRight{\lTmpaTl }{[4]}
+    [I] \tlPutRight{\lTmpaTl }{[4]}
     [O] 
-    [I] \TlPutRight{\lTmpaTl }{[7]}
+    [I] \tlPutRight{\lTmpaTl }{[7]}
     [O] 
-    [I] \TlPutRight{\lTmpaTl }{[10]}
+    [I] \tlPutRight{\lTmpaTl }{[10]}
     [O] 
-    [I] \TlPutRight{\lTmpaTl }{[13]}
+    [I] \tlPutRight{\lTmpaTl }{[13]}
     [O] 
-    [I] \TlPutRight{\lTmpaTl }{[16]}
+    [I] \tlPutRight{\lTmpaTl }{[16]}
     [O] 
-    [I] \TlPutRight{\lTmpaTl }{[19]}
+    [I] \tlPutRight{\lTmpaTl }{[19]}
     [O] 
-    [I] \TlPutRight{\lTmpaTl }{[22]}
+    [I] \tlPutRight{\lTmpaTl }{[22]}
     [O] 
-    [I] \TlPutRight{\lTmpaTl }{[25]}
+    [I] \tlPutRight{\lTmpaTl }{[25]}
     [O] 
-    [I] \TlPutRight{\lTmpaTl }{[28]}
+    [I] \tlPutRight{\lTmpaTl }{[28]}
     [O] 
 [O] 
-    [I] \Value{\lTmpaTl }
+    [I] \expValue{\lTmpaTl }
     [O] [1][4][7][10][13][16][19][22][25][28]
-[I] \Return{[1][4][7][10][13][16][19][22][25][28]}
+[I] \prgReturn{[1][4][7][10][13][16][19][22][25][28]}
 [O] [1][4][7][10][13][16][19][22][25][28]
 ============================================================
 ============================================================
-TEST 20: Testing \IntStepOneInline 
+TEST 20: Testing \intStepOneInline 
 ============================================================
-[I] \TlClear{\lTmpaTl }
+[I] \tlClear{\lTmpaTl }
 [O] 
-[I] \IntStepOneInline{1}{10}{\TlPutRight \lTmpaTl {[##1]}}
-    [I] \TlPutRight{\lTmpaTl }{[1]}
+[I] \intStepOneInline{1}{10}{\tlPutRight \lTmpaTl {[##1]}}
+    [I] \tlPutRight{\lTmpaTl }{[1]}
     [O] 
-    [I] \TlPutRight{\lTmpaTl }{[2]}
+    [I] \tlPutRight{\lTmpaTl }{[2]}
     [O] 
-    [I] \TlPutRight{\lTmpaTl }{[3]}
+    [I] \tlPutRight{\lTmpaTl }{[3]}
     [O] 
-    [I] \TlPutRight{\lTmpaTl }{[4]}
+    [I] \tlPutRight{\lTmpaTl }{[4]}
     [O] 
-    [I] \TlPutRight{\lTmpaTl }{[5]}
+    [I] \tlPutRight{\lTmpaTl }{[5]}
     [O] 
-    [I] \TlPutRight{\lTmpaTl }{[6]}
+    [I] \tlPutRight{\lTmpaTl }{[6]}
     [O] 
-    [I] \TlPutRight{\lTmpaTl }{[7]}
+    [I] \tlPutRight{\lTmpaTl }{[7]}
     [O] 
-    [I] \TlPutRight{\lTmpaTl }{[8]}
+    [I] \tlPutRight{\lTmpaTl }{[8]}
     [O] 
-    [I] \TlPutRight{\lTmpaTl }{[9]}
+    [I] \tlPutRight{\lTmpaTl }{[9]}
     [O] 
-    [I] \TlPutRight{\lTmpaTl }{[10]}
+    [I] \tlPutRight{\lTmpaTl }{[10]}
     [O] 
 [O] 
-[I] \Value{\lTmpaTl }
+[I] \expValue{\lTmpaTl }
 [O] [1][2][3][4][5][6][7][8][9][10]
 ============================================================
 ============================================================
-TEST 21: Testing \IntIfExist 
+TEST 21: Testing \intIfExist 
 ============================================================
-[I] \IntIfExistTF{\lTmpaInt }{\Return {Yes}}{\Return {No}}
-    [I] \IntIfExist{\lTmpaInt }
-        [I] \Return{\cTrueBool }
+[I] \intIfExistTF{\lTmpaInt }{\prgReturn {Yes}}{\prgReturn {No}}
+    [I] \intIfExist{\lTmpaInt }
+        [I] \prgReturn{\cTrueBool }
         [O] \cTrueBool 
     [O] \cTrueBool 
-    [I] \Return{Yes}
+    [I] \prgReturn{Yes}
     [O] Yes
 [O] Yes
-[I] \IntIfExistTF{\lFooUndefinedInt }{\Return {Yes}}{\Return {No}}
-    [I] \IntIfExist{\lFooUndefinedInt }
-        [I] \Return{\cFalseBool }
+[I] \intIfExistTF{\lFooUndefinedInt }{\prgReturn {Yes}}{\prgReturn {No}}
+    [I] \intIfExist{\lFooUndefinedInt }
+        [I] \prgReturn{\cFalseBool }
         [O] \cFalseBool 
     [O] \cFalseBool 
-    [I] \Return{No}
+    [I] \prgReturn{No}
     [O] No
 [O] No
 ============================================================
 ============================================================
-TEST 22: Testing \IntIfOdd 
+TEST 22: Testing \intIfOdd 
 ============================================================
-[I] \IntIfOddTF{3+2}{\Return {Yes}}{\Return {No}}
-    [I] \IntIfOdd{3+2}
-        [I] \Return{\cTrueBool }
+[I] \intIfOddTF{3+2}{\prgReturn {Yes}}{\prgReturn {No}}
+    [I] \intIfOdd{3+2}
+        [I] \prgReturn{\cTrueBool }
         [O] \cTrueBool 
     [O] \cTrueBool 
-    [I] \Return{Yes}
+    [I] \prgReturn{Yes}
     [O] Yes
 [O] Yes
 ============================================================
 ============================================================
-TEST 23: Testing \IntIfEven 
+TEST 23: Testing \intIfEven 
 ============================================================
-[I] \IntIfEvenTF{3+2}{\Return {Yes}}{\Return {No}}
-    [I] \IntIfEven{3+2}
-        [I] \Return{\cFalseBool }
+[I] \intIfEvenTF{3+2}{\prgReturn {Yes}}{\prgReturn {No}}
+    [I] \intIfEven{3+2}
+        [I] \prgReturn{\cFalseBool }
         [O] \cFalseBool 
     [O] \cFalseBool 
-    [I] \Return{No}
+    [I] \prgReturn{No}
     [O] No
 [O] No
 ============================================================
 ============================================================
-TEST 24: Testing \IntCaseF 
+TEST 24: Testing \intCaseF 
 ============================================================
-[I] \IntCaseF{2*5}{{5}{Small}{4+6}{Medium}{-2*10}{Negative}}{Noidea!}
+[I] \intCaseF{2*5}{{5}{Small}{4+6}{Medium}{-2*10}{Negative}}{Noidea!}
 [O] 
 ============================================================
 [1

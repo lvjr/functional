@@ -10,7 +10,7 @@
 \chapter{Files (\texttt{File})}
 
 This module provides functions for working with external files.
-%Some of these functions apply to an entire file, and have prefix \cs{File},
+%Some of these functions apply to an entire file, and have prefix \cs{file},
 %while others are used to work with files on a line by line basis and have
 %prefix \cs{Ior} (reading) or \cs{Iow} (writing).
 
@@ -35,36 +35,36 @@ this will trim spaces from the start of the name only.
 
 \section{File Operation Functions}
 
-\begin{function}{\FileInput}
+\begin{function}{\fileInput}
 \begin{syntax}
-\cs{FileInput} \Arg{file name}
+\cs{fileInput} \Arg{file name}
 \end{syntax}
 Searches for \meta{file name} in the path as detailed for
-\cs{FileIfExistTF}, and if found reads in the file and
+\cs{fileIfExistTF}, and if found reads in the file and
 returns the contents. All files read are recorded
 for information and the file name stack is updated by this
 function. An error is raised if the file is not found.
 \end{function}
 
-\begin{function}{\FileIfExistInput,\FileIfExistInputF}
+\begin{function}{\fileIfExistInput,\fileIfExistInputF}
 \begin{syntax}
-\cs{FileIfExistInput} \Arg{file name}
-\cs{FileIfExistInputF} \Arg{file name} \Arg{false code}
+\cs{fileIfExistInput} \Arg{file name}
+\cs{fileIfExistInputF} \Arg{file name} \Arg{false code}
 \end{syntax}
 Searches for \meta{file name} using the current \TeX{} search path.
 %and the additional paths included in \cs{l_file_search_path_seq}.
 If found then reads in the file and returns the contents as described
-for \cs{FileInput}, otherwise inserts the \meta{false code}.
+for \cs{fileInput}, otherwise inserts the \meta{false code}.
 Note that these functions do not raise
-an error if the file is not found, in contrast to \cs{FileInput}.
+an error if the file is not found, in contrast to \cs{fileInput}.
 \end{function}
 
-\begin{function}{\FileGet,\FileGetT,\FileGetF,\FileGetTF}
+\begin{function}{\fileGet,\fileGetT,\fileGetF,\fileGetTF}
 \begin{syntax}
-\cs{FileGet} \Arg{filename} \Arg{setup} \meta{tl}
-\cs{FileGetT} \Arg{filename} \Arg{setup} \meta{tl} \Arg{true code}
-\cs{FileGetF} \Arg{filename} \Arg{setup} \meta{tl} \Arg{false code}
-\cs{FileGetTF} \Arg{filename} \Arg{setup} \meta{tl} \Arg{true code} \Arg{false code}
+\cs{fileGet} \Arg{filename} \Arg{setup} \meta{tl}
+\cs{fileGetT} \Arg{filename} \Arg{setup} \meta{tl} \Arg{true code}
+\cs{fileGetF} \Arg{filename} \Arg{setup} \meta{tl} \Arg{false code}
+\cs{fileGetTF} \Arg{filename} \Arg{setup} \meta{tl} \Arg{true code} \Arg{false code}
 \end{syntax}
 Defines \meta{tl} to the contents of \meta{filename}.
 Category codes may need to be set appropriately via the \meta{setup}
@@ -75,20 +75,20 @@ assignment to \meta{tl} if the file is found, and \meta{false code}
 otherwise.
 \end{function}
 
-\begin{function}{\FileIfExist,\FileIfExistT,\FileIfExistF,\FileIfExistTF}
+\begin{function}{\fileIfExist,\fileIfExistT,\fileIfExistF,\fileIfExistTF}
 \begin{syntax}
-\cs{FileIfExist} \Arg{file name}
-\cs{FileIfExistT} \Arg{file name} \Arg{true code}
-\cs{FileIfExistF} \Arg{file name} \Arg{false code}
-\cs{FileIfExistTF} \Arg{file name} \Arg{true code} \Arg{false code}
+\cs{fileIfExist} \Arg{file name}
+\cs{fileIfExistT} \Arg{file name} \Arg{true code}
+\cs{fileIfExistF} \Arg{file name} \Arg{false code}
+\cs{fileIfExistTF} \Arg{file name} \Arg{true code} \Arg{false code}
 \end{syntax}
 Searches for \meta{file name} using the current \TeX{} search path.
 %and the additional paths controlled by \cs{l_file_search_path_seq}.
 \end{function}
 
-%\begin{function}{\FileInputStop}
+%\begin{function}{\fileInputStop}
 %\begin{syntax}
-%\cs{FileInputStop}
+%\cs{fileInputStop}
 %\end{syntax}
 %Ends the reading of a file started by \cs{file_input:n} or similar before
 %the end of the file is reached. Where the file reading is being terminated

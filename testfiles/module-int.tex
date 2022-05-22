@@ -9,136 +9,136 @@
 
 \begin{document}
 
-\BEGINTEST{Testing \IntEval}
-\IntEval {(1+4)*(2-3)/5}
-\IntEval {\StrCount{12\TeX34} - \TlCount{12\TeX34}}
+\BEGINTEST{Testing \intEval}
+\intEval {(1+4)*(2-3)/5}
+\intEval {\strCount{12\TeX34} - \tlCount{12\TeX34}}
 \ENDTEST
 
-\BEGINTEST{Testing \IntMathAdd}
-\IntMathAdd {7} {3}
-\IntMathAdd {8-1} {2+1}
+\BEGINTEST{Testing \intMathAdd}
+\intMathAdd {7} {3}
+\intMathAdd {8-1} {2+1}
 \ENDTEST
 
-\BEGINTEST{Testing \IntMathSub}
-\IntMathSub {7} {3}
-\IntMathSub {8-1} {2+1}
+\BEGINTEST{Testing \intMathSub}
+\intMathSub {7} {3}
+\intMathSub {8-1} {2+1}
 \ENDTEST
 
-\BEGINTEST{Testing \IntMathMult}
-\IntMathMult {7} {3}
-\IntMathMult {8-1} {2+1}
+\BEGINTEST{Testing \intMathMult}
+\intMathMult {7} {3}
+\intMathMult {8-1} {2+1}
 \ENDTEST
 
-\BEGINTEST{Testing \IntMathDiv}
-\IntMathDiv {8} {3}
-\IntMathDiv {9-1} {2+1}
+\BEGINTEST{Testing \intMathDiv}
+\intMathDiv {8} {3}
+\intMathDiv {9-1} {2+1}
 \ENDTEST
 
-\BEGINTEST{Testing \IntMathDivTruncate}
-\IntMathDivTruncate {8} {3}
-\IntMathDivTruncate {9-1} {2+1}
+\BEGINTEST{Testing \intMathDivTruncate}
+\intMathDivTruncate {8} {3}
+\intMathDivTruncate {9-1} {2+1}
 \ENDTEST
 
-\BEGINTEST{Testing \IntMathSign}
-\IntMathSign {5}
-\IntMathSign {-2}
+\BEGINTEST{Testing \intMathSign}
+\intMathSign {5}
+\intMathSign {-2}
 \ENDTEST
 
-\BEGINTEST{Testing \IntMathAbs}
-\IntMathAbs {5}
-\IntMathAbs {-2}
+\BEGINTEST{Testing \intMathAbs}
+\intMathAbs {5}
+\intMathAbs {-2}
 \ENDTEST
 
-\BEGINTEST{Testing \IntMathMax}
-\IntMathMax {5} {2}
+\BEGINTEST{Testing \intMathMax}
+\intMathMax {5} {2}
 \ENDTEST
 
-\BEGINTEST{Testing \IntMathMin}
-\IntMathMin {5} {2}
+\BEGINTEST{Testing \intMathMin}
+\intMathMin {5} {2}
 \ENDTEST
 
-\BEGINTEST{Testing \IntMathMod}
-\IntMathMod {28} {5}
+\BEGINTEST{Testing \intMathMod}
+\intMathMod {28} {5}
 \ENDTEST
 
-%\BEGINTEST{Testing \IntMathRand}
-%\IntMathRand {1} {9}
-%\IntMathRand {1} {9}
-%\IntMathRand {1} {9}
+%\BEGINTEST{Testing \intMathRand}
+%\intMathRand {1} {9}
+%\intMathRand {1} {9}
+%\intMathRand {1} {9}
 %\ENDTEST
 
-\BEGINTEST{Testing \IntConst}
-\IntConst \cFooSomeInt {3*5}
-\IntUse \cFooSomeInt
+\BEGINTEST{Testing \intConst}
+\intConst \cFooSomeInt {3*5}
+\intUse \cFooSomeInt
 \ENDTEST
 
-\BEGINTEST{Testing \IntLog}
-\IntLog {3 + 2}
+\BEGINTEST{Testing \intLog}
+\intLog {3 + 2}
 \ENDTEST
 
-\BEGINTEST{Testing \IntSet}
-\IntSet \lTmpaInt {3+5}
-\IntUse \lTmpaInt
+\BEGINTEST{Testing \intSet}
+\intSet \lTmpaInt {3+5}
+\intUse \lTmpaInt
 \ENDTEST
 
-\BEGINTEST{Testing \IntSetEq}
-\IntZeroNew \lFooSomeInt
-\IntSetEq \lFooSomeInt \cOneInt
-\IntUse \lFooSomeInt
+\BEGINTEST{Testing \intSetEq}
+\intZeroNew \lFooSomeInt
+\intSetEq \lFooSomeInt \cOneInt
+\intUse \lFooSomeInt
 \ENDTEST
 
-\BEGINTEST{Testing \IntZero}
-\IntSet \lTmpaInt {5}
-\IntZero \lTmpaInt
-\IntUse \lTmpaInt
+\BEGINTEST{Testing \intZero}
+\intSet \lTmpaInt {5}
+\intZero \lTmpaInt
+\intUse \lTmpaInt
 \ENDTEST
 
-\BEGINTEST{Testing \IntZeroNew}
-\IntZeroNew \lFooSomeInt
-\IntUse \lFooSomeInt
+\BEGINTEST{Testing \intZeroNew}
+\intZeroNew \lFooSomeInt
+\intUse \lFooSomeInt
 \ENDTEST
 
-\BEGINTEST{Testing \IntReplicate}
-\IntReplicate {4} {Hello}
-\TlSet \lTmpaTl {\IntReplicate {3} {\qNoValue}}
+\BEGINTEST{Testing \intReplicate}
+\intReplicate {4} {Hello}
+\tlSet \lTmpaTl {\intReplicate {3} {\qNoValue}}
 \ENDTEST
 
-\BEGINTEST{Testing \IntStepInline}
+\BEGINTEST{Testing \intStepInline}
 \IgnoreSpacesOn
-\TlClear \lTmpaTl
-\IntStepInline {1} {3} {30} {
-  \TlPutRight \lTmpaTl {[#1]}
+\tlClear \lTmpaTl
+\intStepInline {1} {3} {30} {
+  \tlPutRight \lTmpaTl {[#1]}
 }
-\Return {\Value\lTmpaTl}
+\prgReturn {\expValue\lTmpaTl}
 \IgnoreSpacesOff
 \ENDTEST
 
-\BEGINTEST{Testing \IntStepOneInline}
+\BEGINTEST{Testing \intStepOneInline}
 \IgnoreSpacesOn
-\TlClear \lTmpaTl
-\IntStepOneInline {1} {10} {
-  \TlPutRight \lTmpaTl {[#1]}
+\tlClear \lTmpaTl
+\intStepOneInline {1} {10} {
+  \tlPutRight \lTmpaTl {[#1]}
 }
-\Value \lTmpaTl
+\expValue \lTmpaTl
 \IgnoreSpacesOff
 \ENDTEST
 
-\BEGINTEST{Testing \IntIfExist}
-\IntIfExistTF \lTmpaInt {\Return{Yes}} {\Return{No}}
-\IntIfExistTF \lFooUndefinedInt {\Return{Yes}} {\Return{No}}
+\BEGINTEST{Testing \intIfExist}
+\intIfExistTF \lTmpaInt {\prgReturn{Yes}} {\prgReturn{No}}
+\intIfExistTF \lFooUndefinedInt {\prgReturn{Yes}} {\prgReturn{No}}
 \ENDTEST
 
-\BEGINTEST{Testing \IntIfOdd}
-\IntIfOddTF {3+2} {\Return{Yes}} {\Return{No}}
+\BEGINTEST{Testing \intIfOdd}
+\intIfOddTF {3+2} {\prgReturn{Yes}} {\prgReturn{No}}
 \ENDTEST
 
-\BEGINTEST{Testing \IntIfEven}
-\IntIfEvenTF {3+2} {\Return{Yes}} {\Return{No}}
+\BEGINTEST{Testing \intIfEven}
+\intIfEvenTF {3+2} {\prgReturn{Yes}} {\prgReturn{No}}
 \ENDTEST
 
-\BEGINTEST{Testing \IntCaseF}
+\BEGINTEST{Testing \intCaseF}
 \IgnoreSpacesOn
-\IntCaseF { 2 * 5 }
+\intCaseF { 2 * 5 }
   {
     { 5 }       { Small }
     { 4 + 6 }   { Medium }

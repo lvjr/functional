@@ -9,246 +9,246 @@
 
 \begin{document}
 
-\BEGINTEST{Testing \TlConst}
-\TlConst \cFooSomeTl {abc}
-\TlUse \cFooSomeTl
+\BEGINTEST{Testing \tlConst}
+\tlConst \cFooSomeTl {abc}
+\tlUse \cFooSomeTl
 \ENDTEST
 
-\BEGINTEST{Testing \TlToStr}
-\TlToStr{12\abc34}
+\BEGINTEST{Testing \tlToStr}
+\tlToStr{12\abc34}
 \ENDTEST
 
-\BEGINTEST{Testing \TlVarToStr}
-\TlSet \lTmpaTl {12\abc34}
-\TlVarToStr \lTmpaTl
+\BEGINTEST{Testing \tlVarToStr}
+\tlSet \lTmpaTl {12\abc34}
+\tlVarToStr \lTmpaTl
 \ENDTEST
 
-\BEGINTEST{Testing \TlLog}
-\TlSet \lTmpaTl {abc}
-\TlLog {123\lTmpaTl456}
+\BEGINTEST{Testing \tlLog}
+\tlSet \lTmpaTl {abc}
+\tlLog {123\lTmpaTl456}
 \ENDTEST
 
-\BEGINTEST{Testing \TlSet}
-\TlSet \lTmpaTl {abc}
-\TlUse \lTmpaTl
+\BEGINTEST{Testing \tlSet}
+\tlSet \lTmpaTl {abc}
+\tlUse \lTmpaTl
 \ENDTEST
 
-\BEGINTEST{Testing \TlSetEq}
-\TlSet \lTmpaTl {abc}
-\TlSetEq \lTmpbTl \lTmpaTl
-\TlUse \lTmpbTl
+\BEGINTEST{Testing \tlSetEq}
+\tlSet \lTmpaTl {abc}
+\tlSetEq \lTmpbTl \lTmpaTl
+\tlUse \lTmpbTl
 \ENDTEST
 
-\BEGINTEST{Testing \TlClearNew}
-\TlClearNew \lFooSomeTl
-\TlUse \lFooSomeTl
+\BEGINTEST{Testing \tlClearNew}
+\tlClearNew \lFooSomeTl
+\tlUse \lFooSomeTl
 \ENDTEST
 
-\BEGINTEST{Testing \TlConcat}
-\TlSet \lTmpbTl {con}
-\TlSet \lTmpcTl {cat}
-\TlConcat \lTmpaTl \lTmpbTl \lTmpcTl
-\TlUse \lTmpaTl
+\BEGINTEST{Testing \tlConcat}
+\tlSet \lTmpbTl {con}
+\tlSet \lTmpcTl {cat}
+\tlConcat \lTmpaTl \lTmpbTl \lTmpcTl
+\tlUse \lTmpaTl
 \ENDTEST
 
-\BEGINTEST{Testing \TlVarReplaceOnce}
-\TlSet \lTmpaTl {hello world}
-\TlVarReplaceOnce \lTmpaTl {l} {-}
-\TlUse \lTmpaTl
+\BEGINTEST{Testing \tlVarReplaceOnce}
+\tlSet \lTmpaTl {hello world}
+\tlVarReplaceOnce \lTmpaTl {l} {-}
+\tlUse \lTmpaTl
 \ENDTEST
 
-\BEGINTEST{Testing \TlVarReplaceAll}
-\TlSet \lTmpaTl {hello world}
-\TlVarReplaceAll \lTmpaTl {l} {-}
-\TlUse \lTmpaTl
+\BEGINTEST{Testing \tlVarReplaceAll}
+\tlSet \lTmpaTl {hello world}
+\tlVarReplaceAll \lTmpaTl {l} {-}
+\tlUse \lTmpaTl
 \ENDTEST
 
-\BEGINTEST{Testing \TlVarRemoveOnce}
-\TlSet \lTmpaTl {hello world}
-\TlVarRemoveOnce \lTmpaTl {l}
-\TlUse \lTmpaTl
+\BEGINTEST{Testing \tlVarRemoveOnce}
+\tlSet \lTmpaTl {hello world}
+\tlVarRemoveOnce \lTmpaTl {l}
+\tlUse \lTmpaTl
 \ENDTEST
 
-\BEGINTEST{Testing \TlVarRemoveAll}
-\TlSet \lTmpaTl {hello world}
-\TlVarRemoveAll \lTmpaTl {l}
-\TlUse \lTmpaTl
+\BEGINTEST{Testing \tlVarRemoveAll}
+\tlSet \lTmpaTl {hello world}
+\tlVarRemoveAll \lTmpaTl {l}
+\tlUse \lTmpaTl
 \ENDTEST
 
-\BEGINTEST{Testing \TlTrimSpaces}
-\TlTrimSpaces { 12 34 }
+\BEGINTEST{Testing \tlTrimSpaces}
+\tlTrimSpaces { 12 34 }
 \ENDTEST
 
-\BEGINTEST{Testing \TlVarTrimSpaces}
-\TlSet \lTmpaTl { 12 34 }
-\TlVarTrimSpaces \lTmpaTl
-\TlUse \lTmpaTl
+\BEGINTEST{Testing \tlVarTrimSpaces}
+\tlSet \lTmpaTl { 12 34 }
+\tlVarTrimSpaces \lTmpaTl
+\tlUse \lTmpaTl
 \ENDTEST
 
-\BEGINTEST{Testing \TlCount}
-\TlCount {12\abc34}
+\BEGINTEST{Testing \tlCount}
+\tlCount {12\abc34}
 \ENDTEST
 
-\BEGINTEST{Testing \TlVarCount}
-\TlSet \lTmpaTl {12\abc34}
-\TlVarCount \lTmpaTl
+\BEGINTEST{Testing \tlVarCount}
+\tlSet \lTmpaTl {12\abc34}
+\tlVarCount \lTmpaTl
 \ENDTEST
 
-\BEGINTEST{Testing \TlHead}
-\TlHead {HELLO}
+\BEGINTEST{Testing \tlHead}
+\tlHead {HELLO}
 \ENDTEST
 
-\BEGINTEST{Testing \TlVarHead}
-\TlSet \lTmpaTl {HELLO}
-\TlVarHead \lTmpaTl
+\BEGINTEST{Testing \tlVarHead}
+\tlSet \lTmpaTl {HELLO}
+\tlVarHead \lTmpaTl
 \ENDTEST
 
-\BEGINTEST{Testing \TlTail}
-\TlTail {HELLO}
-\TlLog{\TlTail {  a  {bc} d }}
+\BEGINTEST{Testing \tlTail}
+\tlTail {HELLO}
+\tlLog{\tlTail {  a  {bc} d }}
 \ENDTEST
 
-\BEGINTEST{Testing \TlVarTail}
-\TlSet \lTmpaTl {HELLO}
-\TlVarTail \lTmpaTl
+\BEGINTEST{Testing \tlVarTail}
+\tlSet \lTmpaTl {HELLO}
+\tlVarTail \lTmpaTl
 \ENDTEST
 
-\BEGINTEST{Testing \TlItem}
-\TlItem {abcd} {3}
+\BEGINTEST{Testing \tlItem}
+\tlItem {abcd} {3}
 \ENDTEST
 
-\BEGINTEST{Testing \TlVarItem}
-\TlSet \lTmpaTl {abcd}
-\TlVarItem \lTmpaTl {3}
+\BEGINTEST{Testing \tlVarItem}
+\tlSet \lTmpaTl {abcd}
+\tlVarItem \lTmpaTl {3}
 \ENDTEST
 
-%\BEGINTEST{Testing \TlRandItem}
-%\TlRandItem {abcdef}
-%\TlRandItem {abcdef}
+%\BEGINTEST{Testing \tlRandItem}
+%\tlRandItem {abcdef}
+%\tlRandItem {abcdef}
 %\ENDTEST
 
-%\BEGINTEST{Testing \TlVarRandItem}
-%\TlSet \lTmpaTl {abcdef}
-%\TlVarRandItem \lTmpaTl
-%\TlVarRandItem \lTmpaTl
+%\BEGINTEST{Testing \tlVarRandItem}
+%\tlSet \lTmpaTl {abcdef}
+%\tlVarRandItem \lTmpaTl
+%\tlVarRandItem \lTmpaTl
 %\ENDTEST
 
-\BEGINTEST{Testing \TlMapInline}
+\BEGINTEST{Testing \tlMapInline}
 \IgnoreSpacesOn
-\TlClear \lTmpaTl
-\TlMapInline {one} {
-  \TlPutRight \lTmpaTl {[#1]}
+\tlClear \lTmpaTl
+\tlMapInline {one} {
+  \tlPutRight \lTmpaTl {[#1]}
 }
-\Return{\TlUse\lTmpaTl}
+\prgReturn{\tlUse\lTmpaTl}
 \IgnoreSpacesOff
 \ENDTEST
 
-\BEGINTEST{Testing \TlVarMapInline}
+\BEGINTEST{Testing \tlVarMapInline}
 \IgnoreSpacesOn
-\TlClear \lTmpaTl
-\TlSet \lTmpkTl {one}
-\TlVarMapInline \lTmpkTl {
-  \TlPutRight \lTmpaTl {[#1]}
+\tlClear \lTmpaTl
+\tlSet \lTmpkTl {one}
+\tlVarMapInline \lTmpkTl {
+  \tlPutRight \lTmpaTl {[#1]}
 }
-\Return{\TlUse\lTmpaTl}
+\prgReturn{\tlUse\lTmpaTl}
 \IgnoreSpacesOff
 \ENDTEST
 
-\BEGINTEST{Testing \TlMapVariable}
+\BEGINTEST{Testing \tlMapVariable}
 \IgnoreSpacesOn
-\TlClear \lTmpaTl
-\TlMapVariable {one} \lTmpiTl {
-  \TlPutRight \lTmpaTl {\Expand {[\lTmpiTl]}}
+\tlClear \lTmpaTl
+\tlMapVariable {one} \lTmpiTl {
+  \tlPutRight \lTmpaTl {\expWhole {[\lTmpiTl]}}
 }
-\Return{\TlUse\lTmpaTl}
+\prgReturn{\tlUse\lTmpaTl}
 \IgnoreSpacesOff
 \ENDTEST
 
-\BEGINTEST{Testing \TlVarMapVariable}
+\BEGINTEST{Testing \tlVarMapVariable}
 \IgnoreSpacesOn
-\TlClear \lTmpaTl
-\TlSet \lTmpkTl {one}
-\TlVarMapVariable \lTmpkTl \lTmpiTl {
-  \TlPutRight \lTmpaTl {\Expand {[\lTmpiTl]}}
+\tlClear \lTmpaTl
+\tlSet \lTmpkTl {one}
+\tlVarMapVariable \lTmpkTl \lTmpiTl {
+  \tlPutRight \lTmpaTl {\expWhole {[\lTmpiTl]}}
 }
-\Return{\TlUse\lTmpaTl}
+\prgReturn{\tlUse\lTmpaTl}
 \IgnoreSpacesOff
 \ENDTEST
 
-\BEGINTEST{Testing \TlIfExist}
-\TlIfExistTF\lTmpaTl{\Return{Yes}}{\Return{No}}
-\TlIfExistTF\lFooUndefinedTl{\Return{Yes}}{\Return{No}}
+\BEGINTEST{Testing \tlIfExist}
+\tlIfExistTF\lTmpaTl{\prgReturn{Yes}}{\prgReturn{No}}
+\tlIfExistTF\lFooUndefinedTl{\prgReturn{Yes}}{\prgReturn{No}}
 \ENDTEST
 
-\BEGINTEST{Testing \TlIfEmpty}
-\TlIfEmptyTF {  } {\Return{Yes}} {\Return{No}}
+\BEGINTEST{Testing \tlIfEmpty}
+\tlIfEmptyTF {  } {\prgReturn{Yes}} {\prgReturn{No}}
 \ENDTEST
 
-\BEGINTEST{Testing \TlIfBlank}
-\TlIfBlankTF {  } {\Return{Yes}} {\Return{No}}
+\BEGINTEST{Testing \tlIfBlank}
+\tlIfBlankTF {  } {\prgReturn{Yes}} {\prgReturn{No}}
 \ENDTEST
 
-\BEGINTEST{Testing \TlIfEq}
-\TlSet \lTmpaTl {abc}
-\TlSet \lTmpbTl {abc}
-\TlSet \lTmpcTl {xyz}
-\TlIfEqTF {\TlUse\lTmpaTl} {\TlUse\lTmpbTl} {\Return{Yes}} {\Return{No}}
-\TlIfEqTF {\TlUse\lTmpaTl} {\TlUse\lTmpcTl} {\Return{Yes}} {\Return{No}}
+\BEGINTEST{Testing \tlIfEq}
+\tlSet \lTmpaTl {abc}
+\tlSet \lTmpbTl {abc}
+\tlSet \lTmpcTl {xyz}
+\tlIfEqTF {\tlUse\lTmpaTl} {\tlUse\lTmpbTl} {\prgReturn{Yes}} {\prgReturn{No}}
+\tlIfEqTF {\tlUse\lTmpaTl} {\tlUse\lTmpcTl} {\prgReturn{Yes}} {\prgReturn{No}}
 \ENDTEST
 
-\BEGINTEST{Testing \TlIfIn}
-\TlIfInTF {hello world} {o} {\Return{Yes}}{\Return{No}}
-\TlIfInTF {hello world} {a} {\Return{Yes}}{\Return{No}}
+\BEGINTEST{Testing \tlIfIn}
+\tlIfInTF {hello world} {o} {\prgReturn{Yes}}{\prgReturn{No}}
+\tlIfInTF {hello world} {a} {\prgReturn{Yes}}{\prgReturn{No}}
 \ENDTEST
 
-\BEGINTEST{Testing \TlVarIfIn}
-\TlSet \lTmpaTl {hello world}
-\TlVarIfInTF \lTmpaTl {o} {\Return{Yes}}{\Return{No}}
-\TlVarIfInTF \lTmpaTl {a} {\Return{Yes}}{\Return{No}}
+\BEGINTEST{Testing \tlVarIfIn}
+\tlSet \lTmpaTl {hello world}
+\tlVarIfInTF \lTmpaTl {o} {\prgReturn{Yes}}{\prgReturn{No}}
+\tlVarIfInTF \lTmpaTl {a} {\prgReturn{Yes}}{\prgReturn{No}}
 \ENDTEST
 
-\BEGINTEST{Testing \TlIfSingle}
-\TlIfSingleTF {a} {\Return{Yes}}{\Return{No}}
-\TlIfSingleTF {abc} {\Return{Yes}}{\Return{No}}
+\BEGINTEST{Testing \tlIfSingle}
+\tlIfSingleTF {a} {\prgReturn{Yes}}{\prgReturn{No}}
+\tlIfSingleTF {abc} {\prgReturn{Yes}}{\prgReturn{No}}
 \ENDTEST
 
-\BEGINTEST{Testing \TlVarIfSingle}
-\TlSet \lTmpaTl {a}
-\TlVarIfSingleTF \lTmpaTl {\Return{Yes}}{\Return{No}}
-\TlSet \lTmpaTl {abc}
-\TlVarIfSingleTF \lTmpaTl {\Return{Yes}}{\Return{No}}
+\BEGINTEST{Testing \tlVarIfSingle}
+\tlSet \lTmpaTl {a}
+\tlVarIfSingleTF \lTmpaTl {\prgReturn{Yes}}{\prgReturn{No}}
+\tlSet \lTmpaTl {abc}
+\tlVarIfSingleTF \lTmpaTl {\prgReturn{Yes}}{\prgReturn{No}}
 \ENDTEST
 
-\BEGINTEST{Testing \TlVarCaseF}
+\BEGINTEST{Testing \tlVarCaseF}
 \IgnoreSpacesOn
-\TlSet\lTmpaTl{a}
-\TlSet\lTmpbTl{b}
-\TlSet\lTmpcTl{c}
-\TlSet\lTmpkTl{b}
-\TlVarCaseF\lTmpkTl{
-  \lTmpaTl {\Return{First}}
-  \lTmpbTl {\Return{Second}}
-  \lTmpcTl {\Return{Third}}
+\tlSet\lTmpaTl{a}
+\tlSet\lTmpbTl{b}
+\tlSet\lTmpcTl{c}
+\tlSet\lTmpkTl{b}
+\tlVarCaseF\lTmpkTl{
+  \lTmpaTl {\prgReturn{First}}
+  \lTmpbTl {\prgReturn{Second}}
+  \lTmpcTl {\prgReturn{Third}}
 }{
-  \Return{No Match!}
+  \prgReturn{No Match!}
 }
 \IgnoreSpacesOff
 \ENDTEST
 
-\BEGINTEST{Testing \TlVarCaseTF}
+\BEGINTEST{Testing \tlVarCaseTF}
 \IgnoreSpacesOn
-\TlSet\lTmpaTl{a}
-\TlSet\lTmpbTl{b}
-\TlSet\lTmpcTl{c}
-\TlSet\lTmpkTl{d}
-\TlVarCaseTF\lTmpkTl{
-  \lTmpaTl { \Return{First} }
-  \lTmpbTl { \Return{Second} }
-  \lTmpcTl { \Return{Third} }
+\tlSet\lTmpaTl{a}
+\tlSet\lTmpbTl{b}
+\tlSet\lTmpcTl{c}
+\tlSet\lTmpkTl{d}
+\tlVarCaseTF\lTmpkTl{
+  \lTmpaTl { \prgReturn{First} }
+  \lTmpbTl { \prgReturn{Second} }
+  \lTmpcTl { \prgReturn{Third} }
 }{
-  \Return{[Some Match]}
+  \prgReturn{[Some Match]}
 }{
-  \Return{[No Match]}
+  \prgReturn{[No Match]}
 }
 \IgnoreSpacesOff
 \ENDTEST

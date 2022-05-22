@@ -11,9 +11,9 @@
 
 \section{Expanding Tokens}
 
-\begin{function}{\Name}
+\begin{function}{\expName}
 \begin{syntax}
-\cs{Name} \Arg{control sequence name}
+\cs{expName} \Arg{control sequence name}
 \end{syntax}
 Expands the \meta{control sequence name} until only characters
 remain, then converts this into a control sequence and returns it.
@@ -29,28 +29,28 @@ when exhaustively expanded.%
 %\end{texnote}
 \end{function}
 
-\begin{function}{\Value}
+\begin{function}{\expValue}
 \begin{syntax}
-\cs{Value} \meta{variable}
+\cs{expValue} \meta{variable}
 \end{syntax}
 Recovers the content of a \meta{variable} and returns the value.
 An error is raised if the variable does not exist or if it is invalid.
-Note that it is the same as \cs{TlUse} for \meta{tl var}, or \cs{IntUse} for \meta{int var}.
+Note that it is the same as \cs{tlUse} for \meta{tl var}, or \cs{intUse} for \meta{int var}.
 \end{function}
 
-\begin{function}{\Expand}
+\begin{function}{\expWhole}
 \begin{syntax}
-\cs{Expand} \Arg{tokens}
+\cs{expWhole} \Arg{tokens}
 \end{syntax}
 Expands the \meta{tokens} exhaustively and returns the result.
 \end{function}
 
-\begin{function}{\UnExpand}
+\begin{function}{\unExpand}
 \begin{syntax}
-\cs{UnExpand} \Arg{tokens}
+\cs{unExpand} \Arg{tokens}
 \end{syntax}
-Prevents expansion of the \meta{tokens} inside the argument of \cs{Expand} function.
-The argument of \cs{UnExpand} \emph{must} be surrounded by braces.
+Prevents expansion of the \meta{tokens} inside the argument of \cs{expWhole} function.
+The argument of \cs{unExpand} \emph{must} be surrounded by braces.
 %\begin{texnote}
 %This is the \eTeX{} \tn{unexpanded} primitive.  In an
 %|x|-expanding definition (\cs{cs_new:Npx}), \cs{exp_not:n}~|{#1}|
@@ -61,14 +61,14 @@ The argument of \cs{UnExpand} \emph{must} be surrounded by braces.
 %\end{texnote}
 \end{function}
 
-\begin{function}{\OnlyName}
+\begin{function}{\onlyName}
 \begin{syntax}
-\cs{OnlyName} \Arg{tokens}
+\cs{onlyName} \Arg{tokens}
 \end{syntax}
 Expands the \meta{tokens} until only characters remain, and then
 converts this into a control sequence.
 Further expansion of this control sequence is then inhibited
-inside the argument of \cs{Expand} function.
+inside the argument of \cs{expWhole} function.
 %\begin{texnote}
 %Protected macros that appear in a \texttt{c}-type argument are
 %expanded despite being protected; \cs{exp_not:n} also has no
@@ -78,45 +78,45 @@ inside the argument of \cs{Expand} function.
 %\end{texnote}
 \end{function}
 
-\begin{function}{\OnlyValue}
+\begin{function}{\onlyValue}
 \begin{syntax}
-\cs{OnlyValue} \meta{variable}
+\cs{onlyValue} \meta{variable}
 \end{syntax}
 Recovers the content of the \meta{variable}, then prevents expansion
-of this material inside the argument of \cs{Expand} function.
+of this material inside the argument of \cs{expWhole} function.
 \end{function}
 
 \section{Using Tokens}
 
-\begin{function}{\UseOne,\GobbleOne}
+\begin{function}{\useOne,\gobbleOne}
 \begin{syntax}
-\cs{UseOne} \Arg{argument}
-\cs{GobbleOne} \Arg{argument}
+\cs{useOne} \Arg{argument}
+\cs{gobbleOne} \Arg{argument}
 \end{syntax}
-The function \cs{UseOne} absorbs one argument and returns it.
+The function \cs{useOne} absorbs one argument and returns it.
 %\begin{texnote}
 %The \cs{UseOne} function is equivalent to \LaTeXe{}'s \tn{@firstofone}.
 %\end{texnote}
-\cs{GobbleOne} absorbs one argument and returns nothing.
+\cs{gobbleOne} absorbs one argument and returns nothing.
 %\begin{texnote}
 %These are equivalent to \LaTeXe{}'s \tn{@gobble}, \tn{@gobbbletwo},
 %\emph{etc.}
 %\end{texnote}
 For example
 \begin{demohigh}
-\UseOne{abc}\GobbleOne{ijk}\UseOne{xyz}
+\useOne{abc}\gobbleOne{ijk}\useOne{xyz}
 \end{demohigh}
 \end{function}
 
-\begin{function}{\UseGobble,\GobbleUse}
+\begin{function}{\useGobble,\gobbleUse}
 \begin{syntax}
-\cs{UseGobble} \Arg{arg_1} \Arg{arg_2}
-\cs{GobbleUse} \Arg{arg_1} \Arg{arg_2}
+\cs{useGobble} \Arg{arg_1} \Arg{arg_2}
+\cs{gobbleUse} \Arg{arg_1} \Arg{arg_2}
 \end{syntax}
 These functions absorb two arguments.
-The function \cs{UseGobble} discards the second argument,
+The function \cs{useGobble} discards the second argument,
 and returns the content of the first argument.
-\cs{GobbleUse} discards the first argument,
+\cs{gobbleUse} discards the first argument,
 and returns the content of the second argument.
 %\begin{texnote}
 %These are equivalent to \LaTeXe{}'s \tn{@firstoftwo} and
@@ -124,7 +124,7 @@ and returns the content of the second argument.
 %\end{texnote}
 For example
 \begin{demohigh}
-\UseGobble{abc}{uvw}\GobbleUse{abc}{uvw}
+\useGobble{abc}{uvw}\gobbleUse{abc}{uvw}
 \end{demohigh}
 \end{function}
 

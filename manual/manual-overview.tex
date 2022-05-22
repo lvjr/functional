@@ -16,13 +16,13 @@ We will compare our first example with a similar \verb!Lua! example:
 \begin{minipage}{0.55\textwidth}
 \begin{codehigh}
 \IgnoreSpacesOn
-\PrgNewFunction \MathSquare { m } {
-  \IntSet \lTmpaInt {\IntEval {#1 * #1}}
-  \Return {\Value \lTmpaInt}
+\prgNewFunction \mathSquare { m } {
+  \intSet \lTmpaInt {\intEval {#1 * #1}}
+  \prgReturn {\expValue \lTmpaInt}
 }
 \IgnoreSpacesOff
-\MathSquare{5}
-\MathSquare{\MathSquare{5}}
+\mathSquare{5}
+\mathSquare{\mathSquare{5}}
 \end{codehigh}
 \end{minipage}%
 \begin{minipage}{0.45\textwidth}
@@ -39,23 +39,23 @@ print(MathSquare(MathSquare(5)))
 \end{minipage}
 
 %\IgnoreSpacesOn
-%\PrgNewFunction \MathSquare { m }{
-%  \IntSet \lTmpaInt { \IntEval { #1 * #1 } }
-%  \Return { \Value \lTmpaInt }
+%\prgNewFunction \mathSquare { m }{
+%  \intSet \lTmpaInt { \intEval { #1 * #1 } }
+%  \prgReturn { \expValue \lTmpaInt }
 %}
 %\IgnoreSpacesOff
-%\MathSquare{5}
-%\MathSquare{\MathSquare{5}}
+%\mathSquare{5}
+%\mathSquare{\mathSquare{5}}
 
 %\IgnoreSpacesOn
-%\PrgNewFunction \MathCubic { m }
+%\prgNewFunction \mathCubic { m }
 %  {
-%    \IntSet \lTmpaInt { \IntEval { #1 * #1 * #1 } }
-%    \Return { \Value \lTmpaInt }
+%    \intSet \lTmpaInt { \intEval { #1 * #1 * #1 } }
+%    \prgReturn { \expValue \lTmpaInt }
 %  }
 %\IgnoreSpacesOff
-%\MathCubic{2}
-%\MathCubic{\MathCubic{2}}
+%\mathCubic{2}
+%\mathCubic{\mathCubic{2}}
 
 Both examples calculate first the square of $5$ and produce $25$,
 then calculate the square of $25$ and produce $625$.
@@ -64,11 +64,11 @@ does evaluation of functions from inside to outside,
 which means composition of functions works like othe programming languages
 such as \verb!Lua! or \verb!JavsScript!.
 
-You can define new functions with \cs{PrgNewFunction} command.
+You can define new functions with \cs{prgNewFunction} command.
 To make composition of functions work as expected,
 every function \emph{must not} insert directly any token to the input stream.
 Instead, a function \emph{must} pass the result (if any) to \verb!functional! package
-with \cs{Return} command. And \verb!functional! package is responsible for
+with \cs{prgReturn} command. And \verb!functional! package is responsible for
 inserting result tokens to the input stream at the appropriate time.
 
 To remove space tokens inside function code in defining functions,
@@ -78,21 +78,21 @@ you'd better put function definitions inside \verb!\IgnoreSpacesOn! and
 At the end of this section,
 we will compare our factorial example with a similar \verb!Lua! example:
 
-\begin{minipage}{0.65\textwidth}
+\begin{minipage}{0.68\textwidth}
 \begin{codehigh}
 \IgnoreSpacesOn
-\PrgNewFunction \Fact { m } {
-  \IntCompareTF {#1} = {0} {
-    \Return {1}
+\prgNewFunction \mathFact { m } {
+  \intCompareTF {#1} = {0} {
+    \prgReturn {1}
   }{
-    \Return {\IntEval{#1*\Fact{\IntEval{#1-1}}}}
+    \prgReturn {\intEval{#1*\mathFact{\intEval{#1-1}}}}
   }
 }
 \IgnoreSpacesOff
-\Fact{4}
+\mathFact{4}
 \end{codehigh}
 \end{minipage}%
-\begin{minipage}{0.35\textwidth}
+\begin{minipage}{0.32\textwidth}
 \begin{code}
 -- define a function --
 function Fact (n)
@@ -108,11 +108,11 @@ print(Fact(4))
 \end{minipage}
 
 %\IgnoreSpacesOn
-%\PrgNewFunction \Factorial { m } {
-%  \IntCompareTF {#1} = {0} {
-%    \Return {1}
+%\prgNewFunction \Factorial { m } {
+%  \intCompareTF {#1} = {0} {
+%    \prgReturn {1}
 %  }{
-%    \Return { \IntMathMult {#1} { \Factorial { \IntMathSub{#1}{1} } } }
+%    \prgReturn { \intMathMult {#1} { \Factorial { \intMathSub{#1}{1} } } }
 %  }
 %}
 %\IgnoreSpacesOff
@@ -131,19 +131,19 @@ and you can make every function become a group by setting
 \begin{codehigh}
 \Functional{scoping=true}
 \IgnoreSpacesOn
-\IntSet \lTmpaInt {1}
-\IntVarLog \lTmpaInt            % ---- 1
-\PrgNewFunction \SomeFun { } {
-  \IntSet \lTmpaInt {2}
-  \IntVarLog \lTmpaInt          % ---- 2
-  \IntCompareTF {1} > {0} {
-    \IntSet \lTmpaInt {3}
-    \IntVarLog \lTmpaInt        % ---- 3
+\intSet \lTmpaInt {1}
+\intVarLog \lTmpaInt            % ---- 1
+\prgNewFunction \someFun { } {
+  \intSet \lTmpaInt {2}
+  \intVarLog \lTmpaInt          % ---- 2
+  \intCompareTF {1} > {0} {
+    \intSet \lTmpaInt {3}
+    \intVarLog \lTmpaInt        % ---- 3
   }{ }
-  \IntVarLog \lTmpaInt          % ---- 2
+  \intVarLog \lTmpaInt          % ---- 2
 }
-\SomeFun
-\IntVarLog \lTmpaInt            % ---- 1
+\someFun
+\intVarLog \lTmpaInt            % ---- 1
 \IgnoreSpacesOff
 \end{codehigh}
 \end{minipage}%
@@ -173,7 +173,7 @@ while names of global variables \emph{must} start with \verb!g!.
 The difference is that \verb!functional! package provides only one function for setting
 both local and global varianbles of the same type,
 by checking leading letters of their names. So for integer variables, you can write
-\verb!\IntSet\lTmpaInt{1}! and \verb!\IntSet\gTmpbInt{2}!.
+\verb!\intSet\lTmpaInt{1}! and \verb!\intSet\gTmpbInt{2}!.
 
 The previous example will produce different result
 if we change variable from \verb!\lTmpaInt! to \verb!\gTmpaInt!.
@@ -182,19 +182,19 @@ if we change variable from \verb!\lTmpaInt! to \verb!\gTmpaInt!.
 \begin{codehigh}
 \Functional{scoping=true}
 \IgnoreSpacesOn
-\IntSet \gTmpaInt {1}
-\IntVarLog \gTmpaInt            % ---- 1
-\PrgNewFunction \SomeFun { } {
-  \IntSet \gTmpaInt {2}
-  \IntVarLog \gTmpaInt          % ---- 2
-  \IntCompareTF {1} > {0} {
-    \IntSet \gTmpaInt {3}
-    \IntVarLog \gTmpaInt        % ---- 3
+\intSet \gTmpaInt {1}
+\intVarLog \gTmpaInt            % ---- 1
+\prgNewFunction \someFun { } {
+  \intSet \gTmpaInt {2}
+  \intVarLog \gTmpaInt          % ---- 2
+  \intCompareTF {1} > {0} {
+    \intSet \gTmpaInt {3}
+    \intVarLog \gTmpaInt        % ---- 3
   }{ }
-  \IntVarLog \gTmpaInt          % ---- 3
+  \intVarLog \gTmpaInt          % ---- 3
 }
-\SomeFun
-\IntVarLog \gTmpaInt            % ---- 3
+\someFun
+\intVarLog \gTmpaInt            % ---- 3
 \IgnoreSpacesOff
 \end{codehigh}
 \end{minipage}%
@@ -230,48 +230,48 @@ For example, the tracing log of the first example in this chapter will be the fo
 
 % FIXME: spaces at the first line will be removed
 %\begin{codehigh}[]
-%    [I] \MathSquare{5}
-%            [I] \IntEval{5*5}
-%                    [I] \Expand{\int_eval:n {5*5}}
+%    [I] \mathSquare{5}
+%            [I] \intEval{5*5}
+%                    [I] \expWhole{\int_eval:n {5*5}}
 %                    [O] 25
-%                [I] \Return{25}
+%                [I] \prgReturn{25}
 %                [O] 25
 %            [O] 25
-%        [I] \IntSet\lTmpaInt {25}
+%        [I] \intSet\lTmpaInt {25}
 %        [O]
-%            [I] \Value\lTmpaInt
+%            [I] \expValue\lTmpaInt
 %            [O] 25
-%        [I] \Return{25}
+%        [I] \prgReturn{25}
 %        [O] 25
 %    [O] 25
 %\end{codehigh}
 \begin{codehigh}[]
-[I] \MathSquare{5}
-        [I] \IntEval{5*5}
-                [I] \Expand{\int_eval:n {5*5}}
+[I] \mathSquare{5}
+        [I] \intEval{5*5}
+                [I] \expWhole{\int_eval:n {5*5}}
                 [O] 25
-            [I] \Return{25}
+            [I] \prgReturn{25}
             [O] 25
         [O] 25
-    [I] \IntSet{\lTmpaInt }{25}
+    [I] \intSet{\lTmpaInt }{25}
     [O]
-        [I] \Value{\lTmpaInt }
+        [I] \expValue{\lTmpaInt }
         [O] 25
-    [I] \Return{25}
+    [I] \prgReturn{25}
     [O] 25
 [O] 25
-[I] \MathSquare{25}
-        [I] \IntEval{25*25}
-                [I] \Expand{\int_eval:n {25*25}}
+[I] \mathSquare{25}
+        [I] \intEval{25*25}
+                [I] \expWhole{\int_eval:n {25*25}}
                 [O] 625
-            [I] \Return{625}
+            [I] \prgReturn{625}
             [O] 625
         [O] 625
-    [I] \IntSet{\lTmpaInt }{625}
+    [I] \intSet{\lTmpaInt }{625}
     [O]
-        [I] \Value{\lTmpaInt }
+        [I] \expValue{\lTmpaInt }
         [O] 625
-    [I] \Return{625}
+    [I] \prgReturn{625}
     [O] 625
 [O] 625
 \end{codehigh}
@@ -298,8 +298,8 @@ which is good for power users.
 \end{code}
 \end{minipage}
 
-Within \verb!functional! package, there is only one command (\cs{PrgNewFunction})
-for defining new functions, which is good for normal users.
+Within \verb!functional! package, there is only one command (\cs{prgNewFunction})
+for defining new functions, which is good for regular users.
 The created functions are always protected and accept \verb!\par! in their arguments.
 
 Since \verb!functional! package gets the results of functions by evaluation
@@ -335,31 +335,31 @@ and many expansion functions for expanding them, which are necessary for power u
 
 Within \verb!functional! package, there are only three variants
 (\verb!c!, \verb!e!, \verb!V!) are provided, and these variants are defined
-as functions (\cs{Name}, \cs{Expand}, \cs{Value}, respetively),
-which are easier to use for normal users.
+as functions (\cs{expName}, \cs{expWhole}, \cs{expValue}, respetively),
+which are easier to use for regular users.
 
 \begin{demohigh}
 \newcommand\test{uvw}
-\Name{test}
+\expName{test}
 \end{demohigh}
 
 \begin{demohigh}
 \newcommand\test{uvw}
-\Expand{111\test222}
+\expWhole{111\test222}
 \end{demohigh}
 
 \begin{demohigh}
-\IntSet\lTmpaInt{123}
-\Value\lTmpaInt
+\intSet\lTmpaInt{123}
+\expValue\lTmpaInt
 \end{demohigh}
 
 The most interesting feature is that you can compose these functions.
 For example, you can easily get the \verb!v! variant of \verb!expl3! by
-simply composing \cs{Name} and \cs{Value} functions:
+simply composing \cs{expName} and \cs{expValue} functions:
 
 \begin{demohigh}
-\IntSet\lTmpaInt{123}
-\Value{\Name{lTmpaInt}}
+\intSet\lTmpaInt{123}
+\expValue{\expName{lTmpaInt}}
 \end{demohigh}
 
 \end{document}

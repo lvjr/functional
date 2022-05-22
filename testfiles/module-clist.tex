@@ -9,216 +9,216 @@
 
 \begin{document}
 
-\BEGINTEST{Testing \ClistConst}
-\ClistConst \cFooSomeClist {one,two,three}
+\BEGINTEST{Testing \clistConst}
+\clistConst \cFooSomeClist {one,two,three}
 \ENDTEST
 
-\BEGINTEST{Testing \ClistVarJoin}
-\ClistSet \lTmpaClist {one,two,three}
-\ClistVarJoin \lTmpaClist { and }
+\BEGINTEST{Testing \clistVarJoin}
+\clistSet \lTmpaClist {one,two,three}
+\clistVarJoin \lTmpaClist { and }
 \ENDTEST
 
-\BEGINTEST{Testing \ClistVarJoinExtended}
-\ClistSet \lTmpaClist {one,two}
-\ClistVarJoinExtended \lTmpaClist { and } {, } {, and }
+\BEGINTEST{Testing \clistVarJoinExtended}
+\clistSet \lTmpaClist {one,two}
+\clistVarJoinExtended \lTmpaClist { and } {, } {, and }
 \par
-\ClistSet \lTmpbClist {one,two,three}
-\ClistVarJoinExtended \lTmpbClist { and } {, } {, and }
+\clistSet \lTmpbClist {one,two,three}
+\clistVarJoinExtended \lTmpbClist { and } {, } {, and }
 \ENDTEST
 
-\BEGINTEST{Testing \ClistLog}
-\ClistLog {one,two,three}
+\BEGINTEST{Testing \clistLog}
+\clistLog {one,two,three}
 \ENDTEST
 
-\BEGINTEST{Testing \ClistVarLog}
-\ClistNew \lFooSomeClist
-\ClistSet \lFooSomeClist {one,two,three}
-\ClistVarLog \lFooSomeClist
+\BEGINTEST{Testing \clistVarLog}
+\clistNew \lFooSomeClist
+\clistSet \lFooSomeClist {one,two,three}
+\clistVarLog \lFooSomeClist
 \ENDTEST
 
-\BEGINTEST{Testing \ClistSetEq}
-\ClistSet \lTmpaClist {one,two,three,four}
-\ClistSetEq \lTmpbClist \lTmpaClist
-\ClistVarJoin \lTmpbClist { and }
+\BEGINTEST{Testing \clistSetEq}
+\clistSet \lTmpaClist {one,two,three,four}
+\clistSetEq \lTmpbClist \lTmpaClist
+\clistVarJoin \lTmpbClist { and }
 \ENDTEST
 
-%\BEGINTEST{Testing \ClistSetFromSeq}
-%\SeqPutRight \lTmpaSeq {one}
-%\SeqPutRight \lTmpaSeq {two}
-%\ClistSetFromSeq \lTmpaClist \lTmpaSeq
-%\ClistVarJoin \lTmpaClist { and }
+%\BEGINTEST{Testing \clistSetFromSeq}
+%\seqPutRight \lTmpaSeq {one}
+%\seqPutRight \lTmpaSeq {two}
+%\clistSetFromSeq \lTmpaClist \lTmpaSeq
+%\clistVarJoin \lTmpaClist { and }
 %\ENDTEST
 
-\BEGINTEST{Testing \ClistClear}
-\ClistSet \lTmpaClist {one,two,three,four}
-\ClistClear \lTmpaClist
-\ClistVarJoin \lTmpaClist { and }
+\BEGINTEST{Testing \clistClear}
+\clistSet \lTmpaClist {one,two,three,four}
+\clistClear \lTmpaClist
+\clistVarJoin \lTmpaClist { and }
 \ENDTEST
 
-\BEGINTEST{Testing \ClistClearNew}
-\ClistClearNew \lFooSomeClist
-\ClistSet \lFooSomeClist {one,two,three}
-\ClistVarJoin \lFooSomeClist { and }
+\BEGINTEST{Testing \clistClearNew}
+\clistClearNew \lFooSomeClist
+\clistSet \lFooSomeClist {one,two,three}
+\clistVarJoin \lFooSomeClist { and }
 \ENDTEST
 
-\BEGINTEST{Testing \ClistConcat}
-\ClistSet \lTmpbClist {one,two}
-\ClistSet \lTmpcClist {three,four}
-\ClistConcat \lTmpaClist \lTmpbClist \lTmpcClist
-\ClistVarJoin \lTmpaClist { and }
+\BEGINTEST{Testing \clistConcat}
+\clistSet \lTmpbClist {one,two}
+\clistSet \lTmpcClist {three,four}
+\clistConcat \lTmpaClist \lTmpbClist \lTmpcClist
+\clistVarJoin \lTmpaClist { and }
 \ENDTEST
 
-\BEGINTEST{Testing \ClistPutLeft}
-\ClistSet \lTmpaClist {one,two}
-\ClistPutLeft \lTmpaClist {zero}
-\ClistVarJoin \lTmpaClist { and }
+\BEGINTEST{Testing \clistPutLeft}
+\clistSet \lTmpaClist {one,two}
+\clistPutLeft \lTmpaClist {zero}
+\clistVarJoin \lTmpaClist { and }
 \ENDTEST
 
-\BEGINTEST{Testing \ClistPutRight}
-\ClistSet \lTmpaClist {one,two}
-\ClistPutRight \lTmpaClist {three}
-\ClistVarJoin \lTmpaClist { and }
+\BEGINTEST{Testing \clistPutRight}
+\clistSet \lTmpaClist {one,two}
+\clistPutRight \lTmpaClist {three}
+\clistVarJoin \lTmpaClist { and }
 \ENDTEST
 
-\BEGINTEST{Testing \ClistVarRemoveDuplicates}
-\ClistSet \lTmpaClist {one,two,one,two,three}
-\ClistVarRemoveDuplicates \lTmpaClist
-\ClistVarJoin \lTmpaClist {,}
+\BEGINTEST{Testing \clistVarRemoveDuplicates}
+\clistSet \lTmpaClist {one,two,one,two,three}
+\clistVarRemoveDuplicates \lTmpaClist
+\clistVarJoin \lTmpaClist {,}
 \ENDTEST
 
-\BEGINTEST{Testing \ClistVarRemoveAll}
-\ClistSet \lTmpaClist {one,two,one,two,three}
-\ClistVarRemoveAll \lTmpaClist {two}
-\ClistVarJoin \lTmpaClist {,}
+\BEGINTEST{Testing \clistVarRemoveAll}
+\clistSet \lTmpaClist {one,two,one,two,three}
+\clistVarRemoveAll \lTmpaClist {two}
+\clistVarJoin \lTmpaClist {,}
 \ENDTEST
 
-\BEGINTEST{Testing \ClistVarReverse}
-\ClistSet \lTmpaClist {one,two,one,two,three}
-\ClistVarReverse \lTmpaClist
-\ClistVarJoin \lTmpaClist {,}
+\BEGINTEST{Testing \clistVarReverse}
+\clistSet \lTmpaClist {one,two,one,two,three}
+\clistVarReverse \lTmpaClist
+\clistVarJoin \lTmpaClist {,}
 \ENDTEST
 
-\BEGINTEST{Testing \ClistCount}
-\ClistCount {one,two,three,four,five}
+\BEGINTEST{Testing \clistCount}
+\clistCount {one,two,three,four,five}
 \ENDTEST
 
-\BEGINTEST{Testing \ClistVarCount}
-\ClistSet \lTmpaClist {one,two,three,four}
-\ClistVarCount \lTmpaClist
+\BEGINTEST{Testing \clistVarCount}
+\clistSet \lTmpaClist {one,two,three,four}
+\clistVarCount \lTmpaClist
 \ENDTEST
 
-\BEGINTEST{Testing \ClistItem}
-\TlSet \lTmpaTl {\ClistItem {one,two,three,four} {3}}
-\TlUse \lTmpaTl
+\BEGINTEST{Testing \clistItem}
+\tlSet \lTmpaTl {\clistItem {one,two,three,four} {3}}
+\tlUse \lTmpaTl
 \ENDTEST
 
-\BEGINTEST{Testing \ClistVarItem}
-\ClistSet \lTmpaClist {one,two,three,four}
-\TlSet \lTmpaTl {\ClistVarItem \lTmpaClist {3}}
-\TlUse \lTmpaTl
+\BEGINTEST{Testing \clistVarItem}
+\clistSet \lTmpaClist {one,two,three,four}
+\tlSet \lTmpaTl {\clistVarItem \lTmpaClist {3}}
+\tlUse \lTmpaTl
 \ENDTEST
 
-%\BEGINTEST{Testing \ClistRandItem}
-%\TlSet \lTmpaTl {\ClistRandItem {one,two,three,four}}
-%\TlUse \lTmpaTl
-%\TlSet \lTmpaTl {\ClistRandItem {one,two,three,four}}
-%\TlUse \lTmpaTl
+%\BEGINTEST{Testing \clistRandItem}
+%\tlSet \lTmpaTl {\clistRandItem {one,two,three,four}}
+%\tlUse \lTmpaTl
+%\tlSet \lTmpaTl {\clistRandItem {one,two,three,four}}
+%\tlUse \lTmpaTl
 %\ENDTEST
 
-%\BEGINTEST{Testing \ClistVarRandItem}
-%\ClistSet \lTmpaClist {one,two,three,four,five,six}
-%\TlSet \lTmpaTl {\ClistVarRandItem \lTmpaClist}
-%\TlUse \lTmpaTl
-%\TlSet \lTmpaTl {\ClistVarRandItem \lTmpaClist}
-%\TlUse \lTmpaTl
+%\BEGINTEST{Testing \clistVarRandItem}
+%\clistSet \lTmpaClist {one,two,three,four,five,six}
+%\tlSet \lTmpaTl {\clistVarRandItem \lTmpaClist}
+%\tlUse \lTmpaTl
+%\tlSet \lTmpaTl {\clistVarRandItem \lTmpaClist}
+%\tlUse \lTmpaTl
 %\ENDTEST
 
-\BEGINTEST{Testing \ClistGet}
-\ClistSet \lTmpaClist {two,three,four}
-\ClistGetTF \lTmpaClist \lTmpaTl {\Return{Yes}} {\Return{No}}
-\TlUse \lTmpaTl
+\BEGINTEST{Testing \clistGet}
+\clistSet \lTmpaClist {two,three,four}
+\clistGetTF \lTmpaClist \lTmpaTl {\prgReturn{Yes}} {\prgReturn{No}}
+\tlUse \lTmpaTl
 \ENDTEST
 
-\BEGINTEST{Testing \ClistPop}
-\ClistSet \lTmpaClist {two,three,four}
-\ClistPopTF \lTmpaClist \lTmpaTl {\Return{Yes}} {\Return{No}}
-\ClistVarJoin \lTmpaClist {,}
+\BEGINTEST{Testing \clistPop}
+\clistSet \lTmpaClist {two,three,four}
+\clistPopTF \lTmpaClist \lTmpaTl {\prgReturn{Yes}} {\prgReturn{No}}
+\clistVarJoin \lTmpaClist {,}
 \ENDTEST
 
-\BEGINTEST{Testing \ClistPush}
-\ClistSet \lTmpaClist {two,three,four}
-\ClistPush \lTmpaClist {zero,one}
-\ClistVarJoin \lTmpaClist {,}
+\BEGINTEST{Testing \clistPush}
+\clistSet \lTmpaClist {two,three,four}
+\clistPush \lTmpaClist {zero,one}
+\clistVarJoin \lTmpaClist {,}
 \ENDTEST
 
-\BEGINTEST{Testing \ClistMapInline}
+\BEGINTEST{Testing \clistMapInline}
 \IgnoreSpacesOn
-\TlClear \lTmpaTl
-\ClistMapInline {one,two,three} {
-  \TlPutRight \lTmpaTl {(#1)}
+\tlClear \lTmpaTl
+\clistMapInline {one,two,three} {
+  \tlPutRight \lTmpaTl {(#1)}
 }
-\Return {\TlUse\lTmpaTl}
+\prgReturn {\tlUse\lTmpaTl}
 \IgnoreSpacesOff
 \ENDTEST
 
-\BEGINTEST{Testing \ClistVarMapInline}
+\BEGINTEST{Testing \clistVarMapInline}
 \IgnoreSpacesOn
-\ClistSet \lTmpkClist {one,two,three}
-\TlClear \lTmpaTl
-\ClistVarMapInline \lTmpkClist {
-  \TlPutRight \lTmpaTl {(#1)}
+\clistSet \lTmpkClist {one,two,three}
+\tlClear \lTmpaTl
+\clistVarMapInline \lTmpkClist {
+  \tlPutRight \lTmpaTl {(#1)}
 }
-\Return {\TlUse\lTmpaTl}
+\prgReturn {\tlUse\lTmpaTl}
 \IgnoreSpacesOff
 \ENDTEST
 
-\BEGINTEST{Testing \ClistMapVariable}
+\BEGINTEST{Testing \clistMapVariable}
 \IgnoreSpacesOn
-\TlClear \lTmpaTl
-\ClistMapVariable {one,two,three} \lTmpiTl {
-  \TlPutRight \lTmpaTl {\Expand {[\lTmpiTl]}}
+\tlClear \lTmpaTl
+\clistMapVariable {one,two,three} \lTmpiTl {
+  \tlPutRight \lTmpaTl {\expWhole {[\lTmpiTl]}}
 }
-\Return {\TlUse\lTmpaTl}
+\prgReturn {\tlUse\lTmpaTl}
 \IgnoreSpacesOff
 \ENDTEST
 
-\BEGINTEST{Testing \ClistVarMapVariable}
+\BEGINTEST{Testing \clistVarMapVariable}
 \IgnoreSpacesOn
-\TlClear \lTmpaTl
-\ClistSet \lTmpaClist {one,two,three}
-\ClistVarMapVariable \lTmpaClist \lTmpiTl {
-  \TlPutRight \lTmpaTl {\Expand {[\lTmpiTl]}}
+\tlClear \lTmpaTl
+\clistSet \lTmpaClist {one,two,three}
+\clistVarMapVariable \lTmpaClist \lTmpiTl {
+  \tlPutRight \lTmpaTl {\expWhole {[\lTmpiTl]}}
 }
-\Return {\TlUse\lTmpaTl}
+\prgReturn {\tlUse\lTmpaTl}
 \IgnoreSpacesOff
 \ENDTEST
 
-\BEGINTEST{Testing \ClistIfExist}
-\ClistIfExistTF \lTmpaClist {\Return{Yes}} {\Return{No}}
-\ClistIfExistTF \lFooUndefinedClist {\Return{Yes}} {\Return{No}}
+\BEGINTEST{Testing \clistIfExist}
+\clistIfExistTF \lTmpaClist {\prgReturn{Yes}} {\prgReturn{No}}
+\clistIfExistTF \lFooUndefinedClist {\prgReturn{Yes}} {\prgReturn{No}}
 \ENDTEST
 
-\BEGINTEST{Testing \ClistIfEmpty}
-\ClistIfEmptyTF {one,two} {\Return{Empty}} {\Return{NonEmpty}}
-\ClistIfEmptyTF { , } {\Return{Empty}} {\Return{NonEmpty}}
+\BEGINTEST{Testing \clistIfEmpty}
+\clistIfEmptyTF {one,two} {\prgReturn{Empty}} {\prgReturn{NonEmpty}}
+\clistIfEmptyTF { , } {\prgReturn{Empty}} {\prgReturn{NonEmpty}}
 \ENDTEST
 
-\BEGINTEST{Testing \ClistVarIfEmpty}
-\ClistSet \lTmpaClist {one,two}
-\ClistVarIfEmptyTF \lTmpaClist {\Return{Empty}} {\Return{NonEmpty}}
-\ClistClear \lTmpaClist
-\ClistVarIfEmptyTF \lTmpaClist {\Return{Empty}} {\Return{NonEmpty}}
+\BEGINTEST{Testing \clistVarIfEmpty}
+\clistSet \lTmpaClist {one,two}
+\clistVarIfEmptyTF \lTmpaClist {\prgReturn{Empty}} {\prgReturn{NonEmpty}}
+\clistClear \lTmpaClist
+\clistVarIfEmptyTF \lTmpaClist {\prgReturn{Empty}} {\prgReturn{NonEmpty}}
 \ENDTEST
 
-\BEGINTEST{Testing \ClistIfIn}
-\ClistIfInTF {one,two} {one} {\Return{Yes}} {\Return{Not}}
-\ClistIfInTF {one,two} {three} {\Return{Yes}} {\Return{Not}}
+\BEGINTEST{Testing \clistIfIn}
+\clistIfInTF {one,two} {one} {\prgReturn{Yes}} {\prgReturn{Not}}
+\clistIfInTF {one,two} {three} {\prgReturn{Yes}} {\prgReturn{Not}}
 \ENDTEST
 
-\BEGINTEST{Testing \ClistVarIfIn}
-\ClistSet \lTmpaClist {one,two}
-\ClistVarIfInTF \lTmpaClist {one} {\Return{Yes}} {\Return{Not}}
-\ClistVarIfInTF \lTmpaClist {three} {\Return{Yes}} {\Return{Not}}
+\BEGINTEST{Testing \clistVarIfIn}
+\clistSet \lTmpaClist {one,two}
+\clistVarIfInTF \lTmpaClist {one} {\prgReturn{Yes}} {\prgReturn{Not}}
+\clistVarIfInTF \lTmpaClist {three} {\prgReturn{Yes}} {\prgReturn{Not}}
 \ENDTEST
 
 \end{document}

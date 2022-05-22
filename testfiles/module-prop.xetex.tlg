@@ -1,13 +1,13 @@
 This is a generated file for the l3build validation system.
 Don't change this file in any respect.
 ============================================================
-TEST 1: Testing \PropNew 
+TEST 1: Testing \propNew 
 ============================================================
-[I] \PropNew{\lFooSomeProp }
+[I] \propNew{\lFooSomeProp }
 [O] 
-[I] \PropSetFromKeyval{\lFooSomeProp }{key1=one,key2=two,key3=three}
+[I] \propSetFromKeyval{\lFooSomeProp }{key1=one,key2=two,key3=three}
 [O] 
-[I] \PropVarLog{\lFooSomeProp }
+[I] \propVarLog{\lFooSomeProp }
 The property list \lFooSomeProp contains the pairs (without outer braces):
 >  {key1}  =>  {one}
 >  {key2}  =>  {two}
@@ -15,11 +15,11 @@ The property list \lFooSomeProp contains the pairs (without outer braces):
 [O] 
 ============================================================
 ============================================================
-TEST 2: Testing \PropConstFromKeyval 
+TEST 2: Testing \propConstFromKeyval 
 ============================================================
-[I] \PropConstFromKeyval{\cFooSomeProp }{key1=one,key2=two,key3=three}
+[I] \propConstFromKeyval{\cFooSomeProp }{key1=one,key2=two,key3=three}
 [O] 
-[I] \PropVarLog{\cFooSomeProp }
+[I] \propVarLog{\cFooSomeProp }
 The property list \cFooSomeProp contains the pairs (without outer braces):
 >  {key1}  =>  {one}
 >  {key2}  =>  {two}
@@ -27,21 +27,21 @@ The property list \cFooSomeProp contains the pairs (without outer braces):
 [O] 
 ============================================================
 ============================================================
-TEST 3: Testing \PropToKeyval 
+TEST 3: Testing \propToKeyval 
 ============================================================
-[I] \PropSetFromKeyval{\lTmpaProp }{key1=one,key2=two,key3=three}
+[I] \propSetFromKeyval{\lTmpaProp }{key1=one,key2=two,key3=three}
 [O] 
-[I] \PropToKeyval{\lTmpaProp }
-    [I] \Expand{\prop_to_keyval:N \lTmpaProp }
+[I] \propToKeyval{\lTmpaProp }
+    [I] \expWhole{\prop_to_keyval:N \lTmpaProp }
     [O]  {key1}= {one}, {key2}= {two}, {key3}= {three}
 [O]  {key1}= {one}, {key2}= {two}, {key3}= {three}
 ============================================================
 ============================================================
-TEST 4: Testing \PropVarLog 
+TEST 4: Testing \propVarLog 
 ============================================================
-[I] \PropSetFromKeyval{\lTmpaProp }{key1=one,key2=two,key3=three}
+[I] \propSetFromKeyval{\lTmpaProp }{key1=one,key2=two,key3=three}
 [O] 
-[I] \PropVarLog{\lTmpaProp }
+[I] \propVarLog{\lTmpaProp }
 The property list \lTmpaProp contains the pairs (without outer braces):
 >  {key1}  =>  {one}
 >  {key2}  =>  {two}
@@ -49,11 +49,11 @@ The property list \lTmpaProp contains the pairs (without outer braces):
 [O] 
 ============================================================
 ============================================================
-TEST 5: Testing \PropSetFromKeyval 
+TEST 5: Testing \propSetFromKeyval 
 ============================================================
-[I] \PropSetFromKeyval{\lTmpaProp }{key1=one,key2=two,key3=three}
+[I] \propSetFromKeyval{\lTmpaProp }{key1=one,key2=two,key3=three}
 [O] 
-[I] \PropVarLog{\lTmpaProp }
+[I] \propVarLog{\lTmpaProp }
 The property list \lTmpaProp contains the pairs (without outer braces):
 >  {key1}  =>  {one}
 >  {key2}  =>  {two}
@@ -61,13 +61,13 @@ The property list \lTmpaProp contains the pairs (without outer braces):
 [O] 
 ============================================================
 ============================================================
-TEST 6: Testing \PropSetEq 
+TEST 6: Testing \propSetEq 
 ============================================================
-[I] \PropSetFromKeyval{\lTmpaProp }{key1=one,key2=two,key3=three}
+[I] \propSetFromKeyval{\lTmpaProp }{key1=one,key2=two,key3=three}
 [O] 
-[I] \PropSetEq{\lTmpbProp }{\lTmpaProp }
+[I] \propSetEq{\lTmpbProp }{\lTmpaProp }
 [O] 
-[I] \PropVarLog{\lTmpbProp }
+[I] \propVarLog{\lTmpbProp }
 The property list \lTmpbProp contains the pairs (without outer braces):
 >  {key1}  =>  {one}
 >  {key2}  =>  {two}
@@ -75,15 +75,15 @@ The property list \lTmpbProp contains the pairs (without outer braces):
 [O] 
 ============================================================
 ============================================================
-TEST 7: Testing \PropConcat 
+TEST 7: Testing \propConcat 
 ============================================================
-[I] \PropSetFromKeyval{\lTmpbProp }{key1=one,key2=two}
+[I] \propSetFromKeyval{\lTmpbProp }{key1=one,key2=two}
 [O] 
-[I] \PropSetFromKeyval{\lTmpcProp }{key3=three,key4=four}
+[I] \propSetFromKeyval{\lTmpcProp }{key3=three,key4=four}
 [O] 
-[I] \PropConcat{\lTmpaProp }{\lTmpbProp }{\lTmpcProp }
+[I] \propConcat{\lTmpaProp }{\lTmpbProp }{\lTmpcProp }
 [O] 
-[I] \PropVarLog{\lTmpaProp }
+[I] \propVarLog{\lTmpaProp }
 The property list \lTmpaProp contains the pairs (without outer braces):
 >  {key1}  =>  {one}
 >  {key2}  =>  {two}
@@ -92,64 +92,64 @@ The property list \lTmpaProp contains the pairs (without outer braces):
 [O] 
 ============================================================
 ============================================================
-TEST 8: Testing \PropClear 
+TEST 8: Testing \propClear 
 ============================================================
-[I] \PropSetFromKeyval{\lTmpaProp }{key1=one,key2=two}
+[I] \propSetFromKeyval{\lTmpaProp }{key1=one,key2=two}
 [O] 
-[I] \PropClear{\lTmpaProp }
+[I] \propClear{\lTmpaProp }
 [O] 
-[I] \PropVarLog{\lTmpaProp }
+[I] \propVarLog{\lTmpaProp }
 The property list \lTmpaProp is empty
 > .
 [O] 
 ============================================================
 ============================================================
-TEST 9: Testing \PropClearNew 
+TEST 9: Testing \propClearNew 
 ============================================================
-[I] \PropClearNew{\lFooSomeProp }
+[I] \propClearNew{\lFooSomeProp }
 [O] 
-[I] \PropSetFromKeyval{\lFooSomeProp }{key1=one,key2=two}
+[I] \propSetFromKeyval{\lFooSomeProp }{key1=one,key2=two}
 [O] 
-[I] \PropVarLog{\lFooSomeProp }
+[I] \propVarLog{\lFooSomeProp }
 The property list \lFooSomeProp contains the pairs (without outer braces):
 >  {key1}  =>  {one}
 >  {key2}  =>  {two}.
 [O] 
 ============================================================
 ============================================================
-TEST 10: Testing \PropPut 
+TEST 10: Testing \propPut 
 ============================================================
-[I] \PropSetFromKeyval{\lTmpaProp }{key1=one,key2=two}
+[I] \propSetFromKeyval{\lTmpaProp }{key1=one,key2=two}
 [O] 
-[I] \PropPut{\lTmpaProp }{key1}{newone}
+[I] \propPut{\lTmpaProp }{key1}{newone}
 [O] 
-[I] \PropVarLog{\lTmpaProp }
+[I] \propVarLog{\lTmpaProp }
 The property list \lTmpaProp contains the pairs (without outer braces):
 >  {key1}  =>  {newone}
 >  {key2}  =>  {two}.
 [O] 
 ============================================================
 ============================================================
-TEST 11: Testing \PropPutIfNew 
+TEST 11: Testing \propPutIfNew 
 ============================================================
-[I] \PropSetFromKeyval{\lTmpaProp }{key1=one,key2=two}
+[I] \propSetFromKeyval{\lTmpaProp }{key1=one,key2=two}
 [O] 
-[I] \PropPutIfNew{\lTmpaProp }{key1}{newone}
+[I] \propPutIfNew{\lTmpaProp }{key1}{newone}
 [O] 
-[I] \PropVarLog{\lTmpaProp }
+[I] \propVarLog{\lTmpaProp }
 The property list \lTmpaProp contains the pairs (without outer braces):
 >  {key1}  =>  {one}
 >  {key2}  =>  {two}.
 [O] 
 ============================================================
 ============================================================
-TEST 12: Testing \PropPutFromKeyval 
+TEST 12: Testing \propPutFromKeyval 
 ============================================================
-[I] \PropSetFromKeyval{\lTmpaProp }{key1=one,key2=two}
+[I] \propSetFromKeyval{\lTmpaProp }{key1=one,key2=two}
 [O] 
-[I] \PropPutFromKeyval{\lTmpaProp }{key1=newone,key3=three}
+[I] \propPutFromKeyval{\lTmpaProp }{key1=newone,key3=three}
 [O] 
-[I] \PropVarLog{\lTmpaProp }
+[I] \propVarLog{\lTmpaProp }
 The property list \lTmpaProp contains the pairs (without outer braces):
 >  {key1}  =>  {newone}
 >  {key2}  =>  {two}
@@ -157,173 +157,173 @@ The property list \lTmpaProp contains the pairs (without outer braces):
 [O] 
 ============================================================
 ============================================================
-TEST 13: Testing \PropVarRemove 
+TEST 13: Testing \propVarRemove 
 ============================================================
-[I] \PropSetFromKeyval{\lTmpaProp }{key1=one,key2=two,key3=three}
+[I] \propSetFromKeyval{\lTmpaProp }{key1=one,key2=two,key3=three}
 [O] 
-[I] \PropVarRemove{\lTmpaProp }{key2}
+[I] \propVarRemove{\lTmpaProp }{key2}
 [O] 
-[I] \PropVarLog{\lTmpaProp }
+[I] \propVarLog{\lTmpaProp }
 The property list \lTmpaProp contains the pairs (without outer braces):
 >  {key1}  =>  {one}
 >  {key3}  =>  {three}.
 [O] 
 ============================================================
 ============================================================
-TEST 14: Testing \PropVarCount 
+TEST 14: Testing \propVarCount 
 ============================================================
-[I] \PropSetFromKeyval{\lTmpaProp }{key1=one,key2=two,key3=three}
+[I] \propSetFromKeyval{\lTmpaProp }{key1=one,key2=two,key3=three}
 [O] 
-[I] \PropVarCount{\lTmpaProp }
-    [I] \Expand{\prop_count:N \lTmpaProp }
+[I] \propVarCount{\lTmpaProp }
+    [I] \expWhole{\prop_count:N \lTmpaProp }
     [O] 3
 [O] 3
 ============================================================
 ============================================================
-TEST 15: Testing \PropVarItem 
+TEST 15: Testing \propVarItem 
 ============================================================
-[I] \PropSetFromKeyval{\lTmpaProp }{key1=one,key2=two,key3=three}
+[I] \propSetFromKeyval{\lTmpaProp }{key1=one,key2=two,key3=three}
 [O] 
-    [I] \PropVarItem{\lTmpaProp }{key2}
-        [I] \Expand{\prop_item:Nn \lTmpaProp {key2}}
+    [I] \propVarItem{\lTmpaProp }{key2}
+        [I] \expWhole{\prop_item:Nn \lTmpaProp {key2}}
         [O] two
     [O] two
-[I] \TlSet{\lTmpaTl }{two}
+[I] \tlSet{\lTmpaTl }{two}
 [O] 
-[I] \TlUse{\lTmpaTl }
-        [I] \Value{\lTmpaTl }
+[I] \tlUse{\lTmpaTl }
+        [I] \expValue{\lTmpaTl }
         [O] two
-    [I] \Return{two}
+    [I] \prgReturn{two}
     [O] two
 [O] two
 ============================================================
 ============================================================
-TEST 16: Testing \PropGet 
+TEST 16: Testing \propGet 
 ============================================================
-[I] \PropSetFromKeyval{\lTmpaProp }{key1=one,key2=two,key3=three}
+[I] \propSetFromKeyval{\lTmpaProp }{key1=one,key2=two,key3=three}
 [O] 
-[I] \PropGetTF{\lTmpaProp }{key2}{\lTmpaTl }{\Return {Yes}}{\Return {No}}
-    [I] \Return{Yes}
+[I] \propGetTF{\lTmpaProp }{key2}{\lTmpaTl }{\prgReturn {Yes}}{\prgReturn {No}}
+    [I] \prgReturn{Yes}
     [O] Yes
 [O] Yes
-[I] \TlUse{\lTmpaTl }
-        [I] \Value{\lTmpaTl }
+[I] \tlUse{\lTmpaTl }
+        [I] \expValue{\lTmpaTl }
         [O] two
-    [I] \Return{two}
+    [I] \prgReturn{two}
     [O] two
 [O] two
-[I] \PropVarCount{\lTmpaProp }
-    [I] \Expand{\prop_count:N \lTmpaProp }
+[I] \propVarCount{\lTmpaProp }
+    [I] \expWhole{\prop_count:N \lTmpaProp }
     [O] 3
 [O] 3
 ============================================================
 ============================================================
-TEST 17: Testing \PropPop 
+TEST 17: Testing \propPop 
 ============================================================
-[I] \PropSetFromKeyval{\lTmpaProp }{key1=one,key2=two,key3=three}
+[I] \propSetFromKeyval{\lTmpaProp }{key1=one,key2=two,key3=three}
 [O] 
-[I] \PropPopTF{\lTmpaProp }{key2}{\lTmpaTl }{\Return {Yes}}{\Return {No}}
-    [I] \Return{Yes}
+[I] \propPopTF{\lTmpaProp }{key2}{\lTmpaTl }{\prgReturn {Yes}}{\prgReturn {No}}
+    [I] \prgReturn{Yes}
     [O] Yes
 [O] Yes
-[I] \TlUse{\lTmpaTl }
-        [I] \Value{\lTmpaTl }
+[I] \tlUse{\lTmpaTl }
+        [I] \expValue{\lTmpaTl }
         [O] two
-    [I] \Return{two}
+    [I] \prgReturn{two}
     [O] two
 [O] two
-[I] \PropVarCount{\lTmpaProp }
-    [I] \Expand{\prop_count:N \lTmpaProp }
+[I] \propVarCount{\lTmpaProp }
+    [I] \expWhole{\prop_count:N \lTmpaProp }
     [O] 2
 [O] 2
 ============================================================
 ============================================================
-TEST 18: Testing \PropVarMapInline 
+TEST 18: Testing \propVarMapInline 
 ============================================================
-[I] \PropSetFromKeyval{\lTmpkProp }{key1=one,key2=two,key3=three}
+[I] \propSetFromKeyval{\lTmpkProp }{key1=one,key2=two,key3=three}
 [O] 
-[I] \TlClear{\lTmpaTl }
+[I] \tlClear{\lTmpaTl }
 [O] 
-[I] \PropVarMapInline{\lTmpkProp }{\TlPutRight \lTmpaTl {(##1=##2)}}
-    [I] \TlPutRight{\lTmpaTl }{(key1=one)}
+[I] \propVarMapInline{\lTmpkProp }{\tlPutRight \lTmpaTl {(##1=##2)}}
+    [I] \tlPutRight{\lTmpaTl }{(key1=one)}
     [O] 
-    [I] \TlPutRight{\lTmpaTl }{(key2=two)}
+    [I] \tlPutRight{\lTmpaTl }{(key2=two)}
     [O] 
-    [I] \TlPutRight{\lTmpaTl }{(key3=three)}
+    [I] \tlPutRight{\lTmpaTl }{(key3=three)}
     [O] 
 [O] 
-    [I] \TlUse{\lTmpaTl }
-            [I] \Value{\lTmpaTl }
+    [I] \tlUse{\lTmpaTl }
+            [I] \expValue{\lTmpaTl }
             [O] (key1=one)(key2=two)(key3=three)
-        [I] \Return{(key1=one)(key2=two)(key3=three)}
+        [I] \prgReturn{(key1=one)(key2=two)(key3=three)}
         [O] (key1=one)(key2=two)(key3=three)
     [O] (key1=one)(key2=two)(key3=three)
-[I] \Return{(key1=one)(key2=two)(key3=three)}
+[I] \prgReturn{(key1=one)(key2=two)(key3=three)}
 [O] (key1=one)(key2=two)(key3=three)
 ============================================================
 ============================================================
-TEST 19: Testing \PropIfExist 
+TEST 19: Testing \propIfExist 
 ============================================================
-[I] \PropIfExistTF{\lTmpaProp }{\Return {Yes}}{\Return {No}}
-    [I] \PropIfExist{\lTmpaProp }
-        [I] \Return{\cTrueBool }
+[I] \propIfExistTF{\lTmpaProp }{\prgReturn {Yes}}{\prgReturn {No}}
+    [I] \propIfExist{\lTmpaProp }
+        [I] \prgReturn{\cTrueBool }
         [O] \cTrueBool 
     [O] \cTrueBool 
-    [I] \Return{Yes}
+    [I] \prgReturn{Yes}
     [O] Yes
 [O] Yes
-[I] \PropIfExistTF{\lFooUndefinedProp }{\Return {Yes}}{\Return {No}}
-    [I] \PropIfExist{\lFooUndefinedProp }
-        [I] \Return{\cFalseBool }
+[I] \propIfExistTF{\lFooUndefinedProp }{\prgReturn {Yes}}{\prgReturn {No}}
+    [I] \propIfExist{\lFooUndefinedProp }
+        [I] \prgReturn{\cFalseBool }
         [O] \cFalseBool 
     [O] \cFalseBool 
-    [I] \Return{No}
+    [I] \prgReturn{No}
     [O] No
 [O] No
 ============================================================
 ============================================================
-TEST 20: Testing \PropVarIfEmpty 
+TEST 20: Testing \propVarIfEmpty 
 ============================================================
-[I] \PropSetFromKeyval{\lTmpaProp }{key1=one,key2=two}
+[I] \propSetFromKeyval{\lTmpaProp }{key1=one,key2=two}
 [O] 
-[I] \PropVarIfEmptyTF{\lTmpaProp }{\Return {Empty}}{\Return {NonEmpty}}
-    [I] \PropVarIfEmpty{\lTmpaProp }
-        [I] \Return{\cFalseBool }
+[I] \propVarIfEmptyTF{\lTmpaProp }{\prgReturn {Empty}}{\prgReturn {NonEmpty}}
+    [I] \propVarIfEmpty{\lTmpaProp }
+        [I] \prgReturn{\cFalseBool }
         [O] \cFalseBool 
     [O] \cFalseBool 
-    [I] \Return{NonEmpty}
+    [I] \prgReturn{NonEmpty}
     [O] NonEmpty
 [O] NonEmpty
-[I] \PropClear{\lTmpaProp }
+[I] \propClear{\lTmpaProp }
 [O] 
-[I] \PropVarIfEmptyTF{\lTmpaProp }{\Return {Empty}}{\Return {NonEmpty}}
-    [I] \PropVarIfEmpty{\lTmpaProp }
-        [I] \Return{\cTrueBool }
+[I] \propVarIfEmptyTF{\lTmpaProp }{\prgReturn {Empty}}{\prgReturn {NonEmpty}}
+    [I] \propVarIfEmpty{\lTmpaProp }
+        [I] \prgReturn{\cTrueBool }
         [O] \cTrueBool 
     [O] \cTrueBool 
-    [I] \Return{Empty}
+    [I] \prgReturn{Empty}
     [O] Empty
 [O] Empty
 ============================================================
 ============================================================
-TEST 21: Testing \PropVarIfIn 
+TEST 21: Testing \propVarIfIn 
 ============================================================
-[I] \PropSetFromKeyval{\lTmpaProp }{key1=one,key2=two}
+[I] \propSetFromKeyval{\lTmpaProp }{key1=one,key2=two}
 [O] 
-[I] \PropVarIfInTF{\lTmpaProp }{key1}{\Return {Yes}}{\Return {Not}}
-    [I] \PropVarIfIn{\lTmpaProp }{key1}
-        [I] \Return{\cTrueBool }
+[I] \propVarIfInTF{\lTmpaProp }{key1}{\prgReturn {Yes}}{\prgReturn {Not}}
+    [I] \propVarIfIn{\lTmpaProp }{key1}
+        [I] \prgReturn{\cTrueBool }
         [O] \cTrueBool 
     [O] \cTrueBool 
-    [I] \Return{Yes}
+    [I] \prgReturn{Yes}
     [O] Yes
 [O] Yes
-[I] \PropVarIfInTF{\lTmpaProp }{key3}{\Return {Yes}}{\Return {Not}}
-    [I] \PropVarIfIn{\lTmpaProp }{key3}
-        [I] \Return{\cFalseBool }
+[I] \propVarIfInTF{\lTmpaProp }{key3}{\prgReturn {Yes}}{\prgReturn {Not}}
+    [I] \propVarIfIn{\lTmpaProp }{key3}
+        [I] \prgReturn{\cFalseBool }
         [O] \cFalseBool 
     [O] \cFalseBool 
-    [I] \Return{Not}
+    [I] \prgReturn{Not}
     [O] Not
 [O] Not
 ============================================================

@@ -9,183 +9,183 @@
 
 \begin{document}
 
-\BEGINTEST{Testing \SeqNew}
-\SeqNew \lFooSomeSeq
-\SeqSetFromClist \lFooSomeSeq {one,two,three}
+\BEGINTEST{Testing \seqNew}
+\seqNew \lFooSomeSeq
+\seqSetFromClist \lFooSomeSeq {one,two,three}
 \ENDTEST
 
-\BEGINTEST{Testing \SeqConstFromClist}
-\SeqConstFromClist \cFooSomeSeq {one,two,three}
+\BEGINTEST{Testing \seqConstFromClist}
+\seqConstFromClist \cFooSomeSeq {one,two,three}
 \ENDTEST
 
-\BEGINTEST{Testing \SeqVarJoin}
-\SeqSetFromClist \lTmpaSeq {one,two,three}
-\SeqVarJoin \lTmpaSeq { and }
+\BEGINTEST{Testing \seqVarJoin}
+\seqSetFromClist \lTmpaSeq {one,two,three}
+\seqVarJoin \lTmpaSeq { and }
 \ENDTEST
 
-\BEGINTEST{Testing \SeqVarJoinExtended}
-\SeqSetFromClist \lTmpaSeq {one,two}
-\SeqVarJoinExtended \lTmpaSeq { and } {, } {, and }
+\BEGINTEST{Testing \seqVarJoinExtended}
+\seqSetFromClist \lTmpaSeq {one,two}
+\seqVarJoinExtended \lTmpaSeq { and } {, } {, and }
 \par
-\SeqSetFromClist \lTmpbSeq {one,two,three}
-\SeqVarJoinExtended \lTmpbSeq { and } {, } {, and }
+\seqSetFromClist \lTmpbSeq {one,two,three}
+\seqVarJoinExtended \lTmpbSeq { and } {, } {, and }
 \ENDTEST
 
-\BEGINTEST{Testing \SeqVarLog}
-\SeqVarLog \cEmptySeq
+\BEGINTEST{Testing \seqVarLog}
+\seqVarLog \cEmptySeq
 \ENDTEST
 
-\BEGINTEST{Testing \SeqSetEq}
-\SeqSetFromClist \lTmpaSeq {one,two,three,four}
-\SeqSetEq \lTmpbSeq \lTmpaSeq
-\SeqVarJoin \lTmpbSeq { and }
+\BEGINTEST{Testing \seqSetEq}
+\seqSetFromClist \lTmpaSeq {one,two,three,four}
+\seqSetEq \lTmpbSeq \lTmpaSeq
+\seqVarJoin \lTmpbSeq { and }
 \ENDTEST
 
-\BEGINTEST{Testing \SeqSetSplit}
-\SeqSetSplit \lTmpaSeq {,} {1,2,3}
-\SeqVarJoin \lTmpaSeq { and }
+\BEGINTEST{Testing \seqSetSplit}
+\seqSetSplit \lTmpaSeq {,} {1,2,3}
+\seqVarJoin \lTmpaSeq { and }
 \ENDTEST
 
-\BEGINTEST{Testing \SeqConcat}
-\SeqSetFromClist \lTmpbSeq {one,two}
-\SeqSetFromClist \lTmpcSeq {three,four}
-\SeqConcat \lTmpaSeq \lTmpbSeq \lTmpcSeq
-\SeqVarJoin \lTmpaSeq {, }
+\BEGINTEST{Testing \seqConcat}
+\seqSetFromClist \lTmpbSeq {one,two}
+\seqSetFromClist \lTmpcSeq {three,four}
+\seqConcat \lTmpaSeq \lTmpbSeq \lTmpcSeq
+\seqVarJoin \lTmpaSeq {, }
 \ENDTEST
 
-\BEGINTEST{Testing \SeqClear}
-\SeqSetFromClist \lTmpaSeq {one,two,three,four}
-\SeqClear \lTmpaSeq
-\SeqVarJoin \lTmpaSeq { and }
+\BEGINTEST{Testing \seqClear}
+\seqSetFromClist \lTmpaSeq {one,two,three,four}
+\seqClear \lTmpaSeq
+\seqVarJoin \lTmpaSeq { and }
 \ENDTEST
 
-\BEGINTEST{Testing \SeqClearNew}
-\SeqClearNew \lFooSomeSeq
-\SeqSetFromClist \lFooSomeSeq {one,two,three}
-\SeqVarJoin \lFooSomeSeq { and }
+\BEGINTEST{Testing \seqClearNew}
+\seqClearNew \lFooSomeSeq
+\seqSetFromClist \lFooSomeSeq {one,two,three}
+\seqVarJoin \lFooSomeSeq { and }
 \ENDTEST
 
-\BEGINTEST{Testing \SeqPutLeft}
-\SeqSetFromClist \lTmpaSeq {one,two}
-\SeqPutLeft \lTmpaSeq {zero}
-\SeqVarJoin \lTmpaSeq { and }
+\BEGINTEST{Testing \seqPutLeft}
+\seqSetFromClist \lTmpaSeq {one,two}
+\seqPutLeft \lTmpaSeq {zero}
+\seqVarJoin \lTmpaSeq { and }
 \ENDTEST
 
-\BEGINTEST{Testing \SeqPutRight}
-\SeqSetFromClist \lTmpaSeq {one,two}
-\SeqPutRight \lTmpaSeq {three}
-\SeqVarJoin \lTmpaSeq { and }
+\BEGINTEST{Testing \seqPutRight}
+\seqSetFromClist \lTmpaSeq {one,two}
+\seqPutRight \lTmpaSeq {three}
+\seqVarJoin \lTmpaSeq { and }
 \ENDTEST
 
-\BEGINTEST{Testing \SeqVarRemoveDuplicates}
-\SeqSetFromClist \lTmpaSeq {one,two,one,two,three}
-\SeqVarRemoveDuplicates \lTmpaSeq
-\SeqVarJoin \lTmpaSeq {,}
+\BEGINTEST{Testing \seqVarRemoveDuplicates}
+\seqSetFromClist \lTmpaSeq {one,two,one,two,three}
+\seqVarRemoveDuplicates \lTmpaSeq
+\seqVarJoin \lTmpaSeq {,}
 \ENDTEST
 
-\BEGINTEST{Testing \SeqVarRemoveAll}
-\SeqSetFromClist \lTmpaSeq {one,two,one,two,three}
-\SeqVarRemoveAll \lTmpaSeq {two}
-\SeqVarJoin \lTmpaSeq {,}
+\BEGINTEST{Testing \seqVarRemoveAll}
+\seqSetFromClist \lTmpaSeq {one,two,one,two,three}
+\seqVarRemoveAll \lTmpaSeq {two}
+\seqVarJoin \lTmpaSeq {,}
 \ENDTEST
 
-\BEGINTEST{Testing \SeqVarReverse}
-\SeqSetFromClist \lTmpaSeq {one,two,one,two,three}
-\SeqVarReverse \lTmpaSeq
-\SeqVarJoin \lTmpaSeq {,}
+\BEGINTEST{Testing \seqVarReverse}
+\seqSetFromClist \lTmpaSeq {one,two,one,two,three}
+\seqVarReverse \lTmpaSeq
+\seqVarJoin \lTmpaSeq {,}
 \ENDTEST
 
-\BEGINTEST{Testing \SeqVarCount}
-\SeqSetFromClist \lTmpaSeq {one,two,three,four}
-\SeqVarCount \lTmpaSeq
+\BEGINTEST{Testing \seqVarCount}
+\seqSetFromClist \lTmpaSeq {one,two,three,four}
+\seqVarCount \lTmpaSeq
 \ENDTEST
 
-\BEGINTEST{Testing \SeqVarItem}
-\SeqSetFromClist \lTmpaSeq {one,two,three,four}
-\TlSet \lTmpaTl {\SeqVarItem \lTmpaSeq {3}}
-\TlUse \lTmpaTl
+\BEGINTEST{Testing \seqVarItem}
+\seqSetFromClist \lTmpaSeq {one,two,three,four}
+\tlSet \lTmpaTl {\seqVarItem \lTmpaSeq {3}}
+\tlUse \lTmpaTl
 \ENDTEST
 
-\BEGINTEST{Testing \SeqGet}
-\SeqSetFromClist \lTmpaSeq {two,three,four}
-\SeqGetTF \lTmpaSeq \lTmpaTl {\Return{Yes}} {\Return{No}}
-\TlUse \lTmpaTl
+\BEGINTEST{Testing \seqGet}
+\seqSetFromClist \lTmpaSeq {two,three,four}
+\seqGetTF \lTmpaSeq \lTmpaTl {\prgReturn{Yes}} {\prgReturn{No}}
+\tlUse \lTmpaTl
 \ENDTEST
 
-\BEGINTEST{Testing \SeqPop}
-\SeqSetFromClist \lTmpaSeq {two,three,four}
-\SeqPopTF \lTmpaSeq \lTmpaTl {\Return{Yes}} {\Return{No}}
-\SeqVarJoin \lTmpaSeq {,}
+\BEGINTEST{Testing \seqPop}
+\seqSetFromClist \lTmpaSeq {two,three,four}
+\seqPopTF \lTmpaSeq \lTmpaTl {\prgReturn{Yes}} {\prgReturn{No}}
+\seqVarJoin \lTmpaSeq {,}
 \ENDTEST
 
-\BEGINTEST{Testing \SeqPush}
-\SeqSetFromClist \lTmpaSeq {two,three,four}
-\SeqPush \lTmpaSeq {one}
-\SeqVarJoin \lTmpaSeq {|}
+\BEGINTEST{Testing \seqPush}
+\seqSetFromClist \lTmpaSeq {two,three,four}
+\seqPush \lTmpaSeq {one}
+\seqVarJoin \lTmpaSeq {|}
 \ENDTEST
 
-\BEGINTEST{Testing \SeqGetLeft}
-\SeqSetFromClist \lTmpaSeq {two,three,four}
-\SeqGetLeftTF \lTmpaSeq \lTmpaTl {\Return{Yes}} {\Return{No}}
-\TlUse \lTmpaTl
+\BEGINTEST{Testing \seqGetLeft}
+\seqSetFromClist \lTmpaSeq {two,three,four}
+\seqGetLeftTF \lTmpaSeq \lTmpaTl {\prgReturn{Yes}} {\prgReturn{No}}
+\tlUse \lTmpaTl
 \ENDTEST
 
-\BEGINTEST{Testing \SeqGetRight}
-\SeqSetFromClist \lTmpaSeq {two,three,four}
-\SeqGetRightTF \lTmpaSeq \lTmpaTl {\Return{Yes}} {\Return{No}}
-\TlUse \lTmpaTl
+\BEGINTEST{Testing \seqGetRight}
+\seqSetFromClist \lTmpaSeq {two,three,four}
+\seqGetRightTF \lTmpaSeq \lTmpaTl {\prgReturn{Yes}} {\prgReturn{No}}
+\tlUse \lTmpaTl
 \ENDTEST
 
-\BEGINTEST{Testing \SeqPopLeft}
-\SeqSetFromClist \lTmpaSeq {two,three,four}
-\SeqPopLeftTF \lTmpaSeq \lTmpaTl {\Return{Yes}} {\Return{No}}
-\SeqVarJoin \lTmpaSeq {,}
+\BEGINTEST{Testing \seqPopLeft}
+\seqSetFromClist \lTmpaSeq {two,three,four}
+\seqPopLeftTF \lTmpaSeq \lTmpaTl {\prgReturn{Yes}} {\prgReturn{No}}
+\seqVarJoin \lTmpaSeq {,}
 \ENDTEST
 
-\BEGINTEST{Testing \SeqPopRight}
-\SeqSetFromClist \lTmpaSeq {two,three,four}
-\SeqPopRightTF \lTmpaSeq \lTmpaTl {\Return{Yes}} {\Return{No}}
-\SeqVarJoin \lTmpaSeq {,}
+\BEGINTEST{Testing \seqPopRight}
+\seqSetFromClist \lTmpaSeq {two,three,four}
+\seqPopRightTF \lTmpaSeq \lTmpaTl {\prgReturn{Yes}} {\prgReturn{No}}
+\seqVarJoin \lTmpaSeq {,}
 \ENDTEST
 
-\BEGINTEST{Testing \SeqVarMapInline}
+\BEGINTEST{Testing \seqVarMapInline}
 \IgnoreSpacesOn
-\SeqSetFromClist \lTmpkSeq {one,two,three}
-\TlClear \lTmpaTl
-\SeqVarMapInline \lTmpkSeq {
-  \TlPutRight \lTmpaTl {(#1)}
+\seqSetFromClist \lTmpkSeq {one,two,three}
+\tlClear \lTmpaTl
+\seqVarMapInline \lTmpkSeq {
+  \tlPutRight \lTmpaTl {(#1)}
 }
-\Return {\TlUse\lTmpaTl}
+\prgReturn {\tlUse\lTmpaTl}
 \IgnoreSpacesOff
 \ENDTEST
 
-\BEGINTEST{Testing \SeqVarMapVariable}
+\BEGINTEST{Testing \seqVarMapVariable}
 \IgnoreSpacesOn
-\IntZero \lTmpaInt
-\SeqSetFromClist \lTmpaSeq {1,3,7}
-\SeqVarMapVariable \lTmpaSeq \lTmpiTl {
-  \IntAdd \lTmpaInt {\lTmpiTl*\lTmpiTl}
+\intZero \lTmpaInt
+\seqSetFromClist \lTmpaSeq {1,3,7}
+\seqVarMapVariable \lTmpaSeq \lTmpiTl {
+  \intAdd \lTmpaInt {\lTmpiTl*\lTmpiTl}
 }
-\Return {\IntUse\lTmpaInt}
+\prgReturn {\intUse\lTmpaInt}
 \IgnoreSpacesOff
 \ENDTEST
 
-\BEGINTEST{Testing \SeqIfExist}
-\SeqIfExistTF \lTmpaSeq {\Return{Yes}} {\Return{No}}
-\SeqIfExistTF \lFooUndefinedSeq {\Return{Yes}} {\Return{No}}
+\BEGINTEST{Testing \seqIfExist}
+\seqIfExistTF \lTmpaSeq {\prgReturn{Yes}} {\prgReturn{No}}
+\seqIfExistTF \lFooUndefinedSeq {\prgReturn{Yes}} {\prgReturn{No}}
 \ENDTEST
 
-\BEGINTEST{Testing \SeqVarIfEmpty}
-\SeqSetFromClist \lTmpaSeq {one,two}
-\SeqVarIfEmptyTF \lTmpaSeq {\Return{Empty}} {\Return{NonEmpty}}
-\SeqClear \lTmpaSeq
-\SeqVarIfEmptyTF \lTmpaSeq {\Return{Empty}} {\Return{NonEmpty}}
+\BEGINTEST{Testing \seqVarIfEmpty}
+\seqSetFromClist \lTmpaSeq {one,two}
+\seqVarIfEmptyTF \lTmpaSeq {\prgReturn{Empty}} {\prgReturn{NonEmpty}}
+\seqClear \lTmpaSeq
+\seqVarIfEmptyTF \lTmpaSeq {\prgReturn{Empty}} {\prgReturn{NonEmpty}}
 \ENDTEST
 
-\BEGINTEST{Testing \SeqVarIfIn}
-\SeqSetFromClist \lTmpaSeq {one,two}
-\SeqVarIfInTF \lTmpaSeq {one} {\Return{Yes}} {\Return{Not}}
-\SeqVarIfInTF \lTmpaSeq {three} {\Return{Yes}} {\Return{Not}}
+\BEGINTEST{Testing \seqVarIfIn}
+\seqSetFromClist \lTmpaSeq {one,two}
+\seqVarIfInTF \lTmpaSeq {one} {\prgReturn{Yes}} {\prgReturn{Not}}
+\seqVarIfInTF \lTmpaSeq {three} {\prgReturn{Yes}} {\prgReturn{Not}}
 \ENDTEST
 
 \end{document}

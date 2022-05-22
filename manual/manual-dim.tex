@@ -37,13 +37,13 @@ code and so should only be used for short-term storage.
 
 \section{Dimension Expressions}
 
-\begin{function}{\DimEval}
+\begin{function}{\dimEval}
 \begin{syntax}
-\cs{DimEval} \Arg{dimension expression}
+\cs{dimEval} \Arg{dimension expression}
 \end{syntax}
 Evaluates the \meta{dimension expression}, expanding any
 dimensions and token list variables within the \meta{expression}
-to their content (without requiring \cs{DimUse}/\cs{TlUse})
+to their content (without requiring \cs{dimUse}/\cs{tlUse})
 and applying the standard mathematical rules. The result of the
 calculation is returned as a \meta{dimension denotation}.
 %This is expressed in points (\texttt{pt}), and requires suitable
@@ -51,38 +51,38 @@ calculation is returned as a \meta{dimension denotation}.
 %an \meta{internal dimension}.
 For example
 \begin{demohigh}
-\DimEval {(1.2pt+3.4pt)/9}
+\dimEval {(1.2pt+3.4pt)/9}
 \end{demohigh}
-%\DimEval{(1.2pt+3.4pt)*(5.6-7.8)/9}
+%\dimEval{(1.2pt+3.4pt)*(5.6-7.8)/9}
 \end{function}
 
-\begin{function}{\DimMathAdd}
+\begin{function}{\dimMathAdd}
 \begin{syntax}
-\cs{DimMathAdd} \Arg{dimexpr_1} \Arg{dimexpr_2}
+\cs{dimMathAdd} \Arg{dimexpr_1} \Arg{dimexpr_2}
 \end{syntax}
 Adds \Arg{dimexpr_1} and \Arg{dimexpr_2},
 and returns the result. For example
 \begin{demohigh}
-\DimMathAdd {2.8pt} {3.7pt}
-\DimMathAdd {3.8pt-1pt} {2.7pt+1pt}
+\dimMathAdd {2.8pt} {3.7pt}
+\dimMathAdd {3.8pt-1pt} {2.7pt+1pt}
 \end{demohigh}
 \end{function}
 
-\begin{function}{\DimMathSub}
+\begin{function}{\dimMathSub}
 \begin{syntax}
-\cs{DimMathSub} \Arg{dimexpr_1} \Arg{dimexpr_2}
+\cs{dimMathSub} \Arg{dimexpr_1} \Arg{dimexpr_2}
 \end{syntax}
 Subtracts \Arg{dimexpr_2} from \Arg{dimexpr_1},
 and returns the result. For example
 \begin{demohigh}
-\DimMathSub {2.8pt} {3.7pt}
-\DimMathSub {3.8pt-1pt} {2.7pt+1pt}
+\dimMathSub {2.8pt} {3.7pt}
+\dimMathSub {3.8pt-1pt} {2.7pt+1pt}
 \end{demohigh}
 \end{function}
 
-\begin{function}{\DimMathRatio}
+\begin{function}{\dimMathRatio}
 \begin{syntax}
-\cs{DimMathRatio} \Arg{dimexpr_1} \Arg{dimexpr_2}
+\cs{dimMathRatio} \Arg{dimexpr_1} \Arg{dimexpr_2}
 \end{syntax}
 Parses the two \meta{dimension expressions},
 then calculates the ratio of the two and returns it.
@@ -90,81 +90,81 @@ The result is a ratio expression
 between two integers, with all distances converted to scaled points.
 For example
 \begin{demohigh}
-\DimMathRatio {5pt} {10pt}
+\dimMathRatio {5pt} {10pt}
 \end{demohigh}
 The returned value is suitable for use inside a \meta{dimension expression}
 such as
 \begin{codehigh}
-\DimSet \lTmpaDim {10pt*\DimMathRatio{5pt}{10pt}}
+\dimSet \lTmpaDim {10pt*\dimMathRatio{5pt}{10pt}}
 \end{codehigh}
 \end{function}
 
-\begin{function}{\DimMathSign}
+\begin{function}{\dimMathSign}
 \begin{syntax}
-\cs{DimMathSign} \Arg{dimexpr}
+\cs{dimMathSign} \Arg{dimexpr}
 \end{syntax}
 Evaluates the \meta{dimexpr} then returns $1$ or $0$ or $-1$
 according to the sign of the result. For example
 \begin{demohigh}
-\DimMathSign {3.5pt}
-\DimMathSign {-2.7pt}
+\dimMathSign {3.5pt}
+\dimMathSign {-2.7pt}
 \end{demohigh}
 \end{function}
 
-\begin{function}{\DimMathAbs}
+\begin{function}{\dimMathAbs}
 \begin{syntax}
-\cs{DimMathAbs} \Arg{dimexpr}
+\cs{dimMathAbs} \Arg{dimexpr}
 \end{syntax}
 Converts the \meta{dimexpr} to its absolute value,
 returning the result as a \meta{dimension denotation}.
 For example
 \begin{demohigh}
-\DimMathAbs {3.5pt}
-\DimMathAbs {-2.7pt}
+\dimMathAbs {3.5pt}
+\dimMathAbs {-2.7pt}
 \end{demohigh}
 \end{function}
 
-\begin{function}{\DimMathMax,\DimMathMin}
+\begin{function}{\dimMathMax,\dimMathMin}
 \begin{syntax}
-\cs{DimMathMax} \Arg{dimexpr_1} \Arg{dimexpr_2}
-\cs{DimMathMin} \Arg{dimexpr_1} \Arg{dimexpr_2}
+\cs{dimMathMax} \Arg{dimexpr_1} \Arg{dimexpr_2}
+\cs{dimMathMin} \Arg{dimexpr_1} \Arg{dimexpr_2}
 \end{syntax}
 Evaluates the two \meta{dimension expressions} and returns either the
 maximum or minimum value as appropriate as a \meta{dimension denotation}.
 For example
 \begin{demohigh}
-\DimMathMax {3.5pt} {-2.7pt}
-\DimMathMin {3.5pt} {-2.7pt}
+\dimMathMax {3.5pt} {-2.7pt}
+\dimMathMin {3.5pt} {-2.7pt}
 \end{demohigh}
 \end{function}
 
 \section{Creating and Using Dimensions}
 
-\begin{function}{\DimNew}
+\begin{function}{\dimNew}
 \begin{syntax}
-\cs{DimNew} \meta{dimension}
+\cs{dimNew} \meta{dimension}
 \end{syntax}
 Creates a new \meta{dimension} or raises an error if the name is
 already taken. The declaration is global. The \meta{dimension}
 is initially equal to $0$\,pt.
 \end{function}
 
-\begin{function}{\DimConst}
+\begin{function}{\dimConst}
 \begin{syntax}
-\cs{DimConst} \meta{dimension} \Arg{dimension expression}
+\cs{dimConst} \meta{dimension} \Arg{dimension expression}
 \end{syntax}
 Creates a new constant \meta{dimension} or raises an error if the
 name is already taken. The value of the \meta{dimension} is set
 globally to the \meta{dimension expression}. For example
 \begin{demohigh}
-\DimConst \cFooSomeDim {1cm}
-\DimUse \cFooSomeDim
+\dimConst \cFooSomeDim {1cm}
+\dimUse \cFooSomeDim
 \end{demohigh}
 \end{function}
 
-\begin{function}{\DimUse}
+\begin{function}{\dimUse}
 \begin{syntax}
-\cs{DimUse} \meta{dimension}
+\cs{dimUse} \meta{dimension}
 \end{syntax}
 Recovers the content of a \meta{dimension} and returns the value.
 An error is raised if the variable does not exist or if it is invalid.
@@ -172,127 +172,127 @@ An error is raised if the variable does not exist or if it is invalid.
 
 \section{Viewing Dimensions}
 
-\begin{function}{\DimLog}
+\begin{function}{\dimLog}
 \begin{syntax}
-\cs{DimLog} \Arg{dimension expression}
+\cs{dimLog} \Arg{dimension expression}
 \end{syntax}
 Writes the result of evaluating the \meta{dimension expression}
 in the log file. For example
 \begin{codehigh}
-\DimLog {\lFooSomeDim+1cm}
+\dimLog {\lFooSomeDim+1cm}
 \end{codehigh}
 \end{function}
 
-\begin{function}{\DimVarLog}
+\begin{function}{\dimVarLog}
 \begin{syntax}
-\cs{DimVarLog} \meta{dimension}
+\cs{dimVarLog} \meta{dimension}
 \end{syntax}
 Writes the value of the \meta{dimension} in the log file. For example
 \begin{codehigh}
-\DimVarLog \lFooSomeDim
+\dimVarLog \lFooSomeDim
 \end{codehigh}
 \end{function}
 
-\begin{function}{\DimShow}
+\begin{function}{\dimShow}
 \begin{syntax}
-\cs{DimShow} \Arg{dimension expression}
+\cs{dimShow} \Arg{dimension expression}
 \end{syntax}
 Displays the result of evaluating the \meta{dimension expression}
 on the terminal. For example
 \begin{codehigh}
-\DimShow {\lFooSomeDim+1cm}
+\dimShow {\lFooSomeDim+1cm}
 \end{codehigh}
 \end{function}
 
-\begin{function}{\DimVarShow}
+\begin{function}{\dimVarShow}
 \begin{syntax}
-\cs{DimVarShow} \meta{dimension}
+\cs{dimVarShow} \meta{dimension}
 \end{syntax}
 Displays the value of the \meta{dimension} on the terminal. For example
 \begin{codehigh}
-\DimVarShow \lFooSomeDim
+\dimVarShow \lFooSomeDim
 \end{codehigh}
 \end{function}
 
 \section{Setting Dimension Variables}
 
-\begin{function}{\DimSet}
+\begin{function}{\dimSet}
 \begin{syntax}
-\cs{DimSet} \meta{dimension} \Arg{dimension expression}
+\cs{dimSet} \meta{dimension} \Arg{dimension expression}
 \end{syntax}
 Sets \meta{dimension} to the value of \meta{dimension expression}, which
 must evaluate to a length with units.
 \end{function}
 
-\begin{function}{\DimSetEq}
+\begin{function}{\dimSetEq}
 \begin{syntax}
-\cs{DimSetEq} \meta{dimension_1} \meta{dimension_2}
+\cs{dimSetEq} \meta{dimension_1} \meta{dimension_2}
 \end{syntax}
 Sets the content of \meta{dimension_1} equal to that of
 \meta{dimension_2}. For example
 \begin{demohigh}
-\DimSet \lTmpaDim {10pt}
-\DimSetEq \lTmpbDim \lTmpaDim
-\DimUse \lTmpbDim
+\dimSet \lTmpaDim {10pt}
+\dimSetEq \lTmpbDim \lTmpaDim
+\dimUse \lTmpbDim
 \end{demohigh}
 \end{function}
 
-\begin{function}{\DimZero}
+\begin{function}{\dimZero}
 \begin{syntax}
-\cs{DimZero} \meta{dimension}
+\cs{dimZero} \meta{dimension}
 \end{syntax}
 Sets \meta{dimension} to $0$\,pt. For example
 \begin{demohigh}
-\DimSet \lTmpaDim {1em}
-\DimZero \lTmpaDim
-\DimUse \lTmpaDim
+\dimSet \lTmpaDim {1em}
+\dimZero \lTmpaDim
+\dimUse \lTmpaDim
 \end{demohigh}
 \end{function}
 
-\begin{function}{\DimZeroNew}
+\begin{function}{\dimZeroNew}
 \begin{syntax}
-\cs{DimZeroNew} \meta{dimension}
+\cs{dimZeroNew} \meta{dimension}
 \end{syntax}
 Ensures that the \meta{dimension} exists globally by applying
-\cs{DimNew} if necessary, then applies
-\cs{DimZero} to set the \meta{dimension} to zero. For example
+\cs{dimNew} if necessary, then applies
+\cs{dimZero} to set the \meta{dimension} to zero. For example
 \begin{demohigh}
-\DimZeroNew \lFooSomeDim
-\DimUse \lFooSomeDim
+\dimZeroNew \lFooSomeDim
+\dimUse \lFooSomeDim
 \end{demohigh}
 \end{function}
 
-\begin{function}{\DimAdd}
+\begin{function}{\dimAdd}
 \begin{syntax}
-\cs{DimAdd} \meta{dimension} \Arg{dimension expression}
+\cs{dimAdd} \meta{dimension} \Arg{dimension expression}
 \end{syntax}
 Adds the result of the \meta{dimension expression} to the current
 content of the \meta{dimension}. For example
 \begin{demohigh}
-\DimSet \lTmpaDim {5.3pt}
-\DimAdd \lTmpaDim {2.11pt}
-\DimUse \lTmpaDim
+\dimSet \lTmpaDim {5.3pt}
+\dimAdd \lTmpaDim {2.11pt}
+\dimUse \lTmpaDim
 \end{demohigh}
 \end{function}
 
-\begin{function}{\DimSub}
+\begin{function}{\dimSub}
 \begin{syntax}
-\cs{DimSub} \meta{dimension} \Arg{dimension expression}
+\cs{dimSub} \meta{dimension} \Arg{dimension expression}
 \end{syntax}
 Subtracts the result of the \meta{dimension expression} from the
 current content of the \meta{dimension}. For example
 \begin{demohigh}
-\DimSet \lTmpaDim {5.3pt}
-\DimSub \lTmpaDim {2.11pt}
-\DimUse \lTmpaDim
+\dimSet \lTmpaDim {5.3pt}
+\dimSub \lTmpaDim {2.11pt}
+\dimUse \lTmpaDim
 \end{demohigh}
 \end{function}
 
 \section{Dimension Step Functions}
 
-%\begin{function}{\DimStepFunction}
+%\begin{function}{\dimStepFunction}
 %\begin{syntax}
-%\cs{DimStepFunction} \Arg{initial value} \Arg{step} \Arg{final value} \meta{function}
+%\cs{dimStepFunction} \Arg{initial value} \Arg{step} \Arg{final value} \meta{function}
 %\end{syntax}
 %This function first evaluates the \meta{initial value}, \meta{step}
 %and \meta{final value}, all of which should be dimension expressions.
@@ -306,9 +306,9 @@ current content of the \meta{dimension}. For example
 %should absorb one argument.
 %\end{function}
 
-\begin{function}{\DimStepInline}
+\begin{function}{\dimStepInline}
 \begin{syntax}
-\cs{DimStepInline} \Arg{initial value} \Arg{step} \Arg{final value} \Arg{code}
+\cs{dimStepInline} \Arg{initial value} \Arg{step} \Arg{final value} \Arg{code}
 \end{syntax}
 This function first evaluates the \meta{initial value}, \meta{step}
 and \meta{final value}, all of which should be dimension expressions.
@@ -319,18 +319,18 @@ with \verb|#1| replaced by the current \meta{value}.  Thus the
 \meta{code} should define a function of one argument (\verb|#1|).
 \begin{demohigh}
 \IgnoreSpacesOn
-\TlClear \lTmpaTl
-\DimStepInline {1pt} {0.1pt} {1.5pt} {
-  \TlPutRight \lTmpaTl {[#1]}
+\tlClear \lTmpaTl
+\dimStepInline {1pt} {0.1pt} {1.5pt} {
+  \tlPutRight \lTmpaTl {[#1]}
 }
-\TlUse \lTmpaTl
+\tlUse \lTmpaTl
 \IgnoreSpacesOff
 \end{demohigh}
 \end{function}
 
-\begin{function}{\DimStepVariable}
+\begin{function}{\dimStepVariable}
 \begin{syntax}
-\cs{DimStepVariable} \Arg{initial value} \Arg{step} \Arg{final value} \meta{tl var} \Arg{code}
+\cs{dimStepVariable} \Arg{initial value} \Arg{step} \Arg{final value} \meta{tl var} \Arg{code}
 \end{syntax}
 This function first evaluates the \meta{initial value}, \meta{step}
 and \meta{final value}, all of which should be dimension expressions.
@@ -342,43 +342,43 @@ the \meta{code} should make use of the \meta{tl var}.
 %For example
 %\begin{demohigh}
 %\IgnoreSpacesOn
-%\TlClear\lTmpaTl
-%\DimStepVariable{1pt}{0.1pt}{1.5pt}\lTmpiTl{
-%  \TlPutRight\lTmpaTl{\Value\lTmpiTl}
-%  \TlPutRight\lTmpaTl{~}
+%\tlClear\lTmpaTl
+%\dimStepVariable{1pt}{0.1pt}{1.5pt}\lTmpiTl{
+%  \tlPutRight\lTmpaTl{\expValue\lTmpiTl}
+%  \tlPutRight\lTmpaTl{~}
 %}
-%\Return{\Value\lTmpaTl}
+%\prgReturn{\expValue\lTmpaTl}
 %\IgnoreSpacesOff
 %\end{demohigh}
 \end{function}
 
 \section{Dimension Conditionals}
 
-\begin{function}{\DimIfExist,\DimIfExistT,\DimIfExistF,\DimIfExistTF}
+\begin{function}{\dimIfExist,\dimIfExistT,\dimIfExistF,\dimIfExistTF}
 \begin{syntax}
-\cs{DimIfExist} \meta{dimension}
-\cs{DimIfExistT} \meta{dimension} \Arg{true code}
-\cs{DimIfExistF} \meta{dimension} \Arg{false code}
-\cs{DimIfExistTF} \meta{dimension} \Arg{true code} \Arg{false code}
+\cs{dimIfExist} \meta{dimension}
+\cs{dimIfExistT} \meta{dimension} \Arg{true code}
+\cs{dimIfExistF} \meta{dimension} \Arg{false code}
+\cs{dimIfExistTF} \meta{dimension} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests whether the \meta{dimension} is currently defined.  This does
 not check that the \meta{dimension} really is a dimension variable.
 For example
 \begin{demohigh}
-\DimIfExistTF \lTmpaDim {\Return{Yes}} {\Return{No}}
-\DimIfExistTF \lFooUndefinedDim {\Return{Yes}} {\Return{No}}
+\dimIfExistTF \lTmpaDim {\prgReturn{Yes}} {\prgReturn{No}}
+\dimIfExistTF \lFooUndefinedDim {\prgReturn{Yes}} {\prgReturn{No}}
 \end{demohigh}
 \end{function}
 
-\begin{function}{\DimCompare,\DimCompareT,\DimCompareF,\DimCompareTF}
+\begin{function}{\dimCompare,\dimCompareT,\dimCompareF,\dimCompareTF}
 \begin{syntax}
-\cs{DimCompare} \Arg{dimexpr_1} \meta{relation} \Arg{dimexpr_2}
-\cs{DimCompareT} \Arg{dimexpr_1} \meta{relation} \Arg{dimexpr_2} \Arg{true code}
-\cs{DimCompareF} \Arg{dimexpr_1} \meta{relation} \Arg{dimexpr_2} \Arg{false code}
-\cs{DimCompareTF} \Arg{dimexpr_1} \meta{relation} \Arg{dimexpr_2} \Arg{true code} \Arg{false code}
+\cs{dimCompare} \Arg{dimexpr_1} \meta{relation} \Arg{dimexpr_2}
+\cs{dimCompareT} \Arg{dimexpr_1} \meta{relation} \Arg{dimexpr_2} \Arg{true code}
+\cs{dimCompareF} \Arg{dimexpr_1} \meta{relation} \Arg{dimexpr_2} \Arg{false code}
+\cs{dimCompareTF} \Arg{dimexpr_1} \meta{relation} \Arg{dimexpr_2} \Arg{true code} \Arg{false code}
 \end{syntax}
 This function first evaluates each of the \meta{dimension expressions}
-as described for \cs{DimEval}. The two results are then
+as described for \cs{dimEval}. The two results are then
 compared using the \meta{relation}:\par
 {\centering
 \begin{tabular}{ll}
@@ -388,16 +388,16 @@ Less than    & \verb|<| \\
 \end{tabular}\par}
 For example
 \begin{demohigh}
-\DimCompareTF {1pt} > {0.9999pt} {\Return{Greater}} {\Return{Less}}
-\DimCompareTF {1pt} > {1.0001pt} {\Return{Greater}} {\Return{Less}}
+\dimCompareTF {1pt} > {0.9999pt} {\prgReturn{Greater}} {\prgReturn{Less}}
+\dimCompareTF {1pt} > {1.0001pt} {\prgReturn{Greater}} {\prgReturn{Less}}
 \end{demohigh}
 \end{function}
 
 \section{Dimension Case Functions}
 
-\begin{function}{\DimCase}
+\begin{function}{\dimCase}
 \begin{syntax}
-\cs{DimCase} \Arg{test dimension expression}
+\cs{dimCase} \Arg{test dimension expression}
 ~ ~ \verb|{|
 ~ ~ ~ ~ \Arg{dimexpr case_1} \Arg{code case_1}
 ~ ~ ~ ~  \Arg{dimexpr case_2} \Arg{code case_2}
@@ -412,9 +412,9 @@ associated \meta{code} is left in the input stream
 and other cases are discarded.
 \end{function}
 
-\begin{function}{\DimCaseT}
+\begin{function}{\dimCaseT}
 \begin{syntax}
-\cs{DimCaseT} \Arg{test dimension expression}
+\cs{dimCaseT} \Arg{test dimension expression}
 ~ ~ \verb|{|
 ~ ~ ~ ~ \Arg{dimexpr case_1} \Arg{code case_1}
 ~ ~ ~ ~  \Arg{dimexpr case_2} \Arg{code case_2}
@@ -432,9 +432,9 @@ cases are matched, the \meta{true code} is also inserted into the
 input stream (after the code for the appropriate case).
 \end{function}
 
-\begin{function}{\DimCaseF}
+\begin{function}{\dimCaseF}
 \begin{syntax}
-\cs{DimCaseF} \Arg{test dimension expression}
+\cs{dimCaseF} \Arg{test dimension expression}
 ~ ~ \verb|{|
 ~ ~ ~ ~ \Arg{dimexpr case_1} \Arg{code case_1}
 ~ ~ ~ ~  \Arg{dimexpr case_2} \Arg{code case_2}
@@ -452,21 +452,21 @@ match then the \meta{false code} is inserted.
 For example
 \begin{demohigh}
 \IgnoreSpacesOn
-\DimSet \lTmpaDim {5pt}
-\DimCaseF {2\lTmpaDim} {
-  {5pt}     {\Return{Small}}
-  {4pt+6pt} {\Return{Medium}}
-  {-10pt}   {\Return{Negative}}
+\dimSet \lTmpaDim {5pt}
+\dimCaseF {2\lTmpaDim} {
+  {5pt}     {\prgReturn{Small}}
+  {4pt+6pt} {\prgReturn{Medium}}
+  {-10pt}   {\prgReturn{Negative}}
 }{
-  \Return {No Match}
+  \prgReturn {No Match}
 }
 \IgnoreSpacesOff
 \end{demohigh}
 \end{function}
 
-\begin{function}{\DimCaseTF}
+\begin{function}{\dimCaseTF}
 \begin{syntax}
-\cs{DimCaseTF} \Arg{test dimension expression}
+\cs{dimCaseTF} \Arg{test dimension expression}
 ~ ~ \verb|{|
 ~ ~ ~ ~ \Arg{dimexpr case_1} \Arg{code case_1}
 ~ ~ ~ ~  \Arg{dimexpr case_2} \Arg{code case_2}
@@ -487,15 +487,15 @@ match then the \meta{false code} is inserted.
 %For example
 %\begin{demohigh}
 %\IgnoreSpacesOn
-%\DimSet\lTmpaDim{5pt}
-%\DimCaseTF{2\lTmpaDim}{
-%  {5pt}     {\Return{Small}}
-%  {4pt+6pt} {\Return{Medium}}
-%  {-10pt}   {\Return{Negative}}
+%\dimSet\lTmpaDim{5pt}
+%\dimCaseTF{2\lTmpaDim}{
+%  {5pt}     {\prgReturn{Small}}
+%  {4pt+6pt} {\prgReturn{Medium}}
+%  {-10pt}   {\prgReturn{Negative}}
 %}{
-%  \Return{[Some Match]}
+%  \prgReturn{[Some Match]}
 %}{
-%  \Return{[No Match]}
+%  \prgReturn{[No Match]}
 %}
 %\IgnoreSpacesOff
 %\end{demohigh}

@@ -1,632 +1,656 @@
 This is a generated file for the l3build validation system.
 Don't change this file in any respect.
 ============================================================
-TEST 1: Testing \StrConst 
+TEST 1: Testing \strConst 
 ============================================================
-[I] \StrConst{\cFooSomeStr }{12\abc 34}
+[I] \strConst{\cFooSomeStr }{12\abc 34}
 [O] 
-[I] \StrUse{\cFooSomeStr }
-        [I] \Value{\cFooSomeStr }
+[I] \strUse{\cFooSomeStr }
+        [I] \expValue{\cFooSomeStr }
         [O] 12\abc 34
-    [I] \Return{12\abc 34}
+    [I] \prgReturn{12\abc 34}
     [O] 12\abc 34
 [O] 12\abc 34
 ============================================================
 ============================================================
-TEST 2: Testing \StrLog 
+TEST 2: Testing \strLog 
 ============================================================
-[I] \StrLog{12\abc 34}
+[I] \strLog{12\abc 34}
 > 12\abc 34.
 [O] 
 ============================================================
 ============================================================
-TEST 3: Testing \StrSet 
+TEST 3: Testing \strSet 
 ============================================================
-    [I] \IntMathMult{4}{5}
-        [I] \Expand{\int_eval:n {(4)*(5)}}
+    [I] \intMathMult{4}{5}
+        [I] \expWhole{\int_eval:n {(4)*(5)}}
         [O] 20
     [O] 20
-[I] \StrSet{\lTmpiStr }{20}
+[I] \strSet{\lTmpiStr }{20}
 [O] 
-[I] \StrUse{\lTmpiStr }
-        [I] \Value{\lTmpiStr }
+[I] \strUse{\lTmpiStr }
+        [I] \expValue{\lTmpiStr }
         [O] 20
-    [I] \Return{20}
+    [I] \prgReturn{20}
     [O] 20
 [O] 20
 ============================================================
 ============================================================
-TEST 4: Testing \StrSetEq 
+TEST 4: Testing \strSetEq 
 ============================================================
-[I] \StrSet{\lTmpaStr }{abc}
+[I] \strSet{\lTmpaStr }{abc}
 [O] 
-[I] \StrSetEq{\lTmpbStr }{\lTmpaStr }
+[I] \strSetEq{\lTmpbStr }{\lTmpaStr }
 [O] 
-[I] \StrUse{\lTmpbStr }
-        [I] \Value{\lTmpbStr }
+[I] \strUse{\lTmpbStr }
+        [I] \expValue{\lTmpbStr }
         [O] abc
-    [I] \Return{abc}
+    [I] \prgReturn{abc}
     [O] abc
 [O] abc
 ============================================================
 ============================================================
-TEST 5: Testing \StrClea 
+TEST 5: Testing \strClea 
 ============================================================
-[I] \StrSet{\lTmpjStr }{One}
+[I] \strSet{\lTmpjStr }{One}
 [O] 
-[I] \StrClear{\lTmpjStr }
+[I] \strClear{\lTmpjStr }
 [O] 
-[I] \StrSet{\lTmpjStr }{Two}
+[I] \strSet{\lTmpjStr }{Two}
 [O] 
-[I] \StrUse{\lTmpjStr }
-        [I] \Value{\lTmpjStr }
+[I] \strUse{\lTmpjStr }
+        [I] \expValue{\lTmpjStr }
         [O] Two
-    [I] \Return{Two}
+    [I] \prgReturn{Two}
     [O] Two
 [O] Two
 ============================================================
 ============================================================
-TEST 6: Testing \StrClearNew 
+TEST 6: Testing \strClearNew 
 ============================================================
-[I] \StrClearNew{\lFooSomeStr }
+[I] \strClearNew{\lFooSomeStr }
 [O] 
-[I] \StrUse{\lFooSomeStr }
-        [I] \Value{\lFooSomeStr }
+[I] \strUse{\lFooSomeStr }
+        [I] \expValue{\lFooSomeStr }
         [O] 
-    [I] \Return{}
+    [I] \prgReturn{}
     [O] 
 [O] 
 ============================================================
 ============================================================
-TEST 7: Testing \StrConcat 
+TEST 7: Testing \strConcat 
 ============================================================
-[I] \StrSet{\lTmpbStr }{con}
+[I] \strSet{\lTmpbStr }{con}
 [O] 
-[I] \StrSet{\lTmpcStr }{cat}
+[I] \strSet{\lTmpcStr }{cat}
 [O] 
-[I] \StrConcat{\lTmpaStr }{\lTmpbStr }{\lTmpcStr }
+[I] \strConcat{\lTmpaStr }{\lTmpbStr }{\lTmpcStr }
 [O] 
-[I] \StrUse{\lTmpaStr }
-        [I] \Value{\lTmpaStr }
+[I] \strUse{\lTmpaStr }
+        [I] \expValue{\lTmpaStr }
         [O] concat
-    [I] \Return{concat}
+    [I] \prgReturn{concat}
     [O] concat
 [O] concat
 ============================================================
 ============================================================
-TEST 8: Testing \StrPutLeft 
+TEST 8: Testing \strPutLeft 
 ============================================================
-[I] \StrSet{\lTmpkStr }{Functional}
+[I] \strSet{\lTmpkStr }{Functional}
 [O] 
-[I] \StrPutLeft{\lTmpkStr }{Hello}
+[I] \strPutLeft{\lTmpkStr }{Hello}
 [O] 
-[I] \StrUse{\lTmpkStr }
-        [I] \Value{\lTmpkStr }
+[I] \strUse{\lTmpkStr }
+        [I] \expValue{\lTmpkStr }
         [O] HelloFunctional
-    [I] \Return{HelloFunctional}
+    [I] \prgReturn{HelloFunctional}
     [O] HelloFunctional
 [O] HelloFunctional
 ============================================================
 ============================================================
-TEST 9: Testing \StrPutRight 
+TEST 9: Testing \strPutRight 
 ============================================================
-[I] \StrSet{\lTmpkStr }{Functional}
+[I] \strSet{\lTmpkStr }{Functional}
 [O] 
-[I] \StrPutRight{\lTmpkStr }{World}
+[I] \strPutRight{\lTmpkStr }{World}
 [O] 
-[I] \StrUse{\lTmpkStr }
-        [I] \Value{\lTmpkStr }
+[I] \strUse{\lTmpkStr }
+        [I] \expValue{\lTmpkStr }
         [O] FunctionalWorld
-    [I] \Return{FunctionalWorld}
+    [I] \prgReturn{FunctionalWorld}
     [O] FunctionalWorld
 [O] FunctionalWorld
 ============================================================
 ============================================================
-TEST 10: Testing \StrVarReplaceOnce 
+TEST 10: Testing \strVarReplaceOnce 
 ============================================================
-[I] \StrSet{\lTmpaStr }{hello world}
+[I] \strSet{\lTmpaStr }{hello world}
 [O] 
-[I] \StrVarReplaceOnce{\lTmpaStr }{l}{-}
+[I] \strVarReplaceOnce{\lTmpaStr }{l}{-}
 [O] 
-[I] \StrUse{\lTmpaStr }
-        [I] \Value{\lTmpaStr }
+[I] \strUse{\lTmpaStr }
+        [I] \expValue{\lTmpaStr }
         [O] he-lo world
-    [I] \Return{he-lo world}
+    [I] \prgReturn{he-lo world}
     [O] he-lo world
 [O] he-lo world
 ============================================================
 ============================================================
-TEST 11: Testing \StrVarReplaceAll 
+TEST 11: Testing \strVarReplaceAll 
 ============================================================
-[I] \StrSet{\lTmpaStr }{hello world}
+[I] \strSet{\lTmpaStr }{hello world}
 [O] 
-[I] \StrVarReplaceAll{\lTmpaStr }{l}{-}
+[I] \strVarReplaceAll{\lTmpaStr }{l}{-}
 [O] 
-[I] \StrUse{\lTmpaStr }
-        [I] \Value{\lTmpaStr }
+[I] \strUse{\lTmpaStr }
+        [I] \expValue{\lTmpaStr }
         [O] he--o wor-d
-    [I] \Return{he--o wor-d}
+    [I] \prgReturn{he--o wor-d}
     [O] he--o wor-d
 [O] he--o wor-d
 ============================================================
 ============================================================
-TEST 12: Testing \StrVarRemoveOnce 
+TEST 12: Testing \strVarRemoveOnce 
 ============================================================
-[I] \StrSet{\lTmpaStr }{hello world}
+[I] \strSet{\lTmpaStr }{hello world}
 [O] 
-[I] \StrVarRemoveOnce{\lTmpaStr }{l}
+[I] \strVarRemoveOnce{\lTmpaStr }{l}
 [O] 
-[I] \StrUse{\lTmpaStr }
-        [I] \Value{\lTmpaStr }
+[I] \strUse{\lTmpaStr }
+        [I] \expValue{\lTmpaStr }
         [O] helo world
-    [I] \Return{helo world}
+    [I] \prgReturn{helo world}
     [O] helo world
 [O] helo world
 ============================================================
 ============================================================
-TEST 13: Testing \StrVarRemoveAll 
+TEST 13: Testing \strVarRemoveAll 
 ============================================================
-[I] \StrSet{\lTmpaStr }{hello world}
+[I] \strSet{\lTmpaStr }{hello world}
 [O] 
-[I] \StrVarRemoveAll{\lTmpaStr }{l}
+[I] \strVarRemoveAll{\lTmpaStr }{l}
 [O] 
-[I] \StrUse{\lTmpaStr }
-        [I] \Value{\lTmpaStr }
+[I] \strUse{\lTmpaStr }
+        [I] \expValue{\lTmpaStr }
         [O] heo word
-    [I] \Return{heo word}
+    [I] \prgReturn{heo word}
     [O] heo word
 [O] heo word
 ============================================================
 ============================================================
-TEST 14: Testing \StrCount 
+TEST 14: Testing \strCount 
 ============================================================
-[I] \StrCount{12\abc 34}
-    [I] \Expand{\str_count:n {12\abc 34}}
+[I] \strCount{12\abc 34}
+    [I] \expWhole{\str_count:n {12\abc 34}}
     [O] 9
 [O] 9
-[I] \StrSize{12\abc 34}
-    [I] \Expand{\str_count:n {12\abc 34}}
-    [O] 9
-[O] 9
+! Undefined control sequence.
+l. ...\strSize
+              {12\abc34}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+! Undefined control sequence.
+l. ...\strSize {12\abc
+                     34}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
 ============================================================
 ============================================================
-TEST 15: Testing \StrVarCount 
+TEST 15: Testing \strVarCount 
 ============================================================
-[I] \StrSet{\lTmpaStr }{12\abc 34}
+[I] \strSet{\lTmpaStr }{12\abc 34}
 [O] 
-[I] \StrVarCount{\lTmpaStr }
-    [I] \Expand{\str_count:N \lTmpaStr }
+[I] \strVarCount{\lTmpaStr }
+    [I] \expWhole{\str_count:N \lTmpaStr }
     [O] 9
 [O] 9
 ============================================================
 ============================================================
-TEST 16: Testing \StrHead 
+TEST 16: Testing \strHead 
 ============================================================
-[I] \StrHead{HELLO}
-    [I] \Expand{\str_head:n {HELLO}}
+[I] \strHead{HELLO}
+    [I] \expWhole{\str_head:n {HELLO}}
     [O] H
 [O] H
 ============================================================
 ============================================================
-TEST 17: Testing \StrVarHead 
+TEST 17: Testing \strVarHead 
 ============================================================
-[I] \StrSet{\lTmpaStr }{HELLO}
+[I] \strSet{\lTmpaStr }{HELLO}
 [O] 
-[I] \StrVarHead{\lTmpaStr }
-    [I] \Expand{\str_head:N \lTmpaStr }
+[I] \strVarHead{\lTmpaStr }
+    [I] \expWhole{\str_head:N \lTmpaStr }
     [O] H
 [O] H
 ============================================================
 ============================================================
-TEST 18: Testing \StrTail 
+TEST 18: Testing \strTail 
 ============================================================
-[I] \StrTail{HELLO}
-    [I] \Expand{\str_tail:n {HELLO}}
+[I] \strTail{HELLO}
+    [I] \expWhole{\str_tail:n {HELLO}}
     [O] ELLO
 [O] ELLO
-    [I] \StrTail{ a {bc} d }
-        [I] \Expand{\str_tail:n { a {bc} d }}
+    [I] \strTail{ a {bc} d }
+        [I] \expWhole{\str_tail:n { a {bc} d }}
         [O] a {bc} d 
     [O] a {bc} d 
-[I] \StrLog{a {bc} d }
+[I] \strLog{a {bc} d }
 > a {bc} d .
 [O] 
 ============================================================
 ============================================================
-TEST 19: Testing \StrVarTail 
+TEST 19: Testing \strVarTail 
 ============================================================
-[I] \StrSet{\lTmpaStr }{HELLO}
+[I] \strSet{\lTmpaStr }{HELLO}
 [O] 
-[I] \StrVarTail{\lTmpaStr }
-    [I] \Expand{\str_tail:N \lTmpaStr }
+[I] \strVarTail{\lTmpaStr }
+    [I] \expWhole{\str_tail:N \lTmpaStr }
     [O] ELLO
 [O] ELLO
 ============================================================
 ============================================================
-TEST 20: Testing \StrItem 
+TEST 20: Testing \strItem 
 ============================================================
-[I] \StrItem{abcd}{3}
-    [I] \Expand{\str_item:nn {abcd}{3}}
+[I] \strItem{abcd}{3}
+    [I] \expWhole{\str_item:nn {abcd}{3}}
     [O] c
 [O] c
 ============================================================
 ============================================================
-TEST 21: Testing \StrVarItem 
+TEST 21: Testing \strVarItem 
 ============================================================
-[I] \StrSet{\lTmpaStr }{abcd}
+[I] \strSet{\lTmpaStr }{abcd}
 [O] 
-[I] \StrVarItem{\lTmpaStr }{3}
-    [I] \Expand{\str_item:Nn \lTmpaStr {3}}
+[I] \strVarItem{\lTmpaStr }{3}
+    [I] \expWhole{\str_item:Nn \lTmpaStr {3}}
     [O] c
 [O] c
 ============================================================
 ============================================================
-TEST 22: Testing \StrMapInline 
+TEST 22: Testing \strMapInline 
 ============================================================
-[I] \StrClear{\lTmpaStr }
+[I] \strClear{\lTmpaStr }
 [O] 
-[I] \StrMapInline{one}{\StrPutRight \lTmpaStr {[##1]}}
-    [I] \StrPutRight{\lTmpaStr }{[o]}
+[I] \strMapInline{one}{\strPutRight \lTmpaStr {[##1]}}
+    [I] \strPutRight{\lTmpaStr }{[o]}
     [O] 
-    [I] \StrPutRight{\lTmpaStr }{[n]}
+    [I] \strPutRight{\lTmpaStr }{[n]}
     [O] 
-    [I] \StrPutRight{\lTmpaStr }{[e]}
+    [I] \strPutRight{\lTmpaStr }{[e]}
     [O] 
 [O] 
-    [I] \StrUse{\lTmpaStr }
-            [I] \Value{\lTmpaStr }
+    [I] \strUse{\lTmpaStr }
+            [I] \expValue{\lTmpaStr }
             [O] [o][n][e]
-        [I] \Return{[o][n][e]}
+        [I] \prgReturn{[o][n][e]}
         [O] [o][n][e]
     [O] [o][n][e]
-[I] \Return{[o][n][e]}
+[I] \prgReturn{[o][n][e]}
 [O] [o][n][e]
 ============================================================
 ============================================================
-TEST 23: Testing \StrVarMapInline 
+TEST 23: Testing \strVarMapInline 
 ============================================================
-[I] \StrClear{\lTmpaStr }
+[I] \strClear{\lTmpaStr }
 [O] 
-[I] \StrSet{\lTmpkStr }{one}
+[I] \strSet{\lTmpkStr }{one}
 [O] 
-[I] \StrVarMapInline{\lTmpkStr }{\StrPutRight \lTmpaStr {[##1]}}
-    [I] \StrPutRight{\lTmpaStr }{[o]}
+[I] \strVarMapInline{\lTmpkStr }{\strPutRight \lTmpaStr {[##1]}}
+    [I] \strPutRight{\lTmpaStr }{[o]}
     [O] 
-    [I] \StrPutRight{\lTmpaStr }{[n]}
+    [I] \strPutRight{\lTmpaStr }{[n]}
     [O] 
-    [I] \StrPutRight{\lTmpaStr }{[e]}
+    [I] \strPutRight{\lTmpaStr }{[e]}
     [O] 
 [O] 
-    [I] \StrUse{\lTmpaStr }
-            [I] \Value{\lTmpaStr }
+    [I] \strUse{\lTmpaStr }
+            [I] \expValue{\lTmpaStr }
             [O] [o][n][e]
-        [I] \Return{[o][n][e]}
+        [I] \prgReturn{[o][n][e]}
         [O] [o][n][e]
     [O] [o][n][e]
-[I] \Return{[o][n][e]}
+[I] \prgReturn{[o][n][e]}
 [O] [o][n][e]
 ============================================================
 ============================================================
-TEST 24: Testing \StrMapVariable 
+TEST 24: Testing \strMapVariable 
 ============================================================
-[I] \StrClear{\lTmpaStr }
+[I] \strClear{\lTmpaStr }
 [O] 
-[I] \StrMapVariable{one}{\lTmpiStr }{\StrPutRight \lTmpaStr {\Expand {[\lTmpiStr ]}}}
-        [I] \Expand{[\lTmpiStr ]}
+[I] \strMapVariable{one}{\lTmpiStr }{\strPutRight \lTmpaStr {\expWhole {[\lTmpiStr ]}}}
+        [I] \expWhole{[\lTmpiStr ]}
         [O] [o]
-    [I] \StrPutRight{\lTmpaStr }{[o]}
+    [I] \strPutRight{\lTmpaStr }{[o]}
     [O] 
-        [I] \Expand{[\lTmpiStr ]}
+        [I] \expWhole{[\lTmpiStr ]}
         [O] [n]
-    [I] \StrPutRight{\lTmpaStr }{[n]}
+    [I] \strPutRight{\lTmpaStr }{[n]}
     [O] 
-        [I] \Expand{[\lTmpiStr ]}
+        [I] \expWhole{[\lTmpiStr ]}
         [O] [e]
-    [I] \StrPutRight{\lTmpaStr }{[e]}
+    [I] \strPutRight{\lTmpaStr }{[e]}
     [O] 
 [O] 
-    [I] \StrUse{\lTmpaStr }
-            [I] \Value{\lTmpaStr }
+    [I] \strUse{\lTmpaStr }
+            [I] \expValue{\lTmpaStr }
             [O] [o][n][e]
-        [I] \Return{[o][n][e]}
+        [I] \prgReturn{[o][n][e]}
         [O] [o][n][e]
     [O] [o][n][e]
-[I] \Return{[o][n][e]}
+[I] \prgReturn{[o][n][e]}
 [O] [o][n][e]
 ============================================================
 ============================================================
-TEST 25: Testing \StrVarMapVariable 
+TEST 25: Testing \strVarMapVariable 
 ============================================================
-[I] \StrClear{\lTmpaStr }
+[I] \strClear{\lTmpaStr }
 [O] 
-[I] \StrSet{\lTmpkStr }{one}
+[I] \strSet{\lTmpkStr }{one}
 [O] 
-[I] \StrVarMapVariable{\lTmpkStr }{\lTmpiStr }{\StrPutRight \lTmpaStr {\Expand {[\lTmpiStr ]}}}
-        [I] \Expand{[\lTmpiStr ]}
+[I] \strVarMapVariable{\lTmpkStr }{\lTmpiStr }{\strPutRight \lTmpaStr {\expWhole {[\lTmpiStr ]}}}
+        [I] \expWhole{[\lTmpiStr ]}
         [O] [o]
-    [I] \StrPutRight{\lTmpaStr }{[o]}
+    [I] \strPutRight{\lTmpaStr }{[o]}
     [O] 
-        [I] \Expand{[\lTmpiStr ]}
+        [I] \expWhole{[\lTmpiStr ]}
         [O] [n]
-    [I] \StrPutRight{\lTmpaStr }{[n]}
+    [I] \strPutRight{\lTmpaStr }{[n]}
     [O] 
-        [I] \Expand{[\lTmpiStr ]}
+        [I] \expWhole{[\lTmpiStr ]}
         [O] [e]
-    [I] \StrPutRight{\lTmpaStr }{[e]}
+    [I] \strPutRight{\lTmpaStr }{[e]}
     [O] 
 [O] 
-    [I] \StrUse{\lTmpaStr }
-            [I] \Value{\lTmpaStr }
+    [I] \strUse{\lTmpaStr }
+            [I] \expValue{\lTmpaStr }
             [O] [o][n][e]
-        [I] \Return{[o][n][e]}
+        [I] \prgReturn{[o][n][e]}
         [O] [o][n][e]
     [O] [o][n][e]
-[I] \Return{[o][n][e]}
+[I] \prgReturn{[o][n][e]}
 [O] [o][n][e]
 ============================================================
 ============================================================
-TEST 26: Testing \StrIfExist 
+TEST 26: Testing \strIfExist 
 ============================================================
-[I] \StrIfExistTF{\lTmpaStr }{\Return {Yes}}{\Return {No}}
-    [I] \StrIfExist{\lTmpaStr }
-        [I] \Return{\cTrueBool }
+[I] \strIfExistTF{\lTmpaStr }{\prgReturn {Yes}}{\prgReturn {No}}
+    [I] \strIfExist{\lTmpaStr }
+        [I] \prgReturn{\cTrueBool }
         [O] \cTrueBool 
     [O] \cTrueBool 
-    [I] \Return{Yes}
+    [I] \prgReturn{Yes}
     [O] Yes
 [O] Yes
-[I] \StrIfExistTF{\lFooUndefinedStr }{\Return {Yes}}{\Return {No}}
-    [I] \StrIfExist{\lFooUndefinedStr }
-        [I] \Return{\cFalseBool }
+[I] \strIfExistTF{\lFooUndefinedStr }{\prgReturn {Yes}}{\prgReturn {No}}
+    [I] \strIfExist{\lFooUndefinedStr }
+        [I] \prgReturn{\cFalseBool }
         [O] \cFalseBool 
     [O] \cFalseBool 
-    [I] \Return{No}
+    [I] \prgReturn{No}
     [O] No
 [O] No
 ============================================================
 ============================================================
-TEST 27: Testing \StrVarIfEmpty 
+TEST 27: Testing \strVarIfEmpty 
 ============================================================
-[I] \StrSet{\lTmpaStr }{abc}
+[I] \strSet{\lTmpaStr }{abc}
 [O] 
-[I] \StrVarIfEmptyTF{\lTmpaStr }{\Return {Empty}}{\Return {NonEmpty}}
-    [I] \StrVarIfEmpty{\lTmpaStr }
-        [I] \Return{\cFalseBool }
+[I] \strVarIfEmptyTF{\lTmpaStr }{\prgReturn {Empty}}{\prgReturn {NonEmpty}}
+    [I] \strVarIfEmpty{\lTmpaStr }
+        [I] \prgReturn{\cFalseBool }
         [O] \cFalseBool 
     [O] \cFalseBool 
-    [I] \Return{NonEmpty}
+    [I] \prgReturn{NonEmpty}
     [O] NonEmpty
 [O] NonEmpty
-[I] \StrClear{\lTmpaStr }
+[I] \strClear{\lTmpaStr }
 [O] 
-[I] \StrVarIfEmptyTF{\lTmpaStr }{\Return {Empty}}{\Return {NonEmpty}}
-    [I] \StrVarIfEmpty{\lTmpaStr }
-        [I] \Return{\cTrueBool }
+[I] \strVarIfEmptyTF{\lTmpaStr }{\prgReturn {Empty}}{\prgReturn {NonEmpty}}
+    [I] \strVarIfEmpty{\lTmpaStr }
+        [I] \prgReturn{\cTrueBool }
         [O] \cTrueBool 
     [O] \cTrueBool 
-    [I] \Return{Empty}
+    [I] \prgReturn{Empty}
     [O] Empty
 [O] Empty
 ============================================================
 ============================================================
-TEST 28: Testing \StrIfEq 
+TEST 28: Testing \strIfEq 
 ============================================================
-[I] \StrIfEqTF{abc}{abc}{\Return {Yes}}{\Return {No}}
-    [I] \StrIfEq{abc}{abc}
-        [I] \Return{\cTrueBool }
+[I] \strIfEqTF{abc}{abc}{\prgReturn {Yes}}{\prgReturn {No}}
+    [I] \strIfEq{abc}{abc}
+        [I] \prgReturn{\cTrueBool }
         [O] \cTrueBool 
     [O] \cTrueBool 
-    [I] \Return{Yes}
+    [I] \prgReturn{Yes}
     [O] Yes
 [O] Yes
-[I] \StrIfEqTF{abc}{xyz}{\Return {Yes}}{\Return {No}}
-    [I] \StrIfEq{abc}{xyz}
-        [I] \Return{\cFalseBool }
+[I] \strIfEqTF{abc}{xyz}{\prgReturn {Yes}}{\prgReturn {No}}
+    [I] \strIfEq{abc}{xyz}
+        [I] \prgReturn{\cFalseBool }
         [O] \cFalseBool 
     [O] \cFalseBool 
-    [I] \Return{No}
+    [I] \prgReturn{No}
     [O] No
 [O] No
-[I] \StrSet{\lTmpaStr }{abc}
+[I] \strSet{\lTmpaStr }{abc}
 [O] 
-[I] \StrSet{\lTmpbStr }{abc}
+[I] \strSet{\lTmpbStr }{abc}
 [O] 
-[I] \StrSet{\lTmpcStr }{xyz}
+[I] \strSet{\lTmpcStr }{xyz}
 [O] 
-[I] \StrIfEqTF{\lTmpaStr }{\lTmpbStr }{\Return {Yes}}{\Return {No}}
-    [I] \StrIfEq{\lTmpaStr }{\lTmpbStr }
-        [I] \Return{\cFalseBool }
+[I] \strIfEqTF{\lTmpaStr }{\lTmpbStr }{\prgReturn {Yes}}{\prgReturn {No}}
+    [I] \strIfEq{\lTmpaStr }{\lTmpbStr }
+        [I] \prgReturn{\cFalseBool }
         [O] \cFalseBool 
     [O] \cFalseBool 
-    [I] \Return{No}
+    [I] \prgReturn{No}
     [O] No
 [O] No
-[I] \StrIfEqTF{\lTmpaStr }{\lTmpcStr }{\Return {Yes}}{\Return {No}}
-    [I] \StrIfEq{\lTmpaStr }{\lTmpcStr }
-        [I] \Return{\cFalseBool }
+[I] \strIfEqTF{\lTmpaStr }{\lTmpcStr }{\prgReturn {Yes}}{\prgReturn {No}}
+    [I] \strIfEq{\lTmpaStr }{\lTmpcStr }
+        [I] \prgReturn{\cFalseBool }
         [O] \cFalseBool 
     [O] \cFalseBool 
-    [I] \Return{No}
+    [I] \prgReturn{No}
     [O] No
 [O] No
-    [I] \Value{\lTmpaStr }
+    [I] \expValue{\lTmpaStr }
     [O] abc
-    [I] \Value{\lTmpbStr }
+    [I] \expValue{\lTmpbStr }
     [O] abc
-[I] \StrIfEqTF{abc}{abc}{\Return {Yes}}{\Return {No}}
-    [I] \StrIfEq{abc}{abc}
-        [I] \Return{\cTrueBool }
+[I] \strIfEqTF{abc}{abc}{\prgReturn {Yes}}{\prgReturn {No}}
+    [I] \strIfEq{abc}{abc}
+        [I] \prgReturn{\cTrueBool }
         [O] \cTrueBool 
     [O] \cTrueBool 
-    [I] \Return{Yes}
+    [I] \prgReturn{Yes}
     [O] Yes
 [O] Yes
-    [I] \Value{\lTmpaStr }
+    [I] \expValue{\lTmpaStr }
     [O] abc
-    [I] \Value{\lTmpcStr }
+    [I] \expValue{\lTmpcStr }
     [O] xyz
-[I] \StrIfEqTF{abc}{xyz}{\Return {Yes}}{\Return {No}}
-    [I] \StrIfEq{abc}{xyz}
-        [I] \Return{\cFalseBool }
+[I] \strIfEqTF{abc}{xyz}{\prgReturn {Yes}}{\prgReturn {No}}
+    [I] \strIfEq{abc}{xyz}
+        [I] \prgReturn{\cFalseBool }
         [O] \cFalseBool 
     [O] \cFalseBool 
-    [I] \Return{No}
+    [I] \prgReturn{No}
     [O] No
 [O] No
 ============================================================
 ============================================================
-TEST 29: Testing \StrVarIfEq 
+TEST 29: Testing \strVarIfEq 
 ============================================================
-[I] \StrSet{\lTmpaStr }{abc}
+[I] \strSet{\lTmpaStr }{abc}
 [O] 
-[I] \StrSet{\lTmpbStr }{abc}
+[I] \strSet{\lTmpbStr }{abc}
 [O] 
-[I] \StrSet{\lTmpcStr }{xyz}
+[I] \strSet{\lTmpcStr }{xyz}
 [O] 
-[I] \StrVarIfEqTF{\lTmpaStr }{\lTmpbStr }{\Return {Yes}}{\Return {No}}
-    [I] \StrVarIfEq{\lTmpaStr }{\lTmpbStr }
-        [I] \Return{\cTrueBool }
+[I] \strVarIfEqTF{\lTmpaStr }{\lTmpbStr }{\prgReturn {Yes}}{\prgReturn {No}}
+    [I] \strVarIfEq{\lTmpaStr }{\lTmpbStr }
+        [I] \prgReturn{\cTrueBool }
         [O] \cTrueBool 
     [O] \cTrueBool 
-    [I] \Return{Yes}
+    [I] \prgReturn{Yes}
     [O] Yes
 [O] Yes
-[I] \StrVarIfEqTF{\lTmpaStr }{\lTmpcStr }{\Return {Yes}}{\Return {No}}
-    [I] \StrVarIfEq{\lTmpaStr }{\lTmpcStr }
-        [I] \Return{\cFalseBool }
+[I] \strVarIfEqTF{\lTmpaStr }{\lTmpcStr }{\prgReturn {Yes}}{\prgReturn {No}}
+    [I] \strVarIfEq{\lTmpaStr }{\lTmpcStr }
+        [I] \prgReturn{\cFalseBool }
         [O] \cFalseBool 
     [O] \cFalseBool 
-    [I] \Return{No}
+    [I] \prgReturn{No}
     [O] No
 [O] No
 ============================================================
 ============================================================
-TEST 30: Testing \StrIfIn 
+TEST 30: Testing \strIfIn 
 ============================================================
-[I] \StrIfInTF{hello world}{o}{\Return {Yes}}{\Return {No}}
-    [I] \StrIfIn{hello world}{o}
-        [I] \Return{\cTrueBool }
+[I] \strIfInTF{hello world}{o}{\prgReturn {Yes}}{\prgReturn {No}}
+    [I] \strIfIn{hello world}{o}
+        [I] \prgReturn{\cTrueBool }
         [O] \cTrueBool 
     [O] \cTrueBool 
-    [I] \Return{Yes}
+    [I] \prgReturn{Yes}
     [O] Yes
 [O] Yes
-[I] \StrIfInTF{hello world}{a}{\Return {Yes}}{\Return {No}}
-    [I] \StrIfIn{hello world}{a}
-        [I] \Return{\cFalseBool }
+[I] \strIfInTF{hello world}{a}{\prgReturn {Yes}}{\prgReturn {No}}
+    [I] \strIfIn{hello world}{a}
+        [I] \prgReturn{\cFalseBool }
         [O] \cFalseBool 
     [O] \cFalseBool 
-    [I] \Return{No}
+    [I] \prgReturn{No}
     [O] No
 [O] No
 ============================================================
 ============================================================
-TEST 31: Testing \StrVarIfIn 
+TEST 31: Testing \strVarIfIn 
 ============================================================
-[I] \StrSet{\lTmpaStr }{hello world}
+[I] \strSet{\lTmpaStr }{hello world}
 [O] 
-[I] \StrVarIfInTF{\lTmpaStr }{o}{\Return {Yes}}{\Return {No}}
-    [I] \StrVarIfIn{\lTmpaStr }{o}
-        [I] \Return{\cTrueBool }
+[I] \strVarIfInTF{\lTmpaStr }{o}{\prgReturn {Yes}}{\prgReturn {No}}
+    [I] \strVarIfIn{\lTmpaStr }{o}
+        [I] \prgReturn{\cTrueBool }
         [O] \cTrueBool 
     [O] \cTrueBool 
-    [I] \Return{Yes}
+    [I] \prgReturn{Yes}
     [O] Yes
 [O] Yes
-[I] \StrVarIfInTF{\lTmpaStr }{a}{\Return {Yes}}{\Return {No}}
-    [I] \StrVarIfIn{\lTmpaStr }{a}
-        [I] \Return{\cFalseBool }
+[I] \strVarIfInTF{\lTmpaStr }{a}{\prgReturn {Yes}}{\prgReturn {No}}
+    [I] \strVarIfIn{\lTmpaStr }{a}
+        [I] \prgReturn{\cFalseBool }
         [O] \cFalseBool 
     [O] \cFalseBool 
-    [I] \Return{No}
+    [I] \prgReturn{No}
     [O] No
 [O] No
 ============================================================
 ============================================================
-TEST 32: Testing \StrCompare 
+TEST 32: Testing \strCompare 
 ============================================================
-    [I] \StrCompare{ab}<{abc}
-        [I] \Return{\cTrueBool }
+    [I] \strCompare{ab}<{abc}
+        [I] \prgReturn{\cTrueBool }
         [O] \cTrueBool 
     [O] \cTrueBool 
-[I] \BoolVarLog{\cTrueBool }
+[I] \boolVarLog{\cTrueBool }
 > \cTrueBool=true.
 [O] 
-    [I] \StrCompare{ab}<{aa}
-        [I] \Return{\cFalseBool }
+    [I] \strCompare{ab}<{aa}
+        [I] \prgReturn{\cFalseBool }
         [O] \cFalseBool 
     [O] \cFalseBool 
-[I] \BoolVarLog{\cFalseBool }
+[I] \boolVarLog{\cFalseBool }
 > \cFalseBool=false.
 [O] 
-[I] \StrCompareTF{ab}<{abc}{\Return {Yes}}{\Return {No}}
-    [I] \StrCompare{ab}<{abc}
-        [I] \Return{\cTrueBool }
+[I] \strCompareTF{ab}<{abc}{\prgReturn {Yes}}{\prgReturn {No}}
+    [I] \strCompare{ab}<{abc}
+        [I] \prgReturn{\cTrueBool }
         [O] \cTrueBool 
     [O] \cTrueBool 
-    [I] \Return{Yes}
+    [I] \prgReturn{Yes}
     [O] Yes
 [O] Yes
-[I] \StrCompareTF{ab}<{aa}{\Return {Yes}}{\Return {No}}
-    [I] \StrCompare{ab}<{aa}
-        [I] \Return{\cFalseBool }
+[I] \strCompareTF{ab}<{aa}{\prgReturn {Yes}}{\prgReturn {No}}
+    [I] \strCompare{ab}<{aa}
+        [I] \prgReturn{\cFalseBool }
         [O] \cFalseBool 
     [O] \cFalseBool 
-    [I] \Return{No}
+    [I] \prgReturn{No}
     [O] No
 [O] No
-    [I] \StrIfCompare{ab}<{abc}
-        [I] \Return{\cTrueBool }
-        [O] \cTrueBool 
-    [O] \cTrueBool 
-[I] \BoolVarLog{\cTrueBool }
-> \cTrueBool=true.
+[I] \boolVarLog{\strIfCompare {ab} < {abc}}
+! LaTeX3 Error: Variable \strIfCompare undefined.
+For immediate help type H <return>.
+ ...                                              
+l. ...\boolVarLog {\strIfCompare {ab} < {abc}}
+This is a coding error.
+LaTeX has been asked to show a variable \strIfCompare, but this has not been
+defined yet.
 [O] 
-    [I] \StrIfCompare{ab}<{aa}
-        [I] \Return{\cFalseBool }
-        [O] \cFalseBool 
-    [O] \cFalseBool 
-[I] \BoolVarLog{\cFalseBool }
-> \cFalseBool=false.
+[I] \boolVarLog{\strIfCompare {ab} < {aa}}
+! LaTeX3 Error: Variable \strIfCompare undefined.
+For immediate help type H <return>.
+ ...                                              
+l. ...\boolVarLog {\strIfCompare {ab} < {aa}}
+This is a coding error.
+LaTeX has been asked to show a variable \strIfCompare, but this has not been
+defined yet.
 [O] 
-[I] \StrIfCompareTF{ab}<{abc}{\Return {Yes}}{\Return {No}}
-    [I] \StrIfCompare{ab}<{abc}
-        [I] \Return{\cTrueBool }
-        [O] \cTrueBool 
-    [O] \cTrueBool 
-    [I] \Return{Yes}
-    [O] Yes
+! Undefined control sequence.
+l. ...\strIfCompareTF
+                      {ab} < {abc} {\prgReturn{Yes}} {\prgReturn{No}}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+[I] \prgReturn{Yes}
 [O] Yes
-[I] \StrIfCompareTF{ab}<{aa}{\Return {Yes}}{\Return {No}}
-    [I] \StrIfCompare{ab}<{aa}
-        [I] \Return{\cFalseBool }
-        [O] \cFalseBool 
-    [O] \cFalseBool 
-    [I] \Return{No}
-    [O] No
+[I] \prgReturn{No}
+[O] No
+! Undefined control sequence.
+l. ...\strIfCompareTF
+                      {ab} < {aa} {\prgReturn{Yes}} {\prgReturn{No}}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+[I] \prgReturn{Yes}
+[O] Yes
+[I] \prgReturn{No}
 [O] No
 ============================================================
 ============================================================
-TEST 33: Testing \StrCaseF 
+TEST 33: Testing \strCaseF 
 ============================================================
-[I] \StrCaseF{bbb}{{aaa}{\TlSet \lTmpkTl {First}}{bbb}{\TlSet \lTmpkTl {Second}}{ccb}{\TlSet \lTmpkTl {Third}}}{\Return {NoMatch!}}
-    [I] \TlSet{\lTmpkTl }{Second}
+[I] \strCaseF{bbb}{{aaa}{\tlSet \lTmpkTl {First}}{bbb}{\tlSet \lTmpkTl {Second}}{ccb}{\tlSet \lTmpkTl {Third}}}{\prgReturn {NoMatch!}}
+    [I] \tlSet{\lTmpkTl }{Second}
     [O] 
 [O] 
-    [I] \TlUse{\lTmpkTl }
-            [I] \Value{\lTmpkTl }
+    [I] \tlUse{\lTmpkTl }
+            [I] \expValue{\lTmpkTl }
             [O] Second
-        [I] \Return{Second}
+        [I] \prgReturn{Second}
         [O] Second
     [O] Second
-[I] \Return{Second}
+[I] \prgReturn{Second}
 [O] Second
 ============================================================
 ============================================================
-TEST 34: Testing \StrCaseTF 
+TEST 34: Testing \strCaseTF 
 ============================================================
-[I] \StrCaseTF{ddd}{{aaa}{\TlSet \lTmpkTl {First}}{bbb}{\TlSet \lTmpkTl {Second}}{ccb}{\TlSet \lTmpkTl {Third}}}{\Return {\TlUse \lTmpkTl }}{\Return {No Match!}}
-    [I] \Return{No Match!}
+[I] \strCaseTF{ddd}{{aaa}{\tlSet \lTmpkTl {First}}{bbb}{\tlSet \lTmpkTl {Second}}{ccb}{\tlSet \lTmpkTl {Third}}}{\prgReturn {\tlUse \lTmpkTl }}{\prgReturn {No Match!}}
+    [I] \prgReturn{No Match!}
     [O] No Match!
 [O] No Match!
 ============================================================

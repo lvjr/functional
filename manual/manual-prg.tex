@@ -11,14 +11,14 @@
 
 \section{Deﬁning Functions and Conditionals}
 
-\begin{function}{\PrgNewFunction}
+\begin{function}{\prgNewFunction}
 \begin{syntax}
-\cs{PrgNewFunction} \meta{function} \Arg{argument specification} \Arg{code}
+\cs{prgNewFunction} \meta{function} \Arg{argument specification} \Arg{code}
 \end{syntax}
 Creates protected \meta{function} for evaluating the \meta{code}.
 Within the \meta{code}, the parameters (\verb|#1|, \verb|#2|,
 \emph{etc.}) will be replaced by those absorbed by the function.
-The returned value \emph{must} be passed with \cs{Return} function.
+The returned value \emph{must} be passed with \cs{prgReturn} function.
 The definition is global and an error results if the
 \meta{function} is already defined.\par
 The \Arg{argument specification} in a list of letters,
@@ -33,103 +33,103 @@ where each letter is one of the following argument specifiers
 %\hline
 \end{tabular}\par}
 The argument manipulation for argument type \texttt{M} or \texttt{m}
-is: if the argument starts with a function defined with \cs{PrgNewFunction},
+is: if the argument starts with a function defined with \cs{prgNewFunction},
 the argument will be evaluated and replaced with the returned value.
 \end{function}
 
-\begin{function}{\PrgSetEqFunction}
+\begin{function}{\prgSetEqFunction}
 \begin{syntax}
-\cs{PrgSetEqFunction} \meta{function_1} \meta{function_2}
+\cs{prgSetEqFunction} \meta{function_1} \meta{function_2}
 \end{syntax}
 Sets \meta{function_1} as an alias of \meta{function_2}.
 \end{function}
 
-\begin{function}{\PrgNewConditional}
+\begin{function}{\prgNewConditional}
 \begin{syntax}
-\cs{PrgNewConditional} \meta{function} \Arg{argument specification} \Arg{code}
+\cs{prgNewConditional} \meta{function} \Arg{argument specification} \Arg{code}
 \end{syntax}
 Creates protected conditional \meta{function} for evaluating the \meta{code}.
 The returned value of the \meta{function} \emph{must} be either |\cTrueBool|
-or |\cFalseBool| and be passed with \cs{Return} function..
+or |\cFalseBool| and be passed with \cs{prgReturn} function..
 The definition is global and an error results if the \meta{function} is already defined.
 \par
-Assume the \meta{function} is |\FooIfBar|, then another three functions
-are also created at the same time: |\FooIfBarT|, |\FooIfBarF|, and |\FooIfBarTF|.
+Assume the \meta{function} is |\fooIfBar|, then another three functions
+are also created at the same time: |\fooIfBarT|, |\fooIfBarF|, and |\fooIfBarTF|.
 They have extra arguments which are \Arg{true code} or/and \Arg{false code}.
 For example, if you write
 \begin{codehigh}
-\PrgNewConditional \FooIfBar {Mm} {code with return value \cTrueBool or \cFalseBool}
+\prgNewConditional \fooIfBar {Mm} {code with return value \cTrueBool or \cFalseBool}
 \end{codehigh}
 Then the following four functions are created:
 \begin{itemize}
- \item |\FooIfBar| \meta{arg_1} \Arg{arg_2}
- \item |\FooIfBarT| \meta{arg_1} \Arg{arg_2} \Arg{true code}
- \item |\FooIfBarF| \meta{arg_1} \Arg{arg_2} \Arg{false code}
- \item |\FooIfBarTF| \meta{arg_1} \Arg{arg_2} \Arg{true code} \Arg{false code}
+ \item |\fooIfBar| \meta{arg_1} \Arg{arg_2}
+ \item |\fooIfBarT| \meta{arg_1} \Arg{arg_2} \Arg{true code}
+ \item |\fooIfBarF| \meta{arg_1} \Arg{arg_2} \Arg{false code}
+ \item |\fooIfBarTF| \meta{arg_1} \Arg{arg_2} \Arg{true code} \Arg{false code}
 \end{itemize}
 \end{function}
 
 \section{Returning Values and Printing Tokens}
 
-Just like \LuaTeX, \pkg{functional} package also provides \cs{Return} and \cs{Print} functions.
+Just like \LuaTeX, \pkg{functional} package also provides \cs{prgReturn} and \cs{prgPrint} functions.
 
-\begin{function}{\Return}
+\begin{function}{\prgReturn}
 \begin{syntax}
-\cs{Return} \Arg{tokens}
+\cs{prgReturn} \Arg{tokens}
 \end{syntax}
 Returns \meta{tokens} as result of current function or conditional.
-This function is normally used in the \meta{code} of \cs{PrgNewFunction}
-or \cs{PrgNewConditional}, and it \emph{must} be the last function evaluated in the \meta{code}.
+This function is normally used in the \meta{code} of \cs{prgNewFunction}
+or \cs{prgNewConditional}, and it \emph{must} be the last function evaluated in the \meta{code}.
 If it is missing, the return value of the last function evaluated in the \meta{code}
 is returned. Therefore, the following two examples produce the same output:
 \begin{codehigh}
 \IgnoreSpacesOn
-\PrgNewFunction \MathSquare { m } {
-  \IntSet \lTmpaInt {\IntEval {#1 * #1}}
-  \Return {\Value \lTmpaInt}
+\prgNewFunction \mathSquare { m } {
+  \intSet \lTmpaInt {\intEval {#1 * #1}}
+  \prgReturn {\expValue \lTmpaInt}
 }
 \IgnoreSpacesOff
-\MathSquare{5}
+\mathSquare{5}
 \end{codehigh}
 \begin{codehigh}
 \IgnoreSpacesOn
-\PrgNewFunction \MathSquare { m } {
-  \IntSet \lTmpaInt {\IntEval {#1 * #1}}
-  \Value \lTmpaInt
+\prgNewFunction \mathSquare { m } {
+  \intSet \lTmpaInt {\intEval {#1 * #1}}
+  \expValue \lTmpaInt
 }
 \IgnoreSpacesOff
-\MathSquare{5}
+\mathSquare{5}
 \end{codehigh}
 \pkg{Functional} package takes care of return values,
 and only print them to the input stream if the outer most functions are evaluated.
 \end{function}
 
-\begin{function}{\Print}
+\begin{function}{\prgPrint}
 \begin{syntax}
-\cs{Print} \Arg{tokens}
+\cs{prgPrint} \Arg{tokens}
 \end{syntax}
 Prints \meta{tokens} directly to the input stream.
-If there is no function defined with \cs{PrgNewFunction} in \meta{tokens},
-you can omit \cs{Print} and write only \meta{tokens}.
-But if there is any function defined with \cs{PrgNewFunction} in \meta{tokens},
-you \emph{have to} use \cs{Print} function.
+If there is no function defined with \cs{prgNewFunction} in \meta{tokens},
+you can omit \cs{prgPrint} and write only \meta{tokens}.
+But if there is any function defined with \cs{prgNewFunction} in \meta{tokens},
+you \emph{have to} use \cs{prgPrint} function.
 \end{function}
 
 \section{Running Code with Anonymous Functions}
 
-\begin{function}{\Do}
+\begin{function}{\prgDo}
 \begin{syntax}
-\cs{Do} \Arg{code}
+\cs{prgDo} \Arg{code}
 \end{syntax}
 Treats \meta{code} as an anonymous function without arguments and evaluates it.
 \end{function}
 
-\begin{function}{\PrgRunOneArgCode,\PrgRunTwoArgCode,\PrgRunThreeArgCode,\PrgRunFourArgCode}
+\begin{function}{\prgRunOneArgCode,\prgRunTwoArgCode,\prgRunThreeArgCode,\prgRunFourArgCode}
 \begin{syntax}
-\cs{PrgRunOneArgCode} \Arg{arg_1} \Arg{code}
-\cs{PrgRunTwoArgCode} \Arg{arg_1} \Arg{arg_2} \Arg{code}
-\cs{PrgRunThreeArgCode} \Arg{arg_1} \Arg{arg_2} \Arg{arg_3} \Arg{code}
-\cs{PrgRunFourArgCode} \Arg{arg_1} \Arg{arg_2} \Arg{arg_3} \Arg{arg_4} \Arg{code}
+\cs{prgRunOneArgCode} \Arg{arg_1} \Arg{code}
+\cs{prgRunTwoArgCode} \Arg{arg_1} \Arg{arg_2} \Arg{code}
+\cs{prgRunThreeArgCode} \Arg{arg_1} \Arg{arg_2} \Arg{arg_3} \Arg{code}
+\cs{prgRunFourArgCode} \Arg{arg_1} \Arg{arg_2} \Arg{arg_3} \Arg{arg_4} \Arg{code}
 \end{syntax}
 Treats \meta{code} as an anonymous function with one to four arguments respectively,
 and evaluates it. In evaluating the \meta{code}, \pkg{functional} package first evaluates

@@ -1,293 +1,293 @@
 This is a generated file for the l3build validation system.
 Don't change this file in any respect.
 ============================================================
-TEST 1: Testing \FpEval 
+TEST 1: Testing \fpEval 
 ============================================================
-[I] \FpEval{(1.2+3.4)*(5.6-7.8)/9}
-    [I] \Expand{\fp_eval:n {(1.2+3.4)*(5.6-7.8)/9}}
+[I] \fpEval{(1.2+3.4)*(5.6-7.8)/9}
+    [I] \expWhole{\fp_eval:n {(1.2+3.4)*(5.6-7.8)/9}}
     [O] -1.124444444444444
 [O] -1.124444444444444
 ============================================================
 ============================================================
-TEST 2: Testing \FpMathAdd 
+TEST 2: Testing \fpMathAdd 
 ============================================================
-[I] \FpMathAdd{2.8}{3.7}
-    [I] \Expand{\fp_eval:n {(2.8)+(3.7)}}
+[I] \fpMathAdd{2.8}{3.7}
+    [I] \expWhole{\fp_eval:n {(2.8)+(3.7)}}
     [O] 6.5
 [O] 6.5
-[I] \FpMathAdd{3.8-1}{2.7+1}
-    [I] \Expand{\fp_eval:n {(3.8-1)+(2.7+1)}}
+[I] \fpMathAdd{3.8-1}{2.7+1}
+    [I] \expWhole{\fp_eval:n {(3.8-1)+(2.7+1)}}
     [O] 6.5
 [O] 6.5
 ============================================================
 ============================================================
-TEST 3: Testing \FpMathSub 
+TEST 3: Testing \fpMathSub 
 ============================================================
-[I] \FpMathSub{2.8}{3.7}
-    [I] \Expand{\fp_eval:n {(2.8)-(3.7)}}
+[I] \fpMathSub{2.8}{3.7}
+    [I] \expWhole{\fp_eval:n {(2.8)-(3.7)}}
     [O] -0.9
 [O] -0.9
-[I] \FpMathSub{3.8-1}{2.7+1}
-    [I] \Expand{\fp_eval:n {(3.8-1)-(2.7+1)}}
+[I] \fpMathSub{3.8-1}{2.7+1}
+    [I] \expWhole{\fp_eval:n {(3.8-1)-(2.7+1)}}
     [O] -0.9
 [O] -0.9
 ============================================================
 ============================================================
-TEST 4: Testing \FpMathMult 
+TEST 4: Testing \fpMathMult 
 ============================================================
-[I] \FpMathMult{2.8}{3.7}
-    [I] \Expand{\fp_eval:n {(2.8)*(3.7)}}
+[I] \fpMathMult{2.8}{3.7}
+    [I] \expWhole{\fp_eval:n {(2.8)*(3.7)}}
     [O] 10.36
 [O] 10.36
-[I] \FpMathMult{3.8-1}{2.7+1}
-    [I] \Expand{\fp_eval:n {(3.8-1)*(2.7+1)}}
+[I] \fpMathMult{3.8-1}{2.7+1}
+    [I] \expWhole{\fp_eval:n {(3.8-1)*(2.7+1)}}
     [O] 10.36
 [O] 10.36
 ============================================================
 ============================================================
-TEST 5: Testing \FpMathDiv 
+TEST 5: Testing \fpMathDiv 
 ============================================================
-[I] \FpMathDiv{2.8}{3.7}
-    [I] \Expand{\fp_eval:n {(2.8)/(3.7)}}
+[I] \fpMathDiv{2.8}{3.7}
+    [I] \expWhole{\fp_eval:n {(2.8)/(3.7)}}
     [O] 0.7567567567567568
 [O] 0.7567567567567568
-[I] \FpMathDiv{3.8-1}{2.7+1}
-    [I] \Expand{\fp_eval:n {(3.8-1)/(2.7+1)}}
+[I] \fpMathDiv{3.8-1}{2.7+1}
+    [I] \expWhole{\fp_eval:n {(3.8-1)/(2.7+1)}}
     [O] 0.7567567567567568
 [O] 0.7567567567567568
 ============================================================
 ============================================================
-TEST 6: Testing \FpMathSign 
+TEST 6: Testing \fpMathSign 
 ============================================================
-[I] \FpMathSign{3.5}
-    [I] \Expand{\fp_sign:n {3.5}}
+[I] \fpMathSign{3.5}
+    [I] \expWhole{\fp_sign:n {3.5}}
     [O] 1
 [O] 1
-[I] \FpMathSign{-2.7}
-    [I] \Expand{\fp_sign:n {-2.7}}
+[I] \fpMathSign{-2.7}
+    [I] \expWhole{\fp_sign:n {-2.7}}
     [O] -1
 [O] -1
 ============================================================
 ============================================================
-TEST 7: Testing \FpMathAbs 
+TEST 7: Testing \fpMathAbs 
 ============================================================
-[I] \FpMathAbs{3.5}
-    [I] \Expand{\fp_abs:n {3.5}}
+[I] \fpMathAbs{3.5}
+    [I] \expWhole{\fp_abs:n {3.5}}
     [O] 3.5
 [O] 3.5
-[I] \FpMathAbs{-2.7}
-    [I] \Expand{\fp_abs:n {-2.7}}
+[I] \fpMathAbs{-2.7}
+    [I] \expWhole{\fp_abs:n {-2.7}}
     [O] 2.7
 [O] 2.7
 ============================================================
 ============================================================
-TEST 8: Testing \FpMathMax 
+TEST 8: Testing \fpMathMax 
 ============================================================
-[I] \FpMathMax{3.5}{-2.7}
-    [I] \Expand{\fp_max:nn {3.5}{-2.7}}
+[I] \fpMathMax{3.5}{-2.7}
+    [I] \expWhole{\fp_max:nn {3.5}{-2.7}}
     [O] 3.5
 [O] 3.5
 ============================================================
 ============================================================
-TEST 9: Testing \FpMathMin 
+TEST 9: Testing \fpMathMin 
 ============================================================
-[I] \FpMathMin{3.5}{-2.7}
-    [I] \Expand{\fp_min:nn {3.5}{-2.7}}
+[I] \fpMathMin{3.5}{-2.7}
+    [I] \expWhole{\fp_min:nn {3.5}{-2.7}}
     [O] -2.7
 [O] -2.7
 ============================================================
 ============================================================
-TEST 10: Testing \FpConst 
+TEST 10: Testing \fpConst 
 ============================================================
-[I] \FpConst{\cMyPiFp }{3.1415926}
+[I] \fpConst{\cMyPiFp }{3.1415926}
 [O] 
-[I] \FpUse{\cMyPiFp }
-    [I] \Expand{\fp_use:N \cMyPiFp }
+[I] \fpUse{\cMyPiFp }
+    [I] \expWhole{\fp_use:N \cMyPiFp }
     [O] 3.1415926
 [O] 3.1415926
 ============================================================
 ============================================================
-TEST 11: Testing \FpLog 
+TEST 11: Testing \fpLog 
 ============================================================
-[I] \FpLog{4/7}
+[I] \fpLog{4/7}
 > 4/7=0.5714285714285714.
 [O] 
 ============================================================
 ============================================================
-TEST 12: Testing \FpSet 
+TEST 12: Testing \fpSet 
 ============================================================
-[I] \FpSet{\lTmpaFp }{4/7}
+[I] \fpSet{\lTmpaFp }{4/7}
 [O] 
-[I] \FpUse{\lTmpaFp }
-    [I] \Expand{\fp_use:N \lTmpaFp }
+[I] \fpUse{\lTmpaFp }
+    [I] \expWhole{\fp_use:N \lTmpaFp }
     [O] 0.5714285714285714
 [O] 0.5714285714285714
 ============================================================
 ============================================================
-TEST 13: Testing \FpSetEq 
+TEST 13: Testing \fpSetEq 
 ============================================================
-[I] \FpSetEq{\lTmpaFp }{\cPiFp }
+[I] \fpSetEq{\lTmpaFp }{\cPiFp }
 [O] 
-[I] \FpUse{\lTmpaFp }
-    [I] \Expand{\fp_use:N \lTmpaFp }
+[I] \fpUse{\lTmpaFp }
+    [I] \expWhole{\fp_use:N \lTmpaFp }
     [O] 3.141592653589793
 [O] 3.141592653589793
 ============================================================
 ============================================================
-TEST 14: Testing \FpZero 
+TEST 14: Testing \fpZero 
 ============================================================
-[I] \FpSet{\lTmpaFp }{5.3}
+[I] \fpSet{\lTmpaFp }{5.3}
 [O] 
-[I] \FpZero{\lTmpaFp }
+[I] \fpZero{\lTmpaFp }
 [O] 
-[I] \FpUse{\lTmpaFp }
-    [I] \Expand{\fp_use:N \lTmpaFp }
+[I] \fpUse{\lTmpaFp }
+    [I] \expWhole{\fp_use:N \lTmpaFp }
     [O] 0
 [O] 0
 ============================================================
 ============================================================
-TEST 15: Testing \FpZeroNew 
+TEST 15: Testing \fpZeroNew 
 ============================================================
-[I] \FpZeroNew{\lFooSomeFp }
+[I] \fpZeroNew{\lFooSomeFp }
 [O] 
-[I] \FpUse{\lFooSomeFp }
-    [I] \Expand{\fp_use:N \lFooSomeFp }
+[I] \fpUse{\lFooSomeFp }
+    [I] \expWhole{\fp_use:N \lFooSomeFp }
     [O] 0
 [O] 0
 ============================================================
 ============================================================
-TEST 16: Testing \FpAdd 
+TEST 16: Testing \fpAdd 
 ============================================================
-[I] \FpSet{\lTmpaFp }{5.3}
+[I] \fpSet{\lTmpaFp }{5.3}
 [O] 
-[I] \FpAdd{\lTmpaFp }{2.11}
+[I] \fpAdd{\lTmpaFp }{2.11}
 [O] 
-[I] \FpUse{\lTmpaFp }
-    [I] \Expand{\fp_use:N \lTmpaFp }
+[I] \fpUse{\lTmpaFp }
+    [I] \expWhole{\fp_use:N \lTmpaFp }
     [O] 7.41
 [O] 7.41
 ============================================================
 ============================================================
-TEST 17: Testing \FpSub 
+TEST 17: Testing \fpSub 
 ============================================================
-[I] \FpSet{\lTmpaFp }{5.3}
+[I] \fpSet{\lTmpaFp }{5.3}
 [O] 
-[I] \FpSub{\lTmpaFp }{2.11}
+[I] \fpSub{\lTmpaFp }{2.11}
 [O] 
-[I] \FpUse{\lTmpaFp }
-    [I] \Expand{\fp_use:N \lTmpaFp }
+[I] \fpUse{\lTmpaFp }
+    [I] \expWhole{\fp_use:N \lTmpaFp }
     [O] 3.19
 [O] 3.19
 ============================================================
 ============================================================
-TEST 18: Testing \FpStepInline 
+TEST 18: Testing \fpStepInline 
 ============================================================
-[I] \TlClear{\lTmpaTl }
+[I] \tlClear{\lTmpaTl }
 [O] 
-[I] \FpStepInline{1}{0.1}{1.5}{\TlPutRight \lTmpaTl {[##1]}}
-    [I] \TlPutRight{\lTmpaTl }{[1]}
+[I] \fpStepInline{1}{0.1}{1.5}{\tlPutRight \lTmpaTl {[##1]}}
+    [I] \tlPutRight{\lTmpaTl }{[1]}
     [O] 
-    [I] \TlPutRight{\lTmpaTl }{[1.1]}
+    [I] \tlPutRight{\lTmpaTl }{[1.1]}
     [O] 
-    [I] \TlPutRight{\lTmpaTl }{[1.2]}
+    [I] \tlPutRight{\lTmpaTl }{[1.2]}
     [O] 
-    [I] \TlPutRight{\lTmpaTl }{[1.3]}
+    [I] \tlPutRight{\lTmpaTl }{[1.3]}
     [O] 
-    [I] \TlPutRight{\lTmpaTl }{[1.4]}
+    [I] \tlPutRight{\lTmpaTl }{[1.4]}
     [O] 
-    [I] \TlPutRight{\lTmpaTl }{[1.5]}
+    [I] \tlPutRight{\lTmpaTl }{[1.5]}
     [O] 
 [O] 
-    [I] \Value{\lTmpaTl }
+    [I] \expValue{\lTmpaTl }
     [O] [1][1.1][1.2][1.3][1.4][1.5]
-[I] \Return{[1][1.1][1.2][1.3][1.4][1.5]}
+[I] \prgReturn{[1][1.1][1.2][1.3][1.4][1.5]}
 [O] [1][1.1][1.2][1.3][1.4][1.5]
 ============================================================
 ============================================================
-TEST 19: Testing \FpStepVariable 
+TEST 19: Testing \fpStepVariable 
 ============================================================
-[I] \TlClear{\lTmpaTl }
+[I] \tlClear{\lTmpaTl }
 [O] 
-[I] \FpStepVariable{1}{0.1}{1.5}{\lTmpiTl }{\TlPutRight \lTmpaTl {\Value \lTmpiTl }\TlPutRight \lTmpaTl { }}
-        [I] \Value{\lTmpiTl }
+[I] \fpStepVariable{1}{0.1}{1.5}{\lTmpiTl }{\tlPutRight \lTmpaTl {\expValue \lTmpiTl }\tlPutRight \lTmpaTl { }}
+        [I] \expValue{\lTmpiTl }
         [O] 1
-    [I] \TlPutRight{\lTmpaTl }{1}
+    [I] \tlPutRight{\lTmpaTl }{1}
     [O] 
-    [I] \TlPutRight{\lTmpaTl }{ }
+    [I] \tlPutRight{\lTmpaTl }{ }
     [O] 
-        [I] \Value{\lTmpiTl }
+        [I] \expValue{\lTmpiTl }
         [O] 1.1
-    [I] \TlPutRight{\lTmpaTl }{1.1}
+    [I] \tlPutRight{\lTmpaTl }{1.1}
     [O] 
-    [I] \TlPutRight{\lTmpaTl }{ }
+    [I] \tlPutRight{\lTmpaTl }{ }
     [O] 
-        [I] \Value{\lTmpiTl }
+        [I] \expValue{\lTmpiTl }
         [O] 1.2
-    [I] \TlPutRight{\lTmpaTl }{1.2}
+    [I] \tlPutRight{\lTmpaTl }{1.2}
     [O] 
-    [I] \TlPutRight{\lTmpaTl }{ }
+    [I] \tlPutRight{\lTmpaTl }{ }
     [O] 
-        [I] \Value{\lTmpiTl }
+        [I] \expValue{\lTmpiTl }
         [O] 1.3
-    [I] \TlPutRight{\lTmpaTl }{1.3}
+    [I] \tlPutRight{\lTmpaTl }{1.3}
     [O] 
-    [I] \TlPutRight{\lTmpaTl }{ }
+    [I] \tlPutRight{\lTmpaTl }{ }
     [O] 
-        [I] \Value{\lTmpiTl }
+        [I] \expValue{\lTmpiTl }
         [O] 1.4
-    [I] \TlPutRight{\lTmpaTl }{1.4}
+    [I] \tlPutRight{\lTmpaTl }{1.4}
     [O] 
-    [I] \TlPutRight{\lTmpaTl }{ }
+    [I] \tlPutRight{\lTmpaTl }{ }
     [O] 
-        [I] \Value{\lTmpiTl }
+        [I] \expValue{\lTmpiTl }
         [O] 1.5
-    [I] \TlPutRight{\lTmpaTl }{1.5}
+    [I] \tlPutRight{\lTmpaTl }{1.5}
     [O] 
-    [I] \TlPutRight{\lTmpaTl }{ }
+    [I] \tlPutRight{\lTmpaTl }{ }
     [O] 
 [O] 
-    [I] \Value{\lTmpaTl }
+    [I] \expValue{\lTmpaTl }
     [O] 1 1.1 1.2 1.3 1.4 1.5 
-[I] \Return{1 1.1 1.2 1.3 1.4 1.5 }
+[I] \prgReturn{1 1.1 1.2 1.3 1.4 1.5 }
 [O] 1 1.1 1.2 1.3 1.4 1.5 
 ============================================================
 ============================================================
-TEST 20: Testing \FpIfExist 
+TEST 20: Testing \fpIfExist 
 ============================================================
-[I] \FpIfExistTF{\lTmpaFp }{\Return {Yes}}{\Return {No}}
-    [I] \FpIfExist{\lTmpaFp }
-        [I] \Return{\cTrueBool }
+[I] \fpIfExistTF{\lTmpaFp }{\prgReturn {Yes}}{\prgReturn {No}}
+    [I] \fpIfExist{\lTmpaFp }
+        [I] \prgReturn{\cTrueBool }
         [O] \cTrueBool 
     [O] \cTrueBool 
-    [I] \Return{Yes}
+    [I] \prgReturn{Yes}
     [O] Yes
 [O] Yes
-[I] \FpIfExistTF{\lMyUndefinedFp }{\Return {Yes}}{\Return {No}}
-    [I] \FpIfExist{\lMyUndefinedFp }
-        [I] \Return{\cFalseBool }
+[I] \fpIfExistTF{\lMyUndefinedFp }{\prgReturn {Yes}}{\prgReturn {No}}
+    [I] \fpIfExist{\lMyUndefinedFp }
+        [I] \prgReturn{\cFalseBool }
         [O] \cFalseBool 
     [O] \cFalseBool 
-    [I] \Return{No}
+    [I] \prgReturn{No}
     [O] No
 [O] No
 ============================================================
 ============================================================
-TEST 21: Testing \FpCompare 
+TEST 21: Testing \fpCompare 
 ============================================================
-[I] \FpCompareTF{1}>{0.9999}{\Return {Greater}}{\Return {Less}}
-    [I] \FpCompare{1}>{0.9999}
-        [I] \Return{\cTrueBool }
+[I] \fpCompareTF{1}>{0.9999}{\prgReturn {Greater}}{\prgReturn {Less}}
+    [I] \fpCompare{1}>{0.9999}
+        [I] \prgReturn{\cTrueBool }
         [O] \cTrueBool 
     [O] \cTrueBool 
-    [I] \Return{Greater}
+    [I] \prgReturn{Greater}
     [O] Greater
 [O] Greater
-[I] \FpCompareTF{1}>{1.0001}{\Return {Greater}}{\Return {Less}}
-    [I] \FpCompare{1}>{1.0001}
-        [I] \Return{\cFalseBool }
+[I] \fpCompareTF{1}>{1.0001}{\prgReturn {Greater}}{\prgReturn {Less}}
+    [I] \fpCompare{1}>{1.0001}
+        [I] \prgReturn{\cFalseBool }
         [O] \cFalseBool 
     [O] \cFalseBool 
-    [I] \Return{Less}
+    [I] \prgReturn{Less}
     [O] Less
 [O] Less
 ============================================================

@@ -1,336 +1,336 @@
 This is a generated file for the l3build validation system.
 Don't change this file in any respect.
 ============================================================
-TEST 1: Testing \DimEval 
+TEST 1: Testing \dimEval 
 ============================================================
-[I] \DimEval{(1.2pt+3.4pt)/9}
-        [I] \Expand{\dim_eval:n {(1.2pt+3.4pt)/9}}
+[I] \dimEval{(1.2pt+3.4pt)/9}
+        [I] \expWhole{\dim_eval:n {(1.2pt+3.4pt)/9}}
         [O] 0.51111pt
-    [I] \Return{0.51111pt}
+    [I] \prgReturn{0.51111pt}
     [O] 0.51111pt
 [O] 0.51111pt
 ============================================================
 ============================================================
-TEST 2: Testing \DimMathAdd 
+TEST 2: Testing \dimMathAdd 
 ============================================================
-[I] \DimMathAdd{2.8pt}{3.7pt}
-        [I] \Value{\l@FunTmpxDim }
+[I] \dimMathAdd{2.8pt}{3.7pt}
+        [I] \expValue{\l@FunTmpxDim }
         [O] 6.5pt
-    [I] \Return{6.5pt}
+    [I] \prgReturn{6.5pt}
     [O] 6.5pt
 [O] 6.5pt
-[I] \DimMathAdd{3.8pt-1pt}{2.7pt+1pt}
-        [I] \Value{\l@FunTmpxDim }
+[I] \dimMathAdd{3.8pt-1pt}{2.7pt+1pt}
+        [I] \expValue{\l@FunTmpxDim }
         [O] 6.5pt
-    [I] \Return{6.5pt}
+    [I] \prgReturn{6.5pt}
     [O] 6.5pt
 [O] 6.5pt
 ============================================================
 ============================================================
-TEST 3: Testing \DimMathSub 
+TEST 3: Testing \dimMathSub 
 ============================================================
-[I] \DimMathSub{2.8pt}{3.7pt}
-        [I] \Value{\l@FunTmpxDim }
+[I] \dimMathSub{2.8pt}{3.7pt}
+        [I] \expValue{\l@FunTmpxDim }
         [O] -0.9pt
-    [I] \Return{-0.9pt}
+    [I] \prgReturn{-0.9pt}
     [O] -0.9pt
 [O] -0.9pt
-[I] \DimMathSub{3.8pt-1pt}{2.7pt+1pt}
-        [I] \Value{\l@FunTmpxDim }
+[I] \dimMathSub{3.8pt-1pt}{2.7pt+1pt}
+        [I] \expValue{\l@FunTmpxDim }
         [O] -0.9pt
-    [I] \Return{-0.9pt}
+    [I] \prgReturn{-0.9pt}
     [O] -0.9pt
 [O] -0.9pt
 ============================================================
 ============================================================
-TEST 4: Testing \DimMathRatio 
+TEST 4: Testing \dimMathRatio 
 ============================================================
-[I] \DimMathRatio{5pt}{2pt}
-        [I] \Expand{\dim_ratio:nn {5pt}{2pt}}
+[I] \dimMathRatio{5pt}{2pt}
+        [I] \expWhole{\dim_ratio:nn {5pt}{2pt}}
         [O] 327680/131072
-    [I] \Return{327680/131072}
+    [I] \prgReturn{327680/131072}
     [O] 327680/131072
 [O] 327680/131072
 ============================================================
 ============================================================
-TEST 5: Testing \DimMathSign 
+TEST 5: Testing \dimMathSign 
 ============================================================
-[I] \DimMathSign{3.5pt}
-        [I] \Expand{\dim_sign:n {3.5pt}}
+[I] \dimMathSign{3.5pt}
+        [I] \expWhole{\dim_sign:n {3.5pt}}
         [O] 1
-    [I] \Return{1}
+    [I] \prgReturn{1}
     [O] 1
 [O] 1
-[I] \DimMathSign{-2.7pt}
-        [I] \Expand{\dim_sign:n {-2.7pt}}
+[I] \dimMathSign{-2.7pt}
+        [I] \expWhole{\dim_sign:n {-2.7pt}}
         [O] -1
-    [I] \Return{-1}
+    [I] \prgReturn{-1}
     [O] -1
 [O] -1
 ============================================================
 ============================================================
-TEST 6: Testing \DimMathAbs 
+TEST 6: Testing \dimMathAbs 
 ============================================================
-[I] \DimMathAbs{3.5pt}
-        [I] \Expand{\dim_abs:n {3.5pt}}
+[I] \dimMathAbs{3.5pt}
+        [I] \expWhole{\dim_abs:n {3.5pt}}
         [O] 3.5pt
-    [I] \Return{3.5pt}
+    [I] \prgReturn{3.5pt}
     [O] 3.5pt
 [O] 3.5pt
-[I] \DimMathAbs{-2.7pt}
-        [I] \Expand{\dim_abs:n {-2.7pt}}
+[I] \dimMathAbs{-2.7pt}
+        [I] \expWhole{\dim_abs:n {-2.7pt}}
         [O] 2.7pt
-    [I] \Return{2.7pt}
+    [I] \prgReturn{2.7pt}
     [O] 2.7pt
 [O] 2.7pt
 ============================================================
 ============================================================
-TEST 7: Testing \DimMathMax 
+TEST 7: Testing \dimMathMax 
 ============================================================
-[I] \DimMathMax{3.5pt}{-2.7pt}
-        [I] \Expand{\dim_max:nn {3.5pt}{-2.7pt}}
+[I] \dimMathMax{3.5pt}{-2.7pt}
+        [I] \expWhole{\dim_max:nn {3.5pt}{-2.7pt}}
         [O] 3.5pt
-    [I] \Return{3.5pt}
+    [I] \prgReturn{3.5pt}
     [O] 3.5pt
 [O] 3.5pt
 ============================================================
 ============================================================
-TEST 8: Testing \DimMathMin 
+TEST 8: Testing \dimMathMin 
 ============================================================
-[I] \DimMathMin{3.5pt}{-2.7pt}
-        [I] \Expand{\dim_min:nn {3.5pt}{-2.7pt}}
+[I] \dimMathMin{3.5pt}{-2.7pt}
+        [I] \expWhole{\dim_min:nn {3.5pt}{-2.7pt}}
         [O] -2.7pt
-    [I] \Return{-2.7pt}
+    [I] \prgReturn{-2.7pt}
     [O] -2.7pt
 [O] -2.7pt
 ============================================================
 ============================================================
-TEST 9: Testing \DimConst 
+TEST 9: Testing \dimConst 
 ============================================================
-[I] \DimConst{\cFooSomeDim }{1cm}
+[I] \dimConst{\cFooSomeDim }{1cm}
 \cFooSomeDim=\dimen...
 [O] 
-[I] \DimUse{\cFooSomeDim }
-        [I] \Value{\cFooSomeDim }
+[I] \dimUse{\cFooSomeDim }
+        [I] \expValue{\cFooSomeDim }
         [O] 28.45274pt
-    [I] \Return{28.45274pt}
+    [I] \prgReturn{28.45274pt}
     [O] 28.45274pt
 [O] 28.45274pt
 ============================================================
 ============================================================
-TEST 10: Testing \DimLog 
+TEST 10: Testing \dimLog 
 ============================================================
-[I] \DimLog{\lTmpjDim }
+[I] \dimLog{\lTmpjDim }
 > \lTmpjDim =0.0pt.
 [O] 
 ============================================================
 ============================================================
-TEST 11: Testing \DimVarLog 
+TEST 11: Testing \dimVarLog 
 ============================================================
-[I] \DimVarLog{\lTmpkDim }
+[I] \dimVarLog{\lTmpkDim }
 > \lTmpkDim=0.0pt.
 [O] 
 ============================================================
 ============================================================
-TEST 12: Testing \DimSetEq 
+TEST 12: Testing \dimSetEq 
 ============================================================
-[I] \DimSetEq{\lTmpaDim }{\cZeroDim }
+[I] \dimSetEq{\lTmpaDim }{\cZeroDim }
 [O] 
-[I] \DimUse{\lTmpaDim }
-        [I] \Value{\lTmpaDim }
+[I] \dimUse{\lTmpaDim }
+        [I] \expValue{\lTmpaDim }
         [O] 0.0pt
-    [I] \Return{0.0pt}
+    [I] \prgReturn{0.0pt}
     [O] 0.0pt
 [O] 0.0pt
-[I] \DimSet{\lTmpaDim }{10pt}
+[I] \dimSet{\lTmpaDim }{10pt}
 [O] 
-[I] \DimSetEq{\lTmpbDim }{\lTmpaDim }
+[I] \dimSetEq{\lTmpbDim }{\lTmpaDim }
 [O] 
-[I] \DimUse{\lTmpbDim }
-        [I] \Value{\lTmpbDim }
+[I] \dimUse{\lTmpbDim }
+        [I] \expValue{\lTmpbDim }
         [O] 10.0pt
-    [I] \Return{10.0pt}
+    [I] \prgReturn{10.0pt}
     [O] 10.0pt
 [O] 10.0pt
 ============================================================
 ============================================================
-TEST 13: Testing \DimZero 
+TEST 13: Testing \dimZero 
 ============================================================
-[I] \DimSet{\lTmpaDim }{1em}
+[I] \dimSet{\lTmpaDim }{1em}
 [O] 
-[I] \DimZero{\lTmpaDim }
+[I] \dimZero{\lTmpaDim }
 [O] 
-[I] \DimUse{\lTmpaDim }
-        [I] \Value{\lTmpaDim }
+[I] \dimUse{\lTmpaDim }
+        [I] \expValue{\lTmpaDim }
         [O] 0.0pt
-    [I] \Return{0.0pt}
+    [I] \prgReturn{0.0pt}
     [O] 0.0pt
 [O] 0.0pt
 ============================================================
 ============================================================
-TEST 14: Testing \DimZeroNew 
+TEST 14: Testing \dimZeroNew 
 ============================================================
-[I] \DimZeroNew{\lFooSomeDim }
+[I] \dimZeroNew{\lFooSomeDim }
 \lFooSomeDim=\dimen...
 [O] 
-[I] \DimUse{\lFooSomeDim }
-        [I] \Value{\lFooSomeDim }
+[I] \dimUse{\lFooSomeDim }
+        [I] \expValue{\lFooSomeDim }
         [O] 0.0pt
-    [I] \Return{0.0pt}
+    [I] \prgReturn{0.0pt}
     [O] 0.0pt
 [O] 0.0pt
 ============================================================
 ============================================================
-TEST 15: Testing \DimAdd 
+TEST 15: Testing \dimAdd 
 ============================================================
-[I] \DimSet{\lTmpaDim }{5.3pt}
+[I] \dimSet{\lTmpaDim }{5.3pt}
 [O] 
-[I] \DimAdd{\lTmpaDim }{2.11pt}
+[I] \dimAdd{\lTmpaDim }{2.11pt}
 [O] 
-[I] \DimUse{\lTmpaDim }
-        [I] \Value{\lTmpaDim }
+[I] \dimUse{\lTmpaDim }
+        [I] \expValue{\lTmpaDim }
         [O] 7.41pt
-    [I] \Return{7.41pt}
+    [I] \prgReturn{7.41pt}
     [O] 7.41pt
 [O] 7.41pt
 ============================================================
 ============================================================
-TEST 16: Testing \DimSub 
+TEST 16: Testing \dimSub 
 ============================================================
-[I] \DimSet{\lTmpaDim }{5.3pt}
+[I] \dimSet{\lTmpaDim }{5.3pt}
 [O] 
-[I] \DimSub{\lTmpaDim }{2.11pt}
+[I] \dimSub{\lTmpaDim }{2.11pt}
 [O] 
-[I] \DimUse{\lTmpaDim }
-        [I] \Value{\lTmpaDim }
+[I] \dimUse{\lTmpaDim }
+        [I] \expValue{\lTmpaDim }
         [O] 3.19pt
-    [I] \Return{3.19pt}
+    [I] \prgReturn{3.19pt}
     [O] 3.19pt
 [O] 3.19pt
 ============================================================
 ============================================================
-TEST 17: Testing \DimStepInline 
+TEST 17: Testing \dimStepInline 
 ============================================================
-[I] \TlClear{\lTmpaTl }
+[I] \tlClear{\lTmpaTl }
 [O] 
-[I] \DimStepInline{1pt}{0.1pt}{1.5pt}{\TlPutRight \lTmpaTl {[##1]}}
-    [I] \TlPutRight{\lTmpaTl }{[1.0pt]}
+[I] \dimStepInline{1pt}{0.1pt}{1.5pt}{\tlPutRight \lTmpaTl {[##1]}}
+    [I] \tlPutRight{\lTmpaTl }{[1.0pt]}
     [O] 
-    [I] \TlPutRight{\lTmpaTl }{[1.1pt]}
+    [I] \tlPutRight{\lTmpaTl }{[1.1pt]}
     [O] 
-    [I] \TlPutRight{\lTmpaTl }{[1.20001pt]}
+    [I] \tlPutRight{\lTmpaTl }{[1.20001pt]}
     [O] 
-    [I] \TlPutRight{\lTmpaTl }{[1.30002pt]}
+    [I] \tlPutRight{\lTmpaTl }{[1.30002pt]}
     [O] 
-    [I] \TlPutRight{\lTmpaTl }{[1.40002pt]}
+    [I] \tlPutRight{\lTmpaTl }{[1.40002pt]}
     [O] 
 [O] 
-    [I] \Value{\lTmpaTl }
+    [I] \expValue{\lTmpaTl }
     [O] [1.0pt][1.1pt][1.20001pt][1.30002pt][1.40002pt]
-[I] \Return{[1.0pt][1.1pt][1.20001pt][1.30002pt][1.40002pt]}
+[I] \prgReturn{[1.0pt][1.1pt][1.20001pt][1.30002pt][1.40002pt]}
 [O] [1.0pt][1.1pt][1.20001pt][1.30002pt][1.40002pt]
 ============================================================
 ============================================================
-TEST 18: Testing \DimStepVariable 
+TEST 18: Testing \dimStepVariable 
 ============================================================
-[I] \TlClear{\lTmpaTl }
+[I] \tlClear{\lTmpaTl }
 [O] 
-[I] \DimStepVariable{1pt}{0.1pt}{1.5pt}{\lTmpiTl }{\TlPutRight \lTmpaTl {\Value \lTmpiTl }\TlPutRight \lTmpaTl { }}
-        [I] \Value{\lTmpiTl }
+[I] \dimStepVariable{1pt}{0.1pt}{1.5pt}{\lTmpiTl }{\tlPutRight \lTmpaTl {\expValue \lTmpiTl }\tlPutRight \lTmpaTl { }}
+        [I] \expValue{\lTmpiTl }
         [O] 1.0pt
-    [I] \TlPutRight{\lTmpaTl }{1.0pt}
+    [I] \tlPutRight{\lTmpaTl }{1.0pt}
     [O] 
-    [I] \TlPutRight{\lTmpaTl }{ }
+    [I] \tlPutRight{\lTmpaTl }{ }
     [O] 
-        [I] \Value{\lTmpiTl }
+        [I] \expValue{\lTmpiTl }
         [O] 1.1pt
-    [I] \TlPutRight{\lTmpaTl }{1.1pt}
+    [I] \tlPutRight{\lTmpaTl }{1.1pt}
     [O] 
-    [I] \TlPutRight{\lTmpaTl }{ }
+    [I] \tlPutRight{\lTmpaTl }{ }
     [O] 
-        [I] \Value{\lTmpiTl }
+        [I] \expValue{\lTmpiTl }
         [O] 1.20001pt
-    [I] \TlPutRight{\lTmpaTl }{1.20001pt}
+    [I] \tlPutRight{\lTmpaTl }{1.20001pt}
     [O] 
-    [I] \TlPutRight{\lTmpaTl }{ }
+    [I] \tlPutRight{\lTmpaTl }{ }
     [O] 
-        [I] \Value{\lTmpiTl }
+        [I] \expValue{\lTmpiTl }
         [O] 1.30002pt
-    [I] \TlPutRight{\lTmpaTl }{1.30002pt}
+    [I] \tlPutRight{\lTmpaTl }{1.30002pt}
     [O] 
-    [I] \TlPutRight{\lTmpaTl }{ }
+    [I] \tlPutRight{\lTmpaTl }{ }
     [O] 
-        [I] \Value{\lTmpiTl }
+        [I] \expValue{\lTmpiTl }
         [O] 1.40002pt
-    [I] \TlPutRight{\lTmpaTl }{1.40002pt}
+    [I] \tlPutRight{\lTmpaTl }{1.40002pt}
     [O] 
-    [I] \TlPutRight{\lTmpaTl }{ }
+    [I] \tlPutRight{\lTmpaTl }{ }
     [O] 
 [O] 
-    [I] \Value{\lTmpaTl }
+    [I] \expValue{\lTmpaTl }
     [O] 1.0pt 1.1pt 1.20001pt 1.30002pt 1.40002pt 
-[I] \Return{1.0pt 1.1pt 1.20001pt 1.30002pt 1.40002pt }
+[I] \prgReturn{1.0pt 1.1pt 1.20001pt 1.30002pt 1.40002pt }
 [O] 1.0pt 1.1pt 1.20001pt 1.30002pt 1.40002pt 
 ============================================================
 ============================================================
-TEST 19: Testing \DimIfExist 
+TEST 19: Testing \dimIfExist 
 ============================================================
-[I] \DimIfExistTF{\lTmpaDim }{\Return {Yes}}{\Return {No}}
-    [I] \DimIfExist{\lTmpaDim }
-        [I] \Return{\cTrueBool }
+[I] \dimIfExistTF{\lTmpaDim }{\prgReturn {Yes}}{\prgReturn {No}}
+    [I] \dimIfExist{\lTmpaDim }
+        [I] \prgReturn{\cTrueBool }
         [O] \cTrueBool 
     [O] \cTrueBool 
-    [I] \Return{Yes}
+    [I] \prgReturn{Yes}
     [O] Yes
 [O] Yes
-[I] \DimIfExistTF{\lFooUndefinedDim }{\Return {Yes}}{\Return {No}}
-    [I] \DimIfExist{\lFooUndefinedDim }
-        [I] \Return{\cFalseBool }
+[I] \dimIfExistTF{\lFooUndefinedDim }{\prgReturn {Yes}}{\prgReturn {No}}
+    [I] \dimIfExist{\lFooUndefinedDim }
+        [I] \prgReturn{\cFalseBool }
         [O] \cFalseBool 
     [O] \cFalseBool 
-    [I] \Return{No}
+    [I] \prgReturn{No}
     [O] No
 [O] No
 ============================================================
 ============================================================
-TEST 20: Testing \DimCompare 
+TEST 20: Testing \dimCompare 
 ============================================================
-[I] \DimCompareTF{1pt}>{0.9999pt}{\Return {Greater}}{\Return {Less}}
-    [I] \DimCompare{1pt}>{0.9999pt}
-        [I] \Return{\cTrueBool }
+[I] \dimCompareTF{1pt}>{0.9999pt}{\prgReturn {Greater}}{\prgReturn {Less}}
+    [I] \dimCompare{1pt}>{0.9999pt}
+        [I] \prgReturn{\cTrueBool }
         [O] \cTrueBool 
     [O] \cTrueBool 
-    [I] \Return{Greater}
+    [I] \prgReturn{Greater}
     [O] Greater
 [O] Greater
-[I] \DimCompareTF{1pt}>{1.0001pt}{\Return {Greater}}{\Return {Less}}
-    [I] \DimCompare{1pt}>{1.0001pt}
-        [I] \Return{\cFalseBool }
+[I] \dimCompareTF{1pt}>{1.0001pt}{\prgReturn {Greater}}{\prgReturn {Less}}
+    [I] \dimCompare{1pt}>{1.0001pt}
+        [I] \prgReturn{\cFalseBool }
         [O] \cFalseBool 
     [O] \cFalseBool 
-    [I] \Return{Less}
+    [I] \prgReturn{Less}
     [O] Less
 [O] Less
 ============================================================
 ============================================================
-TEST 21: Testing \DimCaseF 
+TEST 21: Testing \dimCaseF 
 ============================================================
-[I] \DimSet{\lTmpaDim }{5pt}
+[I] \dimSet{\lTmpaDim }{5pt}
 [O] 
-[I] \DimCaseF{2\lTmpaDim }{{5pt}{\Return {Small}}{4pt+6pt}{\Return {Medium}}{-10pt}{\Return {Negative}}}{\Return {NoMatch}}
-    [I] \Return{Medium}
+[I] \dimCaseF{2\lTmpaDim }{{5pt}{\prgReturn {Small}}{4pt+6pt}{\prgReturn {Medium}}{-10pt}{\prgReturn {Negative}}}{\prgReturn {NoMatch}}
+    [I] \prgReturn{Medium}
     [O] Medium
 [O] Medium
 ============================================================
 ============================================================
-TEST 22: Testing \DimCaseTF 
+TEST 22: Testing \dimCaseTF 
 ============================================================
-[I] \DimSet{\lTmpaDim }{5pt}
+[I] \dimSet{\lTmpaDim }{5pt}
 [O] 
-[I] \DimCaseTF{2\lTmpaDim }{{5pt}{\Return {Small}}{4pt+6pt}{\Return {Medium}}{-10pt}{\Return {Negative}}}{\Return {[SomeMatch]}}{\Return {[NoMatch]}}
-    [I] \Return{Medium}
+[I] \dimCaseTF{2\lTmpaDim }{{5pt}{\prgReturn {Small}}{4pt+6pt}{\prgReturn {Medium}}{-10pt}{\prgReturn {Negative}}}{\prgReturn {[SomeMatch]}}{\prgReturn {[NoMatch]}}
+    [I] \prgReturn{Medium}
     [O] Medium
-    [I] \Return{[SomeMatch]}
+    [I] \prgReturn{[SomeMatch]}
     [O] [SomeMatch]
 [O] [SomeMatch]
 ============================================================

@@ -17,7 +17,7 @@ to themselves and should therefore \emph{never} be executed directly
 in the code. This would result in an endless loop!
 
 Quarks can be used as error return values for functions that receive erroneous input.
-For example, in the function \cs{PropGet} to retrieve a value stored
+For example, in the function \cs{propGet} to retrieve a value stored
 in some key of a property list, if the key does not exist then the return value
 is the quark \cs{qNoValue}.
 As mentioned above, such quarks are extremely fragile and it is imperative
@@ -30,38 +30,38 @@ environment.
 \begin{variable}{\qNoValue}
 A canonical value for a missing value, when one is requested from
 a data structure. This is therefore used as a \enquote{return} value
-by functions such as \cs{PropGet} if there is no data to return.
+by functions such as \cs{propGet} if there is no data to return.
 \end{variable}
 
 \section{Quark Conditionals}
 
-\begin{function}{\QuarkVarIfNoValue,\QuarkVarIfNoValueT,\QuarkVarIfNoValueF,\QuarkVarIfNoValueTF}
+\begin{function}{\quarkVarIfNoValue,\quarkVarIfNoValueT,\quarkVarIfNoValueF,\quarkVarIfNoValueTF}
 \begin{syntax}
-\cs{QuarkVarIfNoValue} \meta{token}
-\cs{QuarkVarIfNoValueT} \meta{token} \Arg{true code}
-\cs{QuarkVarIfNoValueF} \meta{token} \Arg{false code}
-\cs{QuarkVarIfNoValueTF} \meta{token} \Arg{true code} \Arg{false code}
+\cs{quarkVarIfNoValue} \meta{token}
+\cs{quarkVarIfNoValueT} \meta{token} \Arg{true code}
+\cs{quarkVarIfNoValueF} \meta{token} \Arg{false code}
+\cs{quarkVarIfNoValueTF} \meta{token} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests if the \meta{token} is equal to \cs{qNoValue}.
 \begin{demohigh}
-\ClistGet \cEmptyClist \lTmpaTl
-\QuarkVarIfNoValueTF \lTmpaTl {\Return{NoValue}} {\Return{SomeValue}}
+\clistGet \cEmptyClist \lTmpaTl
+\quarkVarIfNoValueTF \lTmpaTl {\prgReturn{NoValue}} {\prgReturn{SomeValue}}
 \end{demohigh}
 \begin{demohigh}
-\SeqPop \cEmptySeq \lTmpaTl
-\QuarkVarIfNoValueTF \lTmpaTl {\Return{NoValue}} {\Return{SomeValue}}
+\seqPop \cEmptySeq \lTmpaTl
+\quarkVarIfNoValueTF \lTmpaTl {\prgReturn{NoValue}} {\prgReturn{SomeValue}}
 \end{demohigh}
 \begin{demohigh}
-\PropSetFromKeyval \lTmpaProp {key1=one,key2=two}
-\PropGet \lTmpaProp {key3} \lTmpaTl
-\QuarkVarIfNoValueTF \lTmpaTl {\Return{NoValue}} {\Return{SomeValue}}
+\propSetFromKeyval \lTmpaProp {key1=one,key2=two}
+\propGet \lTmpaProp {key3} \lTmpaTl
+\quarkVarIfNoValueTF \lTmpaTl {\prgReturn{NoValue}} {\prgReturn{SomeValue}}
 \end{demohigh}
 \end{function}
 
-%\begin{function}{\QuarkIfNoValue,\QuarkIfNoValueTF}
+%\begin{function}{\quarkIfNoValue,\quarkIfNoValueTF}
 %\begin{syntax}
-%\cs{QuarkIfNoValue} \Arg{token list}
-%\cs{QuarkIfNoValueTF} \Arg{token list} \Arg{true code} \Arg{false code}
+%\cs{quarkIfNoValue} \Arg{token list}
+%\cs{quarkIfNoValueTF} \Arg{token list} \Arg{true code} \Arg{false code}
 %\end{syntax}
 %Tests if the \meta{token list} contains only \cs{qNoValue}
 %(distinct from \meta{token list} being empty or containing

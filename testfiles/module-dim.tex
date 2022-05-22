@@ -9,141 +9,141 @@
 
 \begin{document}
 
-\BEGINTEST{Testing \DimEval}
-\DimEval {(1.2pt+3.4pt)/9}
+\BEGINTEST{Testing \dimEval}
+\dimEval {(1.2pt+3.4pt)/9}
 \ENDTEST
 
-\BEGINTEST{Testing \DimMathAdd}
-\DimMathAdd {2.8pt} {3.7pt}
-\DimMathAdd {3.8pt-1pt} {2.7pt+1pt}
+\BEGINTEST{Testing \dimMathAdd}
+\dimMathAdd {2.8pt} {3.7pt}
+\dimMathAdd {3.8pt-1pt} {2.7pt+1pt}
 \ENDTEST
 
-\BEGINTEST{Testing \DimMathSub}
-\DimMathSub {2.8pt} {3.7pt}
-\DimMathSub {3.8pt-1pt} {2.7pt+1pt}
+\BEGINTEST{Testing \dimMathSub}
+\dimMathSub {2.8pt} {3.7pt}
+\dimMathSub {3.8pt-1pt} {2.7pt+1pt}
 \ENDTEST
 
-\BEGINTEST{Testing \DimMathRatio}
-\DimMathRatio {5pt} {2pt}
+\BEGINTEST{Testing \dimMathRatio}
+\dimMathRatio {5pt} {2pt}
 \ENDTEST
 
-\BEGINTEST{Testing \DimMathSign}
-\DimMathSign {3.5pt}
-\DimMathSign {-2.7pt}
+\BEGINTEST{Testing \dimMathSign}
+\dimMathSign {3.5pt}
+\dimMathSign {-2.7pt}
 \ENDTEST
 
-\BEGINTEST{Testing \DimMathAbs}
-\DimMathAbs {3.5pt}
-\DimMathAbs {-2.7pt}
+\BEGINTEST{Testing \dimMathAbs}
+\dimMathAbs {3.5pt}
+\dimMathAbs {-2.7pt}
 \ENDTEST
 
-\BEGINTEST{Testing \DimMathMax}
-\DimMathMax {3.5pt} {-2.7pt}
+\BEGINTEST{Testing \dimMathMax}
+\dimMathMax {3.5pt} {-2.7pt}
 \ENDTEST
 
-\BEGINTEST{Testing \DimMathMin}
-\DimMathMin {3.5pt} {-2.7pt}
+\BEGINTEST{Testing \dimMathMin}
+\dimMathMin {3.5pt} {-2.7pt}
 \ENDTEST
 
-\BEGINTEST{Testing \DimConst}
-\DimConst \cFooSomeDim {1cm}
-\DimUse \cFooSomeDim
+\BEGINTEST{Testing \dimConst}
+\dimConst \cFooSomeDim {1cm}
+\dimUse \cFooSomeDim
 \ENDTEST
 
-\BEGINTEST{Testing \DimLog}
-\DimLog {\lTmpjDim}
+\BEGINTEST{Testing \dimLog}
+\dimLog {\lTmpjDim}
 \ENDTEST
 
-\BEGINTEST{Testing \DimVarLog}
-\DimVarLog \lTmpkDim
+\BEGINTEST{Testing \dimVarLog}
+\dimVarLog \lTmpkDim
 \ENDTEST
 
-\BEGINTEST{Testing \DimSetEq}
-\DimSetEq \lTmpaDim \cZeroDim
-\DimUse \lTmpaDim
-\DimSet \lTmpaDim {10pt}
-\DimSetEq \lTmpbDim \lTmpaDim
-\DimUse \lTmpbDim
+\BEGINTEST{Testing \dimSetEq}
+\dimSetEq \lTmpaDim \cZeroDim
+\dimUse \lTmpaDim
+\dimSet \lTmpaDim {10pt}
+\dimSetEq \lTmpbDim \lTmpaDim
+\dimUse \lTmpbDim
 \ENDTEST
 
-\BEGINTEST{Testing \DimZero}
-\DimSet \lTmpaDim {1em}
-\DimZero \lTmpaDim
-\DimUse \lTmpaDim
+\BEGINTEST{Testing \dimZero}
+\dimSet \lTmpaDim {1em}
+\dimZero \lTmpaDim
+\dimUse \lTmpaDim
 \ENDTEST
 
-\BEGINTEST{Testing \DimZeroNew}
-\DimZeroNew \lFooSomeDim
-\DimUse \lFooSomeDim
+\BEGINTEST{Testing \dimZeroNew}
+\dimZeroNew \lFooSomeDim
+\dimUse \lFooSomeDim
 \ENDTEST
 
-\BEGINTEST{Testing \DimAdd}
-\DimSet \lTmpaDim {5.3pt}
-\DimAdd \lTmpaDim {2.11pt}
-\DimUse \lTmpaDim
+\BEGINTEST{Testing \dimAdd}
+\dimSet \lTmpaDim {5.3pt}
+\dimAdd \lTmpaDim {2.11pt}
+\dimUse \lTmpaDim
 \ENDTEST
 
-\BEGINTEST{Testing \DimSub}
-\DimSet \lTmpaDim {5.3pt}
-\DimSub \lTmpaDim {2.11pt}
-\DimUse \lTmpaDim
+\BEGINTEST{Testing \dimSub}
+\dimSet \lTmpaDim {5.3pt}
+\dimSub \lTmpaDim {2.11pt}
+\dimUse \lTmpaDim
 \ENDTEST
 
-\BEGINTEST{Testing \DimStepInline}
+\BEGINTEST{Testing \dimStepInline}
 \IgnoreSpacesOn
-\TlClear \lTmpaTl
-\DimStepInline {1pt} {0.1pt} {1.5pt} {
-  \TlPutRight \lTmpaTl {[#1]}
+\tlClear \lTmpaTl
+\dimStepInline {1pt} {0.1pt} {1.5pt} {
+  \tlPutRight \lTmpaTl {[#1]}
 }
-\Return {\Value\lTmpaTl}
+\prgReturn {\expValue\lTmpaTl}
 \IgnoreSpacesOff
 \ENDTEST
 
-\BEGINTEST{Testing \DimStepVariable}
+\BEGINTEST{Testing \dimStepVariable}
 \IgnoreSpacesOn
-\TlClear \lTmpaTl
-\DimStepVariable {1pt} {0.1pt} {1.5pt} \lTmpiTl {
-  \TlPutRight \lTmpaTl {\Value\lTmpiTl}
-  \TlPutRight \lTmpaTl {~}
+\tlClear \lTmpaTl
+\dimStepVariable {1pt} {0.1pt} {1.5pt} \lTmpiTl {
+  \tlPutRight \lTmpaTl {\expValue\lTmpiTl}
+  \tlPutRight \lTmpaTl {~}
 }
-\Return {\Value\lTmpaTl}
+\prgReturn {\expValue\lTmpaTl}
 \IgnoreSpacesOff
 \ENDTEST
 
-\BEGINTEST{Testing \DimIfExist}
-\DimIfExistTF \lTmpaDim {\Return{Yes}} {\Return{No}}
-\DimIfExistTF \lFooUndefinedDim {\Return{Yes}} {\Return{No}}
+\BEGINTEST{Testing \dimIfExist}
+\dimIfExistTF \lTmpaDim {\prgReturn{Yes}} {\prgReturn{No}}
+\dimIfExistTF \lFooUndefinedDim {\prgReturn{Yes}} {\prgReturn{No}}
 \ENDTEST
 
-\BEGINTEST{Testing \DimCompare}
-\DimCompareTF {1pt} > {0.9999pt} {\Return{Greater}} {\Return{Less}}
-\DimCompareTF {1pt} > {1.0001pt} {\Return{Greater}} {\Return{Less}}
+\BEGINTEST{Testing \dimCompare}
+\dimCompareTF {1pt} > {0.9999pt} {\prgReturn{Greater}} {\prgReturn{Less}}
+\dimCompareTF {1pt} > {1.0001pt} {\prgReturn{Greater}} {\prgReturn{Less}}
 \ENDTEST
 
-\BEGINTEST{Testing \DimCaseF}
+\BEGINTEST{Testing \dimCaseF}
 \IgnoreSpacesOn
-\DimSet \lTmpaDim {5pt}
-\DimCaseF {2\lTmpaDim} {
-  {5pt}     {\Return{Small}}
-  {4pt+6pt} {\Return{Medium}}
-  {-10pt}   {\Return{Negative}}
+\dimSet \lTmpaDim {5pt}
+\dimCaseF {2\lTmpaDim} {
+  {5pt}     {\prgReturn{Small}}
+  {4pt+6pt} {\prgReturn{Medium}}
+  {-10pt}   {\prgReturn{Negative}}
 }{
-  \Return {No Match}
+  \prgReturn {No Match}
 }
 \IgnoreSpacesOff
 \ENDTEST
 
-\BEGINTEST{Testing \DimCaseTF}
+\BEGINTEST{Testing \dimCaseTF}
 \IgnoreSpacesOn
-\DimSet \lTmpaDim {5pt}
-\DimCaseTF {2\lTmpaDim} {
-  {5pt}     {\Return{Small}}
-  {4pt+6pt} {\Return{Medium}}
-  {-10pt}   {\Return{Negative}}
+\dimSet \lTmpaDim {5pt}
+\dimCaseTF {2\lTmpaDim} {
+  {5pt}     {\prgReturn{Small}}
+  {4pt+6pt} {\prgReturn{Medium}}
+  {-10pt}   {\prgReturn{Negative}}
 }{
-  \Return {[Some Match]}
+  \prgReturn {[Some Match]}
 }{
-  \Return {[No Match]}
+  \prgReturn {[No Match]}
 }
 \IgnoreSpacesOff
 \ENDTEST

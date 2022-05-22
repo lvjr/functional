@@ -15,8 +15,8 @@
 Constants that represent \verb|true| and \verb|false|, respectively. Used to
 implement predicates. For example
 \begin{demohigh}
-\BoolVarIfTF \cTrueBool {\Return{True!}} {\Return{False!}}
-\BoolVarIfTF \cFalseBool {\Return{True!}} {\Return{False!}}
+\boolVarIfTF \cTrueBool {\prgReturn{True!}} {\prgReturn{False!}}
+\boolVarIfTF \cFalseBool {\prgReturn{True!}} {\prgReturn{False!}}
 \end{demohigh}
 \end{variable}
 
@@ -48,13 +48,13 @@ prefix~\verb|!| with their usual precedences (namely, \verb|&&| binds
 more tightly than \verb"||"). In addition to this, parentheses can be
 used to isolate sub-expressions. For example,
 \begin{codehigh}
-\IntCompare {1} = {1} &&
+\intCompare {1} = {1} &&
   (
-    \IntCompare {2} = {3} ||
-    \IntCompare {4} < {4} ||
-    \StrIfEq {abc} {def}
+    \intCompare {2} = {3} ||
+    \intCompare {4} < {4} ||
+    \strIfEq {abc} {def}
   ) &&
-! \IntCompare {2} = {4}
+! \intCompare {2} = {4}
 \end{codehigh}
 is a valid boolean expression.
 
@@ -64,200 +64,200 @@ operand is enough to determine the result.
 
 \section{Creating and Setting Booleans}
 
-\begin{function}{\BoolNew}
+\begin{function}{\boolNew}
 \begin{syntax}
-\cs{BoolNew} \meta{boolean}
+\cs{boolNew} \meta{boolean}
 \end{syntax}
 Creates a new \meta{boolean} or raises an error if the
 name is already taken. The declaration is global. The
 \meta{boolean} is initially \texttt{false}.
 \end{function}
 
-\begin{function}{\BoolConst}
+\begin{function}{\boolConst}
 \begin{syntax}
-\cs{BoolConst} \meta{boolean} \Arg{boolexpr}
+\cs{boolConst} \meta{boolean} \Arg{boolexpr}
 \end{syntax}
 Creates a new constant \meta{boolean} or raises an error if the name
 is already taken. The value of the \meta{boolean} is set globally to
 the result of evaluating the \meta{boolexpr}.
 For example
 \begin{codehigh}
-\BoolConst \cFooSomeBool {\IntCompare{3}>{2}}
-\BoolVarLog \cFooSomeBool
+\boolConst \cFooSomeBool {\intCompare{3}>{2}}
+\boolVarLog \cFooSomeBool
 \end{codehigh}
 \end{function}
 
-\begin{function}{\BoolSet}
+\begin{function}{\boolSet}
 \begin{syntax}
-\cs{BoolSet} \meta{boolean} \Arg{boolexpr}
+\cs{boolSet} \meta{boolean} \Arg{boolexpr}
 \end{syntax}
 Evaluates the \meta{boolean expression} and sets the \meta{boolean} variable to
 the logical truth of this evaluation.
 For example
 \begin{codehigh}
-\BoolSet \lTmpaBool {\IntCompare{3}<{4}}
-\BoolVarLog \lTmpaBool
+\boolSet \lTmpaBool {\intCompare{3}<{4}}
+\boolVarLog \lTmpaBool
 \end{codehigh}
 \begin{codehigh}
-\BoolSet \lTmpaBool {\IntCompare{3}<{4} && \StrIfEq{abc}{uvw}}
-\BoolVarLog \lTmpaBool
+\boolSet \lTmpaBool {\intCompare{3}<{4} && \strIfEq{abc}{uvw}}
+\boolVarLog \lTmpaBool
 \end{codehigh}
 \end{function}
 
-\begin{function}{\BoolSetTrue}
+\begin{function}{\boolSetTrue}
 \begin{syntax}
-\cs{BoolSetTrue} \meta{boolean}
+\cs{boolSetTrue} \meta{boolean}
 \end{syntax}
 Sets \meta{boolean} logically \texttt{true}.
 \end{function}
 
-\begin{function}{\BoolSetFalse}
+\begin{function}{\boolSetFalse}
 \begin{syntax}
-\cs{BoolSetFalse} \meta{boolean}
+\cs{boolSetFalse} \meta{boolean}
 \end{syntax}
 Sets \meta{boolean} logically \texttt{false}.
 \end{function}
 
-\begin{function}{\BoolSetEq}
+\begin{function}{\boolSetEq}
 \begin{syntax}
-\cs{BoolSetEq} \meta{boolean_1} \meta{boolean_2}
+\cs{boolSetEq} \meta{boolean_1} \meta{boolean_2}
 \end{syntax}
 Sets \meta{boolean_1} to the current value of \meta{boolean_2}.
 For example
 \begin{codehigh}
-\BoolSetTrue \lTmpaBool
-\BoolSetEq \lTmpbBool \lTmpaBool
-\BoolVarLog \lTmpbBool
+\boolSetTrue \lTmpaBool
+\boolSetEq \lTmpbBool \lTmpaBool
+\boolVarLog \lTmpbBool
 \end{codehigh}
 \end{function}
 
 \section{Viewing Booleans}
 
-\begin{function}{\BoolLog}
+\begin{function}{\boolLog}
 \begin{syntax}
-\cs{BoolLog} \Arg{boolean expression}
+\cs{boolLog} \Arg{boolean expression}
 \end{syntax}
 Writes the logical truth of the \meta{boolean expression} in the log file.
 \end{function}
 
-\begin{function}{\BoolVarLog}
+\begin{function}{\boolVarLog}
 \begin{syntax}
-\cs{BoolVarLog} \meta{boolean}
+\cs{boolVarLog} \meta{boolean}
 \end{syntax}
 Writes the logical truth of the \meta{boolean} in the log file.
 \end{function}
 
-\begin{function}{\BoolShow}
+\begin{function}{\boolShow}
 \begin{syntax}
-\cs{BoolShow} \Arg{boolean expression}
+\cs{boolShow} \Arg{boolean expression}
 \end{syntax}
 Displays the logical truth of the \meta{boolean expression} on the terminal.
 \end{function}
 
-\begin{function}{\BoolVarShow}
+\begin{function}{\boolVarShow}
 \begin{syntax}
-\cs{BoolVarShow} \meta{boolean}
+\cs{boolVarShow} \meta{boolean}
 \end{syntax}
 Displays the logical truth of the \meta{boolean} on the terminal.
 \end{function}
 
 \section{Booleans and Conditionals}
 
-\begin{function}{\BoolIfExist,\BoolIfExistT,\BoolIfExistF,\BoolIfExistTF}
+\begin{function}{\boolIfExist,\boolIfExistT,\boolIfExistF,\boolIfExistTF}
 \begin{syntax}
-\cs{BoolIfExist} \meta{boolean}
-\cs{BoolIfExistT} \meta{boolean} \Arg{true code}
-\cs{BoolIfExistF} \meta{boolean} \Arg{false code}
-\cs{BoolIfExistTF} \meta{boolean} \Arg{true code} \Arg{false code}
+\cs{boolIfExist} \meta{boolean}
+\cs{boolIfExistT} \meta{boolean} \Arg{true code}
+\cs{boolIfExistF} \meta{boolean} \Arg{false code}
+\cs{boolIfExistTF} \meta{boolean} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests whether the \meta{boolean} is currently defined.  This does not
 check that the \meta{boolean} really is a boolean variable.
 For example
 \begin{demohigh}
-\BoolIfExistTF \lTmpaBool {\Return{Yes}} {\Return{No}}
-\BoolIfExistTF \lFooUndefinedBool {\Return{Yes}} {\Return{No}}
+\boolIfExistTF \lTmpaBool {\prgReturn{Yes}} {\prgReturn{No}}
+\boolIfExistTF \lFooUndefinedBool {\prgReturn{Yes}} {\prgReturn{No}}
 \end{demohigh}
 \end{function}
 
-\begin{function}{\BoolVarIf,\BoolVarIfT,\BoolVarIfF,\BoolVarIfTF}
+\begin{function}{\boolVarIf,\boolVarIfT,\boolVarIfF,\boolVarIfTF}
 \begin{syntax}
-\cs{BoolVarIf} \meta{boolean}
-\cs{BoolVarIfT} \meta{boolean} \Arg{true code}
-\cs{BoolVarIfF} \meta{boolean} \Arg{false code}
-\cs{BoolVarIfTF} \meta{boolean} \Arg{true code} \Arg{false code}
+\cs{boolVarIf} \meta{boolean}
+\cs{boolVarIfT} \meta{boolean} \Arg{true code}
+\cs{boolVarIfF} \meta{boolean} \Arg{false code}
+\cs{boolVarIfTF} \meta{boolean} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests the current truth of \meta{boolean}, and continues evaluation
 based on this result. For example
 \begin{demohigh}
-\BoolSetTrue \lTmpaBool
-\BoolVarIfTF \lTmpaBool {\Return{True!}} {\Return{False!}}
-\BoolSetFalse \lTmpaBool
-\BoolVarIfTF \lTmpaBool {\Return{True!}} {\Return{False!}}
+\boolSetTrue \lTmpaBool
+\boolVarIfTF \lTmpaBool {\prgReturn{True!}} {\prgReturn{False!}}
+\boolSetFalse \lTmpaBool
+\boolVarIfTF \lTmpaBool {\prgReturn{True!}} {\prgReturn{False!}}
 \end{demohigh}
 \end{function}
 
-\begin{function}{\BoolVarNot,\BoolVarNotT,\BoolVarNotF,\BoolVarNotTF}
+\begin{function}{\boolVarNot,\boolVarNotT,\boolVarNotF,\boolVarNotTF}
 \begin{syntax}
-\cs{BoolVarNot} \meta{boolean}
-\cs{BoolVarNotT} \meta{boolean} \Arg{true code}
-\cs{BoolVarNotF} \meta{boolean} \Arg{false code}
-\cs{BoolVarNotTF} \meta{boolean} \Arg{true code} \Arg{false code}
+\cs{boolVarNot} \meta{boolean}
+\cs{boolVarNotT} \meta{boolean} \Arg{true code}
+\cs{boolVarNotF} \meta{boolean} \Arg{false code}
+\cs{boolVarNotTF} \meta{boolean} \Arg{true code} \Arg{false code}
 \end{syntax}
 Evaluates \meta{true code} if \meta{boolean} is \verb!false!,
 and \meta{false code} if \meta{boolean} is \verb!true!.
 For example
 \begin{demohigh}
-\BoolVarNotTF {\IntCompare{3}>{2}} {\Return{Yes}} {\Return{No}}
+\boolVarNotTF {\intCompare{3}>{2}} {\prgReturn{Yes}} {\prgReturn{No}}
 \end{demohigh}
 \end{function}
 
-\begin{function}{\BoolVarAnd,\BoolVarAndT,\BoolVarAndF,\BoolVarAndTF}
+\begin{function}{\boolVarAnd,\boolVarAndT,\boolVarAndF,\boolVarAndTF}
 \begin{syntax}
-\cs{BoolVarAnd} \meta{boolean_1} \meta{boolean_2}
-\cs{BoolVarAndT} \meta{boolean_1} \meta{boolean_2} \Arg{true code}
-\cs{BoolVarAndF} \meta{boolean_1} \meta{boolean_2} \Arg{false code}
-\cs{BoolVarAndTF} \meta{boolean_1} \meta{boolean_2} \Arg{true code} \Arg{false code}
+\cs{boolVarAnd} \meta{boolean_1} \meta{boolean_2}
+\cs{boolVarAndT} \meta{boolean_1} \meta{boolean_2} \Arg{true code}
+\cs{boolVarAndF} \meta{boolean_1} \meta{boolean_2} \Arg{false code}
+\cs{boolVarAndTF} \meta{boolean_1} \meta{boolean_2} \Arg{true code} \Arg{false code}
 \end{syntax}
 Implements the \enquote{And} operation between two booleans,
 hence is \texttt{true} if both are \texttt{true}.
 %Contrarily to the infix operator \verb|&&|,
 %The \meta{boolean_2} is only evaluated if it is needed to determine the result of
-%\cs{BoolVarAnd}.
+%\cs{boolVarAnd}.
 For example
 \begin{demohigh}
-\BoolVarAndTF {\IntCompare{3}>{2}} {\IntCompare{3}>{4}} {\Return{Yes}} {\Return{No}}
+\boolVarAndTF {\intCompare{3}>{2}} {\intIfOdd{6}} {\prgReturn{Yes}} {\prgReturn{No}}
 \end{demohigh}
 \end{function}
 
-\begin{function}{\BoolVarOr,\BoolVarOrT,\BoolVarOrF,\BoolVarOrTF}
+\begin{function}{\boolVarOr,\boolVarOrT,\boolVarOrF,\boolVarOrTF}
 \begin{syntax}
-\cs{BoolVarOr} \meta{boolean_1} \meta{boolean_2}
-\cs{BoolVarOrT} \meta{boolean_1} \meta{boolean_2} \Arg{true code}
-\cs{BoolVarOrF} \meta{boolean_1} \meta{boolean_2} \Arg{false code}
-\cs{BoolVarOrTF} \meta{boolean_1} \meta{boolean_2} \Arg{true code} \Arg{false code}
+\cs{boolVarOr} \meta{boolean_1} \meta{boolean_2}
+\cs{boolVarOrT} \meta{boolean_1} \meta{boolean_2} \Arg{true code}
+\cs{boolVarOrF} \meta{boolean_1} \meta{boolean_2} \Arg{false code}
+\cs{boolVarOrTF} \meta{boolean_1} \meta{boolean_2} \Arg{true code} \Arg{false code}
 \end{syntax}
 Implements the \enquote{Or} operation between two booleans,
 hence is \texttt{true} if either one is \texttt{true}.
 %Contrarily to the infix operator \verb"||",
 %The \meta{boolean_2} is only evaluated if it is needed to determine the result of
-%\cs{BoolVarOr}.
+%\cs{boolVarOr}.
 For example
 \begin{demohigh}
-\BoolVarOrTF {\IntCompare{3}>{2}} {\IntCompare{3}>{4}} {\Return{Yes}} {\Return{No}}
+\boolVarOrTF {\intCompare{3}>{2}} {\intIfOdd{6}} {\prgReturn{Yes}} {\prgReturn{No}}
 \end{demohigh}
 \end{function}
 
-\begin{function}{\BoolVarXor,\BoolVarXorT,\BoolVarXorF,\BoolVarXorTF}
+\begin{function}{\boolVarXor,\boolVarXorT,\boolVarXorF,\boolVarXorTF}
 \begin{syntax}
-\cs{BoolVarXor} \meta{boolean_1} \meta{boolean_2}
-\cs{BoolVarXorT} \meta{boolean_1} \meta{boolean_2} \Arg{true code}
-\cs{BoolVarXorF} \meta{boolean_1} \meta{boolean_2} \Arg{false code}
-\cs{BoolVarXorTF} \meta{boolean_1} \meta{boolean_2} \Arg{true code} \Arg{false code}
+\cs{boolVarXor} \meta{boolean_1} \meta{boolean_2}
+\cs{boolVarXorT} \meta{boolean_1} \meta{boolean_2} \Arg{true code}
+\cs{boolVarXorF} \meta{boolean_1} \meta{boolean_2} \Arg{false code}
+\cs{boolVarXorTF} \meta{boolean_1} \meta{boolean_2} \Arg{true code} \Arg{false code}
 \end{syntax}
 Implements an \enquote{exclusive or} operation between two booleans.
 For example
 \begin{demohigh}
-\BoolVarXorTF {\IntCompare{3}>{2}} {\IntCompare{3}>{4}} {\Return{Yes}} {\Return{No}}
+\boolVarXorTF {\intCompare{3}>{2}} {\intIfOdd{6}} {\prgReturn{Yes}} {\prgReturn{No}}
 \end{demohigh}
 \end{function}
 
@@ -265,9 +265,9 @@ For example
 
 Loops using either boolean expressions or stored boolean values.
 
-\begin{function}{\BoolVarDoUntil}
+\begin{function}{\boolVarDoUntil}
 \begin{syntax}
-\cs{BoolVarDoUntil} \meta{boolean} \Arg{code}
+\cs{boolVarDoUntil} \meta{boolean} \Arg{code}
 \end{syntax}
 Places the \meta{code} in the input stream for \TeX{} to process,
 and then checks the logical value of the \meta{boolean}.  If it is
@@ -276,22 +276,22 @@ stream again and the process loops until the \meta{boolean} is
 \texttt{true}.
 \begin{demohigh}
 \IgnoreSpacesOn
-\BoolSetFalse \lTmpaBool
-\IntZero \lTmpaInt
-\ClistClear \lTmpaClist
-\BoolVarDoUntil \lTmpaBool {
-  \IntIncr \lTmpaInt
-  \ClistPutRight \lTmpaClist {\Value\lTmpaInt}
-  \IntCompareT {\lTmpaInt} = {10} {\BoolSetTrue \lTmpaBool}
+\boolSetFalse \lTmpaBool
+\intZero \lTmpaInt
+\clistClear \lTmpaClist
+\boolVarDoUntil \lTmpaBool {
+  \intIncr \lTmpaInt
+  \clistPutRight \lTmpaClist {\expValue\lTmpaInt}
+  \intCompareT {\lTmpaInt} = {10} {\boolSetTrue \lTmpaBool}
 }
-\ClistVarJoin \lTmpaClist {:}
+\clistVarJoin \lTmpaClist {:}
 \IgnoreSpacesOff
 \end{demohigh}
 \end{function}
 
-\begin{function}{\BoolVarDoWhile}
+\begin{function}{\boolVarDoWhile}
 \begin{syntax}
-\cs{BoolVarDoWhile} \meta{boolean} \Arg{code}
+\cs{boolVarDoWhile} \meta{boolean} \Arg{code}
 \end{syntax}
 Places the \meta{code} in the input stream for \TeX{} to process,
 and then checks the logical value of the \meta{boolean}.  If it is
@@ -300,22 +300,22 @@ stream again and the process loops until the \meta{boolean} is
 \texttt{false}.
 \begin{demohigh}
 \IgnoreSpacesOn
-\BoolSetTrue \lTmpaBool
-\IntZero \lTmpaInt
-\ClistClear \lTmpaClist
-\BoolVarDoWhile \lTmpaBool {
-  \IntIncr \lTmpaInt
-  \ClistPutRight \lTmpaClist {\Value\lTmpaInt}
-  \IntCompareT {\lTmpaInt} = {10} {\BoolSetFalse \lTmpaBool}
+\boolSetTrue \lTmpaBool
+\intZero \lTmpaInt
+\clistClear \lTmpaClist
+\boolVarDoWhile \lTmpaBool {
+  \intIncr \lTmpaInt
+  \clistPutRight \lTmpaClist {\expValue\lTmpaInt}
+  \intCompareT {\lTmpaInt} = {10} {\boolSetFalse \lTmpaBool}
 }
-\ClistVarJoin \lTmpaClist {:}
+\clistVarJoin \lTmpaClist {:}
 \IgnoreSpacesOff
 \end{demohigh}
 \end{function}
 
-\begin{function}{\BoolVarUntilDo}
+\begin{function}{\boolVarUntilDo}
 \begin{syntax}
-\cs{BoolVarUntilDo} \meta{boolean} \Arg{code}
+\cs{boolVarUntilDo} \meta{boolean} \Arg{code}
 \end{syntax}
 This function firsts checks the logical value of the \meta{boolean}.
 If it is \texttt{false} the \meta{code} is placed in the input stream
@@ -324,22 +324,22 @@ of the \meta{boolean} is re-evaluated. The process then loops
 until the \meta{boolean} is \texttt{true}.
 \begin{demohigh}
 \IgnoreSpacesOn
-\BoolSetFalse \lTmpaBool
-\IntZero \lTmpaInt
-\ClistClear \lTmpaClist
-\BoolVarUntilDo \lTmpaBool {
-  \IntIncr \lTmpaInt
-  \ClistPutRight \lTmpaClist {\Value\lTmpaInt}
-  \IntCompareT {\lTmpaInt} = {10} {\BoolSetTrue \lTmpaBool}
+\boolSetFalse \lTmpaBool
+\intZero \lTmpaInt
+\clistClear \lTmpaClist
+\boolVarUntilDo \lTmpaBool {
+  \intIncr \lTmpaInt
+  \clistPutRight \lTmpaClist {\expValue\lTmpaInt}
+  \intCompareT {\lTmpaInt} = {10} {\boolSetTrue \lTmpaBool}
 }
-\ClistVarJoin \lTmpaClist {:}
+\clistVarJoin \lTmpaClist {:}
 \IgnoreSpacesOff
 \end{demohigh}
 \end{function}
 
-\begin{function}{\BoolVarWhileDo}
+\begin{function}{\boolVarWhileDo}
 \begin{syntax}
-\cs{BoolVarWhileDo} \meta{boolean} \Arg{code}
+\cs{boolVarWhileDo} \meta{boolean} \Arg{code}
 \end{syntax}
 This function firsts checks the logical value of the \meta{boolean}.
 If it is \texttt{true} the \meta{code} is placed in the input stream
@@ -348,15 +348,15 @@ of the \meta{boolean} is re-evaluated. The process then loops
 until the \meta{boolean} is \texttt{false}.
 \begin{demohigh}
 \IgnoreSpacesOn
-\BoolSetTrue \lTmpaBool
-\IntZero \lTmpaInt
-\ClistClear \lTmpaClist
-\BoolVarWhileDo \lTmpaBool {
-  \IntIncr \lTmpaInt
-  \ClistPutRight \lTmpaClist {\Value\lTmpaInt}
-  \IntCompareT {\lTmpaInt} = {10} {\BoolSetFalse \lTmpaBool}
+\boolSetTrue \lTmpaBool
+\intZero \lTmpaInt
+\clistClear \lTmpaClist
+\boolVarWhileDo \lTmpaBool {
+  \intIncr \lTmpaInt
+  \clistPutRight \lTmpaClist {\expValue\lTmpaInt}
+  \intCompareT {\lTmpaInt} = {10} {\boolSetFalse \lTmpaBool}
 }
-\ClistVarJoin \lTmpaClist {:}
+\clistVarJoin \lTmpaClist {:}
 \IgnoreSpacesOff
 \end{demohigh}
 \end{function}

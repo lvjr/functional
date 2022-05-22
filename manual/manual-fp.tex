@@ -114,7 +114,7 @@ towards $+\infty$ if $t>0$ and towards $-\infty$ if $t<0$.
 \item Constants: \texttt{pi}, \texttt{deg} (one degree in radians).
 \item Dimensions, automatically expressed in points, \emph{e.g.},
 \texttt{pc} is $12$.
-\item Automatic conversion (no need for \cs{IntUse}, etc) of
+\item Automatic conversion (no need for \cs{intUse}, etc) of
 integer, dimension, and skip variables to floating point numbers,
 expressing dimensions in points and ignoring the stretch and
 shrink components of skips.
@@ -135,7 +135,7 @@ A \enquote{floating point} is a floating point number or a tuple thereof.
 An example of use could be the following.
 \begin{demohigh}
 \LaTeX{} can now compute: $ \frac{\sin(3.5)}{2} + 2\cdot 10^{-3}
-= \FpEval {sin(3.5)/2 + 2e-3} $.
+= \fpEval {sin(3.5)/2 + 2e-3} $.
 \end{demohigh}
 
 The operation \texttt{round} can be used to limit the result's
@@ -162,9 +162,9 @@ replacing it by \verb|+0|.
 
 \section{Using Floating Point Expressions}
 
-\begin{function}{\FpEval}
+\begin{function}{\fpEval}
 \begin{syntax}
-\cs{FpEval} \Arg{floating point expression}
+\cs{fpEval} \Arg{floating point expression}
 \end{syntax}
 Evaluates the \meta{floating point expression} and returns the
 result as a decimal number with no
@@ -173,98 +173,98 @@ for the exponent.  Non-significant trailing zeros are trimmed, and
 integers are expressed without a decimal separator.  The values
 $\pm\infty$ and \nan{} trigger an \enquote{invalid operation}
 exception.
-For a tuple, each item is converted using \cs{FpEval} and they are combined as
+For a tuple, each item is converted using \cs{fpEval} and they are combined as
 \verb|(|\meta{fp_1}\verb*|, |\meta{fp_2}\verb*|, |\ldots{}\meta{fp_n}\verb|)|
 if $n>1$ and \verb|(|\meta{fp_1}\verb|,)| or \verb|()| for fewer items.
 %This function is identical to \cs{fp_to_decimal:n}.
 For example
 \begin{demohigh}
-\FpEval {(1.2+3.4)*(5.6-7.8)/9}
+\fpEval {(1.2+3.4)*(5.6-7.8)/9}
 \end{demohigh}
 \end{function}
 
-\begin{function}{\FpMathAdd}
+\begin{function}{\fpMathAdd}
 \begin{syntax}
-\cs{FpMathAdd} \Arg{fpexpr_1} \Arg{fpexpr_2}
+\cs{fpMathAdd} \Arg{fpexpr_1} \Arg{fpexpr_2}
 \end{syntax}
 Adds \Arg{fpexpr_1} and \Arg{fpexpr_2},
 and returns the result. For example
 \begin{demohigh}
-\FpMathAdd {2.8} {3.7}
-\FpMathAdd {3.8-1} {2.7+1}
+\fpMathAdd {2.8} {3.7}
+\fpMathAdd {3.8-1} {2.7+1}
 \end{demohigh}
 \end{function}
 
-\begin{function}{\FpMathSub}
+\begin{function}{\fpMathSub}
 \begin{syntax}
-\cs{FpMathSub} \Arg{fpexpr_1} \Arg{fpexpr_2}
+\cs{fpMathSub} \Arg{fpexpr_1} \Arg{fpexpr_2}
 \end{syntax}
 Subtracts \Arg{fpexpr_2} from \Arg{fpexpr_1},
 and returns the result. For example
 \begin{demohigh}
-\FpMathSub {2.8} {3.7}
-\FpMathSub {3.8-1} {2.7+1}
+\fpMathSub {2.8} {3.7}
+\fpMathSub {3.8-1} {2.7+1}
 \end{demohigh}
 \end{function}
 
-\begin{function}{\FpMathMult}
+\begin{function}{\fpMathMult}
 \begin{syntax}
-\cs{FpMathMult} \Arg{fpexpr_1} \Arg{fpexpr_2}
+\cs{fpMathMult} \Arg{fpexpr_1} \Arg{fpexpr_2}
 \end{syntax}
 Multiplies \Arg{fpexpr_1} by \Arg{fpexpr_2},
 and returns the result. For example
 \begin{demohigh}
-\FpMathMult {2.8} {3.7}
-\FpMathMult {3.8-1} {2.7+1}
+\fpMathMult {2.8} {3.7}
+\fpMathMult {3.8-1} {2.7+1}
 \end{demohigh}
 \end{function}
 
-\begin{function}{\FpMathDiv}
+\begin{function}{\fpMathDiv}
 \begin{syntax}
-\cs{FpMathDiv} \Arg{fpexpr_1} \Arg{fpexpr_2}
+\cs{fpMathDiv} \Arg{fpexpr_1} \Arg{fpexpr_2}
 \end{syntax}
 Divides \Arg{fpexpr_1} by \Arg{fpexpr_2},
 and returns the result. For example
 \begin{demohigh}
-\FpMathDiv {2.8} {3.7}
-\FpMathDiv {3.8-1} {2.7+1}
+\fpMathDiv {2.8} {3.7}
+\fpMathDiv {3.8-1} {2.7+1}
 \end{demohigh}
 \end{function}
 
-\begin{function}{\FpMathSign}
+\begin{function}{\fpMathSign}
 \begin{syntax}
-\cs{FpMathSign} \Arg{fpexpr}
+\cs{fpMathSign} \Arg{fpexpr}
 \end{syntax}
 Evaluates the \meta{fpexpr} and returns the value
-using \cs{FpEval}\verb|{sign(|\meta{result}\verb|)}|: $+1$ for positive
+using \cs{fpEval}\verb|{sign(|\meta{result}\verb|)}|: $+1$ for positive
 numbers and for $+\infty$, $-1$ for negative numbers and for
 $-\infty$, $\pm 0$ for $\pm 0$.  If the operand is a tuple or is
 \nan{}, then \enquote{invalid operation} occurs and the result
 is $0$. For example
 \begin{demohigh}
-\FpMathSign {3.5}
-\FpMathSign {-2.7}
+\fpMathSign {3.5}
+\fpMathSign {-2.7}
 \end{demohigh}
 \end{function}
 
-\begin{function}{\FpMathAbs}
+\begin{function}{\fpMathAbs}
 \begin{syntax}
-\cs{FpMathAbs} \Arg{floating point expression}
+\cs{fpMathAbs} \Arg{floating point expression}
 \end{syntax}
 Evaluates the \meta{floating point expression} as described for
-\cs{FpEval} and returns the absolute value.
+\cs{fpEval} and returns the absolute value.
 If the argument is $\pm\infty$, \nan{} or a tuple,
 \enquote{invalid operation} occurs.  Within floating point
 expressions, \verb|abs()| can be used; it accepts $\pm\infty$ and \nan{}
 as arguments.
 \end{function}
 
-\begin{function}{\FpMathMax,\FpMathMin}
+\begin{function}{\fpMathMax,\fpMathMin}
 \begin{syntax}
-\cs{FpMathMax} \Arg{fp expression_1} \Arg{fp expression_2}
-\cs{FpMathMin} \Arg{fp expression_1} \Arg{fp expression_2}
+\cs{fpMathMax} \Arg{fp expression_1} \Arg{fp expression_2}
+\cs{fpMathMin} \Arg{fp expression_1} \Arg{fp expression_2}
 \end{syntax}
-Evaluates the \meta{floating point expressions} as described for \cs{FpEval}
+Evaluates the \meta{floating point expressions} as described for \cs{fpEval}
 and returns the resulting larger (\texttt{max}) or smaller (\texttt{min}) value.
 If the argument is a tuple, \enquote{invalid operation} occurs,
 but no other case raises exceptions. Within floating point expressions,
@@ -273,32 +273,32 @@ but no other case raises exceptions. Within floating point expressions,
 
 \section{Creating and Using Floating Points}
 
-\begin{function}{\FpNew}
+\begin{function}{\fpNew}
 \begin{syntax}
-\cs{FpNew} \meta{fp var}
+\cs{fpNew} \meta{fp var}
 \end{syntax}
 Creates a new \meta{fp var} or raises an error if the name is
 already taken. The declaration is global. The \meta{fp~var} is
 initially $+0$.
 \end{function}
 
-\begin{function}{\FpConst}
+\begin{function}{\fpConst}
 \begin{syntax}
-\cs{FpConst} \meta{fp var} \Arg{floating point expression}
+\cs{fpConst} \meta{fp var} \Arg{floating point expression}
 \end{syntax}
 Creates a new constant \meta{fp var} or raises an error if the name
 is already taken. The \meta{fp var} is set globally equal to
 the result of evaluating the \meta{floating point expression}.
 For example
 \begin{demohigh}
-\FpConst \cMyPiFp {3.1415926}
-\FpUse \cMyPiFp
+\fpConst \cMyPiFp {3.1415926}
+\fpUse \cMyPiFp
 \end{demohigh}
 \end{function}
 
-\begin{function}{\FpUse}
+\begin{function}{\fpUse}
 \begin{syntax}
-\cs{FpUse} \meta{fp var}
+\cs{fpUse} \meta{fp var}
 \end{syntax}
 Recovers the value of the \meta{fp var} and returns the value as a
 decimal number with no exponent.
@@ -314,114 +314,114 @@ decimal number with no exponent.
 
 \section{Viewing Floating Points}
 
-\begin{function}{\FpLog}
+\begin{function}{\fpLog}
 \begin{syntax}
-\cs{FpLog} \Arg{floating point expression}
+\cs{fpLog} \Arg{floating point expression}
 \end{syntax}
 Evaluates the \meta{floating point expression} and writes the
 result in the log file.
 \end{function}
 
-\begin{function}{\FpVarLog}
+\begin{function}{\fpVarLog}
 \begin{syntax}
-\cs{FpVarLog} \meta{fp var}
+\cs{fpVarLog} \meta{fp var}
 \end{syntax}
 Writes the value of \meta{fp var} in the log file.
 \end{function}
 
-\begin{function}{\FpShow}
+\begin{function}{\fpShow}
 \begin{syntax}
-\cs{FpShow} \Arg{floating point expression}
+\cs{fpShow} \Arg{floating point expression}
 \end{syntax}
 Evaluates the \meta{floating point expression} and displays the
 result in the terminal.
 \end{function}
 
-\begin{function}{\FpVarShow}
+\begin{function}{\fpVarShow}
 \begin{syntax}
-\cs{FpVarShow} \meta{fp var}
+\cs{fpVarShow} \meta{fp var}
 \end{syntax}
 Displays the value of \meta{fp var} in the terminal.
 \end{function}
 
 \section{Setting Floating Point Variables}
 
-\begin{function}{\FpSet}
+\begin{function}{\fpSet}
 \begin{syntax}
-\cs{FpSet} \meta{fp var} \Arg{floating point expression}
+\cs{fpSet} \meta{fp var} \Arg{floating point expression}
 \end{syntax}
 Sets \meta{fp var} equal to the result of computing the
 \meta{floating point expression}. For example
 \begin{demohigh}
-\FpSet \lTmpaFp {4/7}
-\FpUse \lTmpaFp
+\fpSet \lTmpaFp {4/7}
+\fpUse \lTmpaFp
 \end{demohigh}
 \end{function}
 
-\begin{function}{\FpSetEq}
+\begin{function}{\fpSetEq}
 \begin{syntax}
-\cs{FpSetEq} \meta{fp var_1} \meta{fp var_2}
+\cs{fpSetEq} \meta{fp var_1} \meta{fp var_2}
 \end{syntax}
 Sets the floating point variable \meta{fp var_1} equal to the current
 value of \meta{fp var_2}.
 \end{function}
 
-\begin{function}{\FpZero}
+\begin{function}{\fpZero}
 \begin{syntax}
-\cs{FpZero} \meta{fp var}
+\cs{fpZero} \meta{fp var}
 \end{syntax}
 Sets the \meta{fp var} to $+0$. For example
 \begin{demohigh}
-\FpSet \lTmpaFp {5.3}
-\FpZero \lTmpaFp
-\FpUse \lTmpaFp
+\fpSet \lTmpaFp {5.3}
+\fpZero \lTmpaFp
+\fpUse \lTmpaFp
 \end{demohigh}
 \end{function}
 
-\begin{function}{\FpZeroNew}
+\begin{function}{\fpZeroNew}
 \begin{syntax}
-\cs{FpZeroNew} \meta{fp var}
+\cs{fpZeroNew} \meta{fp var}
 \end{syntax}
 Ensures that the \meta{fp var} exists globally
-by applying \cs{FpNew} if necessary, then applies
-\cs{FpZero} to leave the \meta{fp var} set to $+0$.
+by applying \cs{fpNew} if necessary, then applies
+\cs{fpZero} to leave the \meta{fp var} set to $+0$.
 \end{function}
 
-\begin{function}{\FpAdd}
+\begin{function}{\fpAdd}
 \begin{syntax}
-\cs{FpAdd} \meta{fp var} \Arg{floating point expression}
+\cs{fpAdd} \meta{fp var} \Arg{floating point expression}
 \end{syntax}
 Adds the result of computing the \meta{floating point expression} to
 the \meta{fp var}.
 This also applies if \meta{fp var} and \meta{floating point
 expression} evaluate to tuples of the same size. For example
 \begin{demohigh}
-\FpSet \lTmpaFp {5.3}
-\FpAdd \lTmpaFp {2.11}
-\FpUse \lTmpaFp
+\fpSet \lTmpaFp {5.3}
+\fpAdd \lTmpaFp {2.11}
+\fpUse \lTmpaFp
 \end{demohigh}
 \end{function}
 
-\begin{function}{\FpSub}
+\begin{function}{\fpSub}
 \begin{syntax}
-\cs{FpSub} \meta{fp var} \Arg{floating point expression}
+\cs{fpSub} \meta{fp var} \Arg{floating point expression}
 \end{syntax}
 Subtracts the result of computing the \meta{floating point
 expression} from the \meta{fp var}.
 This also applies if \meta{fp var} and \meta{floating point
 expression} evaluate to tuples of the same size. For example
 \begin{demohigh}
-\FpSet \lTmpaFp {5.3}
-\FpSub \lTmpaFp {2.11}
-\FpUse \lTmpaFp
+\fpSet \lTmpaFp {5.3}
+\fpSub \lTmpaFp {2.11}
+\fpUse \lTmpaFp
 \end{demohigh}
 \end{function}
 
 \section{Floating Point Step Functions}
 
-%\begin{function}{\FpStepFunction}
+%\begin{function}{\fpStepFunction}
 %\begin{syntax}
-%\cs{FpStepFunction} \Arg{initial value} \Arg{step} \Arg{final value} \meta{function}
+%\cs{fpStepFunction} \Arg{initial value} \Arg{step} \Arg{final value} \meta{function}
 %\end{syntax}
 %This function first evaluates the \meta{initial value}, \meta{step}
 %and \meta{final value}, each of which should be a floating point
@@ -454,9 +454,9 @@ expression} evaluate to tuples of the same size. For example
 %\end{texnote}
 %\end{function}
 
-\begin{function}{\FpStepInline}
+\begin{function}{\fpStepInline}
 \begin{syntax}
-\cs{FpStepInline} \Arg{initial value} \Arg{step} \Arg{final value} \Arg{code}
+\cs{fpStepInline} \Arg{initial value} \Arg{step} \Arg{final value} \Arg{code}
 \end{syntax}
 This function first evaluates the \meta{initial value}, \meta{step}
 and \meta{final value}, all of which should be floating point
@@ -468,18 +468,18 @@ with \verb|#1| replaced by the current \meta{value}. Thus the
 \meta{code} should define a function of one argument (\verb|#1|).
 \begin{demohigh}
 \IgnoreSpacesOn
-\TlClear \lTmpaTl
-\FpStepInline {1} {0.1} {1.5} {
-  \TlPutRight \lTmpaTl {[#1]}
+\tlClear \lTmpaTl
+\fpStepInline {1} {0.1} {1.5} {
+  \tlPutRight \lTmpaTl {[#1]}
 }
-\TlUse \lTmpaTl
+\tlUse \lTmpaTl
 \IgnoreSpacesOff
 \end{demohigh}
 \end{function}
 
-\begin{function}{\FpStepVariable}
+\begin{function}{\fpStepVariable}
 \begin{syntax}
-\cs{FpStepVariable} \Arg{initial value} \Arg{step} \Arg{final value} \meta{tl var} \Arg{code}
+\cs{fpStepVariable} \Arg{initial value} \Arg{step} \Arg{final value} \meta{tl var} \Arg{code}
 \end{syntax}
 This function first evaluates the \meta{initial value}, \meta{step}
 and \meta{final value}, all of which should be floating point
@@ -492,46 +492,46 @@ the \meta{code} should make use of the \meta{tl var}.
 %For example
 %\begin{demohigh}
 %\IgnoreSpacesOn
-%\TlClear\lTmpaTl
-%\FpStepVariable{1}{0.1}{1.5}\lTmpiTl{
-%  \TlPutRight\lTmpaTl{\Value\lTmpiTl}
-%  \TlPutRight\lTmpaTl{~}
+%\tlClear\lTmpaTl
+%\fpStepVariable{1}{0.1}{1.5}\lTmpiTl{
+%  \tlPutRight\lTmpaTl{\expValue\lTmpiTl}
+%  \tlPutRight\lTmpaTl{~}
 %}
-%\Return{\Value\lTmpaTl}
+%\prgReturn{\expValue\lTmpaTl}
 %\IgnoreSpacesOff
 %\end{demohigh}
 \end{function}
 
 \section{Float Point Conditionals}
 
-\begin{function}{\FpIfExist,\FpIfExistT,\FpIfExistF,\FpIfExistTF}
+\begin{function}{\fpIfExist,\fpIfExistT,\fpIfExistF,\fpIfExistTF}
 \begin{syntax}
-\cs{FpIfExist} \meta{fp var}
-\cs{FpIfExistT} \meta{fp var} \Arg{true code}
-\cs{FpIfExistF} \meta{fp var} \Arg{false code}
-\cs{FpIfExistTF} \meta{fp var} \Arg{true code} \Arg{false code}
+\cs{fpIfExist} \meta{fp var}
+\cs{fpIfExistT} \meta{fp var} \Arg{true code}
+\cs{fpIfExistF} \meta{fp var} \Arg{false code}
+\cs{fpIfExistTF} \meta{fp var} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests whether the \meta{fp var} is currently defined.  This does not
 check that the \meta{fp var} really is a floating point variable.
 For example
 \begin{demohigh}
-\FpIfExistTF \lTmpaFp {\Return{Yes}} {\Return{No}}
-\FpIfExistTF \lMyUndefinedFp {\Return{Yes}} {\Return{No}}
+\fpIfExistTF \lTmpaFp {\prgReturn{Yes}} {\prgReturn{No}}
+\fpIfExistTF \lMyUndefinedFp {\prgReturn{Yes}} {\prgReturn{No}}
 \end{demohigh}
 \end{function}
 
-\begin{function}{\FpCompare,\FpCompareT,\FpCompareF,\FpCompareTF}
+\begin{function}{\fpCompare,\fpCompareT,\fpCompareF,\fpCompareTF}
 \begin{syntax}
-\cs{FpCompare} \Arg{fpexpr_1} \meta{relation} \Arg{fpexpr_2}
-\cs{FpCompareT} \Arg{fpexpr_1} \meta{relation} \Arg{fpexpr_2} \Arg{true code}
-\cs{FpCompareF} \Arg{fpexpr_1} \meta{relation} \Arg{fpexpr_2} \Arg{false code}
-\cs{FpCompareTF} \Arg{fpexpr_1} \meta{relation} \Arg{fpexpr_2} \Arg{true code} \Arg{false code}
+\cs{fpCompare} \Arg{fpexpr_1} \meta{relation} \Arg{fpexpr_2}
+\cs{fpCompareT} \Arg{fpexpr_1} \meta{relation} \Arg{fpexpr_2} \Arg{true code}
+\cs{fpCompareF} \Arg{fpexpr_1} \meta{relation} \Arg{fpexpr_2} \Arg{false code}
+\cs{fpCompareTF} \Arg{fpexpr_1} \meta{relation} \Arg{fpexpr_2} \Arg{true code} \Arg{false code}
 \end{syntax}
 Compares the \meta{fpexpr_1} and the \meta{fpexpr_2}, and returns
 \texttt{true} if the \meta{relation} is obeyed. For example
 \begin{demohigh}
-\FpCompareTF {1} > {0.9999} {\Return{Greater}} {\Return{Less}}
-\FpCompareTF {1} > {1.0001} {\Return{Greater}} {\Return{Less}}
+\fpCompareTF {1} > {0.9999} {\prgReturn{Greater}} {\prgReturn{Less}}
+\fpCompareTF {1} > {1.0001} {\prgReturn{Greater}} {\prgReturn{Less}}
 \end{demohigh}
 Two floating points
 $x$ and $y$ may obey four mutually exclusive relations:
@@ -542,7 +542,7 @@ any value, even another \nan{}, hence $x=x$ is not true for
 a \nan{}.  To test if a value is \nan{}, compare it to an arbitrary
 number with the \enquote{not ordered} relation.\par
 %\begin{demohigh}
-%\FpCompareTF{0/0}?{0}{\Return{Is~a~Nan}}{\Return{Isn't~a~NaN}}
+%\fpCompareTF{0/0}?{0}{\prgReturn{Is~a~Nan}}{\prgReturn{Isn't~a~NaN}}
 %\end{demohigh}
 Tuples are equal if they have the same number of items and items
 compare equal (in particular there must be no \nan{}).

@@ -9,238 +9,238 @@
 
 \begin{document}
 
-\BEGINTEST{Testing \StrConst}
-\StrConst \cFooSomeStr {12\abc34}
-\StrUse \cFooSomeStr
+\BEGINTEST{Testing \strConst}
+\strConst \cFooSomeStr {12\abc34}
+\strUse \cFooSomeStr
 \ENDTEST
 
-\BEGINTEST{Testing \StrLog}
-\StrLog {12\abc34}
+\BEGINTEST{Testing \strLog}
+\strLog {12\abc34}
 \ENDTEST
 
-\BEGINTEST{Testing \StrSet}
-\StrSet \lTmpiStr {\IntMathMult{4}{5}}
-\StrUse \lTmpiStr
+\BEGINTEST{Testing \strSet}
+\strSet \lTmpiStr {\intMathMult{4}{5}}
+\strUse \lTmpiStr
 \ENDTEST
 
-\BEGINTEST{Testing \StrSetEq}
-\StrSet \lTmpaStr {abc}
-\StrSetEq \lTmpbStr \lTmpaStr
-\StrUse \lTmpbStr
+\BEGINTEST{Testing \strSetEq}
+\strSet \lTmpaStr {abc}
+\strSetEq \lTmpbStr \lTmpaStr
+\strUse \lTmpbStr
 \ENDTEST
 
-\BEGINTEST{Testing \StrClea}
-\StrSet \lTmpjStr {One}
-\StrClear \lTmpjStr
-\StrSet \lTmpjStr {Two}
-\StrUse \lTmpjStr
+\BEGINTEST{Testing \strClea}
+\strSet \lTmpjStr {One}
+\strClear \lTmpjStr
+\strSet \lTmpjStr {Two}
+\strUse \lTmpjStr
 \ENDTEST
 
-\BEGINTEST{Testing \StrClearNew}
-\StrClearNew \lFooSomeStr
-\StrUse \lFooSomeStr
+\BEGINTEST{Testing \strClearNew}
+\strClearNew \lFooSomeStr
+\strUse \lFooSomeStr
 \ENDTEST
 
-\BEGINTEST{Testing \StrConcat}
-\StrSet \lTmpbStr {con}
-\StrSet \lTmpcStr {cat}
-\StrConcat \lTmpaStr \lTmpbStr \lTmpcStr
-\StrUse \lTmpaStr
+\BEGINTEST{Testing \strConcat}
+\strSet \lTmpbStr {con}
+\strSet \lTmpcStr {cat}
+\strConcat \lTmpaStr \lTmpbStr \lTmpcStr
+\strUse \lTmpaStr
 \ENDTEST
 
-\BEGINTEST{Testing \StrPutLeft}
-\StrSet \lTmpkStr {Functional}
-\StrPutLeft \lTmpkStr {Hello}
-\StrUse \lTmpkStr
+\BEGINTEST{Testing \strPutLeft}
+\strSet \lTmpkStr {Functional}
+\strPutLeft \lTmpkStr {Hello}
+\strUse \lTmpkStr
 \ENDTEST
 
-\BEGINTEST{Testing \StrPutRight}
-\StrSet \lTmpkStr {Functional}
-\StrPutRight \lTmpkStr {World}
-\StrUse \lTmpkStr
+\BEGINTEST{Testing \strPutRight}
+\strSet \lTmpkStr {Functional}
+\strPutRight \lTmpkStr {World}
+\strUse \lTmpkStr
 \ENDTEST
 
-\BEGINTEST{Testing \StrVarReplaceOnce}
-\StrSet \lTmpaStr {hello world}
-\StrVarReplaceOnce \lTmpaStr {l} {-}
-\StrUse \lTmpaStr
+\BEGINTEST{Testing \strVarReplaceOnce}
+\strSet \lTmpaStr {hello world}
+\strVarReplaceOnce \lTmpaStr {l} {-}
+\strUse \lTmpaStr
 \ENDTEST
 
-\BEGINTEST{Testing \StrVarReplaceAll}
-\StrSet \lTmpaStr {hello world}
-\StrVarReplaceAll \lTmpaStr {l} {-}
-\StrUse \lTmpaStr
+\BEGINTEST{Testing \strVarReplaceAll}
+\strSet \lTmpaStr {hello world}
+\strVarReplaceAll \lTmpaStr {l} {-}
+\strUse \lTmpaStr
 \ENDTEST
 
-\BEGINTEST{Testing \StrVarRemoveOnce}
-\StrSet \lTmpaStr {hello world}
-\StrVarRemoveOnce \lTmpaStr {l}
-\StrUse \lTmpaStr
+\BEGINTEST{Testing \strVarRemoveOnce}
+\strSet \lTmpaStr {hello world}
+\strVarRemoveOnce \lTmpaStr {l}
+\strUse \lTmpaStr
 \ENDTEST
 
-\BEGINTEST{Testing \StrVarRemoveAll}
-\StrSet \lTmpaStr {hello world}
-\StrVarRemoveAll \lTmpaStr {l}
-\StrUse \lTmpaStr
+\BEGINTEST{Testing \strVarRemoveAll}
+\strSet \lTmpaStr {hello world}
+\strVarRemoveAll \lTmpaStr {l}
+\strUse \lTmpaStr
 \ENDTEST
 
-\BEGINTEST{Testing \StrCount}
-\StrCount {12\abc34}
-\StrSize {12\abc34}
+\BEGINTEST{Testing \strCount}
+\strCount {12\abc34}
+\strSize {12\abc34}
 \ENDTEST
 
-\BEGINTEST{Testing \StrVarCount}
-\StrSet \lTmpaStr {12\abc34}
-\StrVarCount \lTmpaStr
+\BEGINTEST{Testing \strVarCount}
+\strSet \lTmpaStr {12\abc34}
+\strVarCount \lTmpaStr
 \ENDTEST
 
-\BEGINTEST{Testing \StrHead}
-\StrHead {HELLO}
+\BEGINTEST{Testing \strHead}
+\strHead {HELLO}
 \ENDTEST
 
-\BEGINTEST{Testing \StrVarHead}
-\StrSet \lTmpaStr {HELLO}
-\StrVarHead \lTmpaStr
+\BEGINTEST{Testing \strVarHead}
+\strSet \lTmpaStr {HELLO}
+\strVarHead \lTmpaStr
 \ENDTEST
 
-\BEGINTEST{Testing \StrTail}
-\StrTail {HELLO}
-\StrLog {\StrTail {  a  {bc} d }}
+\BEGINTEST{Testing \strTail}
+\strTail {HELLO}
+\strLog {\strTail {  a  {bc} d }}
 \ENDTEST
 
-\BEGINTEST{Testing \StrVarTail}
-\StrSet \lTmpaStr {HELLO}
-\StrVarTail \lTmpaStr
+\BEGINTEST{Testing \strVarTail}
+\strSet \lTmpaStr {HELLO}
+\strVarTail \lTmpaStr
 \ENDTEST
 
-\BEGINTEST{Testing \StrItem}
-\StrItem {abcd} {3}
+\BEGINTEST{Testing \strItem}
+\strItem {abcd} {3}
 \ENDTEST
 
-\BEGINTEST{Testing \StrVarItem}
-\StrSet \lTmpaStr {abcd}
-\StrVarItem \lTmpaStr {3}
+\BEGINTEST{Testing \strVarItem}
+\strSet \lTmpaStr {abcd}
+\strVarItem \lTmpaStr {3}
 \ENDTEST
 
-\BEGINTEST{Testing \StrMapInline}
+\BEGINTEST{Testing \strMapInline}
 \IgnoreSpacesOn
-\StrClear \lTmpaStr
-\StrMapInline {one} {
-  \StrPutRight \lTmpaStr {[#1]}
+\strClear \lTmpaStr
+\strMapInline {one} {
+  \strPutRight \lTmpaStr {[#1]}
 }
-\Return{\StrUse\lTmpaStr}
+\prgReturn{\strUse\lTmpaStr}
 \IgnoreSpacesOff
 \ENDTEST
 
-\BEGINTEST{Testing \StrVarMapInline}
+\BEGINTEST{Testing \strVarMapInline}
 \IgnoreSpacesOn
-\StrClear \lTmpaStr
-\StrSet \lTmpkStr {one}
-\StrVarMapInline \lTmpkStr {
-  \StrPutRight \lTmpaStr {[#1]}
+\strClear \lTmpaStr
+\strSet \lTmpkStr {one}
+\strVarMapInline \lTmpkStr {
+  \strPutRight \lTmpaStr {[#1]}
 }
-\Return{\StrUse\lTmpaStr}
+\prgReturn{\strUse\lTmpaStr}
 \IgnoreSpacesOff
 \ENDTEST
 
-\BEGINTEST{Testing \StrMapVariable}
+\BEGINTEST{Testing \strMapVariable}
 \IgnoreSpacesOn
-\StrClear \lTmpaStr
-\StrMapVariable {one} \lTmpiStr {
-  \StrPutRight \lTmpaStr {\Expand {[\lTmpiStr]}}
+\strClear \lTmpaStr
+\strMapVariable {one} \lTmpiStr {
+  \strPutRight \lTmpaStr {\expWhole {[\lTmpiStr]}}
 }
-\Return{\StrUse\lTmpaStr}
+\prgReturn{\strUse\lTmpaStr}
 \IgnoreSpacesOff
 \ENDTEST
 
-\BEGINTEST{Testing \StrVarMapVariable}
+\BEGINTEST{Testing \strVarMapVariable}
 \IgnoreSpacesOn
-\StrClear \lTmpaStr
-\StrSet \lTmpkStr {one}
-\StrVarMapVariable \lTmpkStr \lTmpiStr {
-  \StrPutRight \lTmpaStr {\Expand {[\lTmpiStr]}}
+\strClear \lTmpaStr
+\strSet \lTmpkStr {one}
+\strVarMapVariable \lTmpkStr \lTmpiStr {
+  \strPutRight \lTmpaStr {\expWhole {[\lTmpiStr]}}
 }
-\Return{\StrUse\lTmpaStr}
+\prgReturn{\strUse\lTmpaStr}
 \IgnoreSpacesOff
 \ENDTEST
 
-\BEGINTEST{Testing \StrIfExist}
-\StrIfExistTF \lTmpaStr {\Return{Yes}} {\Return{No}}
-\StrIfExistTF \lFooUndefinedStr {\Return{Yes}} {\Return{No}}
+\BEGINTEST{Testing \strIfExist}
+\strIfExistTF \lTmpaStr {\prgReturn{Yes}} {\prgReturn{No}}
+\strIfExistTF \lFooUndefinedStr {\prgReturn{Yes}} {\prgReturn{No}}
 \ENDTEST
 
-\BEGINTEST{Testing \StrVarIfEmpty}
-\StrSet \lTmpaStr {abc}
-\StrVarIfEmptyTF \lTmpaStr {\Return{Empty}} {\Return{NonEmpty}}
-\StrClear \lTmpaStr
-\StrVarIfEmptyTF \lTmpaStr {\Return{Empty}} {\Return{NonEmpty}}
+\BEGINTEST{Testing \strVarIfEmpty}
+\strSet \lTmpaStr {abc}
+\strVarIfEmptyTF \lTmpaStr {\prgReturn{Empty}} {\prgReturn{NonEmpty}}
+\strClear \lTmpaStr
+\strVarIfEmptyTF \lTmpaStr {\prgReturn{Empty}} {\prgReturn{NonEmpty}}
 \ENDTEST
 
-\BEGINTEST{Testing \StrIfEq}
-\StrIfEqTF {abc} {abc} {\Return{Yes}} {\Return{No}}
-\StrIfEqTF {abc} {xyz} {\Return{Yes}} {\Return{No}}
-\StrSet \lTmpaStr {abc}
-\StrSet \lTmpbStr {abc}
-\StrSet \lTmpcStr {xyz}
-\StrIfEqTF {\lTmpaStr} {\lTmpbStr} {\Return{Yes}} {\Return{No}}
-\StrIfEqTF {\lTmpaStr} {\lTmpcStr} {\Return{Yes}} {\Return{No}}
-\StrIfEqTF {\Value\lTmpaStr} {\Value\lTmpbStr} {\Return{Yes}} {\Return{No}}
-\StrIfEqTF {\Value\lTmpaStr} {\Value\lTmpcStr} {\Return{Yes}} {\Return{No}}
+\BEGINTEST{Testing \strIfEq}
+\strIfEqTF {abc} {abc} {\prgReturn{Yes}} {\prgReturn{No}}
+\strIfEqTF {abc} {xyz} {\prgReturn{Yes}} {\prgReturn{No}}
+\strSet \lTmpaStr {abc}
+\strSet \lTmpbStr {abc}
+\strSet \lTmpcStr {xyz}
+\strIfEqTF {\lTmpaStr} {\lTmpbStr} {\prgReturn{Yes}} {\prgReturn{No}}
+\strIfEqTF {\lTmpaStr} {\lTmpcStr} {\prgReturn{Yes}} {\prgReturn{No}}
+\strIfEqTF {\expValue\lTmpaStr} {\expValue\lTmpbStr} {\prgReturn{Yes}} {\prgReturn{No}}
+\strIfEqTF {\expValue\lTmpaStr} {\expValue\lTmpcStr} {\prgReturn{Yes}} {\prgReturn{No}}
 \ENDTEST
 
-\BEGINTEST{Testing \StrVarIfEq}
-\StrSet \lTmpaStr {abc}
-\StrSet \lTmpbStr {abc}
-\StrSet \lTmpcStr {xyz}
-\StrVarIfEqTF \lTmpaStr \lTmpbStr {\Return{Yes}} {\Return{No}}
-\StrVarIfEqTF \lTmpaStr \lTmpcStr {\Return{Yes}} {\Return{No}}
+\BEGINTEST{Testing \strVarIfEq}
+\strSet \lTmpaStr {abc}
+\strSet \lTmpbStr {abc}
+\strSet \lTmpcStr {xyz}
+\strVarIfEqTF \lTmpaStr \lTmpbStr {\prgReturn{Yes}} {\prgReturn{No}}
+\strVarIfEqTF \lTmpaStr \lTmpcStr {\prgReturn{Yes}} {\prgReturn{No}}
 \ENDTEST
 
-\BEGINTEST{Testing \StrIfIn}
-\StrIfInTF {hello world} {o} {\Return{Yes}}{\Return{No}}
-\StrIfInTF {hello world} {a} {\Return{Yes}}{\Return{No}}
+\BEGINTEST{Testing \strIfIn}
+\strIfInTF {hello world} {o} {\prgReturn{Yes}}{\prgReturn{No}}
+\strIfInTF {hello world} {a} {\prgReturn{Yes}}{\prgReturn{No}}
 \ENDTEST
 
-\BEGINTEST{Testing \StrVarIfIn}
-\StrSet \lTmpaStr {hello world}
-\StrVarIfInTF \lTmpaStr {o} {\Return{Yes}}{\Return{No}}
-\StrVarIfInTF \lTmpaStr {a} {\Return{Yes}}{\Return{No}}
+\BEGINTEST{Testing \strVarIfIn}
+\strSet \lTmpaStr {hello world}
+\strVarIfInTF \lTmpaStr {o} {\prgReturn{Yes}}{\prgReturn{No}}
+\strVarIfInTF \lTmpaStr {a} {\prgReturn{Yes}}{\prgReturn{No}}
 \ENDTEST
 
-\BEGINTEST{Testing \StrCompare}
-\BoolVarLog {\StrCompare {ab} < {abc}}
-\BoolVarLog {\StrCompare {ab} < {aa}}
-\StrCompareTF {ab} < {abc} {\Return{Yes}} {\Return{No}}
-\StrCompareTF {ab} < {aa} {\Return{Yes}} {\Return{No}}
-\BoolVarLog {\StrIfCompare {ab} < {abc}}
-\BoolVarLog {\StrIfCompare {ab} < {aa}}
-\StrIfCompareTF {ab} < {abc} {\Return{Yes}} {\Return{No}}
-\StrIfCompareTF {ab} < {aa} {\Return{Yes}} {\Return{No}}
+\BEGINTEST{Testing \strCompare}
+\boolVarLog {\strCompare {ab} < {abc}}
+\boolVarLog {\strCompare {ab} < {aa}}
+\strCompareTF {ab} < {abc} {\prgReturn{Yes}} {\prgReturn{No}}
+\strCompareTF {ab} < {aa} {\prgReturn{Yes}} {\prgReturn{No}}
+\boolVarLog {\strIfCompare {ab} < {abc}}
+\boolVarLog {\strIfCompare {ab} < {aa}}
+\strIfCompareTF {ab} < {abc} {\prgReturn{Yes}} {\prgReturn{No}}
+\strIfCompareTF {ab} < {aa} {\prgReturn{Yes}} {\prgReturn{No}}
 \ENDTEST
 
-\BEGINTEST{Testing \StrCaseF}
+\BEGINTEST{Testing \strCaseF}
 \IgnoreSpacesOn
-\StrCaseF {bbb} {
-  {aaa} { \TlSet\lTmpkTl{First} }
-  {bbb} { \TlSet\lTmpkTl{Second} }
-  {ccb} { \TlSet\lTmpkTl{Third} }
+\strCaseF {bbb} {
+  {aaa} { \tlSet\lTmpkTl{First} }
+  {bbb} { \tlSet\lTmpkTl{Second} }
+  {ccb} { \tlSet\lTmpkTl{Third} }
 }{
-  \Return {No Match!}
+  \prgReturn {No Match!}
 }
-\Return {\TlUse\lTmpkTl}
+\prgReturn {\tlUse\lTmpkTl}
 \IgnoreSpacesOff
 \ENDTEST
 
-\BEGINTEST{Testing \StrCaseTF}
+\BEGINTEST{Testing \strCaseTF}
 \IgnoreSpacesOn
-\StrCaseTF {ddd} {
-  {aaa} { \TlSet\lTmpkTl{First} }
-  {bbb} { \TlSet\lTmpkTl{Second} }
-  {ccb} { \TlSet\lTmpkTl{Third} }
+\strCaseTF {ddd} {
+  {aaa} { \tlSet\lTmpkTl{First} }
+  {bbb} { \tlSet\lTmpkTl{Second} }
+  {ccb} { \tlSet\lTmpkTl{Third} }
 }{
-  \Return {\TlUse\lTmpkTl}
+  \prgReturn {\tlUse\lTmpkTl}
 }{
-  \Return {No ~ Match!}
+  \prgReturn {No ~ Match!}
 }
 \IgnoreSpacesOff
 \ENDTEST

@@ -22,16 +22,16 @@ Let us give a few examples. The following example replace the first
 occurrence of \enquote{\texttt{at}} with \enquote{\texttt{is}}
 in the token list variable \cs{lTmpaTl}.
 \begin{demohigh}
-\TlSet \lTmpaTl {That cat.}
-\RegexReplaceOnce {at} {is} \lTmpaTl
-\TlUse \lTmpaTl
+\tlSet \lTmpaTl {That cat.}
+\regexReplaceOnce {at} {is} \lTmpaTl
+\tlUse \lTmpaTl
 \end{demohigh}
 A more complicated example is
 a pattern to emphasize each word and add a comma after it:
 \begin{demohigh}
-\TlSet \lTmpaTl {That cat.}
-\RegexReplaceAll {\w+} {\c{underline} \cB\{ \0 \cE\} ,} \lTmpaTl
-\TlUse \lTmpaTl
+\tlSet \lTmpaTl {That cat.}
+\regexReplaceAll {\w+} {\c{underline} \cB\{ \0 \cE\} ,} \lTmpaTl
+\tlUse \lTmpaTl
 \end{demohigh}
 The |\w| sequence represents any \enquote{word} character, and |+|
 indicates that the |\w| sequence should be repeated as many times as
@@ -42,10 +42,10 @@ and its argument |\0| is put between braces |\cB\{| and |\cE\}|.
 
 If a regular expression is to be used several times,
 it can be compiled once, and stored in a regex
-variable using \cs{RegexSet}. For example,
+variable using \cs{regexSet}. For example,
 \begin{codehigh}
-\RegexNew \lFooRegex
-\RegexSet \lFooRegex {\c{begin} \cB. (\c[^BE].*) \cE.}
+\regexNew \lFooRegex
+\regexSet \lFooRegex {\c{begin} \cB. (\c[^BE].*) \cE.}
 \end{codehigh}
 stores in \cs{lFooRegex} a regular expression which matches the
 starting marker for an environment: \cs[no-index]{begin}, followed by a
@@ -80,47 +80,47 @@ However, they may be overwritten by other non-kernel
 code and so should only be used for short-term storage.
 \end{variable}
 
-\begin{function}{\RegexNew}
+\begin{function}{\regexNew}
 \begin{syntax}
-\cs{RegexNew} \meta{regex var}
+\cs{regexNew} \meta{regex var}
 \end{syntax}
 Creates a new \meta{regex var} or raises an error if the
 name is already taken. The declaration is global. The
 \meta{regex var} is initially such that it never matches.
 \end{function}
 
-\begin{function}{\RegexSet}
+\begin{function}{\regexSet}
 \begin{syntax}
-\cs{RegexSet} \meta{regex var} \Arg{regex}
+\cs{regexSet} \meta{regex var} \Arg{regex}
 \end{syntax}
 Stores a compiled version of the \meta{regular expression} in the
 \meta{regex var}. For instance, this function can be
 used as
 \begin{codehigh}
-\RegexNew \lMyRegex
-\RegexSet \lMyRegex {my\ (simple\ )? reg(ex|ular\ expression)}
+\regexNew \lMyRegex
+\regexSet \lMyRegex {my\ (simple\ )? reg(ex|ular\ expression)}
 \end{codehigh}
 \end{function}
 
-\begin{function}{\RegexConst}
+\begin{function}{\regexConst}
 \begin{syntax}
-\cs{RegexConst} \meta{regex var} \Arg{regex}
+\cs{regexConst} \meta{regex var} \Arg{regex}
 \end{syntax}
 Creates a new constant \meta{regex var} or raises an error if the name
 is already taken.  The value of the \meta{regex var} is set
 globally to the compiled version of the \meta{regular expression}.
 \end{function}
 
-\begin{function}{\RegexLog,\RegexVarLog,\RegexShow,\RegexVarShow}
+\begin{function}{\regexLog,\regexVarLog,\regexShow,\regexVarShow}
 \begin{syntax}
-\cs{RegexLog} \Arg{regex}
-\cs{RegexVarLog} \meta{regex var}
-\cs{RegexShow} \Arg{regex}
-\cs{RegexVarShow} \meta{regex var}
+\cs{regexLog} \Arg{regex}
+\cs{regexVarLog} \meta{regex var}
+\cs{regexShow} \Arg{regex}
+\cs{regexVarShow} \meta{regex var}
 \end{syntax}
 Displays in the terminal or writes in the log file (respectively)
 how \pkg{l3regex} interprets the \meta{regex}. For instance,
-\cs{RegexShow} \verb+{\A X|Y}+ shows
+\cs{regexShow} \verb+{\A X|Y}+ shows
 \begin{codehigh}
 +-branch
   anchor at start (\A)
@@ -134,35 +134,35 @@ the second branch is not anchored to the beginning of the match.
 
 \section{Regular Expression Matching}
 
-\begin{function}{\RegexMatch,\RegexMatchT,\RegexMatchF,\RegexMatchTF}
+\begin{function}{\regexMatch,\regexMatchT,\regexMatchF,\regexMatchTF}
 \begin{syntax}
-\cs{RegexMatch} \Arg{regex} \Arg{token list}
-\cs{RegexMatchT} \Arg{regex} \Arg{token list} \Arg{true code}
-\cs{RegexMatchF} \Arg{regex} \Arg{token list} \Arg{false code}
-\cs{RegexMatchTF} \Arg{regex} \Arg{token list} \Arg{true code} \Arg{false code}
+\cs{regexMatch} \Arg{regex} \Arg{token list}
+\cs{regexMatchT} \Arg{regex} \Arg{token list} \Arg{true code}
+\cs{regexMatchF} \Arg{regex} \Arg{token list} \Arg{false code}
+\cs{regexMatchTF} \Arg{regex} \Arg{token list} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests whether the \meta{regular expression} matches any part
 of the \meta{token list}. For instance,
 \begin{demohigh}
-\RegexMatchTF {b [cde]*} {abecdcx} {\Print{True}} {\Print{False}}
-\RegexMatchTF {[b-dq-w]} {example} {\Print{True}} {\Print{False}}
+\regexMatchTF {b [cde]*} {abecdcx} {\prgPrint{True}} {\prgPrint{False}}
+\regexMatchTF {[b-dq-w]} {example} {\prgPrint{True}} {\prgPrint{False}}
 \end{demohigh}
 \end{function}
 
-\begin{function}{\RegexVarMatch,\RegexVarMatchT,\RegexVarMatchF,\RegexVarMatchTF}
+\begin{function}{\regexVarMatch,\regexVarMatchT,\regexVarMatchF,\regexVarMatchTF}
 \begin{syntax}
-\cs{RegexVarMatch} \meta{regex var} \Arg{token list}
-\cs{RegexVarMatchT} \meta{regex var} \Arg{token list} \Arg{true code}
-\cs{RegexVarMatchF} \meta{regex var} \Arg{token list} \Arg{false code}
-\cs{RegexVarMatchTF} \meta{regex var} \Arg{token list} \Arg{true code} \Arg{false code}
+\cs{regexVarMatch} \meta{regex var} \Arg{token list}
+\cs{regexVarMatchT} \meta{regex var} \Arg{token list} \Arg{true code}
+\cs{regexVarMatchF} \meta{regex var} \Arg{token list} \Arg{false code}
+\cs{regexVarMatchTF} \meta{regex var} \Arg{token list} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests whether the \meta{regex var} matches any part of the \meta{token list}.
 \end{function}
 
-\begin{function}{\RegexCount,\RegexVarCount}
+\begin{function}{\regexCount,\regexVarCount}
 \begin{syntax}
-\cs{RegexCount} \Arg{regex} \Arg{token list} \meta{int var}
-\cs{RegexVarCount} \meta{regex var} \Arg{token list} \meta{int var}
+\cs{regexCount} \Arg{regex} \Arg{token list} \meta{int var}
+\cs{regexVarCount} \meta{regex var} \Arg{token list} \meta{int var}
 \end{syntax}
 Sets \meta{int var} within the current \TeX{} group level
 equal to the number of times
@@ -175,15 +175,15 @@ Infinite loops are prevented in the case where the regular expression
 can match an empty token list: then we count one match between each
 pair of characters. For instance,
 \begin{demohigh}
-\IntNew \lFooInt
-\RegexCount {(b+|c)} {abbababcbb} \lFooInt
-\IntUse \lFooInt
+\intNew \lFooInt
+\regexCount {(b+|c)} {abbababcbb} \lFooInt
+\intUse \lFooInt
 \end{demohigh}
 \end{function}
 
-\begin{function}{\RegexMatchCase}
+\begin{function}{\regexMatchCase}
 \begin{syntax}
-\cs{RegexMatchCase}
+\cs{regexMatchCase}
 ~ ~ |{|
 ~ ~ ~ ~ \Arg{regex_1} \Arg{code case_1}
 ~ ~ ~ ~ \Arg{regex_2} \Arg{code case_2}
@@ -205,14 +205,14 @@ discarded, while if none of the \meta{regex} match at a given
 position then the next starting position is attempted.  If none of
 the \meta{regex} match anywhere in the \meta{token list} then
 nothing is left in the input stream.  Note that this differs from
-nested \cs{RegexMatch} statements since all \meta{regex} are
+nested \cs{regexMatch} statements since all \meta{regex} are
 attempted at each position rather than attempting to match
 \meta{regex_1} at every position before moving on to \meta{regex_2}.
 \end{function}
 
-\begin{function}{\RegexMatchCaseT}
+\begin{function}{\regexMatchCaseT}
 \begin{syntax}
-\cs{RegexMatchCaseT}
+\cs{regexMatchCaseT}
 ~ ~ |{|
 ~ ~ ~ ~ \Arg{regex_1} \Arg{code case_1}
 ~ ~ ~ ~ \Arg{regex_2} \Arg{code case_2}
@@ -230,9 +230,9 @@ discarded. Each \meta{regex} can either be given
 as a regex variable or as an explicit regular expression.
 \end{function}
 
-\begin{function}{\RegexMatchCaseF}
+\begin{function}{\regexMatchCaseF}
 \begin{syntax}
-\cs{RegexMatchCaseF}
+\cs{regexMatchCaseF}
 ~ ~ |{|
 ~ ~ ~ ~ \Arg{regex_1} \Arg{code case_1}
 ~ ~ ~ ~ \Arg{regex_2} \Arg{code case_2}
@@ -251,9 +251,9 @@ is left in the input stream.  Each \meta{regex} can either be given
 as a regex variable or as an explicit regular expression.
 \end{function}
 
-\begin{function}{\RegexMatchCaseTF}
+\begin{function}{\regexMatchCaseTF}
 \begin{syntax}
-\cs{RegexMatchCaseTF}
+\cs{regexMatchCaseTF}
 ~ ~ |{|
 ~ ~ ~ ~ \Arg{regex_1} \Arg{code case_1}
 ~ ~ ~ ~ \Arg{regex_2} \Arg{code case_2}
@@ -274,12 +274,12 @@ as a regex variable or as an explicit regular expression.
 
 \section{Regular Expression Submatch Extraction}
 
-\begin{function}{\RegexExtractOnce,\RegexExtractOnceT,\RegexExtractOnceF,\RegexExtractOnceTF}
+\begin{function}{\regexExtractOnce,\regexExtractOnceT,\regexExtractOnceF,\regexExtractOnceTF}
 \begin{syntax}
-\cs{RegexExtractOnce} \Arg{regex} \Arg{token list} \meta{seq var}
-\cs{RegexExtractOnceT} \Arg{regex} \Arg{token list} \meta{seq var} \Arg{true code}
-\cs{RegexExtractOnceF} \Arg{regex} \Arg{token list} \meta{seq var} \Arg{false code}
-\cs{RegexExtractOnceTF} \Arg{regex} \Arg{token list} \meta{seq var} \Arg{true code} \Arg{false code}
+\cs{regexExtractOnce} \Arg{regex} \Arg{token list} \meta{seq var}
+\cs{regexExtractOnceT} \Arg{regex} \Arg{token list} \meta{seq var} \Arg{true code}
+\cs{regexExtractOnceF} \Arg{regex} \Arg{token list} \meta{seq var} \Arg{false code}
+\cs{regexExtractOnceTF} \Arg{regex} \Arg{token list} \meta{seq var} \Arg{true code} \Arg{false code}
 \end{syntax}
 Finds the first match of the \meta{regular expression} in the
 \meta{token list}. If it exists, the match is stored as the first
@@ -292,7 +292,7 @@ capturing groups, in the order of their opening parenthesis. The
 \par
 For instance, assume that you type
 \begin{codehigh}
-\RegexExtractOnce {\A(La)?TeX(!*)\Z} {LaTeX!!!} \lTmpaSeq
+\regexExtractOnce {\A(La)?TeX(!*)\Z} {LaTeX!!!} \lTmpaSeq
 \end{codehigh}
 Then the regular expression (anchored at the start with |\A| and
 at the end with |\Z|) must match the whole token list. The first
@@ -300,16 +300,16 @@ capturing group, |(La)?|, matches |La|, and the second capturing
 group, |(!*)|, matches |!!!|. Thus, \cs{lTmpaSeq} contains as a result
 the items |{LaTeX!!!}|, |{La}|, and |{!!!}|.
 Note that the $n$-th item of \cs{lTmpaSeq}, as obtained using
-\cs{SeqVarItem}, correspond to the submatch numbered $(n-1)$ in
-functions such as \cs{RegexReplaceOnce}.
+\cs{seqVarItem}, correspond to the submatch numbered $(n-1)$ in
+functions such as \cs{regexReplaceOnce}.
 \end{function}
 
-\begin{function}{\RegexVarExtractOnce,\RegexVarExtractOnceT,\RegexVarExtractOnceF,\RegexVarExtractOnceTF}
+\begin{function}{\regexVarExtractOnce,\regexVarExtractOnceT,\regexVarExtractOnceF,\regexVarExtractOnceTF}
 \begin{syntax}
-\cs{RegexVarExtractOnce} \meta{regex var} \Arg{token list} \meta{seq var}
-\cs{RegexVarExtractOnceT} \meta{regex var} \Arg{token list} \meta{seq var} \Arg{true code}
-\cs{RegexVarExtractOnceF} \meta{regex var} \Arg{token list} \meta{seq var} \Arg{false code}
-\cs{RegexVarExtractOnceTF} \meta{regex var} \Arg{token list} \meta{seq var} \Arg{true code} \Arg{false code}
+\cs{regexVarExtractOnce} \meta{regex var} \Arg{token list} \meta{seq var}
+\cs{regexVarExtractOnceT} \meta{regex var} \Arg{token list} \meta{seq var} \Arg{true code}
+\cs{regexVarExtractOnceF} \meta{regex var} \Arg{token list} \meta{seq var} \Arg{false code}
+\cs{regexVarExtractOnceTF} \meta{regex var} \Arg{token list} \meta{seq var} \Arg{true code} \Arg{false code}
 \end{syntax}
 Finds the first match of the \meta{regex var} in the
 \meta{token list}. If it exists, the match is stored as the first
@@ -321,52 +321,52 @@ capturing groups, in the order of their opening parenthesis. The
 \meta{false code} otherwise.
 \end{function}
 
-\begin{function}{\RegexExtractAll,\RegexExtractAllT,\RegexExtractAllF,\RegexExtractAllTF}
+\begin{function}{\regexExtractAll,\regexExtractAllT,\regexExtractAllF,\regexExtractAllTF}
 \begin{syntax}
-\cs{RegexExtractAll} \Arg{regex} \Arg{token list} \meta{seq var}
-\cs{RegexExtractAllT} \Arg{regex} \Arg{token list} \meta{seq var} \Arg{true code}
-\cs{RegexExtractAllF} \Arg{regex} \Arg{token list} \meta{seq var} \Arg{false code}
-\cs{RegexExtractAllTF} \Arg{regex} \Arg{token list} \meta{seq var} \Arg{true code} \Arg{false code}
+\cs{regexExtractAll} \Arg{regex} \Arg{token list} \meta{seq var}
+\cs{regexExtractAllT} \Arg{regex} \Arg{token list} \meta{seq var} \Arg{true code}
+\cs{regexExtractAllF} \Arg{regex} \Arg{token list} \meta{seq var} \Arg{false code}
+\cs{regexExtractAllTF} \Arg{regex} \Arg{token list} \meta{seq var} \Arg{true code} \Arg{false code}
 \end{syntax}
 Finds all matches of the \meta{regular expression}
 in the \meta{token list}, and stores all the submatch information
 in a single sequence (concatenating the results of
-multiple \cs{RegexExtractOnce} calls).
+multiple \cs{regexExtractOnce} calls).
 The \meta{seq var} is assigned locally. If there is no match,
 the \meta{seq var} is cleared.
 The testing versions insert the \meta{true code} into the input
 stream if a match was found, and the \meta{false code} otherwise.
 For instance, assume that you type
 \begin{codehigh}
-\RegexExtractAll {\w+} {Hello, world!} \lTmpaSeq
+\regexExtractAll {\w+} {Hello, world!} \lTmpaSeq
 \end{codehigh}
 Then the regular expression matches twice, the resulting
 sequence contains the two items |{Hello}| and |{world}|.
 \end{function}
 
-\begin{function}{\RegexVarExtractAll,\RegexVarExtractAllT,\RegexVarExtractAllF,\RegexVarExtractAllTF}
+\begin{function}{\regexVarExtractAll,\regexVarExtractAllT,\regexVarExtractAllF,\regexVarExtractAllTF}
 \begin{syntax}
-\cs{RegexVarExtractAll} \meta{regex var} \Arg{token list} \meta{seq var}
-\cs{RegexVarExtractAllT} \meta{regex var} \Arg{token list} \meta{seq var} \Arg{true code}
-\cs{RegexVarExtractAllF} \meta{regex var} \Arg{token list} \meta{seq var} \Arg{false code}
-\cs{RegexVarExtractAllTF} \meta{regex var} \Arg{token list} \meta{seq var} \Arg{true code} \Arg{false code}
+\cs{regexVarExtractAll} \meta{regex var} \Arg{token list} \meta{seq var}
+\cs{regexVarExtractAllT} \meta{regex var} \Arg{token list} \meta{seq var} \Arg{true code}
+\cs{regexVarExtractAllF} \meta{regex var} \Arg{token list} \meta{seq var} \Arg{false code}
+\cs{regexVarExtractAllTF} \meta{regex var} \Arg{token list} \meta{seq var} \Arg{true code} \Arg{false code}
 \end{syntax}
 Finds all matches of the \meta{regex var}
 in the \meta{token list}, and stores all the submatch information
 in a single sequence (concatenating the results of
-multiple \cs{RegexVarExtractOnce} calls).
+multiple \cs{regexVarExtractOnce} calls).
 The \meta{seq var} is assigned locally. If there is no match,
 the \meta{seq var} is cleared.
 The testing versions insert the \meta{true code} into the input
 stream if a match was found, and the \meta{false code} otherwise.
 \end{function}
 
-\begin{function}{\RegexSplit,\RegexSplitT,\RegexSplitF,\RegexSplitTF}
+\begin{function}{\regexSplit,\regexSplitT,\regexSplitF,\regexSplitTF}
 \begin{syntax}
-\cs{RegexSplit} \Arg{regular expression} \Arg{token list} \meta{seq var}
-\cs{RegexSplitT} \Arg{regular expression} \Arg{token list} \meta{seq var} \Arg{true code}
-\cs{RegexSplitF} \Arg{regular expression} \Arg{token list} \meta{seq var} \Arg{false code}
-\cs{RegexSplitTF} \Arg{regular expression} \Arg{token list} \meta{seq var} \Arg{true code} \Arg{false code}
+\cs{regexSplit} \Arg{regular expression} \Arg{token list} \meta{seq var}
+\cs{regexSplitT} \Arg{regular expression} \Arg{token list} \meta{seq var} \Arg{true code}
+\cs{regexSplitF} \Arg{regular expression} \Arg{token list} \meta{seq var} \Arg{false code}
+\cs{regexSplitTF} \Arg{regular expression} \Arg{token list} \meta{seq var} \Arg{true code} \Arg{false code}
 \end{syntax}
 Splits the \meta{token list} into a sequence of parts, delimited by
 matches of the \meta{regular expression}. If the \meta{regular expression}
@@ -380,19 +380,19 @@ The testing versions insert the \meta{true code} into the input
 stream if a match was found, and the \meta{false code} otherwise.
 For example, after
 \begin{codehigh}
-\SeqNew \lPathSeq
-\RegexSplit {/} {the/path/for/this/file.tex} \lPathSeq
+\seqNew \lPathSeq
+\regexSplit {/} {the/path/for/this/file.tex} \lPathSeq
 \end{codehigh}
 the sequence |\lPathSeq| contains the items |{the}|, |{path}|,
 |{for}|, |{this}|, and |{file.tex}|.
 \end{function}
 
-\begin{function}{\RegexVarSplit,\RegexVarSplitT,\RegexVarSplitF,\RegexVarSplitTF}
+\begin{function}{\regexVarSplit,\regexVarSplitT,\regexVarSplitF,\regexVarSplitTF}
 \begin{syntax}
-\cs{RegexVarSplit} \meta{regex var} \Arg{token list} \meta{seq var}
-\cs{RegexVarSplitT} \meta{regex var} \Arg{token list} \meta{seq var} \Arg{true code}
-\cs{RegexVarSplitF} \meta{regex var} \Arg{token list} \meta{seq var} \Arg{false code}
-\cs{RegexVarSplitTF} \meta{regex var} \Arg{token list} \meta{seq var} \Arg{true code} \Arg{false code}
+\cs{regexVarSplit} \meta{regex var} \Arg{token list} \meta{seq var}
+\cs{regexVarSplitT} \meta{regex var} \Arg{token list} \meta{seq var} \Arg{true code}
+\cs{regexVarSplitF} \meta{regex var} \Arg{token list} \meta{seq var} \Arg{false code}
+\cs{regexVarSplitTF} \meta{regex var} \Arg{token list} \meta{seq var} \Arg{true code} \Arg{false code}
 \end{syntax}
 Splits the \meta{token list} into a sequence of parts, delimited by
 matches of the \meta{regular expression}. If the \meta{regex var}
@@ -408,12 +408,12 @@ stream if a match was found, and the \meta{false code} otherwise.
 
 \section{Regular Expression Replacement}
 
-\begin{function}{\RegexReplaceOnce,\RegexReplaceOnceT,\RegexReplaceOnceT,\RegexReplaceOnceTF}
+\begin{function}{\regexReplaceOnce,\regexReplaceOnceT,\regexReplaceOnceT,\regexReplaceOnceTF}
 \begin{syntax}
-\cs{RegexReplaceOnce} \Arg{regular expression} \Arg{replacement} \meta{tl var}
-\cs{RegexReplaceOnceT} \Arg{regular expression} \Arg{replacement} \meta{tl var} \Arg{true code}
-\cs{RegexReplaceOnceF} \Arg{regular expression} \Arg{replacement} \meta{tl var} \Arg{false code}
-\cs{RegexReplaceOnceTF} \Arg{regular expression} \Arg{replacement} \meta{tl var} \Arg{true code} \Arg{false code}
+\cs{regexReplaceOnce} \Arg{regular expression} \Arg{replacement} \meta{tl var}
+\cs{regexReplaceOnceT} \Arg{regular expression} \Arg{replacement} \meta{tl var} \Arg{true code}
+\cs{regexReplaceOnceF} \Arg{regular expression} \Arg{replacement} \meta{tl var} \Arg{false code}
+\cs{regexReplaceOnceTF} \Arg{regular expression} \Arg{replacement} \meta{tl var} \Arg{true code} \Arg{false code}
 \end{syntax}
 Searches for the \meta{regular expression} in the contents of the
 \meta{tl var} and replaces the first match with the
@@ -423,12 +423,12 @@ first capturing group, |\2| of the second, \emph{etc.}
 The result is assigned locally to \meta{tl var}.
 \end{function}
 
-\begin{function}{\RegexReplaceOnce,\RegexReplaceOnceT,\RegexReplaceOnceT,\RegexReplaceOnceTF}
+\begin{function}{\regexReplaceOnce,\regexReplaceOnceT,\regexReplaceOnceT,\regexReplaceOnceTF}
 \begin{syntax}
-\cs{RegexVarReplaceOnce} \meta{regex var} \Arg{replacement} \meta{tl var}
-\cs{RegexVarReplaceOnceT} \meta{regex var} \Arg{replacement} \meta{tl var} \Arg{true code}
-\cs{RegexVarReplaceOnceF} \meta{regex var} \Arg{replacement} \meta{tl var} \Arg{false code}
-\cs{RegexVarReplaceOnceTF} \meta{regex var} \Arg{replacement} \meta{tl var} \Arg{true code} \Arg{false code}
+\cs{regexVarReplaceOnce} \meta{regex var} \Arg{replacement} \meta{tl var}
+\cs{regexVarReplaceOnceT} \meta{regex var} \Arg{replacement} \meta{tl var} \Arg{true code}
+\cs{regexVarReplaceOnceF} \meta{regex var} \Arg{replacement} \meta{tl var} \Arg{false code}
+\cs{regexVarReplaceOnceTF} \meta{regex var} \Arg{replacement} \meta{tl var} \Arg{true code} \Arg{false code}
 \end{syntax}
 Searches for the \meta{regex var} in the contents of the
 \meta{tl var} and replaces the first match with the
@@ -438,12 +438,12 @@ first capturing group, |\2| of the second, \emph{etc.}
 The result is assigned locally to \meta{tl var}.
 \end{function}
 
-\begin{function}{\RegexReplaceAll,\RegexReplaceAllT,\RegexReplaceAllF,\RegexReplaceAllTF}
+\begin{function}{\regexReplaceAll,\regexReplaceAllT,\regexReplaceAllF,\regexReplaceAllTF}
 \begin{syntax}
-\cs{RegexReplaceAll} \Arg{regular expression} \Arg{replacement} \meta{tl var}
-\cs{RegexReplaceAllT} \Arg{regular expression} \Arg{replacement} \meta{tl var} \Arg{true code}
-\cs{RegexReplaceAllF} \Arg{regular expression} \Arg{replacement} \meta{tl var} \Arg{false code}
-\cs{RegexReplaceAllTF} \Arg{regular expression} \Arg{replacement} \meta{tl var} \Arg{true code} \Arg{false code}
+\cs{regexReplaceAll} \Arg{regular expression} \Arg{replacement} \meta{tl var}
+\cs{regexReplaceAllT} \Arg{regular expression} \Arg{replacement} \meta{tl var} \Arg{true code}
+\cs{regexReplaceAllF} \Arg{regular expression} \Arg{replacement} \meta{tl var} \Arg{false code}
+\cs{regexReplaceAllTF} \Arg{regular expression} \Arg{replacement} \meta{tl var} \Arg{true code} \Arg{false code}
 \end{syntax}
 Replaces all occurrences of the \meta{regex var} in the
 contents of the \meta{tl var}
@@ -454,12 +454,12 @@ independently, and matches cannot overlap.  The result is assigned
 locally to \meta{tl~var}.
 \end{function}
 
-\begin{function}{\RegexVarReplaceAll,\RegexVarReplaceAllT,\RegexVarReplaceAllF,\RegexVarReplaceAllTF}
+\begin{function}{\regexVarReplaceAll,\regexVarReplaceAllT,\regexVarReplaceAllF,\regexVarReplaceAllTF}
 \begin{syntax}
-\cs{RegexVarReplaceAll} \meta{regex var} \Arg{replacement} \meta{tl var}
-\cs{RegexVarReplaceAllT} \meta{regex var} \Arg{replacement} \meta{tl var} \Arg{true code}
-\cs{RegexVarReplaceAllF} \meta{regex var} \Arg{replacement} \meta{tl var} \Arg{false code}
-\cs{RegexVarReplaceAllTF} \meta{regex var} \Arg{replacement} \meta{tl var} \Arg{true code} \Arg{false code}
+\cs{regexVarReplaceAll} \meta{regex var} \Arg{replacement} \meta{tl var}
+\cs{regexVarReplaceAllT} \meta{regex var} \Arg{replacement} \meta{tl var} \Arg{true code}
+\cs{regexVarReplaceAllF} \meta{regex var} \Arg{replacement} \meta{tl var} \Arg{false code}
+\cs{regexVarReplaceAllTF} \meta{regex var} \Arg{replacement} \meta{tl var} \Arg{true code} \Arg{false code}
 \end{syntax}
 Replaces all occurrences of the \meta{regular expression} in the
 contents of the \meta{tl var}
@@ -470,9 +470,9 @@ independently, and matches cannot overlap.  The result is assigned
 locally to \meta{tl var}.
 \end{function}
 
-\begin{function}{\RegexReplaceCaseOnce}
+\begin{function}{\regexReplaceCaseOnce}
 \begin{syntax}
-\cs{RegexReplaceCaseOnce}
+\cs{regexReplaceCaseOnce}
 ~ ~ |{|
 ~ ~ ~ ~ \Arg{regex_1} \Arg{replacement_1}
 ~ ~ ~ ~ \Arg{regex_2} \Arg{replacement_2}
@@ -490,14 +490,14 @@ variable or as an explicit regular expression.
 In detail, for each starting position in the \meta{token list}, each
 of the \meta{regex} is searched in turn.  If one of them matches
 then it is replaced by the corresponding \meta{replacement} as
-described for \cs{RegexReplaceOnce}.  This is equivalent to
-checking with \cs{RegexMatchCase} which \meta{regex} matches,
-then performing the replacement with \cs{RegexReplaceOnce}.
+described for \cs{regexReplaceOnce}.  This is equivalent to
+checking with \cs{regexMatchCase} which \meta{regex} matches,
+then performing the replacement with \cs{regexReplaceOnce}.
 \end{function}
 
-\begin{function}{\RegexReplaceCaseOnceT}
+\begin{function}{\regexReplaceCaseOnceT}
 \begin{syntax}
-\cs{RegexReplaceCaseOnceT}
+\cs{regexReplaceCaseOnceT}
 ~ ~ |{|
 ~ ~ ~ ~ \Arg{regex_1} \Arg{replacement_1}
 ~ ~ ~ ~ \Arg{regex_2} \Arg{replacement_2}
@@ -515,9 +515,9 @@ input stream. If none of the \meta{regex} match, then the
 variable or as an explicit regular expression.
 \end{function}
 
-\begin{function}{\RegexReplaceCaseOnceF}
+\begin{function}{\regexReplaceCaseOnceF}
 \begin{syntax}
-\cs{RegexReplaceCaseOnceF}
+\cs{regexReplaceCaseOnceF}
 ~ ~ |{|
 ~ ~ ~ ~ \Arg{regex_1} \Arg{replacement_1}
 ~ ~ ~ ~ \Arg{regex_2} \Arg{replacement_2}
@@ -535,9 +535,9 @@ the input stream.  Each \meta{regex} can either be given as a regex
 variable or as an explicit regular expression.
 \end{function}
 
-\begin{function}{\RegexReplaceCaseOnceTF}
+\begin{function}{\regexReplaceCaseOnceTF}
 \begin{syntax}
-\cs{RegexReplaceCaseOnceTF}
+\cs{regexReplaceCaseOnceTF}
 ~ ~ |{|
 ~ ~ ~ ~ \Arg{regex_1} \Arg{replacement_1}
 ~ ~ ~ ~ \Arg{regex_2} \Arg{replacement_2}
@@ -556,9 +556,9 @@ the input stream.  Each \meta{regex} can either be given as a regex
 variable or as an explicit regular expression.
 \end{function}
 
-\begin{function}{\RegexReplaceCaseAll}
+\begin{function}{\regexReplaceCaseAll}
 \begin{syntax}
-\cs{RegexReplaceCaseAll}
+\cs{regexReplaceCaseAll}
 ~ ~ |{|
 ~ ~ ~ ~ \Arg{regex_1} \Arg{replacement_1}
 ~ ~ ~ ~ \Arg{regex_2} \Arg{replacement_2}
@@ -578,8 +578,8 @@ search resumes at the position that follows this match (and
 replacement).  For instance
 %% FIXME
 %\begin{codehigh}
-%\TlSet \lTmpaTl {Hello, world!}
-%\RegexReplaceCaseAll
+%\tlSet \lTmpaTl {Hello, world!}
+%\regexReplaceCaseAll
 %  {
 %    {[A-Za-z]+} {``\0''}
 %    {\b}        {---}
@@ -587,8 +587,8 @@ replacement).  For instance
 %  } \lTmpaTl
 %\end{codehigh}
 \begin{codehigh}
-\TlSet \lTmpaTl {Hello, world!}
-\RegexReplaceCaseAll
+\tlSet \lTmpaTl {Hello, world!}
+\regexReplaceCaseAll
   {
     {[A-Za-z]+} {``\0''}
     {\b} {---}
@@ -600,12 +600,12 @@ results in \cs{lTmpaTl} having the contents
 the word-boundary assertion |\b| did not match at the start of words
 because the case |[A-Za-z]+| matched at these positions.  To change
 this, one could simply swap the order of the two cases in the
-argument of \cs{RegexReplaceCaseAll}.
+argument of \cs{regexReplaceCaseAll}.
 \end{function}
 
-\begin{function}{\RegexReplaceCaseAllT}
+\begin{function}{\regexReplaceCaseAllT}
 \begin{syntax}
-\cs{RegexReplaceCaseAllT}
+\cs{regexReplaceCaseAllT}
 ~ ~ |{|
 ~ ~ ~ ~ \Arg{regex_1} \Arg{replacement_1}
 ~ ~ ~ ~ \Arg{regex_2} \Arg{replacement_2}
@@ -621,9 +621,9 @@ assigned locally to \meta{tl var}, and the \meta{true code}
 is left in the input stream if any replacement was made.
 \end{function}
 
-\begin{function}{\RegexReplaceCaseAllF}
+\begin{function}{\regexReplaceCaseAllF}
 \begin{syntax}
-\cs{RegexReplaceCaseAllF}
+\cs{regexReplaceCaseAllF}
 ~ ~ |{|
 ~ ~ ~ ~ \Arg{regex_1} \Arg{replacement_1}
 ~ ~ ~ ~ \Arg{regex_2} \Arg{replacement_2}
@@ -639,9 +639,9 @@ assigned locally to \meta{tl var}, and the \meta{false code} is left
 in the input stream if not any replacement was made.
 \end{function}
 
-\begin{function}{\RegexReplaceCaseAllTF}
+\begin{function}{\regexReplaceCaseAllTF}
 \begin{syntax}
-\cs{RegexReplaceCaseAllTF}
+\cs{regexReplaceCaseAllTF}
 ~ ~ |{|
 ~ ~ ~ ~ \Arg{regex_1} \Arg{replacement_1}
 ~ ~ ~ ~ \Arg{regex_2} \Arg{replacement_2}
@@ -663,7 +663,7 @@ any replacement was made or not.
 \subsection{Regular Expression Examples}
 
 We start with a few examples, and encourage the reader to apply
-\cs{RegexShow} to these regular expressions.
+\cs{regexShow} to these regular expressions.
 \begin{itemize}
 \item |Cat| matches the word \enquote{Cat} capitalized in this way,
   but also matches the beginning of the word \enquote{Cattle}: use
@@ -702,9 +702,9 @@ We start with a few examples, and encourage the reader to apply
 \item |\G.*?\K| at the beginning of a regular expression matches and
   discards (due to |\K|) everything between the end of the previous
   match (|\G|) and what is matched by the rest of the regular
-  expression; this is useful in \cs{RegexReplaceAll} when the
+  expression; this is useful in \cs{regexReplaceAll} when the
   goal is to extract matches or submatches in a finer way than with
-  \cs{RegexExtractAll}.
+  \cs{regexExtractAll}.
 \end{itemize}
 While it is impossible for a regular expression to match only integer
 expressions, \newline\verb*"[\+\-\(]*\d+\)*([\+\-*/][\+\-\(]*\d+\)*)*" matches among
@@ -854,19 +854,19 @@ match. Parenthesized groups are labelled in the order of their
 opening parenthesis, starting at $1$. The contents of those groups
 corresponding to the \enquote{best} match (leftmost longest)
 can be extracted and stored in a sequence of token lists using for
-instance \cs{RegexExtractOnceTF}.
+instance \cs{regexExtractOnceTF}.
 
 The |\K| escape sequence resets the beginning of the match to the
 current position in the token list. This only affects what is reported
 as the full match. For instance,
 \begin{codehigh}
-\RegexExtractAll {a \K .} {a123aaxyz} \lFooSeq
+\regexExtractAll {a \K .} {a123aaxyz} \lFooSeq
 \end{codehigh}
 results in \cs{lFooSeq} containing the items |{1}| and |{a}|: the
 true matches are |{a1}| and |{aa}|, but they are trimmed by the use of
 |\K|. The |\K| command does not affect capturing groups: for instance,
 \begin{codehigh}
-\RegexExtractOnce {(. \K c)+ \d} {acbc3} \lFooSeq
+\regexExtractOnce {(. \K c)+ \d} {acbc3} \lFooSeq
 \end{codehigh}
 results in \cs{lFooSeq} containing the items |{c3}| and |{bc}|: the
 true match is |{acbc3}|, with first submatch |{bc}|, but |\K| resets
@@ -951,8 +951,8 @@ get the latter effect, it is simplest to use \TeX{}'s expansion
 machinery directly: if \cs{lTmpaTl} contains
 \verb"B|C" then the following two lines show the same result:
 \begin{codehigh}
-\RegexShow {A \u{lTmpaTl} D}
-\RegexShow {A B | C D}
+\regexShow {A \u{lTmpaTl} D}
+\regexShow {A B | C D}
 \end{codehigh}
 
 \subsection{Miscellaneous}
@@ -970,7 +970,7 @@ Anchors and simple assertions.
     End of the subject token list.
   \item[\\G] Start of the current match. This is only different from |^|
     in the case of multiple matches: for instance
-    |\RegexCount {\G a} {aaba} \lTmpaInt| yields $2$, but
+    |\regexCount {\G a} {aaba} \lTmpaInt| yields $2$, but
     replacing |\G| by |^| would result in \cs{lTmpaInt} holding the
     value $1$.
 \end{l3regex-syntax}
@@ -1014,9 +1014,9 @@ escaped with a backslash.
 
 For instance,
 \begin{demohigh}
-\TlSet \lTmpaTl {Hello, world!}
-\RegexReplaceAll {([er]?l|o) .} {(\0--\1)} \lTmpaTl
-\TlUse \lTmpaTl
+\tlSet \lTmpaTl {Hello, world!}
+\regexReplaceAll {([er]?l|o) .} {(\0--\1)} \lTmpaTl
+\tlUse \lTmpaTl
 \end{demohigh}
 
 The submatches are numbered according to the order in which the
@@ -1062,18 +1062,18 @@ extract the value of the control sequence and turn it into a string.
 Matches can also be used within the arguments of |\c| and |\u|.  For
 instance,
 \begin{demohigh}
-\TlSet \lMyOneTl {first}
-\TlSet \lMyTwoTl {\underline{second}}
-\TlSet \lTmpaTl {One,Two,One,One}
-\RegexReplaceAll {[^,]+} {\u{lMy\0Tl}} \lTmpaTl
-\TlUse \lTmpaTl
+\tlSet \lMyOneTl {first}
+\tlSet \lMyTwoTl {\underline{second}}
+\tlSet \lTmpaTl {One,Two,One,One}
+\regexReplaceAll {[^,]+} {\u{lMy\0Tl}} \lTmpaTl
+\tlUse \lTmpaTl
 \end{demohigh}
 
 Regex replacement is also a convenient way to produce token lists
 with arbitrary category codes.  For instance
 \begin{codehigh}
-\TlClear \lTmpaTl
-\RegexReplaceAll { } {\cU\% \cA\~} \lTmpaTl
+\tlClear \lTmpaTl
+\regexReplaceAll { } {\cU\% \cA\~} \lTmpaTl
 \end{codehigh}
 results in \cs{lTmpaTl} containing the percent character
 with category code $7$ (superscript) and an active tilde character.

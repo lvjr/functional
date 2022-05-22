@@ -13,13 +13,13 @@
 functions to deal with lists of tokens.  Token lists may be present
 directly in the argument to a function:
 \begin{codehigh}
-\TlFoo {a collection of \tokens}
+\tlFoo {a collection of \tokens}
 \end{codehigh}
 or may be stored in a so-called \enquote{token list variable}, which
 have the suffix \texttt{Tl}: a token list variable can also be used as
 the argument to a function, for example
 \begin{codehigh}
-\TlVarFoo \lSomeTl
+\tlVarFoo \lSomeTl
 \end{codehigh}
 In both cases, functions are available to test and manipulate the lists
 of tokens, and these have the module prefix \texttt{Tl}.
@@ -30,7 +30,7 @@ together here.
 
 A token list (explicit, or stored in a variable) can be seen either
 as a list of \enquote{items},
-or a list of \enquote{tokens}. An item is whatever \cs{UseOne} would
+or a list of \enquote{tokens}. An item is whatever \cs{useOne} would
 grab as its argument: a single non-space token or a brace group,
 with optional leading explicit space characters (each item is thus
 itself a token list). A token is either a normal \texttt{N} argument,
@@ -65,7 +65,7 @@ Constant that is always empty.
 %will \emph{not} match the simple text input \verb|-NoValue-|, \emph{i.e.}
 %that
 %\begin{demohigh}
-%\TlIfEqTF {\TlUse\cNoValueTl} {-NoValue-} {Result{Yes}} {\Return{No}}
+%\tlIfEqTF {\tlUse\cNoValueTl} {-NoValue-} {Result{Yes}} {\prgReturn{No}}
 %\end{demohigh}
 %The \cs{cNoValueTl} marker is intended for
 %use in creating document-level interfaces, where it serves as an indicator
@@ -89,53 +89,53 @@ code and so should only be used for short-term storage.
 
 \section{Creating and Using Token Lists}
 
-\begin{function}{\TlNew}
+\begin{function}{\tlNew}
 \begin{syntax}
-\cs{TlNew} \meta{tl var}
+\cs{tlNew} \meta{tl var}
 \end{syntax}
 Creates a new \meta{tl var} or raises an error if the
 name is already taken. The declaration is global. The
 \meta{tl~var} is initially empty.
 \begin{codehigh}
-\TlNew \lFooSomeTl
+\tlNew \lFooSomeTl
 \end{codehigh}
 \end{function}
 
-\begin{function}{\TlConst}
+\begin{function}{\tlConst}
 \begin{syntax}
-\cs{TlConst} \meta{tl var} \Arg{token list}
+\cs{tlConst} \meta{tl var} \Arg{token list}
 \end{syntax}
 Creates a new constant \meta{tl var} or raises an error
 if the name is already taken. The value of the
 \meta{tl var} is set globally to the \meta{token list}.
 \begin{codehigh}
-\TlConst \cFooSomeTl {abc}
+\tlConst \cFooSomeTl {abc}
 \end{codehigh}
 \end{function}
 
-\begin{function}{\TlUse}
+\begin{function}{\tlUse}
 \begin{syntax}
-\cs{TlUse} \meta{tl~var}
+\cs{tlUse} \meta{tl~var}
 \end{syntax}
 Recovers the content of a \meta{tl~var} and returns the value.
 An error is raised if the variable
 does not exist or if it is invalid. Note that it is possible to use
 a \meta{tl~var} directly without an accessor function.
 \begin{codehigh}
-\TlUse \lTmpbTl
+\tlUse \lTmpbTl
 \end{codehigh}
 \end{function}
 
-\begin{function}{\TlToStr}
+\begin{function}{\tlToStr}
 \begin{syntax}
-\cs{TlToStr} \Arg{token list}
+\cs{tlToStr} \Arg{token list}
 \end{syntax}
 Converts the \meta{token list} to a \meta{string}, returning the
 resulting character tokens. A \meta{string}
 is a series of tokens with category code $12$ (other) with the exception
 of spaces, which retain category code $10$ (space).
 \begin{demohigh}
-\TlToStr {12\abc34}
+\tlToStr {12\abc34}
 \end{demohigh}
 %This function requires only a single expansion.
 %Its argument \emph{must} be braced.
@@ -168,52 +168,52 @@ of spaces, which retain category code $10$ (space).
 %\end{texnote}
 \end{function}
 
-\begin{function}{\TlVarToStr}
+\begin{function}{\tlVarToStr}
 \begin{syntax}
-\cs{TlVarToStr} \meta{tl var}
+\cs{tlVarToStr} \meta{tl var}
 \end{syntax}
 Converts the content of the \meta{tl var} to a string, returning the
 resulting character tokens. A \meta{string}
 is a series of tokens with category code $12$ (other) with the exception
 of spaces, which retain category code $10$ (space).
 \begin{demohigh}
-\TlSet \lTmpaTl {12\abc34}
-\TlVarToStr \lTmpaTl
+\tlSet \lTmpaTl {12\abc34}
+\tlVarToStr \lTmpaTl
 \end{demohigh}
 \end{function}
 
 \section{Viewing Token Lists}
 
-\begin{function}{\TlLog}
+\begin{function}{\tlLog}
 \begin{syntax}
-\cs{TlLog} \Arg{token list}
+\cs{tlLog} \Arg{token list}
 \end{syntax}
 Writes the \meta{token list} in the log file. See also
-\cs{TlShow} which displays the result in the terminal.
+\cs{tlShow} which displays the result in the terminal.
 \begin{codehigh}
-\TlLog {123\abc456}
+\tlLog {123\abc456}
 \end{codehigh}
 \end{function}
 
-\begin{function}{\TlVarLog}
+\begin{function}{\tlVarLog}
 \begin{syntax}
-\cs{TlVarLog} \meta{tl var}
+\cs{tlVarLog} \meta{tl var}
 \end{syntax}
 Writes the content of the \meta{tl var} in the log file. See also
-\cs{TlVarShow} which displays the result in the terminal.
+\cs{tlVarShow} which displays the result in the terminal.
 \begin{codehigh}
-\TlSet \lTmpaTl {123\abc456}
-\TlVarLog \lTmpaTl
+\tlSet \lTmpaTl {123\abc456}
+\tlVarLog \lTmpaTl
 \end{codehigh}
 \end{function}
 
-\begin{function}{\TlShow}
+\begin{function}{\tlShow}
 \begin{syntax}
-\cs{TlShow} \Arg{token list}
+\cs{tlShow} \Arg{token list}
 \end{syntax}
 Displays the \meta{token list} on the terminal.
 \begin{codehigh}
-\TlShow {123\abc456}
+\tlShow {123\abc456}
 \end{codehigh}
 %\begin{texnote}
 %This is similar to the \eTeX{} primitive \tn{showtokens}, wrapped
@@ -221,14 +221,14 @@ Displays the \meta{token list} on the terminal.
 %\end{texnote}
 \end{function}
 
-\begin{function}{\TlVarShow}
+\begin{function}{\tlVarShow}
 \begin{syntax}
-\cs{TlVarShow} \meta{tl var}
+\cs{tlVarShow} \meta{tl var}
 \end{syntax}
 Displays the content of the \meta{tl var} on the terminal.
 \begin{codehigh}
-\TlSet \lTmpaTl {123\abc456}
-\TlVarShow \lTmpaTl
+\tlSet \lTmpaTl {123\abc456}
+\tlVarShow \lTmpaTl
 \end{codehigh}
 %\begin{texnote}
 %This is similar to the \TeX{} primitive \tn{show}, wrapped to a
@@ -238,91 +238,91 @@ Displays the content of the \meta{tl var} on the terminal.
 
 \section{Setting Token List Variables}
 
-\begin{function}{\TlSet}
+\begin{function}{\tlSet}
 \begin{syntax}
-\cs{TlSet} \meta{tl~var} \Arg{tokens}
+\cs{tlSet} \meta{tl~var} \Arg{tokens}
 \end{syntax}
 Sets \meta{tl~var} to contain \meta{tokens},
 removing any previous content from the variable.
 \begin{demohigh}
-\TlSet \lTmpiTl {\IntMathMult{4}{5}}
-\TlUse \lTmpiTl
+\tlSet \lTmpiTl {\intMathMult{4}{5}}
+\tlUse \lTmpiTl
 \end{demohigh}
 \end{function}
 
-\begin{function}{\TlSetEq}
+\begin{function}{\tlSetEq}
 \begin{syntax}
-\cs{TlSetEq} \meta{tl var_1} \meta{tl var_2}
+\cs{tlSetEq} \meta{tl var_1} \meta{tl var_2}
 \end{syntax}
 Sets the content of \meta{tl var_1} equal to that of \meta{tl var_2}.
 \begin{demohigh}
-\TlSet \lTmpaTl {abc}
-\TlSetEq \lTmpbTl \lTmpaTl
-\TlUse \lTmpbTl
+\tlSet \lTmpaTl {abc}
+\tlSetEq \lTmpbTl \lTmpaTl
+\tlUse \lTmpbTl
 \end{demohigh}
 \end{function}
 
-\begin{function}{\TlClear}
+\begin{function}{\tlClear}
 \begin{syntax}
-\cs{TlClear} \meta{tl~var}
+\cs{tlClear} \meta{tl~var}
 \end{syntax}
 Clears all entries from the \meta{tl~var}.
 \begin{demohigh}
-\TlSet \lTmpjTl {One}
-\TlClear \lTmpjTl
-\TlSet \lTmpjTl {Two}
-\TlUse \lTmpjTl
+\tlSet \lTmpjTl {One}
+\tlClear \lTmpjTl
+\tlSet \lTmpjTl {Two}
+\tlUse \lTmpjTl
 \end{demohigh}
 \end{function}
 
-\begin{function}{\TlClearNew}
+\begin{function}{\tlClearNew}
 \begin{syntax}
-\cs{TlClearNew} \meta{tl var}
+\cs{tlClearNew} \meta{tl var}
 \end{syntax}
 Ensures that the \meta{tl var} exists globally by applying
-\cs{TlNew} if necessary, then applies \cs{TlClear} to leave
+\cs{tlNew} if necessary, then applies \cs{tlClear} to leave
 the \meta{tl var} empty.
 \begin{codehigh}
-\TlClearNew \lFooSomeTl
+\tlClearNew \lFooSomeTl
 \end{codehigh}
 \end{function}
 
-\begin{function}{\TlConcat}
+\begin{function}{\tlConcat}
 \begin{syntax}
-\cs{TlConcat} \meta{tl var_1} \meta{tl var_2} \meta{tl var_3}
+\cs{tlConcat} \meta{tl var_1} \meta{tl var_2} \meta{tl var_3}
 \end{syntax}
 Concatenates the content of \meta{tl var_2} and \meta{tl var_3}
 together and saves the result in \meta{tl var_1}. The \meta{tl var_2}
 is placed at the left side of the new token list.
 \begin{demohigh}
-\TlSet \lTmpbTl {con}
-\TlSet \lTmpcTl {cat}
-\TlConcat \lTmpaTl \lTmpbTl \lTmpcTl
-\TlUse \lTmpaTl
+\tlSet \lTmpbTl {con}
+\tlSet \lTmpcTl {cat}
+\tlConcat \lTmpaTl \lTmpbTl \lTmpcTl
+\tlUse \lTmpaTl
 \end{demohigh}
 \end{function}
 
-\begin{function}{\TlPutLeft}
+\begin{function}{\tlPutLeft}
 \begin{syntax}
-\cs{TlPutLeft} \meta{tl~var} \Arg{tokens}
+\cs{tlPutLeft} \meta{tl~var} \Arg{tokens}
 \end{syntax}
 Appends \meta{tokens} to the left side of the current content of \meta{tl~var}.
 \begin{demohigh}
-\TlSet \lTmpkTl {Functional}
-\TlPutLeft \lTmpkTl {Hello}
-\TlUse \lTmpkTl
+\tlSet \lTmpkTl {Functional}
+\tlPutLeft \lTmpkTl {Hello}
+\tlUse \lTmpkTl
 \end{demohigh}
 \end{function}
 
-\begin{function}{\TlPutRight}
+\begin{function}{\tlPutRight}
 \begin{syntax}
-\cs{TlPutRight} \meta{tl~var} \Arg{tokens}
+\cs{tlPutRight} \meta{tl~var} \Arg{tokens}
 \end{syntax}
 Appends \meta{tokens} to the right side of the current content of \meta{tl~var}.
 \begin{demohigh}
-\TlSet \lTmpkTl {Functional}
-\TlPutRight \lTmpkTl {World}
-\TlUse \lTmpkTl
+\tlSet \lTmpkTl {Functional}
+\tlPutRight \lTmpkTl {World}
+\tlUse \lTmpkTl
 \end{demohigh}
 \end{function}
 
@@ -332,9 +332,9 @@ Within token lists, replacement takes place at the top level: there is
 no recursion into brace groups (more precisely, within a group defined by
 a categroy code $1$/$2$ pair).
 
-\begin{function}{\TlVarReplaceOnce}
+\begin{function}{\tlVarReplaceOnce}
 \begin{syntax}
-\cs{TlVarReplaceOnce} \meta{tl var} \Arg{old tokens} \Arg{new tokens}
+\cs{tlVarReplaceOnce} \meta{tl var} \Arg{old tokens} \Arg{new tokens}
 \end{syntax}
 Replaces the first (leftmost) occurrence of \meta{old tokens} in the
 \meta{tl var} with \meta{new tokens}. \meta{Old tokens}
@@ -342,15 +342,15 @@ cannot contain \verb|{|, \verb|}| or \verb|#|
 (more precisely, explicit character tokens with category code $1$
 (begin-group) or $2$ (end-group), and tokens with category code $6$).
 \begin{demohigh}
-\TlSet \lTmpaTl {1{bc}2bc3}
-\TlVarReplaceOnce \lTmpaTl {bc} {xx}
-\TlUse \lTmpaTl
+\tlSet \lTmpaTl {1{bc}2bc3}
+\tlVarReplaceOnce \lTmpaTl {bc} {xx}
+\tlUse \lTmpaTl
 \end{demohigh}
 \end{function}
 
-\begin{function}{\TlVarReplaceAll}
+\begin{function}{\tlVarReplaceAll}
 \begin{syntax}
-\cs{TlVarReplaceAll} \meta{tl var} \Arg{old tokens} \Arg{new tokens}
+\cs{tlVarReplaceAll} \meta{tl var} \Arg{old tokens} \Arg{new tokens}
 \end{syntax}
 Replaces all occurrences of \meta{old tokens} in the
 \meta{tl var} with \meta{new tokens}. \meta{Old tokens}
@@ -359,32 +359,32 @@ cannot contain \verb|{|, \verb|}| or \verb|#|
 (begin-group) or $2$ (end-group), and tokens with category code $6$).
 As this function
 operates from left to right, the pattern \meta{old tokens}
-may remain after the replacement (see \cs{TlVarRemoveAll} for an example).
+may remain after the replacement (see \cs{tlVarRemoveAll} for an example).
 \begin{demohigh}
-\TlSet \lTmpaTl {1{bc}2bc3}
-\TlVarReplaceAll \lTmpaTl {bc} {xx}
-\TlUse \lTmpaTl
+\tlSet \lTmpaTl {1{bc}2bc3}
+\tlVarReplaceAll \lTmpaTl {bc} {xx}
+\tlUse \lTmpaTl
 \end{demohigh}
 \end{function}
 
-\begin{function}{\TlVarRemoveOnce}
+\begin{function}{\tlVarRemoveOnce}
 \begin{syntax}
-\cs{TlVarRemoveOnce} \meta{tl var} \Arg{tokens}
+\cs{tlVarRemoveOnce} \meta{tl var} \Arg{tokens}
 \end{syntax}
 Removes the first (leftmost) occurrence of \meta{tokens} from the
 \meta{tl var}. \meta{Tokens} cannot contain \verb|{|, \verb|}| or \verb|#|
 (more precisely, explicit character tokens with category code $1$
 (begin-group) or $2$ (end-group), and tokens with category code $6$).
 \begin{demohigh}
-\TlSet \lTmpaTl {1{bc}2bc3}
-\TlVarRemoveOnce \lTmpaTl {bc}
-\TlUse \lTmpaTl
+\tlSet \lTmpaTl {1{bc}2bc3}
+\tlVarRemoveOnce \lTmpaTl {bc}
+\tlUse \lTmpaTl
 \end{demohigh}
 \end{function}
 
-\begin{function}{\TlVarRemoveAll}
+\begin{function}{\tlVarRemoveAll}
 \begin{syntax}
-\cs{TlVarRemoveAll} \meta{tl var} \Arg{tokens}
+\cs{tlVarRemoveAll} \meta{tl var} \Arg{tokens}
 \end{syntax}
 Removes all occurrences of \meta{tokens} from the
 \meta{tl var}. \meta{Tokens} cannot contain \verb|{|, \verb|}| or \verb|#|
@@ -394,21 +394,21 @@ As this function
 operates from left to right, the pattern \meta{tokens}
 may remain after the removal, for instance,
 \begin{demohigh}
-\TlSet \lTmpaTl {abbccd}
-\TlVarRemoveAll \lTmpaTl {bc}
-\TlUse \lTmpaTl
+\tlSet \lTmpaTl {abbccd}
+\tlVarRemoveAll \lTmpaTl {bc}
+\tlUse \lTmpaTl
 \end{demohigh}
 \end{function}
 
-\begin{function}{\TlTrimSpaces}
+\begin{function}{\tlTrimSpaces}
 \begin{syntax}
-\cs{TlTrimSpaces} \Arg{token list}
+\cs{tlTrimSpaces} \Arg{token list}
 \end{syntax}
 Removes any leading and trailing explicit space characters
 (explicit tokens with character code $32$ and category code $10$)
 from the \meta{token list} and returns the result.
 \begin{demohigh}
-Foo\TlTrimSpaces { 12 34 }Bar
+Foo\tlTrimSpaces { 12 34 }Bar
 \end{demohigh}
 %\begin{texnote}
 %The result is returned within \tn{unexpanded}, which means that the token
@@ -417,52 +417,52 @@ Foo\TlTrimSpaces { 12 34 }Bar
 %\end{texnote}
 \end{function}
 
-\begin{function}{\TlVarTrimSpaces}
+\begin{function}{\tlVarTrimSpaces}
 \begin{syntax}
-\cs{TlVarTrimSpaces} \meta{tl var}
+\cs{tlVarTrimSpaces} \meta{tl var}
 \end{syntax}
 Sets the \meta{tl var} to contain the result of removing any leading
 and trailing explicit space characters (explicit tokens with
 character code $32$ and category code $10$) from its contents.
 \begin{demohigh}
-\TlSet \lTmpaTl { 12 34 }
-\TlVarTrimSpaces \lTmpaTl
-Foo\TlUse \lTmpaTl Bar
+\tlSet \lTmpaTl { 12 34 }
+\tlVarTrimSpaces \lTmpaTl
+Foo\tlUse \lTmpaTl Bar
 \end{demohigh}
 \end{function}
 
 \section{Working with the Content of Token Lists}
 
-\begin{function}{\TlCount}
+\begin{function}{\tlCount}
 \begin{syntax}
-\cs{TlCount} \Arg{tokens}
+\cs{tlCount} \Arg{tokens}
 \end{syntax}
 Counts the number of \meta{items} in \meta{tokens} and returns this information.
 Unbraced tokens count as one element as do each token group (\verb|{|$\cdots$\verb|}|).
-This process ignores any unprotected spaces within \meta{tokens}. %See also \cs{TlVarCount}.
+This process ignores any unprotected spaces within \meta{tokens}. %See also \cs{tlVarCount}.
 %This function requires three expansions, giving an \meta{integer denotation}.
 \begin{demohigh}
-\TlCount {12\abc34}
+\tlCount {12\abc34}
 \end{demohigh}
 \end{function}
 
-\begin{function}{\TlVarCount}
+\begin{function}{\tlVarCount}
 \begin{syntax}
-\cs{TlVarCount} \meta{tl var}
+\cs{tlVarCount} \meta{tl var}
 \end{syntax}
 Counts the number of \meta{items} in the \meta{tl var} and returns this information.
 Unbraced tokens count as one element as do each token group (\verb|{|$\cdots$\verb|}|).
-This process ignores any unprotected spaces within the \meta{tl var}. %See also \cs{TlCount}.
+This process ignores any unprotected spaces within the \meta{tl var}. %See also \cs{tlCount}.
 %This function requires three expansions, giving an \meta{integer denotation}.
 \begin{demohigh}
-\TlSet \lTmpaTl {12\abc34}
-\TlVarCount \lTmpaTl
+\tlSet \lTmpaTl {12\abc34}
+\tlVarCount \lTmpaTl
 \end{demohigh}
 \end{function}
 
-\begin{function}{\TlHead}
+\begin{function}{\tlHead}
 \begin{syntax}
-\cs{TlHead} \Arg{token list}
+\cs{tlHead} \Arg{token list}
 \end{syntax}
 Returns the first \meta{item} in the \meta{token list},
 discarding the rest of the \meta{token list}.
@@ -470,17 +470,17 @@ All leading explicit space characters
 (explicit tokens with character code $32$ and category code $10$)
 are discarded; for example
 \begin{demohigh}
-\fbox {1\TlHead{ abc }2}
-\fbox {1\TlHead{  abc }2}
+\fbox {1\tlHead{ abc }2}
+\fbox {1\tlHead{  abc }2}
 \end{demohigh}
 If the \enquote{head} is a brace group, rather than a single token,
 the braces are removed, and so
 \begin{codehigh}
-\TlHead { { ab} c }
+\tlHead { { ab} c }
 \end{codehigh}
 yields \verb*| ab|.
-A blank \meta{token list} (see \cs{TlIfBlank}) results in
-\cs{TlHead} returning nothing.
+A blank \meta{token list} (see \cs{tlIfBlank}) results in
+\cs{tlHead} returning nothing.
 %\begin{texnote}
 %The result is returned within \cs{exp_not:n}, which means that the token
 %list does not expand further when appearing in an \texttt{x}-type
@@ -488,37 +488,37 @@ A blank \meta{token list} (see \cs{TlIfBlank}) results in
 %\end{texnote}
 \end{function}
 
-\begin{function}{\TlVarHead}
+\begin{function}{\tlVarHead}
 \begin{syntax}
-\cs{TlVarHead} \meta{tl var}
+\cs{tlVarHead} \meta{tl var}
 \end{syntax}
 Returns the first \meta{item} in the \meta{tl var},
 discarding the rest of the \meta{tl var}.
 All leading explicit space characters (explicit tokens with character code $32$
 and category code $10$) are discarded.
 \begin{demohigh}
-\TlSet \lTmpaTl {HELLO}
-\TlVarHead \lTmpaTl
+\tlSet \lTmpaTl {HELLO}
+\tlVarHead \lTmpaTl
 \end{demohigh}
 \end{function}
 
-\begin{function}{\TlTail}
+\begin{function}{\tlTail}
 \begin{syntax}
-\cs{TlTail} \Arg{token list}
+\cs{tlTail} \Arg{token list}
 \end{syntax}
 Discards all leading explicit space characters
 (explicit tokens with character code $32$ and category code $10$)
 and the first \meta{item} in the \meta{token list}, and returns the
 remaining tokens. Thus for example
 \begin{codehigh}
-\TlTail { a {bc} d }
+\tlTail { a {bc} d }
 \end{codehigh}
 and
 \begin{codehigh}
-\TlTail {  a {bc} d }
+\tlTail {  a {bc} d }
 \end{codehigh}
-both return \verb*| {bc} d |.  A blank \meta{token list} (see \cs{TlIfBlank})
-results in \cs{TlTail} returning nothing.
+both return \verb*| {bc} d |.  A blank \meta{token list} (see \cs{tlIfBlank})
+results in \cs{tlTail} returning nothing.
 %\begin{texnote}
 %The result is returned within \cs{exp_not:n}, which means that the
 %token list does not expand further when appearing in an \texttt{x}-type
@@ -526,24 +526,24 @@ results in \cs{TlTail} returning nothing.
 %\end{texnote}
 \end{function}
 
-\begin{function}{\TlVarTail}
+\begin{function}{\tlVarTail}
 \begin{syntax}
-\cs{TlVarTail} \meta{tl var}
+\cs{tlVarTail} \meta{tl var}
 \end{syntax}
 Discards all leading explicit space characters
 (explicit tokens with character code $32$ and category code $10$)
 and the first \meta{item} in the \meta{tl var}, and returns the
 remaining tokens.
 \begin{demohigh}
-\TlSet \lTmpaTl {HELLO}
-\TlVarTail \lTmpaTl
+\tlSet \lTmpaTl {HELLO}
+\tlVarTail \lTmpaTl
 \end{demohigh}
 \end{function}
 
-\begin{function}{\TlItem,\TlVarItem}
+\begin{function}{\tlItem,\tlVarItem}
 \begin{syntax}
-\cs{TlItem} \Arg{token list} \Arg{integer expression}
-\cs{TlVarItem} \meta{tl var} \Arg{integer expression}
+\cs{tlItem} \Arg{token list} \Arg{integer expression}
+\cs{tlVarItem} \meta{tl var} \Arg{integer expression}
 \end{syntax}
 Indexing items in the \meta{token list} from $1$ on the left, this
 function evaluates the \meta{integer expression} and returns the
@@ -552,7 +552,7 @@ If the \meta{integer expression} is negative, indexing occurs from
 the right of the token list, starting at $-1$ for the right-most item.
 If the index is out of bounds, then the function returns nothing.
 \begin{demohigh}
-\TlItem {abcd} {3}
+\tlItem {abcd} {3}
 \end{demohigh}
 %\begin{texnote}
 %The result is returned within the \tn{unexpanded}
@@ -562,17 +562,17 @@ If the index is out of bounds, then the function returns nothing.
 %\end{texnote}
 \end{function}
 
-\begin{function}{\TlRandItem,\TlVarRandItem}
+\begin{function}{\tlRandItem,\tlVarRandItem}
 \begin{syntax}
-\cs{TlRandItem} \Arg{token list}
-\cs{TlVarRandItem} \meta{tl var}
+\cs{tlRandItem} \Arg{token list}
+\cs{tlVarRandItem} \meta{tl var}
 \end{syntax}
 Selects and returns a pseudo-random item of the \meta{token list}.
 If the \meta{token list} is blank, the result is empty.
 %This is not available in older versions of \XeTeX{}.
 \begin{demohigh}
-\TlRandItem {abcdef}
-\TlRandItem {abcdef}
+\tlRandItem {abcdef}
+\tlRandItem {abcdef}
 \end{demohigh}
 %\begin{texnote}
 %The result is returned within the \tn{unexpanded}
@@ -588,9 +588,9 @@ All mappings are done at the current group level, \emph{i.e.} any
 local assignments made by the \meta{function} or \meta{code} discussed
 below remain in effect after the loop.
 
-%\begin{function}{\TlMapFunction}
+%\begin{function}{\tlMapFunction}
 %\begin{syntax}
-%\cs{TlMapFunction} \Arg{token list} \meta{function}
+%\cs{tlMapFunction} \Arg{token list} \meta{function}
 %\end{syntax}
 %Applies \meta{function} to every \meta{item} in the \meta{token list},
 %The \meta{function} receives one argument for each iteration.
@@ -599,9 +599,9 @@ below remain in effect after the loop.
 %\texttt{n}-type arguments.
 %\end{function}
 %
-%\begin{function}{\TlVarMapFunction}
+%\begin{function}{\tlVarMapFunction}
 %\begin{syntax}
-%\cs{TlVarMapFunction} \meta{tl var} \meta{function}
+%\cs{tlVarMapFunction} \meta{tl var} \meta{function}
 %\end{syntax}
 %Applies \meta{function} to every \meta{item} in the \meta{tl var}.
 %The \meta{function} receives one argument for each iteration.
@@ -610,47 +610,47 @@ below remain in effect after the loop.
 %\texttt{n}-type arguments.
 %\end{function}
 
-\begin{function}{\TlMapInline}
+\begin{function}{\tlMapInline}
 \begin{syntax}
-\cs{TlMapInline} \Arg{token list} \Arg{inline function}
+\cs{tlMapInline} \Arg{token list} \Arg{inline function}
 \end{syntax}
 Applies the \meta{inline function} to every \meta{item} stored within the
 \meta{token list}. The \meta{inline function}  should consist of code which
 receives the \meta{item} as \verb|#1|.
 \begin{demohigh}
 \IgnoreSpacesOn
-\TlClear \lTmpaTl
-\TlMapInline {one} {
-  \TlPutRight \lTmpaTl {[#1]}
+\tlClear \lTmpaTl
+\tlMapInline {one} {
+  \tlPutRight \lTmpaTl {[#1]}
 }
-\TlUse \lTmpaTl
+\tlUse \lTmpaTl
 \IgnoreSpacesOff
 \end{demohigh}
 \end{function}
 
-\begin{function}{\TlVarMapInline}
+\begin{function}{\tlVarMapInline}
 \begin{syntax}
-\cs{TlVarMapInline} \meta{tl var} \Arg{inline function}
+\cs{tlVarMapInline} \meta{tl var} \Arg{inline function}
 \end{syntax}
 Applies the \meta{inline function} to every \meta{item} stored within the
 \meta{tl var}. The \meta{inline function} should consist of code which
 receives the \meta{item} as \verb|#1|.
 \begin{demohigh}
 \IgnoreSpacesOn
-\TlClear \lTmpaTl
-\TlSet \lTmpkTl {one}
-\TlVarMapInline \lTmpkTl {
-  \TlPutRight \lTmpaTl {[#1]}
+\tlClear \lTmpaTl
+\tlSet \lTmpkTl {one}
+\tlVarMapInline \lTmpkTl {
+  \tlPutRight \lTmpaTl {[#1]}
 }
-\TlUse \lTmpaTl
+\tlUse \lTmpaTl
 \IgnoreSpacesOff
 \end{demohigh}
 \end{function}
 
-%\begin{function}{\TlMapTokens,\TlVarMapTokens}
+%\begin{function}{\tlMapTokens,\tlVarMapTokens}
 %\begin{syntax}
-%\cs{TlMapTokens} \Arg{tokens} \Arg{code}
-%\cs{TlVarMapTokens} \meta{tl var} \Arg{code}
+%\cs{tlMapTokens} \Arg{tokens} \Arg{code}
+%\cs{tlVarMapTokens} \meta{tl var} \Arg{code}
 %\end{syntax}
 %Analogue of \cs{tl_map_function:NN} which maps several tokens
 %instead of a single function.  The \meta{code} receives each \meta{item} in
@@ -665,9 +665,9 @@ receives the \meta{item} as \verb|#1|.
 %\cs{tl_map_inline:Nn} is typically faster but is not expandable.
 %\end{function}
 
-\begin{function}{\TlMapVariable}
+\begin{function}{\tlMapVariable}
 \begin{syntax}
-\cs{TlMapVariable} \Arg{token list} \meta{variable} \Arg{code}
+\cs{tlMapVariable} \Arg{token list} \meta{variable} \Arg{code}
 \end{syntax}
 Stores each \meta{item} of the \meta{token list} in turn in the
 (token list) \meta{variable} and applies the \meta{code}.  The
@@ -677,18 +677,18 @@ Its value after the loop is the last \meta{item} in the
 \meta{tl var}, or its original value if the \meta{tl var} is blank.
 \begin{demohigh}
 \IgnoreSpacesOn
-\TlClear \lTmpaTl
-\TlMapVariable {one} \lTmpiTl {
-  \TlPutRight \lTmpaTl {\Expand {[\lTmpiTl]}}
+\tlClear \lTmpaTl
+\tlMapVariable {one} \lTmpiTl {
+  \tlPutRight \lTmpaTl {\expWhole {[\lTmpiTl]}}
 }
-\Return{\TlUse\lTmpaTl}
+\prgReturn{\tlUse\lTmpaTl}
 \IgnoreSpacesOff
 \end{demohigh}
 \end{function}
 
-\begin{function}{\TlVarMapVariable}
+\begin{function}{\tlVarMapVariable}
 \begin{syntax}
-\cs{TlVarMapVariable} \meta{tl var} \meta{variable} \Arg{code}
+\cs{tlVarMapVariable} \meta{tl var} \meta{variable} \Arg{code}
 \end{syntax}
 Stores each \meta{item} of the \meta{tl var} in turn in the (token
 list) \meta{variable} and applies the \meta{code}.  The \meta{code}
@@ -698,19 +698,19 @@ value after the loop is the last \meta{item} in the \meta{tl var},
 or its original value if the \meta{tl var} is blank.
 \begin{demohigh}
 \IgnoreSpacesOn
-\TlClear \lTmpaTl
-\TlSet \lTmpkTl {one}
-\TlVarMapVariable \lTmpkTl \lTmpiTl {
-  \TlPutRight \lTmpaTl {\Expand {[\lTmpiTl]}}
+\tlClear \lTmpaTl
+\tlSet \lTmpkTl {one}
+\tlVarMapVariable \lTmpkTl \lTmpiTl {
+  \tlPutRight \lTmpaTl {\expWhole {[\lTmpiTl]}}
 }
-\Return{\TlUse\lTmpaTl}
+\prgReturn{\tlUse\lTmpaTl}
 \IgnoreSpacesOff
 \end{demohigh}
 \end{function}
 
-%\begin{function}{\TlMapBreak}
+%\begin{function}{\tlMapBreak}
 %\begin{syntax}
-%\cs{TlMapBreak}
+%\cs{tlMapBreak}
 %\end{syntax}
 %Used to terminate a tl map function before all
 %entries in the \meta{token list variable} have been processed. This
@@ -733,9 +733,9 @@ or its original value if the \meta{tl var} is blank.
 %\end{texnote}
 %\end{function}
 %
-%\begin{function}{\TlMapBreakDo}
+%\begin{function}{\tlMapBreakDo}
 %\begin{syntax}
-%\cs{TlMapBreakDo} \Arg{code}
+%\cs{tlMapBreakDo} \Arg{code}
 %\end{syntax}
 %Used to terminate a tl map function before all
 %entries in the \meta{token list variable} have been processed, inserting
@@ -761,59 +761,59 @@ or its original value if the \meta{tl var} is blank.
 
 \section{Token List Conditionals}
 
-\begin{function}{\TlIfExist,\TlIfExistT,\TlIfExistF,\TlIfExistTF}
+\begin{function}{\tlIfExist,\tlIfExistT,\tlIfExistF,\tlIfExistTF}
 \begin{syntax}
-\cs{TlIfExist} \meta{tl var}
-\cs{TlIfExistT} \meta{tl var} \Arg{true code}
-\cs{TlIfExistF} \meta{tl var} \Arg{false code}
-\cs{TlIfExistTF} \meta{tl var} \Arg{true code} \Arg{false code}
+\cs{tlIfExist} \meta{tl var}
+\cs{tlIfExistT} \meta{tl var} \Arg{true code}
+\cs{tlIfExistF} \meta{tl var} \Arg{false code}
+\cs{tlIfExistTF} \meta{tl var} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests whether the \meta{tl var} is currently defined.  This does not
 check that the \meta{tl var} really is a token list variable.
 \begin{demohigh}
-\TlIfExistTF \lTmpaTl {\Return{Yes}} {\Return{No}}
-\TlIfExistTF \lFooUndefinedTl {\Return{Yes}} {\Return{No}}
+\tlIfExistTF \lTmpaTl {\prgReturn{Yes}} {\prgReturn{No}}
+\tlIfExistTF \lFooUndefinedTl {\prgReturn{Yes}} {\prgReturn{No}}
 \end{demohigh}
 \end{function}
 
-\begin{function}{\TlIfEmpty,\TlIfEmptyT,\TlIfEmptyF,\TlIfEmptyTF}
+\begin{function}{\tlIfEmpty,\tlIfEmptyT,\tlIfEmptyF,\tlIfEmptyTF}
 \begin{syntax}
-\cs{TlIfEmpty} \Arg{token list}
-\cs{TlIfEmptyT} \Arg{token list} \Arg{true code}
-\cs{TlIfEmptyF} \Arg{token list} \Arg{false code}
-\cs{TlIfEmptyTF} \Arg{token list} \Arg{true code} \Arg{false code}
+\cs{tlIfEmpty} \Arg{token list}
+\cs{tlIfEmptyT} \Arg{token list} \Arg{true code}
+\cs{tlIfEmptyF} \Arg{token list} \Arg{false code}
+\cs{tlIfEmptyTF} \Arg{token list} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests if the \meta{token list} is entirely empty
 (\emph{i.e.}~contains no tokens at all). For example
 \begin{demohigh}
-\TlIfEmptyTF {abc} {\Return{Empty}} {\Return{NonEmpty}}
-\TlIfEmptyTF {} {\Return{Empty}} {\Return{NonEmpty}}
+\tlIfEmptyTF {abc} {\prgReturn{Empty}} {\prgReturn{NonEmpty}}
+\tlIfEmptyTF {} {\prgReturn{Empty}} {\prgReturn{NonEmpty}}
 \end{demohigh}
 \end{function}
 
-\begin{function}{\TlVarIfEmpty,\TlVarIfEmptyT,\TlVarIfEmptyF,\TlVarIfEmptyTF}
+\begin{function}{\tlVarIfEmpty,\tlVarIfEmptyT,\tlVarIfEmptyF,\tlVarIfEmptyTF}
 \begin{syntax}
-\cs{TlVarIfEmpty} \meta{tl~var}
-\cs{TlVarIfEmptyT} \meta{tl~var} \Arg{true code}
-\cs{TlVarIfEmptyF} \meta{tl~var} \Arg{false code}
-\cs{TlVarIfEmptyTF} \meta{tl~var} \Arg{true code} \Arg{false code}
+\cs{tlVarIfEmpty} \meta{tl~var}
+\cs{tlVarIfEmptyT} \meta{tl~var} \Arg{true code}
+\cs{tlVarIfEmptyF} \meta{tl~var} \Arg{false code}
+\cs{tlVarIfEmptyTF} \meta{tl~var} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests if the \meta{token list variable} is entirely empty
 (\emph{i.e.}~contains no tokens at all). For example
 \begin{demohigh}
-\TlSet \lTmpaTl {abc}
-\TlVarIfEmptyTF \lTmpaTl {\Return{Empty}} {\Return{NonEmpty}}
-\TlClear \lTmpaTl
-\TlVarIfEmptyTF \lTmpaTl {\Return{Empty}} {\Return{NonEmpty}}
+\tlSet \lTmpaTl {abc}
+\tlVarIfEmptyTF \lTmpaTl {\prgReturn{Empty}} {\prgReturn{NonEmpty}}
+\tlClear \lTmpaTl
+\tlVarIfEmptyTF \lTmpaTl {\prgReturn{Empty}} {\prgReturn{NonEmpty}}
 \end{demohigh}
 \end{function}
 
-\begin{function}{\TlIfBlank,\TlIfBlankT,\TlIfBlankF,\TlIfBlankTF}
+\begin{function}{\tlIfBlank,\tlIfBlankT,\tlIfBlankF,\tlIfBlankTF}
 \begin{syntax}
-\cs{TlIfBlank} \Arg{token list}
-\cs{TlIfBlankT} \Arg{token list} \Arg{true code}
-\cs{TlIfBlankF} \Arg{token list} \Arg{false code}
-\cs{TlIfBlankTF} \Arg{token list} \Arg{true code} \Arg{false code}
+\cs{tlIfBlank} \Arg{token list}
+\cs{tlIfBlankT} \Arg{token list} \Arg{true code}
+\cs{tlIfBlankF} \Arg{token list} \Arg{false code}
+\cs{tlIfBlankTF} \Arg{token list} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests if the \meta{token list} consists only of blank spaces
 (\emph{i.e.} contains no item). The test is \texttt{true} if
@@ -821,62 +821,62 @@ Tests if the \meta{token list} consists only of blank spaces
 (explicit tokens with character code $32$ and category code $10$),
 and is \texttt{false} otherwise.
 \begin{demohigh}
-\TlIfEmptyTF {  } {\Return{Yes}} {\Return{No}}
-\TlIfBlankTF {  } {\Return{Yes}} {\Return{No}}
+\tlIfEmptyTF {  } {\prgReturn{Yes}} {\prgReturn{No}}
+\tlIfBlankTF {  } {\prgReturn{Yes}} {\prgReturn{No}}
 \end{demohigh}
 \end{function}
 
-\begin{function}{\TlIfEq,\TlIfEqT,\TlIfEqF,\TlIfEqTF}
+\begin{function}{\tlIfEq,\tlIfEqT,\tlIfEqF,\tlIfEqTF}
 \begin{syntax}
-\cs{TlIfEq} \Arg{token list_1} \Arg{token list_2}
-\cs{TlIfEqT} \Arg{token list_1} \Arg{token list_2} \Arg{true code}
-\cs{TlIfEqF} \Arg{token list_1} \Arg{token list_2} \Arg{false code}
-\cs{TlIfEqTF} \Arg{token list_1} \Arg{token list_2} \Arg{true code} \Arg{false code}
+\cs{tlIfEq} \Arg{token list_1} \Arg{token list_2}
+\cs{tlIfEqT} \Arg{token list_1} \Arg{token list_2} \Arg{true code}
+\cs{tlIfEqF} \Arg{token list_1} \Arg{token list_2} \Arg{false code}
+\cs{tlIfEqTF} \Arg{token list_1} \Arg{token list_2} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests if \meta{token list_1} and \meta{token list_2} contain the
 same list of tokens, both in respect of character codes and category
-codes. See \cs{StrIfEq} if category codes are not important.
+codes. See \cs{strIfEq} if category codes are not important.
 For example
 \begin{demohigh}
-\TlIfEqTF {abc} {abc} {\Return{Yes}} {\Return{No}}
-\TlIfEqTF {abc} {xyz} {\Return{Yes}} {\Return{No}}
+\tlIfEqTF {abc} {abc} {\prgReturn{Yes}} {\prgReturn{No}}
+\tlIfEqTF {abc} {xyz} {\prgReturn{Yes}} {\prgReturn{No}}
 \end{demohigh}
 %\begin{demohigh}
-%\TlSet\lTmpaTl{abc}
-%\TlSet\lTmpbTl{abc}
-%\TlSet\lTmpcTl{xyz}
-%\TlIfEqTF{\TlUse\lTmpaTl}{\TlUse\lTmpbTl}{\Return{Yes}}{\Return{No}}
-%\TlIfEqTF{\TlUse\lTmpaTl}{\TlUse\lTmpcTl}{\Return{Yes}}{\Return{No}}
+%\tlSet\lTmpaTl{abc}
+%\tlSet\lTmpbTl{abc}
+%\tlSet\lTmpcTl{xyz}
+%\tlIfEqTF{\tlUse\lTmpaTl}{\tlUse\lTmpbTl}{\prgReturn{Yes}}{\prgReturn{No}}
+%\tlIfEqTF{\tlUse\lTmpaTl}{\tlUse\lTmpcTl}{\prgReturn{Yes}}{\prgReturn{No}}
 %\end{demohigh}
 \end{function}
 
-\begin{function}{\TlVarIfEq,\TlVarIfEqT,\TlVarIfEqF,\TlVarIfEqTF}
+\begin{function}{\tlVarIfEq,\tlVarIfEqT,\tlVarIfEqF,\tlVarIfEqTF}
 \begin{syntax}
-\cs{TlVarIfEq} \meta{tl var_1} \meta{tl var_2}
-\cs{TlVarIfEqT} \meta{tl var_1} \meta{tl var_2} \Arg{true code}
-\cs{TlVarIfEqF} \meta{tl var_1} \meta{tl var_2} \Arg{false code}
-\cs{TlVarIfEqTF} \meta{tl var_1} \meta{tl var_2} \Arg{true code} \Arg{false code}
+\cs{tlVarIfEq} \meta{tl var_1} \meta{tl var_2}
+\cs{tlVarIfEqT} \meta{tl var_1} \meta{tl var_2} \Arg{true code}
+\cs{tlVarIfEqF} \meta{tl var_1} \meta{tl var_2} \Arg{false code}
+\cs{tlVarIfEqTF} \meta{tl var_1} \meta{tl var_2} \Arg{true code} \Arg{false code}
 \end{syntax}
 Compares the content of two \meta{token list variables} and
 is logically \texttt{true} if the two contain the same list of
 tokens (\emph{i.e.}~identical in both the list of characters they
 contain and the category codes of those characters). For example
 \begin{demohigh}
-\TlSet \lTmpaTl {abc}
-\TlSet \lTmpbTl {abc}
-\TlSet \lTmpcTl {xyz}
-\TlVarIfEqTF \lTmpaTl \lTmpbTl {\Return{Yes}} {\Return{No}}
-\TlVarIfEqTF \lTmpaTl \lTmpcTl {\Return{Yes}} {\Return{No}}
+\tlSet \lTmpaTl {abc}
+\tlSet \lTmpbTl {abc}
+\tlSet \lTmpcTl {xyz}
+\tlVarIfEqTF \lTmpaTl \lTmpbTl {\prgReturn{Yes}} {\prgReturn{No}}
+\tlVarIfEqTF \lTmpaTl \lTmpcTl {\prgReturn{Yes}} {\prgReturn{No}}
 \end{demohigh}
-See also \cs{StrVarIfEq} for a comparison that ignores category codes.
+See also \cs{strVarIfEq} for a comparison that ignores category codes.
 \end{function}
 
-\begin{function}{\TlIfIn,\TlIfInT,\TlIfInF,\TlIfInTF}
+\begin{function}{\tlIfIn,\tlIfInT,\tlIfInF,\tlIfInTF}
 \begin{syntax}
-\cs{TlIfIn} \Arg{token list_1} \Arg{token list_2}
-\cs{TlIfInT} \Arg{token list_1} \Arg{token list_2} \Arg{true code}
-\cs{TlIfInF} \Arg{token list_1} \Arg{token list_2} \Arg{false code}
-\cs{TlIfInTF} \Arg{token list_1} \Arg{token list_2} \Arg{true code} \Arg{false code}
+\cs{tlIfIn} \Arg{token list_1} \Arg{token list_2}
+\cs{tlIfInT} \Arg{token list_1} \Arg{token list_2} \Arg{true code}
+\cs{tlIfInF} \Arg{token list_1} \Arg{token list_2} \Arg{false code}
+\cs{tlIfInTF} \Arg{token list_1} \Arg{token list_2} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests if \meta{token list_2} is found inside \meta{token list_1}.
 The \meta{token list_2} cannot contain the tokens \verb|{|, \verb|}| or \verb|#|
@@ -884,17 +884,17 @@ The \meta{token list_2} cannot contain the tokens \verb|{|, \verb|}| or \verb|#|
 (begin-group) or $2$ (end-group), and tokens with category code $6$).
 The search does \emph{not} enter brace (category code $1$/$2$) groups.
 \begin{demohigh}
-\TlIfInTF {hello world} {o} {\Return{Yes}} {\Return{No}}
-\TlIfInTF {hello world} {a} {\Return{Yes}} {\Return{No}}
+\tlIfInTF {hello world} {o} {\prgReturn{Yes}} {\prgReturn{No}}
+\tlIfInTF {hello world} {a} {\prgReturn{Yes}} {\prgReturn{No}}
 \end{demohigh}
 \end{function}
 
-\begin{function}{\TlVarIfIn,\TlVarIfInT,\TlVarIfInF,\TlVarIfInTF}
+\begin{function}{\tlVarIfIn,\tlVarIfInT,\tlVarIfInF,\tlVarIfInTF}
 \begin{syntax}
-\cs{TlVarIfIn} \meta{tl var} \Arg{token list}
-\cs{TlVarIfInT} \meta{tl var} \Arg{token list} \Arg{true code}
-\cs{TlVarIfInF} \meta{tl var} \Arg{token list} \Arg{false code}
-\cs{TlVarIfInTF} \meta{tl var} \Arg{token list} \Arg{true code} \Arg{false code}
+\cs{tlVarIfIn} \meta{tl var} \Arg{token list}
+\cs{tlVarIfInT} \meta{tl var} \Arg{token list} \Arg{true code}
+\cs{tlVarIfInF} \meta{tl var} \Arg{token list} \Arg{false code}
+\cs{tlVarIfInTF} \meta{tl var} \Arg{token list} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests if the \meta{token list} is found in the content of the
 \meta{tl var}. The \meta{token list} cannot contain
@@ -902,55 +902,55 @@ the tokens \verb|{|, \verb|}| or \verb|#|
 (more precisely, explicit character tokens with category code $1$
 (begin-group) or $2$ (end-group), and tokens with category code $6$).
 \begin{demohigh}
-\TlSet \lTmpaTl {hello world}
-\TlVarIfInTF \lTmpaTl {o} {\Return{Yes}} {\Return{No}}
-\TlVarIfInTF \lTmpaTl {a} {\Return{Yes}} {\Return{No}}
+\tlSet \lTmpaTl {hello world}
+\tlVarIfInTF \lTmpaTl {o} {\prgReturn{Yes}} {\prgReturn{No}}
+\tlVarIfInTF \lTmpaTl {a} {\prgReturn{Yes}} {\prgReturn{No}}
 \end{demohigh}
 \end{function}
 
-\begin{function}{\TlIfSingle,\TlIfSingleT,\TlIfSingleF,\TlIfSingleTF}
+\begin{function}{\tlIfSingle,\tlIfSingleT,\tlIfSingleF,\tlIfSingleTF}
 \begin{syntax}
-\cs{TlIfSingle} \Arg{token list}
-\cs{TlIfSingleT} \Arg{token list} \Arg{true code}
-\cs{TlIfSingleF} \Arg{token list} \Arg{false code}
-\cs{TlIfSingleTF} \Arg{token list} \Arg{true code} \Arg{false code}
+\cs{tlIfSingle} \Arg{token list}
+\cs{tlIfSingleT} \Arg{token list} \Arg{true code}
+\cs{tlIfSingleF} \Arg{token list} \Arg{false code}
+\cs{tlIfSingleTF} \Arg{token list} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests if the \meta{token list} has exactly one \meta{item}, \emph{i.e.} is
 a single normal token (neither an explicit space character nor a
 begin-group character) or a single brace group, surrounded by
 optional spaces on both sides. In other words, such a token list has
-token count $1$ according to \cs{TlCount}.
+token count $1$ according to \cs{tlCount}.
 \begin{demohigh}
-\TlIfSingleTF {a} {\Return{Yes}} {\Return{No}}
-\TlIfSingleTF {abc} {\Return{Yes}} {\Return{No}}
+\tlIfSingleTF {a} {\prgReturn{Yes}} {\prgReturn{No}}
+\tlIfSingleTF {abc} {\prgReturn{Yes}} {\prgReturn{No}}
 \end{demohigh}
 \end{function}
 
-\begin{function}{\TlVarIfSingle,\TlVarIfSingleT,\TlVarIfSingleF,\TlVarIfSingleTF}
+\begin{function}{\tlVarIfSingle,\tlVarIfSingleT,\tlVarIfSingleF,\tlVarIfSingleTF}
 \begin{syntax}
-\cs{TlVarIfSingle} \meta{tl var}
-\cs{TlVarIfSingleT} \meta{tl var} \Arg{true code}
-\cs{TlVarIfSingleF} \meta{tl var} \Arg{false code}
-\cs{TlVarIfSingleTF} \meta{tl var} \Arg{true code} \Arg{false code}
+\cs{tlVarIfSingle} \meta{tl var}
+\cs{tlVarIfSingleT} \meta{tl var} \Arg{true code}
+\cs{tlVarIfSingleF} \meta{tl var} \Arg{false code}
+\cs{tlVarIfSingleTF} \meta{tl var} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests if the content of the \meta{tl var} consists of a single \meta{item},
 \emph{i.e.} is a single normal token (neither an explicit space
 character nor a begin-group character) or a single brace group,
 surrounded by optional spaces on both sides. In other words, such a
-token list has token count $1$ according to \cs{TlVarCount}.
+token list has token count $1$ according to \cs{tlVarCount}.
 \begin{demohigh}
-\TlSet \lTmpaTl {a}
-\TlVarIfSingleTF \lTmpaTl {\Return{Yes}} {\Return{No}}
-\TlSet \lTmpaTl {abc}
-\TlVarIfSingleTF \lTmpaTl {\Return{Yes}} {\Return{No}}
+\tlSet \lTmpaTl {a}
+\tlVarIfSingleTF \lTmpaTl {\prgReturn{Yes}} {\prgReturn{No}}
+\tlSet \lTmpaTl {abc}
+\tlVarIfSingleTF \lTmpaTl {\prgReturn{Yes}} {\prgReturn{No}}
 \end{demohigh}
 \end{function}
 
 \section{Token List Case Functions}
 
-\begin{function}{\TlVarCase}
+\begin{function}{\tlVarCase}
 \begin{syntax}
-\cs{TlVarCase} \meta{test token list variable}
+\cs{tlVarCase} \meta{test token list variable}
 ~ ~ \verb"{"
 ~ ~ ~ ~ \meta{token list variable case_1} \Arg{code case_1}
 ~ ~ ~ ~ \meta{token list variable case_2} \Arg{code case_2}
@@ -960,28 +960,28 @@ token list has token count $1$ according to \cs{TlVarCount}.
 \end{syntax}
 This function compares the \meta{test token list variable} in turn
 with each of the \meta{token list variable cases}. If the two
-are equal (as described for \cs{TlVarIfEq})
+are equal (as described for \cs{tlVarIfEq})
 then the associated \meta{code} is left in the input
 stream and other cases are discarded. The function
 does nothing if there is no match.
 \begin{demohigh}
 \IgnoreSpacesOn
-\TlSet \lTmpaTl {a}
-\TlSet \lTmpbTl {b}
-\TlSet \lTmpcTl {c}
-\TlSet \lTmpkTl {b}
-\TlVarCase \lTmpkTl {
-  \lTmpaTl {\Return {First}}
-  \lTmpbTl {\Return {Second}}
-  \lTmpcTl {\Return {Third}}
+\tlSet \lTmpaTl {a}
+\tlSet \lTmpbTl {b}
+\tlSet \lTmpcTl {c}
+\tlSet \lTmpkTl {b}
+\tlVarCase \lTmpkTl {
+  \lTmpaTl {\prgReturn {First}}
+  \lTmpbTl {\prgReturn {Second}}
+  \lTmpcTl {\prgReturn {Third}}
 }
 \IgnoreSpacesOff
 \end{demohigh}
 \end{function}
 
-\begin{function}{\TlVarCaseT}
+\begin{function}{\tlVarCaseT}
 \begin{syntax}
-\cs{TlVarCaseT} \meta{test token list variable}
+\cs{tlVarCaseT} \meta{test token list variable}
 ~ ~ \verb"{"
 ~ ~ ~ ~ \meta{token list variable case_1} \Arg{code case_1}
 ~ ~ ~ ~ \meta{token list variable case_2} \Arg{code case_2}
@@ -992,31 +992,31 @@ does nothing if there is no match.
 \end{syntax}
 This function compares the \meta{test token list variable} in turn
 with each of the \meta{token list variable cases}. If the two
-are equal (as described for \cs{TlVarIfEq})
+are equal (as described for \cs{tlVarIfEq})
 then the associated \meta{code} is left in the input
 stream and other cases are discarded. If any of the
 cases are matched, the \meta{true code} is also inserted into the
 input stream (after the code for the appropriate case).
 \begin{demohigh}
 \IgnoreSpacesOn
-\TlSet \lTmpaTl {a}
-\TlSet \lTmpbTl {b}
-\TlSet \lTmpcTl {c}
-\TlSet \lTmpkTl {b}
-\TlVarCaseT \lTmpkTl {
-  \lTmpaTl {\IntSet \lTmpkInt {1}}
-  \lTmpbTl {\IntSet \lTmpkInt {2}}
-  \lTmpcTl {\IntSet \lTmpkInt {3}}
+\tlSet \lTmpaTl {a}
+\tlSet \lTmpbTl {b}
+\tlSet \lTmpcTl {c}
+\tlSet \lTmpkTl {b}
+\tlVarCaseT \lTmpkTl {
+  \lTmpaTl {\intSet \lTmpkInt {1}}
+  \lTmpbTl {\intSet \lTmpkInt {2}}
+  \lTmpcTl {\intSet \lTmpkInt {3}}
 }{
-  \Return {\IntUse \lTmpkInt}
+  \prgReturn {\intUse \lTmpkInt}
 }
 \IgnoreSpacesOff
 \end{demohigh}
 \end{function}
 
-\begin{function}{\TlVarCaseF}
+\begin{function}{\tlVarCaseF}
 \begin{syntax}
-\cs{TlVarCaseF} \meta{test token list variable}
+\cs{tlVarCaseF} \meta{test token list variable}
 ~ ~ \verb"{"
 ~ ~ ~ ~ \meta{token list variable case_1} \Arg{code case_1}
 ~ ~ ~ ~ \meta{token list variable case_2} \Arg{code case_2}
@@ -1027,30 +1027,30 @@ input stream (after the code for the appropriate case).
 \end{syntax}
 This function compares the \meta{test token list variable} in turn
 with each of the \meta{token list variable cases}. If the two
-are equal (as described for \cs{TlVarIfEq})
+are equal (as described for \cs{tlVarIfEq})
 then the associated \meta{code} is left in the input
 stream and other cases are discarded. If none match then the \meta{false code}
 is inserted into the input stream (after the code for the appropriate case).
 \begin{demohigh}
 \IgnoreSpacesOn
-\TlSet \lTmpaTl {a}
-\TlSet \lTmpbTl {b}
-\TlSet \lTmpcTl {c}
-\TlSet \lTmpkTl {b}
-\TlVarCaseF \lTmpkTl{
-  \lTmpaTl {\Return {First}}
-  \lTmpbTl {\Return {Second}}
-  \lTmpcTl {\Return {Third}}
+\tlSet \lTmpaTl {a}
+\tlSet \lTmpbTl {b}
+\tlSet \lTmpcTl {c}
+\tlSet \lTmpkTl {b}
+\tlVarCaseF \lTmpkTl{
+  \lTmpaTl {\prgReturn {First}}
+  \lTmpbTl {\prgReturn {Second}}
+  \lTmpcTl {\prgReturn {Third}}
 }{
-  \Return {No~Match!}
+  \prgReturn {No~Match!}
 }
 \IgnoreSpacesOff
 \end{demohigh}
 \end{function}
 
-\begin{function}{\TlVarCaseTF}
+\begin{function}{\tlVarCaseTF}
 \begin{syntax}
-\cs{TlVarCaseTF} \meta{test token list variable}
+\cs{tlVarCaseTF} \meta{test token list variable}
 ~ ~ \verb"{"
 ~ ~ ~ ~ \meta{token list variable case_1} \Arg{code case_1}
 ~ ~ ~ ~ \meta{token list variable case_2} \Arg{code case_2}
@@ -1062,27 +1062,27 @@ is inserted into the input stream (after the code for the appropriate case).
 \end{syntax}
 This function compares the \meta{test token list variable} in turn
 with each of the \meta{token list variable cases}. If the two
-are equal (as described for \cs{TlVarIfEq})
+are equal (as described for \cs{tlVarIfEq})
 then the associated \meta{code} is left in the input
 stream and other cases are discarded. If any of the
 cases are matched, the \meta{true code} is also inserted into the
 input stream (after the code for the appropriate case), while if none
-match then the \meta{false code} is inserted. The function \cs{TlVarCase},
+match then the \meta{false code} is inserted. The function \cs{tlVarCase},
 which does nothing if there is no match, is also available.
 \begin{demohigh}
 \IgnoreSpacesOn
-\TlSet \lTmpaTl {a}
-\TlSet \lTmpbTl {b}
-\TlSet \lTmpcTl {c}
-\TlSet \lTmpkTl {b}
-\TlVarCaseTF \lTmpkTl {
-  \lTmpaTl {\IntSet \lTmpkInt {1}}
-  \lTmpbTl {\IntSet \lTmpkInt {2}}
-  \lTmpcTl {\IntSet \lTmpkInt {3}}
+\tlSet \lTmpaTl {a}
+\tlSet \lTmpbTl {b}
+\tlSet \lTmpcTl {c}
+\tlSet \lTmpkTl {b}
+\tlVarCaseTF \lTmpkTl {
+  \lTmpaTl {\intSet \lTmpkInt {1}}
+  \lTmpbTl {\intSet \lTmpkInt {2}}
+  \lTmpcTl {\intSet \lTmpkInt {3}}
 }{
-  \Return {\IntUse \lTmpkInt}
+  \prgReturn {\intUse \lTmpkInt}
 }{
-  \Return {0}
+  \prgReturn {0}
 }
 \IgnoreSpacesOff
 \end{demohigh}

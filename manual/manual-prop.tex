@@ -13,14 +13,14 @@
 an unordered list of entries each of which consists of a \meta{key} and
 an associated \meta{value}. The \meta{key} and \meta{value} may both
 be any \meta{balanced text}, the \meta{key} is processed using
-\cs{TlToStr}, meaning that category codes are ignored. It is possible to
+\cs{tlToStr}, meaning that category codes are ignored. It is possible to
 map functions to property lists such that the function is applied to every
 key--value pair within the list.
 
 Each entry in a property list must have a unique \meta{key}: if an entry is
 added to a property list which already contains the \meta{key} then the new
 entry overwrites the existing one. The \meta{keys} are compared on a
-string basis, using the same method as \cs{StrIfEq}.
+string basis, using the same method as \cs{strIfEq}.
 
 %Property lists are intended for storing key-based information for use within
 %code.  This is in contrast to key--value lists, which are a form of
@@ -48,43 +48,43 @@ code and so should only be used for short-term storage.
 
 \section{Creating and Using Property Lists}
 
-\begin{function}{\PropNew}
+\begin{function}{\propNew}
 \begin{syntax}
-\cs{PropNew} \meta{property list}
+\cs{propNew} \meta{property list}
 \end{syntax}
 Creates a new \meta{property list} or raises an error if the name is
 already taken. The declaration is global. The \meta{property list}
 initially contains no entries.
 \begin{codehigh}
-\PropNew \lFooSomeProp
+\propNew \lFooSomeProp
 \end{codehigh}
 \end{function}
 
-\begin{function}{\PropConstFromKeyval}
+\begin{function}{\propConstFromKeyval}
 \begin{syntax}
-\cs{PropConstFromKeyval} \meta{prop var}
-\{
-~ \meta{key1} \verb|=| \meta{value1} \verb|,|
-~ \meta{key2} \verb|=| \meta{value2} \verb|,| $\cdots$
-\}
+\cs{propConstFromKeyval} \meta{prop var}
+~ \{
+~ ~ \meta{key1} \verb|=| \meta{value1} \verb|,|
+~ ~ \meta{key2} \verb|=| \meta{value2} \verb|,| $\cdots$
+~ \}
 \end{syntax}
 Creates a new constant \meta{prop var} or raises an error if the
 name is already taken. The \meta{prop var} is set globally to
 contain key--value pairs given in the second argument, processed in
-the way described for \cs{PropSetFromKeyval}.  If duplicate
+the way described for \cs{propSetFromKeyval}.  If duplicate
 keys appear only the last of the values is kept.
 This function correctly detects the \verb|=| and \verb|,| signs provided they
 have the standard category code $12$ or they are active.
 \begin{codehigh}
-\PropConstFromKeyval \cFooSomeProp {key1=one,key2=two,key3=three}
+\propConstFromKeyval \cFooSomeProp {key1=one,key2=two,key3=three}
 \end{codehigh}
 %Notice that in contrast to most keyval lists (\emph{e.g.} those in
 %\pkg{l3keys}), each key here \emph{must} be followed with an \texttt{=} sign.
 \end{function}
 
-\begin{function}{\PropToKeyval}
+\begin{function}{\propToKeyval}
 \begin{syntax}
-\cs{PropToKeyval} \meta{property list}
+\cs{propToKeyval} \meta{property list}
 \end{syntax}
 Returns the \meta{property list} in a key--value notation. Keep in mind
 that a \meta{property list} is \emph{unordered}, while key--value interfaces
@@ -96,37 +96,37 @@ don't necessarily are, so this can't be used for arbitrary interfaces.
 %It also needs exactly two steps of expansion.
 %\end{texnote}
 \begin{codehigh}
-\PropToKeyval \lTmpaProp
+\propToKeyval \lTmpaProp
 \end{codehigh}
 \end{function}
 
 \section{Viewing Property Lists}
 
-\begin{function}{\PropVarLog}
+\begin{function}{\propVarLog}
 \begin{syntax}
-\cs{PropVarLog} \meta{property list}
+\cs{propVarLog} \meta{property list}
 \end{syntax}
 Writes the entries in the \meta{property list} in the log file.
 \begin{codehigh}
-\PropVarLog \lTmpaProp
+\propVarLog \lTmpaProp
 \end{codehigh}
 \end{function}
 
-\begin{function}{\PropVarShow}
+\begin{function}{\propVarShow}
 \begin{syntax}
-\cs{PropVarShow} \meta{property list}
+\cs{propVarShow} \meta{property list}
 \end{syntax}
 Displays the entries in the \meta{property list} in the terminal.
 \begin{codehigh}
-\PropVarShow \lTmpaProp
+\propVarShow \lTmpaProp
 \end{codehigh}
 \end{function}
 
 \section{Setting Property Lists}
 
-\begin{function}{\PropSetFromKeyval}
+\begin{function}{\propSetFromKeyval}
 \begin{syntax}
-\cs{PropSetFromKeyval} \meta{prop var}
+\cs{propSetFromKeyval} \meta{prop var}
 \{
 ~ \meta{key1} \verb|=| \meta{value1} \verb|,|
 ~ \meta{key2} \verb|=| \meta{value2} \verb|,| $\cdots$
@@ -139,101 +139,101 @@ Spaces are trimmed around every \meta{key} and every \meta{value},
 and if the result of trimming spaces consists of a single brace
 group then a set of outer braces is removed.  This enables both the
 \meta{key} and the \meta{value} to contain spaces, commas or equal
-signs.  The \meta{key} is then processed by \cs{TlToStr}.
+signs.  The \meta{key} is then processed by \cs{tlToStr}.
 This function correctly detects the \verb|=| and \verb|,| signs provided they
 have the standard category code $12$ or they are active.
 \begin{codehigh}
-\PropSetFromKeyval \lTmpaProp {key1=one,key2=two}
+\propSetFromKeyval \lTmpaProp {key1=one,key2=two}
 \end{codehigh}
 %Notice that in contrast to most keyval lists (\emph{e.g.} those in
 %\pkg{l3keys}), each key here \emph{must} be followed with an \texttt{=} sign.
 \end{function}
 
-\begin{function}{\PropSetEq}
+\begin{function}{\propSetEq}
 \begin{syntax}
-\cs{PropSetEq} \meta{property list_1} \meta{property list_2}
+\cs{propSetEq} \meta{property list_1} \meta{property list_2}
 \end{syntax}
 Sets the content of \meta{property list_1} equal to that of
 \meta{property list_2}.
 \begin{codehigh}
-\PropSetFromKeyval \lTmpaProp {key1=one,key2=two,key3=three}
-\PropSetEq \lTmpbProp \lTmpaProp
-\PropVarLog \lTmpbProp
+\propSetFromKeyval \lTmpaProp {key1=one,key2=two,key3=three}
+\propSetEq \lTmpbProp \lTmpaProp
+\propVarLog \lTmpbProp
 \end{codehigh}
 \end{function}
 
-\begin{function}{\PropClear}
+\begin{function}{\propClear}
 \begin{syntax}
-\cs{PropClear} \meta{property list}
+\cs{propClear} \meta{property list}
 \end{syntax}
 Clears all entries from the \meta{property list}.
 \begin{codehigh}
-\PropClear \lTmpaProp
+\propClear \lTmpaProp
 \end{codehigh}
 \end{function}
 
-\begin{function}{\PropClearNew}
+\begin{function}{\propClearNew}
 \begin{syntax}
-\cs{PropClearNew} \meta{property list}
+\cs{propClearNew} \meta{property list}
 \end{syntax}
-Ensures that the \meta{property list} exists globally by applying \cs{PropNew}
-if necessary, then applies \cs{PropClear} to leave the list empty.
+Ensures that the \meta{property list} exists globally by applying \cs{propNew}
+if necessary, then applies \cs{propClear} to leave the list empty.
 \begin{codehigh}
-\PropClearNew \lFooSomeProp
+\propClearNew \lFooSomeProp
 \end{codehigh}
 \end{function}
 
-\begin{function}{\PropConcat}
+\begin{function}{\propConcat}
 \begin{syntax}
-\cs{PropConcat} \meta{prop var_1} \meta{prop var_2} \meta{prop var_3}
+\cs{propConcat} \meta{prop var_1} \meta{prop var_2} \meta{prop var_3}
 \end{syntax}
 Combines the key--value pairs of \meta{prop var_2} and
 \meta{prop var_3}, and saves the result in \meta{prop var_1}.  If a
 key appears in both \meta{prop var_2} and \meta{prop var_3} then the
 last value, namely the value in \meta{prop var_3} is kept.
 \begin{codehigh}
-\PropSetFromKeyval \lTmpbProp {key1=one,key2=two}
-\PropSetFromKeyval \lTmpcProp {key3=three,key4=four}
-\PropConcat \lTmpaProp \lTmpbProp \lTmpcProp
-\PropVarLog \lTmpaProp
+\propSetFromKeyval \lTmpbProp {key1=one,key2=two}
+\propSetFromKeyval \lTmpcProp {key3=three,key4=four}
+\propConcat \lTmpaProp \lTmpbProp \lTmpcProp
+\propVarLog \lTmpaProp
 \end{codehigh}
 \end{function}
 
-\begin{function}{\PropPut}
+\begin{function}{\propPut}
 \begin{syntax}
-\cs{PropPut} \meta{property list} \Arg{key} \Arg{value}
+\cs{propPut} \meta{property list} \Arg{key} \Arg{value}
 \end{syntax}
 Adds an entry to the \meta{property list} which may be accessed
 using the \meta{key} and which has \meta{value}. If the \meta{key}
 is already present in the \meta{property list}, the existing entry
 is overwritten by the new \meta{value}. Both the \meta{key} and
 \meta{value} may contain any \meta{balanced text}. The \meta{key} is
-stored after processing with \cs{TlToStr}, meaning that category
+stored after processing with \cs{tlToStr}, meaning that category
 codes are ignored.
 \begin{codehigh}
-\PropSetFromKeyval \lTmpaProp {key1=one,key2=two}
-\PropPut \lTmpaProp {key1} {newone}
-\PropVarLog \lTmpaProp
+\propSetFromKeyval \lTmpaProp {key1=one,key2=two}
+\propPut \lTmpaProp {key1} {newone}
+\propVarLog \lTmpaProp
 \end{codehigh}
 \end{function}
 
-\begin{function}{\PropPutIfNew}
+\begin{function}{\propPutIfNew}
 \begin{syntax}
-\cs{PropPutIfNew} \meta{property list} \Arg{key} \Arg{value}
+\cs{propPutIfNew} \meta{property list} \Arg{key} \Arg{value}
 \end{syntax}
 If the \meta{key} is present in the \meta{property list} then no
 action is taken. Otherwise, a new entry is added as described for
-\cs{PropPut}.
+\cs{propPut}.
 \begin{codehigh}
-\PropSetFromKeyval \lTmpaProp {key1=one,key2=two}
-\PropPutIfNew \lTmpaProp {key1} {newone}
-\PropVarLog \lTmpaProp
+\propSetFromKeyval \lTmpaProp {key1=one,key2=two}
+\propPutIfNew \lTmpaProp {key1} {newone}
+\propVarLog \lTmpaProp
 \end{codehigh}
 \end{function}
 
-\begin{function}{\PropPutFromKeyval}
+\begin{function}{\propPutFromKeyval}
 \begin{syntax}
-\cs{PropPutFromKeyval} \meta{prop var}
+\cs{propPutFromKeyval} \meta{prop var}
 \{
 ~ \meta{key1} \verb|=| \meta{value1} \verb|,|
 ~ \meta{key2} \verb|=| \meta{value2} \verb|,| $\cdots$
@@ -241,28 +241,28 @@ action is taken. Otherwise, a new entry is added as described for
 \end{syntax}
 Updates the \meta{prop var} by adding entries for each key--value
 pair given in the second argument.  The addition is done through
-\cs{PropPut}, hence if the \meta{prop var} already contains
+\cs{propPut}, hence if the \meta{prop var} already contains
 some of the keys, the corresponding values are discarded and
 replaced by those given in the key--value list.  If duplicate keys
 appear in the key--value list then only the last of the values is kept.
 \begin{codehigh}
-\PropSetFromKeyval \lTmpaProp {key1=one,key2=two}
-\PropPutFromKeyval \lTmpaProp {key1=newone,key3=three}
-\PropVarLog \lTmpaProp
+\propSetFromKeyval \lTmpaProp {key1=one,key2=two}
+\propPutFromKeyval \lTmpaProp {key1=newone,key3=three}
+\propVarLog \lTmpaProp
 \end{codehigh}
 %The function is equivalent to storing the key--value pairs in a
-%temporary property variable using \cs{PropSetFromKeyval}, then
+%temporary property variable using \cs{propSetFromKeyval}, then
 %combining \meta{prop var} with the temporary variable using
-%\cs{PropConcat}.  In particular, the \meta{keys} and
+%\cs{propConcat}.  In particular, the \meta{keys} and
 %\meta{values} are space-trimmed and unbraced as described in
-%\cs{PropSetFromKeyval}. This function correctly detects
+%\cs{propSetFromKeyval}. This function correctly detects
 %the \verb|=| and \verb|,| signs provided they
 %have the standard category code $12$ or they are active.
 \end{function}
 
-\begin{function}{\PropVarRemove}
+\begin{function}{\propVarRemove}
 \begin{syntax}
-\cs{PropVarRemove} \meta{property list} \Arg{key}
+\cs{propVarRemove} \meta{property list} \Arg{key}
 \end{syntax}
 Removes the entry listed under \meta{key} from the
 \meta{property list}.  If the \meta{key} is
@@ -270,37 +270,37 @@ not found in the \meta{property list} no change occurs,
 \emph{i.e} there is no need to test for the existence of a key before
 deleting it.
 \begin{codehigh}
-\PropSetFromKeyval \lTmpaProp {key1=one,key2=two,key3=three}
-\PropVarRemove \lTmpaProp {key2}
-\PropVarLog \lTmpaProp
+\propSetFromKeyval \lTmpaProp {key1=one,key2=two,key3=three}
+\propVarRemove \lTmpaProp {key2}
+\propVarLog \lTmpaProp
 \end{codehigh}
 \end{function}
 
 \section{Recovering Values from Property Lists}
 
-\begin{function}{\PropVarCount}
+\begin{function}{\propVarCount}
 \begin{syntax}
-\cs{PropVarCount} \meta{property list}
+\cs{propVarCount} \meta{property list}
 \end{syntax}
 Returns the number of key--value pairs in the \meta{property list}
 as an \meta{integer denotation}.
 \begin{demohigh}
-\PropSetFromKeyval \lTmpaProp {key1=one,key2=two,key3=three}
-\PropVarCount \lTmpaProp
+\propSetFromKeyval \lTmpaProp {key1=one,key2=two,key3=three}
+\propVarCount \lTmpaProp
 \end{demohigh}
 \end{function}
 
-\begin{function}{\PropVarItem}
+\begin{function}{\propVarItem}
 \begin{syntax}
-\cs{PropVarItem} \meta{property list} \Arg{key}
+\cs{propVarItem} \meta{property list} \Arg{key}
 \end{syntax}
 Returns the \meta{value} corresponding to the \meta{key} in
 the \meta{property list}. If the \meta{key} is missing,
 nothing is returned.
 \begin{demohigh}
-\PropSetFromKeyval \lTmpaProp {key1=one,key2=two,key3=three}
-\TlSet \lTmpaTl {\PropVarItem \lTmpaProp {key2}}
-\TlUse \lTmpaTl
+\propSetFromKeyval \lTmpaProp {key1=one,key2=two,key3=three}
+\tlSet \lTmpaTl {\propVarItem \lTmpaProp {key2}}
+\tlUse \lTmpaTl
 \end{demohigh}
 %\begin{texnote}
 %This function is slower than the non-expandable analogue
@@ -312,9 +312,9 @@ nothing is returned.
 %\end{texnote}
 \end{function}
 
-\begin{function}{\PropGet}
+\begin{function}{\propGet}
 \begin{syntax}
-\cs{PropGet} \meta{property list} \Arg{key} \meta{token list variable}
+\cs{propGet} \meta{property list} \Arg{key} \meta{token list variable}
 \end{syntax}
 Recovers the \meta{value} stored with \meta{key} from the \meta{property list},
 and places this in the \meta{token list variable}.
@@ -323,17 +323,17 @@ If the \meta{key} is not found in the
 to the special marker \cs{qNoValue}.
 The assignment of the \meta{token list variable} is local.
 \begin{demohigh}
-\PropSetFromKeyval \lTmpaProp {key1=one,key2=two,key3=three}
-\PropGet \lTmpaProp {key2} \lTmpaTl
-\TlUse \lTmpaTl
+\propSetFromKeyval \lTmpaProp {key1=one,key2=two,key3=three}
+\propGet \lTmpaProp {key2} \lTmpaTl
+\tlUse \lTmpaTl
 \end{demohigh}
 \end{function}
 
-\begin{function}{\PropGetT,\PropGetF,\PropGetTF}
+\begin{function}{\propGetT,\propGetF,\propGetTF}
 \begin{syntax}
-\cs{PropGetT} \meta{property list} \Arg{key} \meta{token list variable} \Arg{true code}
-\cs{PropGetF} \meta{property list} \Arg{key} \meta{token list variable} \Arg{false code}
-\cs{PropGetTF} \meta{property list} \Arg{key} \meta{token list variable} \Arg{true code} \Arg{false code}
+\cs{propGetT} \meta{property list} \Arg{key} \meta{token list variable} \Arg{true code}
+\cs{propGetF} \meta{property list} \Arg{key} \meta{token list variable} \Arg{false code}
+\cs{propGetTF} \meta{property list} \Arg{key} \meta{token list variable} \Arg{true code} \Arg{false code}
 \end{syntax}
 If the \meta{key} is not present in the \meta{property list}, leaves
 the \meta{false code} in the input stream.  The value of the
@@ -344,14 +344,14 @@ not be relied upon.  If the \meta{key} is present in the
 \meta{property list}, then leaves the \meta{true code} in the input
 stream.  The \meta{token list variable} is assigned locally.
 \begin{demohigh}
-\PropSetFromKeyval \lTmpaProp {key1=one,key2=two,key3=three}
-\PropGetTF \lTmpaProp {key2} \lTmpaTl {\Return{Yes}} {\Return{No}}
+\propSetFromKeyval \lTmpaProp {key1=one,key2=two,key3=three}
+\propGetTF \lTmpaProp {key2} \lTmpaTl {\prgReturn{Yes}} {\prgReturn{No}}
 \end{demohigh}
 \end{function}
 
-\begin{function}{\PropPop}
+\begin{function}{\propPop}
 \begin{syntax}
-\cs{PropPop} \meta{property list} \Arg{key} \meta{token list variable}
+\cs{propPop} \meta{property list} \Arg{key} \meta{token list variable}
 \end{syntax}
 Recovers the \meta{value} stored with \meta{key} from the \meta{property list},
 and places this in the \meta{token list variable}.
@@ -361,18 +361,18 @@ to the special marker \cs{qNoValue}.
 The \meta{key} and \meta{value} are then deleted from the property list.
 The assignment of the \meta{token list variable} is local.
 \begin{demohigh}
-\PropSetFromKeyval \lTmpaProp {key1=one,key2=two,key3=three}
-\PropPop \lTmpaProp {key2} \lTmpaTl
-Pop: \TlUse \lTmpaTl.
-Count: \PropVarCount \lTmpaProp.
+\propSetFromKeyval \lTmpaProp {key1=one,key2=two,key3=three}
+\propPop \lTmpaProp {key2} \lTmpaTl
+Pop: \tlUse \lTmpaTl.
+Count: \propVarCount \lTmpaProp.
 \end{demohigh}
 \end{function}
 
-\begin{function}{\PropPopT,\PropPopF,\PropPopTF}
+\begin{function}{\propPopT,\propPopF,\propPopTF}
 \begin{syntax}
-\cs{PropPopT} \meta{property list} \Arg{key} \meta{token list variable} \Arg{true code}
-\cs{PropPopF} \meta{property list} \Arg{key} \meta{token list variable} \Arg{false code}
-\cs{PropPopTF} \meta{property list} \Arg{key} \meta{token list variable} \Arg{true code} \Arg{false code}
+\cs{propPopT} \meta{property list} \Arg{key} \meta{token list variable} \Arg{true code}
+\cs{propPopF} \meta{property list} \Arg{key} \meta{token list variable} \Arg{false code}
+\cs{propPopTF} \meta{property list} \Arg{key} \meta{token list variable} \Arg{true code} \Arg{false code}
 \end{syntax}
 If the \meta{key} is not present in the \meta{property list}, leaves
 the \meta{false code} in the input stream.  The value of the
@@ -382,8 +382,8 @@ the \meta{property list}, pops the corresponding \meta{value}
 in the \meta{token list variable}, \emph{i.e.} removes the item from
 The \meta{token list variable} is assigned locally.
 \begin{demohigh}
-\PropSetFromKeyval \lTmpaProp {key1=one,key2=two,key3=three}
-\PropPopTF \lTmpaProp {key2} \lTmpaTl {\Return{Yes}} {\Return{No}}
+\propSetFromKeyval \lTmpaProp {key1=one,key2=two,key3=three}
+\propPopTF \lTmpaProp {key2} \lTmpaTl {\prgReturn{Yes}} {\prgReturn{No}}
 \end{demohigh}
 \end{function}
 
@@ -393,9 +393,9 @@ The \meta{token list variable} is assigned locally.
 %local assignments made by the \meta{function} or \meta{code} discussed
 %below remain in effect after the loop.
 
-%\begin{function}{\PropVarMapFunction}
+%\begin{function}{\propVarMapFunction}
 %\begin{syntax}
-%\cs{PropVarMapFunction} \meta{property list} \meta{function}
+%\cs{propVarMapFunction} \meta{property list} \meta{function}
 %\end{syntax}
 %Applies \meta{function} to every \meta{entry} stored in the
 %\meta{property list}. The \meta{function} receives two arguments for
@@ -406,9 +406,9 @@ The \meta{token list variable} is assigned locally.
 %\cs{prop_map_tokens:Nn}.
 %\end{function}
 
-\begin{function}{\PropVarMapInline}
+\begin{function}{\propVarMapInline}
 \begin{syntax}
-\cs{PropVarMapInline} \meta{property list} \Arg{inline function}
+\cs{propVarMapInline} \meta{property list} \Arg{inline function}
 \end{syntax}
 Applies \meta{inline function} to every \meta{entry} stored
 within the \meta{property list}. The \meta{inline function} should
@@ -418,36 +418,36 @@ The order in which \meta{entries} are returned is not defined and
 should not be relied upon.
 \begin{demohigh}
 \IgnoreSpacesOn
-\PropSetFromKeyval \lTmpkProp {key1=one,key2=two,key3=three}
-\TlClear \lTmpaTl
-\PropVarMapInline \lTmpkProp {
-  \TlPutRight \lTmpaTl {(#1=#2)}
+\propSetFromKeyval \lTmpkProp {key1=one,key2=two,key3=three}
+\tlClear \lTmpaTl
+\propVarMapInline \lTmpkProp {
+  \tlPutRight \lTmpaTl {(#1=#2)}
 }
-\TlUse \lTmpaTl
+\tlUse \lTmpaTl
 \IgnoreSpacesOff
 \end{demohigh}
 \end{function}
 
-%\begin{function}{\PropVarMapTokens}
+%\begin{function}{\propVarMapTokens}
 %\begin{syntax}
-%\cs{PropVarMapTokens} \meta{property list} \Arg{code}
+%\cs{propVarMapTokens} \meta{property list} \Arg{code}
 %\end{syntax}
-%Analogue of \cs{PropVarMapFunction} which maps several tokens
+%Analogue of \cs{propVarMapFunction} which maps several tokens
 %instead of a single function.  The \meta{code} receives each
 %key--value pair in the \meta{property list} as two trailing brace
 %groups. For instance,
 %\begin{verbatim}
-%\PropVarMapTokens \lMyProp { \StrIfEqT { mykey } }
+%\propVarMapTokens \lMyProp { \strIfEqT { mykey } }
 %\end{verbatim}
 %expands to the value corresponding to \texttt{mykey}: for each
-%pair in \verb|\lMyProp| the function \cs{StrIfEqT} receives
+%pair in \verb|\lMyProp| the function \cs{strIfEqT} receives
 %\texttt{mykey}, the \meta{key} and the \meta{value} as its three
-%arguments. For that specific task, \cs{PropVarItem} is faster.
+%arguments. For that specific task, \cs{propVarItem} is faster.
 %\end{function}
 
-%\begin{function}{\PropMapBreak}
+%\begin{function}{\propMapBreak}
 %\begin{syntax}
-%\cs{PropMapBreak}
+%\cs{propMapBreak}
 %\end{syntax}
 %Used to terminate a prop map function before all
 %entries in the \meta{property list} have been processed. This
@@ -472,9 +472,9 @@ should not be relied upon.
 %\end{texnote}
 %\end{function}
 
-%\begin{function}{\PropMapBreakDo}
+%\begin{function}{\propMapBreakDo}
 %\begin{syntax}
-%\cs{PropMapBreakDo} \Arg{code}
+%\cs{propMapBreakDo} \Arg{code}
 %\end{syntax}
 %Used to terminate a prop map function before all
 %entries in the \meta{property list} have been processed, inserting
@@ -502,54 +502,54 @@ should not be relied upon.
 
 \section{Property List Conditionals}
 
-\begin{function}{\PropIfExist,\PropIfExistT,\PropIfExistF,\PropIfExistTF}
+\begin{function}{\propIfExist,\propIfExistT,\propIfExistF,\propIfExistTF}
 \begin{syntax}
-\cs{PropIfExist} \meta{property list}
-\cs{PropIfExistT} \meta{property list} \Arg{true code}
-\cs{PropIfExistF} \meta{property list} \Arg{false code}
-\cs{PropIfExistTF} \meta{property list} \Arg{true code} \Arg{false code}
+\cs{propIfExist} \meta{property list}
+\cs{propIfExistT} \meta{property list} \Arg{true code}
+\cs{propIfExistF} \meta{property list} \Arg{false code}
+\cs{propIfExistTF} \meta{property list} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests whether the \meta{property list} is currently defined.  This does not
 check that the \meta{property list} really is a property list variable.
 \begin{demohigh}
-\PropIfExistTF \lTmpaProp {\Return{Yes}} {\Return{No}}
-\PropIfExistTF \lFooUndefinedProp {\Return{Yes}} {\Return{No}}
+\propIfExistTF \lTmpaProp {\prgReturn{Yes}} {\prgReturn{No}}
+\propIfExistTF \lFooUndefinedProp {\prgReturn{Yes}} {\prgReturn{No}}
 \end{demohigh}
 \end{function}
 
-\begin{function}{\PropVarIfEmpty,\PropVarIfEmptyT,\PropVarIfEmptyF,\PropVarIfEmptyTF}
+\begin{function}{\propVarIfEmpty,\propVarIfEmptyT,\propVarIfEmptyF,\propVarIfEmptyTF}
 \begin{syntax}
-\cs{PropVarIfEmpty} \meta{property list}
-\cs{PropVarIfEmptyT} \meta{property list} \Arg{true code}
-\cs{PropVarIfEmptyF} \meta{property list} \Arg{false code}
-\cs{PropVarIfEmptyTF} \meta{property list} \Arg{true code} \Arg{false code}
+\cs{propVarIfEmpty} \meta{property list}
+\cs{propVarIfEmptyT} \meta{property list} \Arg{true code}
+\cs{propVarIfEmptyF} \meta{property list} \Arg{false code}
+\cs{propVarIfEmptyTF} \meta{property list} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests if the \meta{property list} is empty (containing no entries).
 \begin{demohigh}
-\PropSetFromKeyval \lTmpaProp {key1=one,key2=two}
-\PropVarIfEmptyTF \lTmpaProp {\Return{Empty}} {\Return{NonEmpty}}
-\PropClear \lTmpaProp
-\PropVarIfEmptyTF \lTmpaProp {\Return{Empty}} {\Return{NonEmpty}}
+\propSetFromKeyval \lTmpaProp {key1=one,key2=two}
+\propVarIfEmptyTF \lTmpaProp {\prgReturn{Empty}} {\prgReturn{NonEmpty}}
+\propClear \lTmpaProp
+\propVarIfEmptyTF \lTmpaProp {\prgReturn{Empty}} {\prgReturn{NonEmpty}}
 \end{demohigh}
 \end{function}
 
-\begin{function}{\PropVarIfIn,\PropVarIfInT,\PropVarIfInF,\PropVarIfInTF}
+\begin{function}{\propVarIfIn,\propVarIfInT,\propVarIfInF,\propVarIfInTF}
 \begin{syntax}
-\cs{PropVarIfIn} \meta{property list} \Arg{key}
-\cs{PropVarIfInT} \meta{property list} \Arg{key} \Arg{true code}
-\cs{PropVarIfInF} \meta{property list} \Arg{key} \Arg{false code}
-\cs{PropVarIfInTF} \meta{property list} \Arg{key} \Arg{true code} \Arg{false code}
+\cs{propVarIfIn} \meta{property list} \Arg{key}
+\cs{propVarIfInT} \meta{property list} \Arg{key} \Arg{true code}
+\cs{propVarIfInF} \meta{property list} \Arg{key} \Arg{false code}
+\cs{propVarIfInTF} \meta{property list} \Arg{key} \Arg{true code} \Arg{false code}
 \end{syntax}
 Tests if the \meta{key} is present in the \meta{property list},
-making the comparison using the method described by \cs{StrIfEqTF}.
+making the comparison using the method described by \cs{strIfEqTF}.
 \begin{demohigh}
-\PropSetFromKeyval \lTmpaProp {key1=one,key2=two}
-\PropVarIfInTF \lTmpaProp {key1} {\Return{Yes}} {\Return{Not}}
-\PropVarIfInTF \lTmpaProp {key3} {\Return{Yes}} {\Return{Not}}
+\propSetFromKeyval \lTmpaProp {key1=one,key2=two}
+\propVarIfInTF \lTmpaProp {key1} {\prgReturn{Yes}} {\prgReturn{Not}}
+\propVarIfInTF \lTmpaProp {key3} {\prgReturn{Yes}} {\prgReturn{Not}}
 \end{demohigh}
 %\begin{texnote}
 %This function iterates through every key--value pair in the
-%\meta{property list} and is therefore slower than using \cs{PropGetTF}.
+%\meta{property list} and is therefore slower than using \cs{propGetTF}.
 %\end{texnote}
 \end{function}
 

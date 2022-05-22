@@ -33,12 +33,12 @@ covered as the engine treats input outside of this range as east Asian.
 
 %Importantly, notice that these functions are intended for working with
 %user \emph{text for typesetting}. For case changing programmatic data see
-%the \pkg{Str} module and discussion there of \cs{StrLowercase},
-%\cs{StrUppercase} and \cs{StrFoldcase}.
+%the \pkg{Str} module and discussion there of \cs{strLowercase},
+%\cs{strUppercase} and \cs{strFoldcase}.
 
-\begin{function}{\TextExpand}
+\begin{function}{\textExpand}
 \begin{syntax}
-\cs{TextExpand} \Arg{text}
+\cs{textExpand} \Arg{text}
 \end{syntax}
 Takes user input \meta{text} and expands the content.
 Protected commands (typically formatting) are left in place,
@@ -50,14 +50,14 @@ Commands which are neither engine- nor \LaTeX{} protected are expanded exhaustiv
 %\cs{l_text_accents_tl} and \cs{l_text_letterlike_tl} are excluded from expansion.
 \end{function}
 
-\begin{function}{\TextLowercase,\TextUppercase,\TextTitlecase,\TextTitlecaseFirst}
+\begin{function}{\textLowercase,\textUppercase,\textTitlecase,\textTitlecaseFirst}
 \begin{syntax}
-\cs{TextLowercase}  \Arg{tokens}
-\cs{TextUppercase}  \Arg{tokens}
-\cs{TextTitlecase}  \Arg{tokens}
-\cs{TextTitlecaseFirst}  \Arg{tokens}
+\cs{textLowercase}  \Arg{tokens}
+\cs{textUppercase}  \Arg{tokens}
+\cs{textTitlecase}  \Arg{tokens}
+\cs{textTitlecaseFirst}  \Arg{tokens}
 \end{syntax}
-Takes user input \meta{text} first applies \cs{TextExpand}, then
+Takes user input \meta{text} first applies \cs{textExpand}, then
 transforms the case of character tokens as specified by the
 function name. The category code of letters are not changed by this
 process (at least where they can be represented by the engine as a single
@@ -71,9 +71,9 @@ maps to a special form, for example \texttt{ij} in Dutch which becomes
 \texttt{IJ}.
 \par
 For titlecasing, note that there are two functions available. The
-function \cs{TextTitlecase} applies (broadly) uppercasing to the first
+function \cs{textTitlecase} applies (broadly) uppercasing to the first
 letter of the input, then lowercasing to the remainder. In contrast,
-\cs{TextTitlecaseFirst} \emph{only} carries out the uppercasing operation,
+\cs{textTitlecaseFirst} \emph{only} carries out the uppercasing operation,
 and leaves the balance of the input unchanged.
 %Determining whether non-letter characters at the start of text should switch
 %from upper- to lowercasing is controllable.
@@ -88,24 +88,24 @@ and leaves the balance of the input unchanged.
 \par
 Case changing does not take place within math mode material. For example:
 \begin{demohigh}
-\TextUppercase {Text $y=mx+c$ with {Braces}}
+\textUppercase {Text $y=mx+c$ with {Braces}}
 \end{demohigh}
 \begin{demohigh}
-\TextLowercase {Text $Y=mX+c$ with {Braces}}
+\textLowercase {Text $Y=mX+c$ with {Braces}}
 \end{demohigh}
 %The arguments of commands listed in \cs{l_text_case_exclude_arg_tl}
 %are excluded from case changing; the latter are entirely non-textual
 %content (such as labels).
 \end{function}
 
-\begin{function}{\TextLangLowercase,\TextLangUppercase,\TextLangTitlecase,\TextLangTitlecaseFirst}
+\begin{function}{\textLangLowercase,\textLangUppercase,\textLangTitlecase,\textLangTitlecaseFirst}
 \begin{syntax}
-\cs{TextLangLowercase} \Arg{language} \Arg{tokens}
-\cs{TextLangUppercase} \Arg{language} \Arg{tokens}
-\cs{TextLangTitlecase} \Arg{language} \Arg{tokens}
-\cs{TextLangTitlecaseFirst} \Arg{language} \Arg{tokens}
+\cs{textLangLowercase} \Arg{language} \Arg{tokens}
+\cs{textLangUppercase} \Arg{language} \Arg{tokens}
+\cs{textLangTitlecase} \Arg{language} \Arg{tokens}
+\cs{textLangTitlecaseFirst} \Arg{language} \Arg{tokens}
 \end{syntax}
-Takes user input \meta{text} first applies \cs{TextExpand}, then
+Takes user input \meta{text} first applies \cs{textExpand}, then
 transforms the case of character tokens as specified by the
 function name. The category code of letters are not changed by this
 process (at least where they can be represented by the engine as a single
