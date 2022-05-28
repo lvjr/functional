@@ -773,6 +773,10 @@
       }
   }
 
+%% The function \evalNone prevent the evaluation of its argument
+
+\prgNewFunction \evalNone {n} { \tl_gset:Nn \gResultTl {#1} }
+
 %%% --------------------------------------------------------
 %%> \subsection{Printing Contents to the Input Stream}
 %%% --------------------------------------------------------
