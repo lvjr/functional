@@ -640,6 +640,35 @@ with the return values respectively.
 
 \chapter{Argument Using (\texttt{Use})}
 
+\section{Evaluating Functions}
+
+\begin{function}{\evalWhole}
+\begin{syntax}
+\cs{evalWhole} \Arg{tokens}
+\end{syntax}
+Evaluates all functions (defined with \cs{prgNewFunction}) in \meta{tokens}
+and replaces them with their return values, then returns the resulting tokens.
+\begin{codehigh}
+\tlSet \lTmpaTl {a\intEval{2*3}b}
+\tlSet \lTmpbTl {\evalWhole {a\intEval{2*3}b}}
+\end{codehigh}
+In the above example, |\lTmpaTl| contains |a\intEval{2*3}b|,
+while |\lTmpbTl| contains |a6b|.
+\end{function}
+
+\begin{function}{\evalNone}
+\begin{syntax}
+\cs{evalNone} \Arg{tokens}
+\end{syntax}
+Prevents the evaluation of its argument, returning \meta{tokens} without touching them.
+\begin{codehigh}
+\tlSet \lTmpaTl {\intEval{2*3}}
+\tlSet \lTmpbTl {\evalNone {\intEval{2*3}}}
+\end{codehigh}
+In the above example, |\lTmpaTl| contains |6|,
+while |\lTmpbTl| contains |\intEval{2*3}|.
+\end{function}
+
 \section{Expanding Tokens}
 
 \begin{function}{\expName}
