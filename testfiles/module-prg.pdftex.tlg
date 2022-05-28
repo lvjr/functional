@@ -1,0 +1,43 @@
+This is a generated file for the l3build validation system.
+Don't change this file in any respect.
+============================================================
+TEST 1: Testing \evalWhole 
+============================================================
+[I] \evalWhole{a \intEval {2*3} b {\fpEval {3*2.1}} c \bgroup \dimEval {1.2pt+3.4pt} \egroup d}
+    [I] \intEval{2*3}
+        [I] \expWhole{\int_eval:n {2*3}}
+        [O] 6
+    [O] 6
+    [I] \fpEval{3*2.1}
+        [I] \expWhole{\fp_eval:n {3*2.1}}
+        [O] 6.3
+    [O] 6.3
+    [I] \dimEval{1.2pt+3.4pt}
+            [I] \expWhole{\dim_eval:n {1.2pt+3.4pt}}
+            [O] 4.59999pt
+        [I] \prgReturn{4.59999pt}
+        [O] 4.59999pt
+    [O] 4.59999pt
+[O] a 6 b {6.3} c \bgroup 4.59999pt \egroup d
+============================================================
+============================================================
+TEST 2: Testing \evalNone 
+============================================================
+[I] \evalWhole{a \evalNone {\intEval {2*3}} b}
+    [I] \evalNone{\intEval {2*3}}
+    [O] \intEval {2*3}
+[O] a \intEval {2*3} b
+[I] \intEval{2*3}
+    [I] \expWhole{\int_eval:n {2*3}}
+    [O] 6
+[O] 6
+    [I] \evalNone{\intEval {2*3}}
+    [O] \intEval {2*3}
+[I] \tlSet{\lTmpaTl }{\intEval {2*3}}
+[O] 
+[I] \tlVarLog{\lTmpaTl }
+> \lTmpaTl=\intEval {2*3}.
+[O] 
+============================================================
+[1
+] (module-prg.aux)
