@@ -667,8 +667,12 @@
   }
 
 %%% --------------------------------------------------------
-%%> \subsection{Evaluating Functions inside Arguments}
+%%> \subsection{Evaluating Functions inside Arguments, I}
 %%% --------------------------------------------------------
+
+%% The function \__fun_eval_all:n is only used for arguments to be passed
+%% to \int_eval:n, \fp_eval:n, \dim_eval:n, and similar functions.
+%% It will not keep spaces, and will not distinguish between { and \bgroup.
 
 \tl_new:N \l__fun_eval_result_tl
 
@@ -706,6 +710,66 @@
         %% but I guess there is no harm inside \int_eval:n or \fp_eval:n
         \tl_put_right:Nn \l__fun_eval_result_tl { {#1} }
         \__fun_eval_all_aux:n
+      }
+  }
+
+%%% --------------------------------------------------------
+%%> \subsection{Evaluating Functions inside Arguments, II}
+%%% --------------------------------------------------------
+
+%% The function \evalWhole can be used in almost all use cases.
+%% It will keep spaces, and will distinguish between { and \bgroup.
+
+\prgNewFunction \evalWhole {n}
+  {
+    \__fun_eval_whole:n {#1}
+  }
+
+\tl_new:N \l__fun_eval_whole_tl
+
+%% Evaluate all functions in #1 and replace them with their return values
+\cs_new_protected:Npn \__fun_eval_whole:n #1
+  {
+    \fun_run_return_processor:nn
+      {
+        \tl_put_right:Nx \l__fun_eval_whole_tl
+          { \exp_not:N \exp_not:n { \exp_not:V \gResultTl } }
+        \__fun_eval_whole_aux:
+      }
+      {
+        \tl_clear:N \l__fun_eval_whole_tl
+        \__fun_eval_whole_aux: #1 \q_stop
+        %\tl_log:N \l__fun_eval_whole_tl
+        \tl_gset:Nx \gResultTl { \l__fun_eval_whole_tl }
+      }
+  }
+
+\cs_new_protected:Npn \__fun_eval_whole_aux:
+  {
+    %% ##1: <tokens> which both o-expand and x-expand to the current <token>;
+    %% ##2: <charcode>, a decimal number, −1 for a control sequence;
+    %% ##3: <catcode>, a capital hexadecimal digit, 0 for a control sequence.
+    \peek_analysis_map_inline:n
+      {
+        \int_compare:nNnTF {##2} = {-1} % control sequence
+          {
+            \exp_last_unbraced:No \token_if_eq_meaning:NNTF {##1} \q_stop
+              { \peek_analysis_map_break: }
+              {
+                \cs_if_exist:cTF
+                  { __fun_defined_ \exp_last_unbraced:No \cs_to_str:N {##1} : w }
+                  {
+                    \peek_analysis_map_break:n
+                      {
+                        %% since ##1 is of the form "\exp_not:N \someFunc",
+                        %% we need to remove \exp_not:N first before evaluating
+                        \use:x {##1}
+                      }
+                  }
+                  { \tl_put_right:Nn \l__fun_eval_whole_tl {##1} }
+              }
+          }
+          { \tl_put_right:Nn \l__fun_eval_whole_tl {##1} }
       }
   }
 
