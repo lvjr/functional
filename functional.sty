@@ -726,15 +726,21 @@
   }
 
 \tl_new:N \l__fun_eval_whole_tl
+\bool_new:N \l__fun_eval_none_bool
 
 %% Evaluate all functions in #1 and replace them with their return values
 \cs_new_protected:Npn \__fun_eval_whole:n #1
   {
     \fun_run_return_processor:nn
       {
-        \tl_put_right:Nx \l__fun_eval_whole_tl
-          { \exp_not:N \exp_not:n { \exp_not:V \gResultTl } }
-        \__fun_eval_whole_aux:
+        \bool_if:NTF \l__fun_eval_none_bool
+          {
+            \tl_put_right:Nx \l__fun_eval_whole_tl
+              { \exp_not:N \exp_not:n { \exp_not:V \gResultTl } }
+            \bool_set_false:N \l__fun_eval_none_bool
+            \__fun_eval_whole_aux:
+          }
+          { \exp_last_unbraced:NV \__fun_eval_whole_aux: \gResultTl }
       }
       {
         \tl_clear:N \l__fun_eval_whole_tl
@@ -759,6 +765,8 @@
                 \cs_if_exist:cTF
                   { __fun_defined_ \exp_last_unbraced:No \cs_to_str:N {##1} : w }
                   {
+                    \exp_last_unbraced:No \cs_if_eq:NNT {##1} \evalNone
+                      { \bool_set_true:N \l__fun_eval_none_bool }
                     \peek_analysis_map_break:n
                       {
                         %% since ##1 is of the form "\exp_not:N \someFunc",
