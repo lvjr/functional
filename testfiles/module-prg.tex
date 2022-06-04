@@ -9,14 +9,75 @@
 
 \begin{document}
 
-\BEGINTEST{Testing \evalWhole}
-\evalWhole {a \intEval{2*3} b {\fpEval{3*2.1}} c \bgroup \dimEval{1.2pt+3.4pt} \egroup d}
+\BEGINTEST{Testing \prgNewFunction}
+\IgnoreSpacesOn
+\prgNewFunction \Fact { m } {
+  \intCompareTF {#1} = {0} {
+    \prgReturn {1}
+  }{
+    \prgReturn {\intEval {#1*\Fact{\intEval{#1-1}}}}
+  }
+}
+\IgnoreSpacesOff
+\Fact{4}
 \ENDTEST
 
-\BEGINTEST{Testing \evalNone}
-\evalWhole {a \evalNone{\intEval{2*3}} b}
-\tlSet \lTmpaTl {\evalNone{\intEval{2*3}}}
-\tlVarLog \lTmpaTl
+\BEGINTEST{Testing \prgNewConditional}
+\IgnoreSpacesOn
+\prgNewConditional \intIfPositive {m} {
+  \intCompareTF {#1} > {0} {\prgReturn{\cTrueBool}} {\prgReturn{\cFalseBool}}
+}
+\intIfPositiveT {3} {\prgReturn{Positive}}.
+\intIfPositiveT {-2} {\prgReturn{Positive}}.
+\intIfPositiveF {3} {\prgReturn{Negative}}.
+\intIfPositiveF {-2} {\prgReturn{Negative}}.
+\intIfPositiveTF {3} {\prgReturn{Positive}} {\prgReturn{Negative}}.
+\intIfPositiveTF {-2} {\prgReturn{Positive}} {\prgReturn{Negative}}.
+\IgnoreSpacesOff
+\ENDTEST
+
+\BEGINTEST{Testing \prgPrint}
+\IgnoreSpacesOn
+\intStepOneInline {1} {4} {
+  \prgPrint {\centerline{\intReplicate {#1} {\(\bullet\)}}}
+}
+\IgnoreSpacesOff
+\ENDTEST
+
+\BEGINTEST{Testing \prgDo}
+\prgDo {\tlCount {1232}}
+\ENDTEST
+
+\BEGINTEST{Testing \prgRunOneArgCode}
+\IgnoreSpacesOn
+\prgRunOneArgCode {\tlCount{124}} {
+  \tlToStr{#1}
+}
+\IgnoreSpacesOff
+\ENDTEST
+
+\BEGINTEST{Testing \prgRunTwoArgCode}
+\IgnoreSpacesOn
+\prgRunTwoArgCode {\tlCount{124}} {\strCount{4567}} {
+  \tlToStr{#1},\tlToStr{#2}
+}
+\IgnoreSpacesOff
+\ENDTEST
+
+\BEGINTEST{Testing \prgRunThreeArgCode}
+\IgnoreSpacesOn
+\prgRunThreeArgCode {\tlCount{124}} {\strCount{4567}} {\tlCount{124}} {
+  \tlToStr{#1},\tlToStr{#2},\tlToStr{#3}
+}
+\IgnoreSpacesOff
+\ENDTEST
+
+\BEGINTEST{Testing \prgRunFourArgCode}
+\IgnoreSpacesOn
+\prgRunFourArgCode {\tlCount{124}} {\strCount{4567}} {\tlCount{124}} {\strCount{4567}} {
+  \tlToStr{#1},\tlToStr{#2},\tlToStr{#3},\tlToStr{#4}
+}
+\IgnoreSpacesOff
 \ENDTEST
 
 \end{document}

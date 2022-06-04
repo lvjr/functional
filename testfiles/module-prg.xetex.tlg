@@ -1,43 +1,341 @@
 This is a generated file for the l3build validation system.
 Don't change this file in any respect.
 ============================================================
-TEST 1: Testing \evalWhole 
+TEST 1: Testing \prgNewFunction 
 ============================================================
-[I] \evalWhole{a \intEval {2*3} b {\fpEval {3*2.1}} c \bgroup \dimEval {1.2pt+3.4pt} \egroup d}
-    [I] \intEval{2*3}
-        [I] \expWhole{\int_eval:n {2*3}}
-        [O] 6
-    [O] 6
-    [I] \fpEval{3*2.1}
-        [I] \expWhole{\fp_eval:n {3*2.1}}
-        [O] 6.3
-    [O] 6.3
-    [I] \dimEval{1.2pt+3.4pt}
-            [I] \expWhole{\dim_eval:n {1.2pt+3.4pt}}
-            [O] 4.59999pt
-        [I] \prgReturn{4.59999pt}
-        [O] 4.59999pt
-    [O] 4.59999pt
-[O] a 6 b {6.3} c \bgroup 4.59999pt \egroup d
+[I] \Fact{4}
+    [I] \intCompareTF{4}={0}{\prgReturn {1}}{\prgReturn {\intEval {4*\Fact {\intEval {4-1}}}}}
+        [I] \intCompare{4}={0}
+            [I] \prgReturn{\cFalseBool }
+            [O] \cFalseBool 
+        [O] \cFalseBool 
+\g__fun_argtype_index_6_int=\count...
+                    [I] \intEval{4-1}
+\g__fun_argtype_index_7_int=\count...
+                        [I] \expWhole{\int_eval:n {4-1}}
+                        [O] 3
+                    [O] 3
+                [I] \Fact{3}
+                    [I] \intCompareTF{3}={0}{\prgReturn {1}}{\prgReturn {\intEval {3*\Fact {\intEval {3-1}}}}}
+                        [I] \intCompare{3}={0}
+\g__fun_argtype_index_8_int=\count...
+                            [I] \prgReturn{\cFalseBool }
+                            [O] \cFalseBool 
+                        [O] \cFalseBool 
+\g__fun_argtype_index_9_int=\count...
+\g__fun_argtype_index_10_int=\count...
+                                    [I] \intEval{3-1}
+\g__fun_argtype_index_11_int=\count...
+                                        [I] \expWhole{\int_eval:n {3-1}}
+                                        [O] 2
+                                    [O] 2
+                                [I] \Fact{2}
+                                    [I] \intCompareTF{2}={0}{\prgReturn {1}}{\prgReturn {\intEval {2*\Fact {\intEval {2-1}}}}}
+                                        [I] \intCompare{2}={0}
+\g__fun_argtype_index_12_int=\count...
+                                            [I] \prgReturn{\cFalseBool }
+                                            [O] \cFalseBool 
+                                        [O] \cFalseBool 
+\g__fun_argtype_index_13_int=\count...
+\g__fun_argtype_index_14_int=\count...
+                                                    [I] \intEval{2-1}
+\g__fun_argtype_index_15_int=\count...
+                                                        [I] \expWhole{\int_eval:n {2-1}}
+                                                        [O] 1
+                                                    [O] 1
+                                                [I] \Fact{1}
+                                                    [I] \intCompareTF{1}={0}{\prgReturn {1}}{\prgReturn {\intEval {1*\Fact {\intEval {1-1}}}}}
+                                                        [I] \intCompare{1}={0}
+\g__fun_argtype_index_16_int=\count...
+                                                            [I] \prgReturn{\cFalseBool }
+                                                            [O] \cFalseBool 
+                                                        [O] \cFalseBool 
+\g__fun_argtype_index_17_int=\count...
+\g__fun_argtype_index_18_int=\count...
+                                                                    [I] \intEval{1-1}
+\g__fun_argtype_index_19_int=\count...
+                                                                        [I] \expWhole{\int_eval:n {1-1}}
+                                                                        [O] 0
+                                                                    [O] 0
+                                                                [I] \Fact{0}
+                                                                    [I] \intCompareTF{0}={0}{\prgReturn {1}}{\prgReturn {\intEval {0*\Fact {\intEval {0-1}}}}}
+                                                                        [I] \intCompare{0}={0}
+\g__fun_argtype_index_20_int=\count...
+                                                                            [I] \prgReturn{\cTrueBool }
+                                                                            [O] \cTrueBool 
+                                                                        [O] \cTrueBool 
+                                                                        [I] \prgReturn{1}
+                                                                        [O] 1
+                                                                    [O] 1
+                                                                [O] 1
+                                                            [I] \intEval{1*1}
+                                                                [I] \expWhole{\int_eval:n {1*1}}
+                                                                [O] 1
+                                                            [O] 1
+                                                        [I] \prgReturn{1}
+                                                        [O] 1
+                                                    [O] 1
+                                                [O] 1
+                                            [I] \intEval{2*1}
+                                                [I] \expWhole{\int_eval:n {2*1}}
+                                                [O] 2
+                                            [O] 2
+                                        [I] \prgReturn{2}
+                                        [O] 2
+                                    [O] 2
+                                [O] 2
+                            [I] \intEval{3*2}
+                                [I] \expWhole{\int_eval:n {3*2}}
+                                [O] 6
+                            [O] 6
+                        [I] \prgReturn{6}
+                        [O] 6
+                    [O] 6
+                [O] 6
+            [I] \intEval{4*6}
+                [I] \expWhole{\int_eval:n {4*6}}
+                [O] 24
+            [O] 24
+        [I] \prgReturn{24}
+        [O] 24
+    [O] 24
+[O] 24
 ============================================================
 ============================================================
-TEST 2: Testing \evalNone 
+TEST 2: Testing \prgNewConditional 
 ============================================================
-[I] \evalWhole{a \evalNone {\intEval {2*3}} b}
-    [I] \evalNone{\intEval {2*3}}
-    [O] \intEval {2*3}
-[O] a \intEval {2*3} b
-[I] \intEval{2*3}
-    [I] \expWhole{\int_eval:n {2*3}}
-    [O] 6
-[O] 6
-    [I] \evalNone{\intEval {2*3}}
-    [O] \intEval {2*3}
-[I] \tlSet{\lTmpaTl }{\intEval {2*3}}
+[I] \intIfPositiveT{3}{\prgReturn {Positive}}
+    [I] \intIfPositive{3}
+        [I] \intCompareTF{3}>{0}{\prgReturn {\cTrueBool }}{\prgReturn {\cFalseBool }}
+            [I] \intCompare{3}>{0}
+                [I] \prgReturn{\cTrueBool }
+                [O] \cTrueBool 
+            [O] \cTrueBool 
+            [I] \prgReturn{\cTrueBool }
+            [O] \cTrueBool 
+        [O] \cTrueBool 
+    [O] \cTrueBool 
+    [I] \prgReturn{Positive}
+    [O] Positive
+[O] Positive
+[I] \intIfPositiveT{-2}{\prgReturn {Positive}}
+    [I] \intIfPositive{-2}
+        [I] \intCompareTF{-2}>{0}{\prgReturn {\cTrueBool }}{\prgReturn {\cFalseBool }}
+            [I] \intCompare{-2}>{0}
+                [I] \prgReturn{\cFalseBool }
+                [O] \cFalseBool 
+            [O] \cFalseBool 
+            [I] \prgReturn{\cFalseBool }
+            [O] \cFalseBool 
+        [O] \cFalseBool 
+    [O] \cFalseBool 
 [O] 
-[I] \tlVarLog{\lTmpaTl }
-> \lTmpaTl=\intEval {2*3}.
+[I] \intIfPositiveF{3}{\prgReturn {Negative}}
+    [I] \intIfPositive{3}
+        [I] \intCompareTF{3}>{0}{\prgReturn {\cTrueBool }}{\prgReturn {\cFalseBool }}
+            [I] \intCompare{3}>{0}
+                [I] \prgReturn{\cTrueBool }
+                [O] \cTrueBool 
+            [O] \cTrueBool 
+            [I] \prgReturn{\cTrueBool }
+            [O] \cTrueBool 
+        [O] \cTrueBool 
+    [O] \cTrueBool 
 [O] 
+[I] \intIfPositiveF{-2}{\prgReturn {Negative}}
+    [I] \intIfPositive{-2}
+        [I] \intCompareTF{-2}>{0}{\prgReturn {\cTrueBool }}{\prgReturn {\cFalseBool }}
+            [I] \intCompare{-2}>{0}
+                [I] \prgReturn{\cFalseBool }
+                [O] \cFalseBool 
+            [O] \cFalseBool 
+            [I] \prgReturn{\cFalseBool }
+            [O] \cFalseBool 
+        [O] \cFalseBool 
+    [O] \cFalseBool 
+    [I] \prgReturn{Negative}
+    [O] Negative
+[O] Negative
+[I] \intIfPositiveTF{3}{\prgReturn {Positive}}{\prgReturn {Negative}}
+    [I] \intIfPositive{3}
+        [I] \intCompareTF{3}>{0}{\prgReturn {\cTrueBool }}{\prgReturn {\cFalseBool }}
+            [I] \intCompare{3}>{0}
+                [I] \prgReturn{\cTrueBool }
+                [O] \cTrueBool 
+            [O] \cTrueBool 
+            [I] \prgReturn{\cTrueBool }
+            [O] \cTrueBool 
+        [O] \cTrueBool 
+    [O] \cTrueBool 
+    [I] \prgReturn{Positive}
+    [O] Positive
+[O] Positive
+[I] \intIfPositiveTF{-2}{\prgReturn {Positive}}{\prgReturn {Negative}}
+    [I] \intIfPositive{-2}
+        [I] \intCompareTF{-2}>{0}{\prgReturn {\cTrueBool }}{\prgReturn {\cFalseBool }}
+            [I] \intCompare{-2}>{0}
+                [I] \prgReturn{\cFalseBool }
+                [O] \cFalseBool 
+            [O] \cFalseBool 
+            [I] \prgReturn{\cFalseBool }
+            [O] \cFalseBool 
+        [O] \cFalseBool 
+    [O] \cFalseBool 
+    [I] \prgReturn{Negative}
+    [O] Negative
+[O] Negative
+============================================================
+============================================================
+TEST 3: Testing \prgPrint 
+============================================================
+[I] \intStepOneInline{1}{4}{\prgPrint {\centerline {\intReplicate {##1}{\(\bullet \)}}}}
+    [I] \prgPrint{\centerline {\intReplicate {1}{\(\bullet \)}}}
+> runningPrgPrint.
+        [I] \intReplicate{1}{\(\bullet \)}
+            [I] \prgReturn{\(\bullet \)}
+            [O] \(\bullet \)
+        [O] \(\bullet \)
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line ....
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line ....
+    [O] 
+    [I] \prgPrint{\centerline {\intReplicate {2}{\(\bullet \)}}}
+> runningPrgPrint.
+        [I] \intReplicate{2}{\(\bullet \)}
+            [I] \prgReturn{\(\bullet \)\(\bullet \)}
+            [O] \(\bullet \)\(\bullet \)
+        [O] \(\bullet \)\(\bullet \)
+    [O] 
+    [I] \prgPrint{\centerline {\intReplicate {3}{\(\bullet \)}}}
+> runningPrgPrint.
+        [I] \intReplicate{3}{\(\bullet \)}
+            [I] \prgReturn{\(\bullet \)\(\bullet \)\(\bullet \)}
+            [O] \(\bullet \)\(\bullet \)\(\bullet \)
+        [O] \(\bullet \)\(\bullet \)\(\bullet \)
+    [O] 
+    [I] \prgPrint{\centerline {\intReplicate {4}{\(\bullet \)}}}
+> runningPrgPrint.
+        [I] \intReplicate{4}{\(\bullet \)}
+            [I] \prgReturn{\(\bullet \)\(\bullet \)\(\bullet \)\(\bullet \)}
+            [O] \(\bullet \)\(\bullet \)\(\bullet \)\(\bullet \)
+        [O] \(\bullet \)\(\bullet \)\(\bullet \)\(\bullet \)
+    [O] 
+[O] 
+============================================================
+============================================================
+TEST 4: Testing \prgDo 
+============================================================
+[I] \prgDo{\tlCount {1232}}
+    [I] \tlCount{1232}
+        [I] \expWhole{\tl_count:n {1232}}
+        [O] 4
+    [O] 4
+[O] 4
+============================================================
+============================================================
+TEST 5: Testing \prgRunOneArgCode 
+============================================================
+    [I] \tlCount{124}
+        [I] \expWhole{\tl_count:n {124}}
+        [O] 3
+    [O] 3
+[I] \prgRunOneArgCode{3}{\tlToStr {##1}}
+[O] \tlToStr {3}
+[I] \tlToStr{3}
+    [I] \expWhole{\tl_to_str:n {3}}
+    [O] 3
+[O] 3
+============================================================
+============================================================
+TEST 6: Testing \prgRunTwoArgCode 
+============================================================
+    [I] \tlCount{124}
+        [I] \expWhole{\tl_count:n {124}}
+        [O] 3
+    [O] 3
+    [I] \strCount{4567}
+        [I] \expWhole{\str_count:n {4567}}
+        [O] 4
+    [O] 4
+[I] \prgRunTwoArgCode{3}{4}{\tlToStr {##1},\tlToStr {##2}}
+[O] \tlToStr {3},\tlToStr {4}
+[I] \tlToStr{3}
+    [I] \expWhole{\tl_to_str:n {3}}
+    [O] 3
+[O] 3
+[I] \tlToStr{4}
+    [I] \expWhole{\tl_to_str:n {4}}
+    [O] 4
+[O] 4
+============================================================
+============================================================
+TEST 7: Testing \prgRunThreeArgCode 
+============================================================
+    [I] \tlCount{124}
+        [I] \expWhole{\tl_count:n {124}}
+        [O] 3
+    [O] 3
+    [I] \strCount{4567}
+        [I] \expWhole{\str_count:n {4567}}
+        [O] 4
+    [O] 4
+    [I] \tlCount{124}
+        [I] \expWhole{\tl_count:n {124}}
+        [O] 3
+    [O] 3
+[I] \prgRunThreeArgCode{3}{4}{3}{\tlToStr {##1},\tlToStr {##2},\tlToStr {##3}}
+[O] \tlToStr {3},\tlToStr {4},\tlToStr {3}
+[I] \tlToStr{3}
+    [I] \expWhole{\tl_to_str:n {3}}
+    [O] 3
+[O] 3
+[I] \tlToStr{4}
+    [I] \expWhole{\tl_to_str:n {4}}
+    [O] 4
+[O] 4
+[I] \tlToStr{3}
+    [I] \expWhole{\tl_to_str:n {3}}
+    [O] 3
+[O] 3
+============================================================
+============================================================
+TEST 8: Testing \prgRunFourArgCode 
+============================================================
+    [I] \tlCount{124}
+        [I] \expWhole{\tl_count:n {124}}
+        [O] 3
+    [O] 3
+    [I] \strCount{4567}
+        [I] \expWhole{\str_count:n {4567}}
+        [O] 4
+    [O] 4
+    [I] \tlCount{124}
+        [I] \expWhole{\tl_count:n {124}}
+        [O] 3
+    [O] 3
+    [I] \strCount{4567}
+        [I] \expWhole{\str_count:n {4567}}
+        [O] 4
+    [O] 4
+[I] \prgRunFourArgCode{3}{4}{3}{4}{\tlToStr {##1},\tlToStr {##2},\tlToStr {##3},\tlToStr {##4}}
+[O] \tlToStr {3},\tlToStr {4},\tlToStr {3},\tlToStr {4}
+[I] \tlToStr{3}
+    [I] \expWhole{\tl_to_str:n {3}}
+    [O] 3
+[O] 3
+[I] \tlToStr{4}
+    [I] \expWhole{\tl_to_str:n {4}}
+    [O] 4
+[O] 4
+[I] \tlToStr{3}
+    [I] \expWhole{\tl_to_str:n {3}}
+    [O] 3
+[O] 3
+[I] \tlToStr{4}
+    [I] \expWhole{\tl_to_str:n {4}}
+    [O] 4
+[O] 4
 ============================================================
 [1
 ] (module-prg.aux)

@@ -1,0 +1,31 @@
+\documentclass{article}
+
+\input{regression-test}
+\AtBeginDocument{\START}
+%\AtEndDocument{\END}
+
+\usepackage{functional}
+\Functional{tracing=true}
+
+\begin{document}
+
+\BEGINTEST{Testing \evalWhole}
+\evalWhole {a \intEval{2*3} b {\fpEval{3*2.1}} c \bgroup \dimEval{1.2pt+3.4pt} \egroup d}
+\prgNewFunction \testEval {n} {\prgReturn {1 \intEval{2+#1} 2}}
+\evalWhole {a \testEval{7} b}
+\ENDTEST
+
+\BEGINTEST{Testing \evalNone}
+\evalWhole {a \evalNone{\intEval{2*3}} b}
+\tlSet \lTmpaTl {\evalNone{\intEval{2*3}}}
+\tlVarLog \lTmpaTl
+\ENDTEST
+
+\BEGINTEST{Testing \expWhole}
+\tlSet \lTmpaTl {234}
+\tlSet \lTmpbTl {789}
+\tlSet \lTmpcTl {\expWhole {[\lTmpaTl][\lTmpbTl]}}
+\tlUse \lTmpcTl
+\ENDTEST
+
+\end{document}

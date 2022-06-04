@@ -1,0 +1,71 @@
+This is a generated file for the l3build validation system.
+Don't change this file in any respect.
+============================================================
+TEST 1: Testing \evalWhole 
+============================================================
+[I] \evalWhole{a \intEval {2*3} b {\fpEval {3*2.1}} c \bgroup \dimEval {1.2pt+3.4pt} \egroup d}
+    [I] \intEval{2*3}
+        [I] \expWhole{\int_eval:n {2*3}}
+        [O] 6
+    [O] 6
+    [I] \fpEval{3*2.1}
+        [I] \expWhole{\fp_eval:n {3*2.1}}
+        [O] 6.3
+    [O] 6.3
+    [I] \dimEval{1.2pt+3.4pt}
+            [I] \expWhole{\dim_eval:n {1.2pt+3.4pt}}
+            [O] 4.59999pt
+        [I] \prgReturn{4.59999pt}
+        [O] 4.59999pt
+    [O] 4.59999pt
+[O] a 6 b {6.3} c \bgroup 4.59999pt \egroup d
+[I] \evalWhole{a \testEval {7} b}
+    [I] \testEval{7}
+        [I] \prgReturn{1 \intEval {2+7} 2}
+        [O] 1 \intEval {2+7} 2
+    [O] 1 \intEval {2+7} 2
+    [I] \intEval{2+7}
+        [I] \expWhole{\int_eval:n {2+7}}
+        [O] 9
+    [O] 9
+[O] a 1 9 2 b
+============================================================
+============================================================
+TEST 2: Testing \evalNone 
+============================================================
+[I] \evalWhole{a \evalNone {\intEval {2*3}} b}
+    [I] \evalNone{\intEval {2*3}}
+    [O] \intEval {2*3}
+[O] a \intEval {2*3} b
+[I] \intEval{2*3}
+    [I] \expWhole{\int_eval:n {2*3}}
+    [O] 6
+[O] 6
+    [I] \evalNone{\intEval {2*3}}
+    [O] \intEval {2*3}
+[I] \tlSet{\lTmpaTl }{\intEval {2*3}}
+[O] 
+[I] \tlVarLog{\lTmpaTl }
+> \lTmpaTl=\intEval {2*3}.
+[O] 
+============================================================
+============================================================
+TEST 3: Testing \expWhole 
+============================================================
+[I] \tlSet{\lTmpaTl }{234}
+[O] 
+[I] \tlSet{\lTmpbTl }{789}
+[O] 
+    [I] \expWhole{[\lTmpaTl ][\lTmpbTl ]}
+    [O] [234][789]
+[I] \tlSet{\lTmpcTl }{[234][789]}
+[O] 
+[I] \tlUse{\lTmpcTl }
+        [I] \expValue{\lTmpcTl }
+        [O] [234][789]
+    [I] \prgReturn{[234][789]}
+    [O] [234][789]
+[O] [234][789]
+============================================================
+[1
+] (module-use.aux)
