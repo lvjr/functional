@@ -86,7 +86,6 @@
 
 \BEGINTEST{Testing \strCount}
 \strCount {12\abc34}
-\strSize {12\abc34}
 \ENDTEST
 
 \BEGINTEST{Testing \strVarCount}
@@ -212,10 +211,6 @@
 \boolVarLog {\strCompare {ab} < {aa}}
 \strCompareTF {ab} < {abc} {\prgReturn{Yes}} {\prgReturn{No}}
 \strCompareTF {ab} < {aa} {\prgReturn{Yes}} {\prgReturn{No}}
-\boolVarLog {\strIfCompare {ab} < {abc}}
-\boolVarLog {\strIfCompare {ab} < {aa}}
-\strIfCompareTF {ab} < {abc} {\prgReturn{Yes}} {\prgReturn{No}}
-\strIfCompareTF {ab} < {aa} {\prgReturn{Yes}} {\prgReturn{No}}
 \ENDTEST
 
 \BEGINTEST{Testing \strCaseF}

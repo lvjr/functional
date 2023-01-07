@@ -184,22 +184,6 @@ TEST 14: Testing \strCount
     [I] \expWhole{\str_count:n {12\abc 34}}
     [O] 9
 [O] 9
-! Undefined control sequence.
-l. ...\strSize
-              {12\abc34}
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-! Undefined control sequence.
-l. ...\strSize {12\abc
-                     34}
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
 ============================================================
 ============================================================
 TEST 15: Testing \strVarCount 
@@ -586,48 +570,6 @@ TEST 32: Testing \strCompare
     [O] \cFalseBool 
     [I] \prgReturn{No}
     [O] No
-[O] No
-[I] \boolVarLog{\strIfCompare {ab} < {abc}}
-! LaTeX3 Error: Variable \strIfCompare undefined.
-For immediate help type H <return>.
- ...                                              
-l. ...\boolVarLog {\strIfCompare {ab} < {abc}}
-This is a coding error.
-LaTeX has been asked to show a variable \strIfCompare, but this has not been
-defined yet.
-[O] 
-[I] \boolVarLog{\strIfCompare {ab} < {aa}}
-! LaTeX3 Error: Variable \strIfCompare undefined.
-For immediate help type H <return>.
- ...                                              
-l. ...\boolVarLog {\strIfCompare {ab} < {aa}}
-This is a coding error.
-LaTeX has been asked to show a variable \strIfCompare, but this has not been
-defined yet.
-[O] 
-! Undefined control sequence.
-l. ...\strIfCompareTF
-                      {ab} < {abc} {\prgReturn{Yes}} {\prgReturn{No}}
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-[I] \prgReturn{Yes}
-[O] Yes
-[I] \prgReturn{No}
-[O] No
-! Undefined control sequence.
-l. ...\strIfCompareTF
-                      {ab} < {aa} {\prgReturn{Yes}} {\prgReturn{No}}
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-[I] \prgReturn{Yes}
-[O] Yes
-[I] \prgReturn{No}
 [O] No
 ============================================================
 ============================================================

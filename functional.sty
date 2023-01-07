@@ -579,26 +579,14 @@
 %%> \subsection{Creating Some Useful Functions}
 %%% --------------------------------------------------------
 
-\NewDocumentCommand \fun@NewTwoFunctions {mmmm}
-  {
-    \prgNewFunction #1 {#3} {#4}
-    \AtBeginDocument { \cs_if_exist:NF #2 { \prgNewFunction #2 {#3} {#4} } }
-  }
-
-\NewDocumentCommand \fun@NewTwoConditionals {mmmm}
-  {
-    \prgNewConditional #1 {#3} {#4}
-    \AtBeginDocument { \cs_if_exist:NF #2 { \prgNewConditional #2 {#3} {#4} } }
-  }
-
-\fun@NewTwoFunctions \prgSetEqFunction \PrgSetEqFunction { N N }
+\prgNewFunction \prgSetEqFunction { N N }
   {
     \cs_set_eq:NN #1 #2
     \cs_set_eq:cc { __fun_defined_ \cs_to_str:N #1 : w }
       { __fun_defined_ \cs_to_str:N #2 : w }
   }
 
-\fun@NewTwoFunctions \prgDo \Do {n} {#1}
+\prgNewFunction \prgDo {n} {#1}
 
 \cs_set_eq:NN \prgBreak \prg_break:
 
@@ -614,7 +602,7 @@
   }
 \cs_generate_variant:Nn \__fun_put_result:n { V, e, f, o }
 
-\fun@NewTwoFunctions \prgReturn \Return { m }
+\prgNewFunction \prgReturn { m }
   {
     \__fun_put_result:n { #1 }
   }
@@ -789,7 +777,7 @@
 %%> \subsection{Printing Contents to the Input Stream}
 %%% --------------------------------------------------------
 
-\fun@NewTwoFunctions \prgPrint \Print { m }
+\prgNewFunction \prgPrint { m }
   {
     \tl_log:n {running PrgPrint}
     \int_set_eq:NN \l__fun_return_level_int \g__fun_nesting_level_int
@@ -806,26 +794,26 @@
 %% but at the same time avoid evaluating the leading function in \gResultTl,
 %% therefore we need to use \tl_set:Nn command instead of \tlSet function.
 
-\fun@NewTwoFunctions \prgRunOneArgCode \PrgRunOneArgCode { m n }
+\prgNewFunction \prgRunOneArgCode { m n }
   {
     \cs_set:Npn \__fun_one_arg_cmd:n ##1 {#2}
     \exp_args:NNo \tl_set:Nn \gResultTl { \__fun_one_arg_cmd:n {#1} }
   }
 
-\fun@NewTwoFunctions \prgRunTwoArgCode \PrgRunTwoArgCode { m m n }
+\prgNewFunction \prgRunTwoArgCode { m m n }
   {
     \cs_set:Npn \__fun_two_arg_cmd:nn ##1 ##2 {#3}
     \exp_args:NNo \tl_set:Nn \gResultTl { \__fun_two_arg_cmd:nn {#1} {#2} }
   }
 
-\fun@NewTwoFunctions \prgRunThreeArgCode \PrgRunThreeArgCode { m m m n }
+\prgNewFunction \prgRunThreeArgCode { m m m n }
   {
     \cs_set:Npn \__fun_three_arg_cmd:nnn ##1 ##2 ##3 {#4}
     \exp_args:NNo \tl_set:Nn \gResultTl
       { \__fun_three_arg_cmd:nnn {#1} {#2} {#3} }
   }
 
-\fun@NewTwoFunctions \prgRunFourArgCode \PrgRunFourArgCode { m m m m n }
+\prgNewFunction \prgRunFourArgCode { m m m m n }
   {
     \cs_set:Npn \__fun_four_arg_cmd:nnnn ##1 ##2 ##3 ##4 {#5}
     \exp_args:NNo \tl_set:Nn \gResultTl
@@ -873,7 +861,7 @@
       { \prg_return_true: }
   }
 
-\fun@NewTwoFunctions \prgLocal \Local { }
+\prgNewFunction \prgLocal { }
   { \bool_gset_true:N \g__fun_variable_local_bool }
 
 %% We must not put an assignment inside a group
@@ -888,17 +876,17 @@
 %%> \section{Interfaces for Argument Using (Use)}
 %%% --------------------------------------------------------
 
-\fun@NewTwoFunctions \expName \Name { m }
+\prgNewFunction \expName { m }
   {
     \exp_args:Nc \__fun_put_result:n { #1 }
   }
 
-\fun@NewTwoFunctions \expValue \Value { M }
+\prgNewFunction \expValue { M }
   {
     \__fun_put_result:V #1
   }
 
-\fun@NewTwoFunctions \expWhole \Expand { m }
+\prgNewFunction \expWhole { m }
   {
     \__fun_put_result:e { #1 }
   }
@@ -920,20 +908,13 @@
 \cs_set_eq:NN \onlyPartial \exp_not:f
 \cs_set_eq:NN \onlyOnce    \exp_not:o
 
-\cs_set_eq:NN \UnExpand    \exp_not:n
-\cs_set_eq:NN \NoExpand    \exp_not:N
-\cs_set_eq:NN \OnlyName    \exp_not:c
-\cs_set_eq:NN \OnlyValue   \exp_not:V
-\cs_set_eq:NN \OnlyPartial \exp_not:f
-\cs_set_eq:NN \OnlyOnce    \exp_not:o
+\prgNewFunction \useOne { n } { \prgReturn {#1} }
 
-\fun@NewTwoFunctions \useOne \UseOne { n } { \prgReturn {#1} }
+\prgNewFunction \gobbleOne { n } { }
 
-\fun@NewTwoFunctions \gobbleOne \GobbleOne { n } { }
+\prgNewFunction \useGobble { n n } { \prgReturn {#1} }
 
-\fun@NewTwoFunctions \useGobble \UseGobble { n n } { \prgReturn {#1} }
-
-\fun@NewTwoFunctions \gobbleUse \GobbleUse { n n } { \prgReturn {#2} }
+\prgNewFunction \gobbleUse { n n } { \prgReturn {#2} }
 
 %%% --------------------------------------------------------
 %%> \section{Interfaces for Control Structures (Bool)}
@@ -950,87 +931,87 @@
 \bool_new:N \gTmpiBool     \bool_new:N \gTmpjBool     \bool_new:N \gTmpkBool
 \bool_new:N \g@FunTmpxBool \bool_new:N \g@FunTmpyBool \bool_new:N \g@FunTmpzBool
 
-\fun@NewTwoFunctions \boolNew \BoolNew { M } { \bool_new:N #1 }
+\prgNewFunction \boolNew { M } { \bool_new:N #1 }
 
-\fun@NewTwoFunctions \boolConst \BoolConst { M e } { \bool_const:Nn #1 {#2} }
+\prgNewFunction \boolConst { M e } { \bool_const:Nn #1 {#2} }
 
-\fun@NewTwoFunctions \boolSet \BoolSet { M e } {
+\prgNewFunction \boolSet { M e } {
   \__fun_do_assignment:Nnn #1
     { \bool_gset:Nn #1 {#2} } { \bool_set:Nn #1 {#2} }
 }
 
-\fun@NewTwoFunctions \boolSetTrue \BoolSetTrue { M }
+\prgNewFunction \boolSetTrue { M }
   {
     \__fun_do_assignment:Nnn #1 { \bool_gset_true:N #1 } { \bool_set_true:N #1 }
   }
 
-\fun@NewTwoFunctions \boolSetFalse \BoolSetFalse { M }
+\prgNewFunction \boolSetFalse { M }
   {
     \__fun_do_assignment:Nnn #1 { \bool_gset_false:N #1 } { \bool_set_false:N #1 }
   }
 
-\fun@NewTwoFunctions \boolSetEq \BoolSetEq { M M }
+\prgNewFunction \boolSetEq { M M }
   {
     \__fun_do_assignment:Nnn #1
       { \bool_gset_eq:NN #1 #2 } { \bool_set_eq:NN #1 #2 }
   }
 
-\fun@NewTwoFunctions \boolLog \BoolLog { e } { \bool_log:n {#1} }
+\prgNewFunction \boolLog { e } { \bool_log:n {#1} }
 
-\fun@NewTwoFunctions \boolVarLog \BoolVarLog { M } { \bool_log:N #1 }
+\prgNewFunction \boolVarLog { M } { \bool_log:N #1 }
 
-\fun@NewTwoFunctions \boolShow \BoolShow { e } { \bool_show:n {#1} }
+\prgNewFunction \boolShow { e } { \bool_show:n {#1} }
 
-\fun@NewTwoFunctions \boolVarShow \BoolVarShow { M } { \bool_show:N #1 }
+\prgNewFunction \boolVarShow { M } { \bool_show:N #1 }
 
-\fun@NewTwoConditionals \boolIfExist \BoolIfExist { M }
+\prgNewConditional \boolIfExist { M }
   {
     \bool_if_exist:NTF #1
       { \prgReturn { \cTrueBool } } { \prgReturn { \cFalseBool } }
   }
 
-\fun@NewTwoConditionals \boolVarIf \BoolVarIf { M } { \prgReturn {#1} }
+\prgNewConditional \boolVarIf { M } { \prgReturn {#1} }
 
-\fun@NewTwoConditionals \boolVarNot \BoolVarNot { M }
+\prgNewConditional \boolVarNot { M }
   {
     \bool_if:NTF #1
       { \prgReturn { \cFalseBool } } { \prgReturn { \cTrueBool } }
   }
 
-\fun@NewTwoConditionals \boolVarAnd \BoolVarAnd { M M }
+\prgNewConditional \boolVarAnd { M M }
   {
     \bool_lazy_and:nnTF {#1} {#2}
       { \prgReturn { \cTrueBool } } { \prgReturn { \cFalseBool } }
   }
 
-\fun@NewTwoConditionals \boolVarOr \BoolVarOr { M M }
+\prgNewConditional \boolVarOr { M M }
   {
     \bool_lazy_or:nnTF {#1} {#2}
       { \prgReturn { \cTrueBool } } { \prgReturn { \cFalseBool } }
   }
 
-\fun@NewTwoConditionals \boolVarXor \BoolVarXor { M M }
+\prgNewConditional \boolVarXor { M M }
   {
     \bool_xor:nnTF {#1} {#2}
       { \prgReturn { \cTrueBool } } { \prgReturn { \cFalseBool } }
   }
 
-\fun@NewTwoFunctions \boolVarDoUntil \BoolVarDoUntil { N n }
+\prgNewFunction \boolVarDoUntil { N n }
   {
     \bool_do_until:Nn #1 {#2}
   }
 
-\fun@NewTwoFunctions \boolVarDoWhile \BoolVarDoWhile { N n }
+\prgNewFunction \boolVarDoWhile { N n }
   {
     \bool_do_while:Nn #1 {#2}
   }
 
-\fun@NewTwoFunctions \boolVarUntilDo \BoolVarUntilDo { N n }
+\prgNewFunction \boolVarUntilDo { N n }
   {
     \bool_until_do:Nn #1 {#2}
   }
 
-\fun@NewTwoFunctions \boolVarWhileDo \BoolVarWhileDo { N n }
+\prgNewFunction \boolVarWhileDo { N n }
   {
     \bool_while_do:Nn #1 {#2}
   }
@@ -1051,211 +1032,211 @@
 \tl_new:N \gTmpiTl     \tl_new:N \gTmpjTl     \tl_new:N \gTmpkTl
 \tl_new:N \g@FunTmpxTl \tl_new:N \g@FunTmpyTl \tl_new:N \g@FunTmpzTl
 
-\fun@NewTwoFunctions \tlNew \TlNew { M } { \tl_new:N #1 }
+\prgNewFunction \tlNew { M } { \tl_new:N #1 }
 
-\fun@NewTwoFunctions \tlLog \TlLog { m } { \tl_log:n { #1 } }
+\prgNewFunction \tlLog { m } { \tl_log:n { #1 } }
 
-\fun@NewTwoFunctions \tlVarLog \TlVarLog { M } { \tl_log:N #1 }
+\prgNewFunction \tlVarLog { M } { \tl_log:N #1 }
 
-\fun@NewTwoFunctions \tlShow \TlShow { m } { \tl_show:n { #1 } }
+\prgNewFunction \tlShow { m } { \tl_show:n { #1 } }
 
-\fun@NewTwoFunctions \tlVarShow \TlVarShow { M } { \tl_show:N #1 }
+\prgNewFunction \tlVarShow { M } { \tl_show:N #1 }
 
-\fun@NewTwoFunctions \tlUse \TlUse { M } { \prgReturn { \expValue #1 } }
+\prgNewFunction \tlUse { M } { \prgReturn { \expValue #1 } }
 
-\fun@NewTwoFunctions \tlToStr \TlToStr { m }
+\prgNewFunction \tlToStr { m }
   { \expWhole { \tl_to_str:n { #1 } } }
 
-\fun@NewTwoFunctions \tlVarToStr \TlVarToStr { M }
+\prgNewFunction \tlVarToStr { M }
   { \expWhole { \tl_to_str:N #1 } }
 
-\fun@NewTwoFunctions \tlConst \TlConst { M m } { \tl_const:Nn #1 { #2 } }
+\prgNewFunction \tlConst { M m } { \tl_const:Nn #1 { #2 } }
 
-\fun@NewTwoFunctions \tlSet \TlSet { M m }
+\prgNewFunction \tlSet { M m }
   {
     \__fun_do_assignment:Nnn #1 { \tl_gset:Nn #1 {#2} } { \tl_set:Nn #1 {#2} }
   }
 
-\fun@NewTwoFunctions \tlSetEq \TlSetEq { M M }
+\prgNewFunction \tlSetEq { M M }
   {
     \__fun_do_assignment:Nnn #1 { \tl_gset_eq:NN #1 #2 } { \tl_set_eq:NN #1 #2 }
   }
 
-\fun@NewTwoFunctions \tlConcat \TlConcat { M M M }
+\prgNewFunction \tlConcat { M M M }
   {
     \__fun_do_assignment:Nnn #1
       { \tl_gconcat:NNN #1 #2 #3 } { \tl_concat:NNN #1 #2 #3 }
   }
 
-\fun@NewTwoFunctions \tlClear \TlClear { M }
+\prgNewFunction \tlClear { M }
   {
     \__fun_do_assignment:Nnn #1 { \tl_gclear:N #1 } { \tl_clear:N #1 }
   }
 
-\fun@NewTwoFunctions \tlClearNew \TlClearNew { M }
+\prgNewFunction \tlClearNew { M }
   {
     \__fun_do_assignment:Nnn #1 { \tl_gclear_new:N #1 } { \tl_clear_new:N #1 }
   }
 
-\fun@NewTwoFunctions \tlPutLeft \TlPutLeft { M m }
+\prgNewFunction \tlPutLeft { M m }
   {
     \__fun_do_assignment:Nnn #1
       { \tl_gput_left:Nn #1 {#2} } { \tl_put_left:Nn #1 {#2} }
   }
 
-\fun@NewTwoFunctions \tlPutRight \TlPutRight { M m }
+\prgNewFunction \tlPutRight { M m }
   {
     \__fun_do_assignment:Nnn #1
       { \tl_gput_right:Nn #1 {#2} } { \tl_put_right:Nn #1 {#2} }
   }
 
-\fun@NewTwoFunctions \tlVarReplaceOnce \TlVarReplaceOnce { M m m }
+\prgNewFunction \tlVarReplaceOnce { M m m }
   {
     \__fun_do_assignment:Nnn #1
       { \tl_greplace_once:Nnn #1 {#2} {#3} } { \tl_replace_once:Nnn #1 {#2} {#3} }
   }
 
-\fun@NewTwoFunctions \tlVarReplaceAll \TlVarReplaceAll { M m m }
+\prgNewFunction \tlVarReplaceAll { M m m }
   {
     \__fun_do_assignment:Nnn #1
       { \tl_greplace_all:Nnn #1 {#2} {#3} } { \tl_replace_all:Nnn #1 {#2} {#3} }
   }
 
-\fun@NewTwoFunctions \tlVarRemoveOnce \TlVarRemoveOnce { M m }
+\prgNewFunction \tlVarRemoveOnce { M m }
   {
     \__fun_do_assignment:Nnn #1
       { \tl_gremove_once:Nn #1 {#2} } { \tl_remove_once:Nn #1 {#2} }
   }
 
-\fun@NewTwoFunctions \tlVarRemoveAll \TlVarRemoveAll { M m }
+\prgNewFunction \tlVarRemoveAll { M m }
   {
     \__fun_do_assignment:Nnn #1
       { \tl_gremove_all:Nn #1 {#2} } { \tl_remove_all:Nn #1 {#2} }
   }
 
-\fun@NewTwoFunctions \tlTrimSpaces \TlTrimSpaces { m }
+\prgNewFunction \tlTrimSpaces { m }
   { \expWhole { \tl_trim_spaces:n { #1 } } }
 
-\fun@NewTwoFunctions \tlVarTrimSpaces \TlVarTrimSpaces { M }
+\prgNewFunction \tlVarTrimSpaces { M }
   {
     \__fun_do_assignment:Nnn #1
       { \tl_gtrim_spaces:N #1 } { \tl_trim_spaces:N #1 }
   }
 
-\fun@NewTwoFunctions \tlCount \TlCount { m }
+\prgNewFunction \tlCount { m }
   { \expWhole { \tl_count:n { #1 } } }
 
-\fun@NewTwoFunctions \tlVarCount \TlVarCount { M }
+\prgNewFunction \tlVarCount { M }
   { \expWhole { \tl_count:N #1 } }
 
-\fun@NewTwoFunctions \tlHead \TlHead { m }
+\prgNewFunction \tlHead { m }
   { \expWhole { \tl_head:n { #1 } } }
 
-\fun@NewTwoFunctions \tlVarHead \TlVarHead { M }
+\prgNewFunction \tlVarHead { M }
   { \expWhole { \tl_head:N #1 } }
 
-\fun@NewTwoFunctions \tlTail \TlTail { m }
+\prgNewFunction \tlTail { m }
   { \expWhole { \tl_tail:n { #1 } } }
 
-\fun@NewTwoFunctions \tlVarTail \TlVarTail { M }
+\prgNewFunction \tlVarTail { M }
   { \expWhole { \tl_tail:N #1 } }
 
-\fun@NewTwoFunctions \tlItem \TlItem { m m }
+\prgNewFunction \tlItem { m m }
   { \expWhole { \tl_item:nn {#1} {#2} } }
 
-\fun@NewTwoFunctions \tlVarItem \TlVarItem { M m }
+\prgNewFunction \tlVarItem { M m }
   { \expWhole { \tl_item:Nn #1 {#2} } }
 
-\fun@NewTwoFunctions \tlRandItem \TlRandItem { m }
+\prgNewFunction \tlRandItem { m }
   { \expWhole { \tl_rand_item:n {#1} } }
 
-\fun@NewTwoFunctions \tlVarRandItem \TlVarRandItem { M }
+\prgNewFunction \tlVarRandItem { M }
   { \expWhole { \tl_rand_item:N #1 } }
 
-\fun@NewTwoFunctions \tlVarCase \TlVarCase { M m }
+\prgNewFunction \tlVarCase { M m }
   { \tl_case:Nn {#1} {#2} }
-\fun@NewTwoFunctions \tlVarCaseT \TlVarCaseT { M m n }
+\prgNewFunction \tlVarCaseT { M m n }
   { \tl_case:NnT {#1} {#2} {#3} }
-\fun@NewTwoFunctions \tlVarCaseF \TlVarCaseF { M m n }
+\prgNewFunction \tlVarCaseF { M m n }
   { \tl_case:NnF {#1} {#2} {#3} }
-\fun@NewTwoFunctions \tlVarCaseTF \TlVarCaseTF { M m n n }
+\prgNewFunction \tlVarCaseTF { M m n n }
   { \tl_case:NnTF {#1} {#2} {#3} {#4} }
 
-\fun@NewTwoFunctions \tlMapInline \TlMapInline { m n }
+\prgNewFunction \tlMapInline { m n }
   {
     \tl_map_inline:nn {#1} {#2}
   }
 
-\fun@NewTwoFunctions \tlVarMapInline \TlVarMapInline { M n }
+\prgNewFunction \tlVarMapInline { M n }
   {
     \tl_map_inline:Nn #1 {#2}
   }
 
-\fun@NewTwoFunctions \tlMapVariable \TlMapVariable { m M n }
+\prgNewFunction \tlMapVariable { m M n }
   {
     \tl_map_variable:nNn {#1} #2 {#3}
   }
 
-\fun@NewTwoFunctions \tlVarMapVariable \TlVarMapVariable { M M n }
+\prgNewFunction \tlVarMapVariable { M M n }
   {
     \tl_map_variable:NNn #1 #2 {#3}
   }
 
-\fun@NewTwoConditionals \tlIfExist \TlIfExist { M }
+\prgNewConditional \tlIfExist { M }
   {
     \tl_if_exist:NTF #1
       { \prgReturn { \cTrueBool } }  { \prgReturn { \cFalseBool } }
   }
 
-\fun@NewTwoConditionals \tlIfEmpty \TlIfEmpty { m }
+\prgNewConditional \tlIfEmpty { m }
   {
     \tl_if_empty:nTF {#1}
       { \prgReturn { \cTrueBool } }  { \prgReturn { \cFalseBool } }
   }
 
-\fun@NewTwoConditionals \tlVarIfEmpty \TlVarIfEmpty { M }
+\prgNewConditional \tlVarIfEmpty { M }
   {
     \tl_if_empty:NTF #1
       { \prgReturn { \cTrueBool } }  { \prgReturn { \cFalseBool } }
   }
 
-\fun@NewTwoConditionals \tlIfBlank \TlIfBlank { m }
+\prgNewConditional \tlIfBlank { m }
   {
     \tl_if_blank:nTF {#1}
       { \prgReturn { \cTrueBool } }  { \prgReturn { \cFalseBool } }
   }
 
-\fun@NewTwoConditionals \tlIfEq \TlIfEq { m m }
+\prgNewConditional \tlIfEq { m m }
   {
     \tl_if_eq:nnTF {#1} {#2}
       { \prgReturn { \cTrueBool } } { \prgReturn { \cFalseBool } }
   }
 
-\fun@NewTwoConditionals \tlVarIfEq \TlVarIfEq { M M }
+\prgNewConditional \tlVarIfEq { M M }
   {
     \tl_if_eq:NNTF #1 #2
       { \prgReturn { \cTrueBool } } { \prgReturn { \cFalseBool } }
   }
 
-\fun@NewTwoConditionals \tlIfIn \TlIfIn { m m }
+\prgNewConditional \tlIfIn { m m }
   {
     \tl_if_in:nnTF {#1} {#2}
       { \prgReturn { \cTrueBool } } { \prgReturn { \cFalseBool } }
   }
 
-\fun@NewTwoConditionals \tlVarIfIn \TlVarIfIn { M m }
+\prgNewConditional \tlVarIfIn { M m }
   {
     \tl_if_in:NnTF #1 {#2}
       { \prgReturn { \cTrueBool } } { \prgReturn { \cFalseBool } }
   }
 
-\fun@NewTwoConditionals \tlIfSingle \TlIfSingle { m }
+\prgNewConditional \tlIfSingle { m }
   {
     \tl_if_single:nTF {#1}
       { \prgReturn { \cTrueBool } } { \prgReturn { \cFalseBool } }
   }
 
-\fun@NewTwoConditionals \tlVarIfSingle \TlVarIfSingle { M }
+\prgNewConditional \tlVarIfSingle { M }
   {
     \tl_if_single:NTF #1
       { \prgReturn { \cTrueBool } } { \prgReturn { \cFalseBool } }
@@ -1287,188 +1268,151 @@
 \str_new:N \gTmpiStr     \str_new:N \gTmpjStr     \str_new:N \gTmpkStr
 \str_new:N \g@FunTmpxStr \str_new:N \g@FunTmpyStr \str_new:N \g@FunTmpzStr
 
-\fun@NewTwoFunctions \strNew \StrNew { M } { \str_new:N #1 }
+\prgNewFunction \strNew { M } { \str_new:N #1 }
 
-\fun@NewTwoFunctions \strLog \StrLog { m } { \str_log:n { #1 } }
+\prgNewFunction \strLog { m } { \str_log:n { #1 } }
 
-\fun@NewTwoFunctions \strVarLog \StrVarLog { M } { \str_log:N #1 }
+\prgNewFunction \strVarLog { M } { \str_log:N #1 }
 
-\fun@NewTwoFunctions \strShow \StrShow { m } { \str_show:n { #1 } }
+\prgNewFunction \strShow { m } { \str_show:n { #1 } }
 
-\fun@NewTwoFunctions \strVarShow \StrVarShow { M } { \str_show:N #1 }
+\prgNewFunction \strVarShow { M } { \str_show:N #1 }
 
-\fun@NewTwoFunctions \strUse \StrUse { M } { \prgReturn { \expValue #1 } }
+\prgNewFunction \strUse { M } { \prgReturn { \expValue #1 } }
 
-\fun@NewTwoFunctions \strConst \StrConst { M m } { \str_const:Nn #1 {#2} }
+\prgNewFunction \strConst { M m } { \str_const:Nn #1 {#2} }
 
-\fun@NewTwoFunctions \strSet \StrSet { M m }
+\prgNewFunction \strSet { M m }
   {
     \__fun_do_assignment:Nnn #1 { \str_gset:Nn #1 {#2} } { \str_set:Nn #1 {#2} }
   }
 
-\fun@NewTwoFunctions \strSetEq \StrSetEq { M M }
+\prgNewFunction \strSetEq { M M }
   {
     \__fun_do_assignment:Nnn #1
       { \str_gset_eq:NN #1 #2 } { \str_set_eq:NN #1 #2 }
   }
 
-\fun@NewTwoFunctions \strConcat \StrConcat { M M M }
+\prgNewFunction \strConcat { M M M }
   {
     \__fun_do_assignment:Nnn #1
       { \str_gconcat:NNN #1 #2 #3 } { \str_concat:NNN #1 #2 #3 }
   }
 
-\fun@NewTwoFunctions \strClear \StrClear { M }
+\prgNewFunction \strClear { M }
   {
     \__fun_do_assignment:Nnn #1 { \str_gclear:N #1 } { \str_clear:N #1 }
   }
 
-\fun@NewTwoFunctions \strClearNew \StrClearNew { M }
+\prgNewFunction \strClearNew { M }
   {
     \__fun_do_assignment:Nnn #1 { \str_gclear_new:N #1 } { \str_clear_new:N #1 }
   }
 
-\fun@NewTwoFunctions \strPutLeft \StrPutLeft { M m }
+\prgNewFunction \strPutLeft { M m }
   {
     \__fun_do_assignment:Nnn #1
       { \str_gput_left:Nn #1 {#2} } { \str_put_left:Nn #1 {#2} }
   }
 
-\fun@NewTwoFunctions \strPutRight \StrPutRight { M m }
+\prgNewFunction \strPutRight { M m }
   {
     \__fun_do_assignment:Nnn #1
       { \str_gput_right:Nn #1 {#2} } { \str_put_right:Nn #1 {#2} }
   }
 
-\fun@NewTwoFunctions \strVarReplaceOnce \StrVarReplaceOnce { M m m }
+\prgNewFunction \strVarReplaceOnce { M m m }
   {
     \__fun_do_assignment:Nnn #1
       { \str_greplace_once:Nnn #1 {#2} {#3} }
       { \str_replace_once:Nnn #1 {#2} {#3} }
   }
 
-\fun@NewTwoFunctions \strVarReplaceAll \StrVarReplaceAll { M m m }
+\prgNewFunction \strVarReplaceAll { M m m }
   {
     \__fun_do_assignment:Nnn #1
       { \str_greplace_all:Nnn #1 {#2} {#3} }
       { \str_replace_all:Nnn #1 {#2} {#3} }
   }
 
-\fun@NewTwoFunctions \strVarRemoveOnce \StrVarRemoveOnce { M m }
+\prgNewFunction \strVarRemoveOnce { M m }
   {
     \__fun_do_assignment:Nnn #1
       { \str_gremove_once:Nn #1 {#2} } { \str_remove_once:Nn #1 {#2} }
   }
 
-\fun@NewTwoFunctions \strVarRemoveAll \StrVarRemoveAll { M m }
+\prgNewFunction \strVarRemoveAll { M m }
   {
     \__fun_do_assignment:Nnn #1
       { \str_gremove_all:Nn #1 {#2} } { \str_remove_all:Nn #1 {#2} }
   }
 
-%% Avoid naming confict with xstring package
-\fun@NewTwoFunctions \strCount \StrCount { m }
-  { \expWhole { \str_count:n { #1 } } }
+\prgNewFunction \strCount { m } { \expWhole { \str_count:n { #1 } } }
 
-%% Provide another name for \StrCount function
-\prgNewFunction \StrSize { m } { \expWhole { \str_count:n { #1 } } }
+\prgNewFunction \strVarCount { M } { \expWhole { \str_count:N #1 } }
 
-\fun@NewTwoFunctions \strVarCount \StrVarCount { M }
-  { \expWhole { \str_count:N #1 } }
+\prgNewFunction \strHead { m } { \expWhole { \str_head:n { #1 } } }
 
-\fun@NewTwoFunctions \strHead \StrHead { m }
-  { \expWhole { \str_head:n { #1 } } }
+\prgNewFunction \strVarHead { M } { \expWhole { \str_head:N #1 } }
 
-\fun@NewTwoFunctions \strVarHead \StrVarHead { M }
-  { \expWhole { \str_head:N #1 } }
+\prgNewFunction \strTail { m } { \expWhole { \str_tail:n { #1 } } }
 
-\fun@NewTwoFunctions \strTail \StrTail { m }
-  { \expWhole { \str_tail:n { #1 } } }
+\prgNewFunction \strVarTail { M } { \expWhole { \str_tail:N #1 } }
 
-\fun@NewTwoFunctions \strVarTail \StrVarTail { M }
-  { \expWhole { \str_tail:N #1 } }
+\prgNewFunction \strItem { m m } { \expWhole { \str_item:nn {#1} {#2} } }
 
-\fun@NewTwoFunctions \strItem \StrItem { m m }
-  { \expWhole { \str_item:nn {#1} {#2} } }
+\prgNewFunction \strVarItem { M m } { \expWhole { \str_item:Nn #1 {#2} } }
 
-\fun@NewTwoFunctions \strVarItem \StrVarItem { M m }
-  { \expWhole { \str_item:Nn #1 {#2} } }
+\prgNewFunction \strCase { m m } { \str_case:nn {#1} {#2} }
+\prgNewFunction \strCaseT { m m n } { \str_case:nnT {#1} {#2} {#3} }
+\prgNewFunction \strCaseF { m m n } { \str_case:nnF {#1} {#2} {#3} }
+\prgNewFunction \strCaseTF { m m n n } { \str_case:nnTF {#1} {#2} {#3} {#4} }
 
-\fun@NewTwoFunctions \strCase \StrCase { m m }
-  { \str_case:nn {#1} {#2} }
-\fun@NewTwoFunctions \strCaseT \StrCaseT { m m n }
-  { \str_case:nnT {#1} {#2} {#3} }
-\fun@NewTwoFunctions \strCaseF \StrCaseF { m m n }
-  { \str_case:nnF {#1} {#2} {#3} }
-\fun@NewTwoFunctions \strCaseTF \StrCaseTF { m m n n }
-  { \str_case:nnTF {#1} {#2} {#3} {#4} }
+\prgNewFunction \strMapInline { m n } { \str_map_inline:nn {#1} {#2} }
 
-\fun@NewTwoFunctions \strMapInline \StrMapInline { m n }
-  {
-    \str_map_inline:nn {#1} {#2}
-  }
+\prgNewFunction \strVarMapInline { M n } { \str_map_inline:Nn #1 {#2} }
 
-\fun@NewTwoFunctions \strVarMapInline \StrVarMapInline { M n }
-  {
-    \str_map_inline:Nn #1 {#2}
-  }
+\prgNewFunction \strMapVariable { m M n } { \str_map_variable:nNn {#1} #2 {#3} }
 
-\fun@NewTwoFunctions \strMapVariable \StrMapVariable { m M n }
-  {
-    \str_map_variable:nNn {#1} #2 {#3}
-  }
+\prgNewFunction \strVarMapVariable { M M n } { \str_map_variable:NNn #1 #2 {#3} }
 
-\fun@NewTwoFunctions \strVarMapVariable \StrVarMapVariable { M M n }
-  {
-    \str_map_variable:NNn #1 #2 {#3}
-  }
-
-\fun@NewTwoConditionals \strIfExist \StrIfExist { M }
+\prgNewConditional \strIfExist { M }
   {
     \str_if_exist:NTF #1
       { \prgReturn { \cTrueBool } }  { \prgReturn { \cFalseBool } }
   }
 
-\fun@NewTwoConditionals \strVarIfEmpty \StrVarIfEmpty { M }
+\prgNewConditional \strVarIfEmpty { M }
   {
     \str_if_empty:NTF #1
       { \prgReturn { \cTrueBool } } { \prgReturn { \cFalseBool } }
   }
 
-\fun@NewTwoConditionals \strIfEq \StrIfEq { m m }
+\prgNewConditional \strIfEq { m m }
   {
     \str_if_eq:nnTF {#1} {#2}
      { \prgReturn { \cTrueBool } } { \prgReturn { \cFalseBool } }
   }
 
-\fun@NewTwoConditionals \strVarIfEq \StrVarIfEq { M M }
+\prgNewConditional \strVarIfEq { M M }
   {
     \str_if_eq:NNTF #1 #2
       { \prgReturn { \cTrueBool } } { \prgReturn { \cFalseBool } }
   }
 
-\fun@NewTwoConditionals \strIfIn \StrIfIn { m m }
+\prgNewConditional \strIfIn { m m }
   {
     \str_if_in:nnTF {#1} {#2}
       { \prgReturn { \cTrueBool } } { \prgReturn { \cFalseBool } }
   }
 
-\fun@NewTwoConditionals \strVarIfIn \StrVarIfIn { M m }
+\prgNewConditional \strVarIfIn { M m }
   {
     \str_if_in:NnTF #1 {#2}
       { \prgReturn { \cTrueBool } } { \prgReturn { \cFalseBool } }
   }
 
-%% Avoid naming confict with xstring package
-\fun@NewTwoConditionals \strCompare \StrCompare { m N m }
-  {
-    \str_compare:nNnTF {#1} #2 {#3}
-      { \prgReturn { \cTrueBool } }
-      { \prgReturn { \cFalseBool } }
-  }
-
-%% Provide another name for \StrCompare function
-\prgNewConditional \StrIfCompare { m N m }
+\prgNewConditional \strCompare { m N m }
   {
     \str_compare:nNnTF {#1} #2 {#3}
       { \prgReturn { \cTrueBool } }
@@ -1493,157 +1437,143 @@
 \int_new:N \gTmpiInt     \int_new:N \gTmpjInt     \int_new:N \gTmpkInt
 \int_new:N \g@FunTmpxInt \int_new:N \g@FunTmpyInt \int_new:N \g@FunTmpzInt
 
-\fun@NewTwoFunctions \intEval \IntEval { e } { \expWhole { \int_eval:n {#1} } }
+\prgNewFunction \intEval { e } { \expWhole { \int_eval:n {#1} } }
 
-\fun@NewTwoFunctions \intMathAdd \IntMathAdd { e e }
-  { \expWhole { \int_eval:n { (#1) + (#2) } } }
+\prgNewFunction \intMathAdd { e e } { \expWhole { \int_eval:n { (#1) + (#2) } } }
 
-\fun@NewTwoFunctions \intMathSub \IntMathSub { e e }
-  { \expWhole { \int_eval:n { (#1) - (#2) } } }
+\prgNewFunction \intMathSub { e e } { \expWhole { \int_eval:n { (#1) - (#2) } } }
 
-\fun@NewTwoFunctions \intMathMult \IntMathMult { e e }
-  { \expWhole { \int_eval:n { (#1) * (#2) } } }
+\prgNewFunction \intMathMult { e e } { \expWhole { \int_eval:n { (#1) * (#2) } } }
 
-\fun@NewTwoFunctions \intMathDiv \IntMathDiv { e e }
-  { \expWhole { \int_div_round:nn {#1} {#2} } }
+\prgNewFunction \intMathDiv { e e } { \expWhole { \int_div_round:nn {#1} {#2} } }
 
-\fun@NewTwoFunctions \intMathDivTruncate \IntMathDivTruncate { e e }
+\prgNewFunction \intMathDivTruncate { e e }
   {
     \expWhole { \int_div_truncate:nn {#1} {#2} }
   }
 
-\fun@NewTwoFunctions \intMathSign \IntMathSign { e }
-  { \expWhole { \int_sign:n {#1} } }
+\prgNewFunction \intMathSign { e } { \expWhole { \int_sign:n {#1} } }
 
-\fun@NewTwoFunctions \intMathAbs \IntMathAbs { e }
-  { \expWhole { \int_abs:n {#1} } }
+\prgNewFunction \intMathAbs { e } { \expWhole { \int_abs:n {#1} } }
 
-\fun@NewTwoFunctions \intMathMax \IntMathMax { e e }
-  { \expWhole { \int_max:nn {#1} {#2} } }
+\prgNewFunction \intMathMax { e e } { \expWhole { \int_max:nn {#1} {#2} } }
 
-\fun@NewTwoFunctions \intMathMin \IntMathMin { e e }
-  { \expWhole { \int_min:nn {#1} {#2} } }
+\prgNewFunction \intMathMin { e e } { \expWhole { \int_min:nn {#1} {#2} } }
 
-\fun@NewTwoFunctions \intMathMod \IntMathMod { e e }
-  { \expWhole { \int_mod:nn {#1} {#2} } }
+\prgNewFunction \intMathMod { e e } { \expWhole { \int_mod:nn {#1} {#2} } }
 
-\fun@NewTwoFunctions \intMathRand \IntMathRand { e e }
-  { \expWhole { \int_rand:nn {#1} {#2} } }
+\prgNewFunction \intMathRand { e e } { \expWhole { \int_rand:nn {#1} {#2} } }
 
-\fun@NewTwoFunctions \intNew \IntNew { M } { \int_new:N #1 }
+\prgNewFunction \intNew { M } { \int_new:N #1 }
 
-\fun@NewTwoFunctions \intConst \IntConst { M e } { \int_const:Nn #1 { #2 } }
+\prgNewFunction \intConst { M e } { \int_const:Nn #1 { #2 } }
 
-\fun@NewTwoFunctions \intLog \IntLog { e } { \int_log:n { #1 } }
+\prgNewFunction \intLog { e } { \int_log:n { #1 } }
 
-\fun@NewTwoFunctions \intVarLog \IntVarLog { M } { \int_log:N #1 }
+\prgNewFunction \intVarLog { M } { \int_log:N #1 }
 
-\fun@NewTwoFunctions \intShow \IntShow { e } { \int_show:n { #1 } }
+\prgNewFunction \intShow { e } { \int_show:n { #1 } }
 
-\fun@NewTwoFunctions \intVarShow \IntVarShow { M } { \int_show:N #1 }
+\prgNewFunction \intVarShow { M } { \int_show:N #1 }
 
-\fun@NewTwoFunctions \intUse \IntUse { M } { \prgReturn { \expValue #1 } }
+\prgNewFunction \intUse { M } { \prgReturn { \expValue #1 } }
 
-\fun@NewTwoFunctions \intSet \IntSet { M e }
+\prgNewFunction \intSet { M e }
   {
     \__fun_do_assignment:Nnn #1 { \int_gset:Nn #1 {#2} } { \int_set:Nn #1 {#2} }
   }
 
-\fun@NewTwoFunctions \intZero \IntZero { M }
+\prgNewFunction \intZero { M }
   {
     \__fun_do_assignment:Nnn #1 { \int_gzero:N #1 } { \int_zero:N #1 }
   }
 
-\fun@NewTwoFunctions \intZeroNew \IntZeroNew { M }
+\prgNewFunction \intZeroNew { M }
   {
     \__fun_do_assignment:Nnn #1 { \int_gzero_new:N #1 } { \int_zero_new:N #1 }
   }
 
-\fun@NewTwoFunctions \intSetEq \IntSetEq { M M }
+\prgNewFunction \intSetEq { M M }
   {
     \__fun_do_assignment:Nnn #1
       { \int_gset_eq:NN #1 #2 } { \int_set_eq:NN #1 #2 }
   }
 
-\fun@NewTwoFunctions \intIncr \IntIncr { M }
+\prgNewFunction \intIncr { M }
   {
     \__fun_do_assignment:Nnn #1 { \int_gincr:N #1 } { \int_incr:N #1 }
   }
 
-\fun@NewTwoFunctions \intDecr \IntDecr { M }
+\prgNewFunction \intDecr { M }
   {
     \__fun_do_assignment:Nnn #1 { \int_gdecr:N #1 } { \int_decr:N #1 }
   }
 
-\fun@NewTwoFunctions \intAdd \IntAdd { M e }
+\prgNewFunction \intAdd { M e }
   {
     \__fun_do_assignment:Nnn #1 { \int_gadd:Nn #1 {#2} } { \int_add:Nn #1 {#2} }
   }
 
-\fun@NewTwoFunctions \intSub \IntSub { M e }
+\prgNewFunction \intSub { M e }
   {
     \__fun_do_assignment:Nnn #1 { \int_gsub:Nn #1 {#2} } { \int_sub:Nn #1 {#2} }
   }
 
 %% Command \prg_replicate:nn yields its result after two expansion steps
-\fun@NewTwoFunctions \intReplicate \IntReplicate { e m }
+\prgNewFunction \intReplicate { e m }
   {
     \exp_args:NNo \exp_args:No \prgReturn { \prg_replicate:nn {#1} {#2} }
   }
 
-\fun@NewTwoFunctions \intStepInline \IntStepInline { e e e n }
+\prgNewFunction \intStepInline { e e e n }
   {
     \int_step_inline:nnnn {#1} {#2} {#3} {#4}
   }
 
-\fun@NewTwoFunctions \intStepOneInline \IntStepOneInline { e e n }
+\prgNewFunction \intStepOneInline { e e n }
   {
     \int_step_inline:nnn {#1} {#2} {#3}
   }
 
-\fun@NewTwoFunctions \intStepVariable \IntStepVariable { e e e M n }
+\prgNewFunction \intStepVariable { e e e M n }
   {
     \int_step_variable:nnnNn {#1} {#2} {#3} #4 {#5}
   }
 
-\fun@NewTwoFunctions \intStepOneVariable \IntStepOneVariable { e e M n }
+\prgNewFunction \intStepOneVariable { e e M n }
   {
     \int_step_variable:nnNn {#1} {#2} #3 {#4}
   }
 
-\fun@NewTwoConditionals \intIfExist \IntIfExist { M }
+\prgNewConditional \intIfExist { M }
   {
     \int_if_exist:NTF #1
       { \prgReturn { \cTrueBool } } { \prgReturn { \cFalseBool } }
   }
 
-\fun@NewTwoConditionals \intIfOdd \IntIfOdd { e }
+\prgNewConditional \intIfOdd { e }
   {
     \int_if_odd:nTF { #1 }
       { \prgReturn { \cTrueBool } } { \prgReturn { \cFalseBool } }
   }
 
-\fun@NewTwoConditionals \intIfEven \IntIfEven { e }
+\prgNewConditional \intIfEven { e }
   {
     \int_if_even:nTF { #1 }
       { \prgReturn { \cTrueBool } } { \prgReturn { \cFalseBool } }
   }
 
-\fun@NewTwoConditionals \intCompare \IntCompare { e N e }
+\prgNewConditional \intCompare { e N e }
   {
     \int_compare:nNnTF {#1} #2 {#3}
       { \prgReturn { \cTrueBool } }
       { \prgReturn { \cFalseBool } }
   }
 
-\fun@NewTwoFunctions \intCase \IntCase { e m }
-  { \int_case:nn {#1} {#2} }
-\fun@NewTwoFunctions \intCaseT \IntCaseT { e m n }
-  { \int_case:nnT {#1} {#2} {#3} }
-\fun@NewTwoFunctions \intCaseF \IntCaseF { e m n }
-  { \int_case:nnF {#1} {#2} {#3} }
-\fun@NewTwoFunctions \intCaseTF \IntCaseTF { e m n n }
-  { \int_case:nnTF {#1} {#2} {#3} {#4} }
+\prgNewFunction \intCase { e m } { \int_case:nn {#1} {#2} }
+\prgNewFunction \intCaseT { e m n } { \int_case:nnT {#1} {#2} {#3} }
+\prgNewFunction \intCaseF { e m n } { \int_case:nnF {#1} {#2} {#3} }
+\prgNewFunction \intCaseTF { e m n n } { \int_case:nnTF {#1} {#2} {#3} {#4} }
 
 %%% --------------------------------------------------------
 %%> \section{Interfaces for Floating Point Numbers (Fp)}
@@ -1666,93 +1596,85 @@
 \fp_new:N \gTmpiFp     \fp_new:N \gTmpjFp     \fp_new:N \gTmpkFp
 \fp_new:N \g@FunTmpxFp \fp_new:N \g@FunTmpyFp \fp_new:N \g@FunTmpzFp
 
-\fun@NewTwoFunctions \fpEval \FpEval { e } { \expWhole { \fp_eval:n {#1} } }
+\prgNewFunction \fpEval { e } { \expWhole { \fp_eval:n {#1} } }
 
-\fun@NewTwoFunctions \fpMathAdd \FpMathAdd { e e }
-  { \expWhole { \fp_eval:n { (#1) + (#2) } } }
+\prgNewFunction \fpMathAdd { e e } { \expWhole { \fp_eval:n { (#1) + (#2) } } }
 
-\fun@NewTwoFunctions \fpMathSub \FpMathSub { e e }
-  { \expWhole { \fp_eval:n { (#1) - (#2) } } }
+\prgNewFunction \fpMathSub { e e } { \expWhole { \fp_eval:n { (#1) - (#2) } } }
 
-\fun@NewTwoFunctions \fpMathMult \FpMathMult { e e }
-  { \expWhole { \fp_eval:n { (#1) * (#2) } } }
+\prgNewFunction \fpMathMult { e e } { \expWhole { \fp_eval:n { (#1) * (#2) } } }
 
-\fun@NewTwoFunctions \fpMathDiv \FpMathDiv { e e }
-  { \expWhole { \fp_eval:n { (#1) / (#2) } } }
+\prgNewFunction \fpMathDiv { e e } { \expWhole { \fp_eval:n { (#1) / (#2) } } }
 
-\fun@NewTwoFunctions \fpMathSign \FpMathSign { e }
-  { \expWhole { \fp_sign:n {#1} } }
+\prgNewFunction \fpMathSign { e } { \expWhole { \fp_sign:n {#1} } }
 
-\fun@NewTwoFunctions \fpMathAbs \FpMathAbs { e }
-  { \expWhole { \fp_abs:n {#1} } }
+\prgNewFunction \fpMathAbs { e } { \expWhole { \fp_abs:n {#1} } }
 
-\fun@NewTwoFunctions \fpMathMax \FpMathMax { e e }
-  { \expWhole { \fp_max:nn {#1} {#2} } }
+\prgNewFunction \fpMathMax { e e } { \expWhole { \fp_max:nn {#1} {#2} } }
 
-\fun@NewTwoFunctions \fpMathMin \FpMathMin { e e }
-  { \expWhole { \fp_min:nn {#1} {#2} } }
+\prgNewFunction \fpMathMin { e e } { \expWhole { \fp_min:nn {#1} {#2} } }
 
-\fun@NewTwoFunctions \fpNew \FpNew { M } { \fp_new:N #1 }
+\prgNewFunction \fpNew { M } { \fp_new:N #1 }
 
-\fun@NewTwoFunctions \fpConst \FpConst { M e } { \fp_const:Nn #1 {#2} }
+\prgNewFunction \fpConst { M e } { \fp_const:Nn #1 {#2} }
 
-\fun@NewTwoFunctions \fpUse \FpUse { M } { \expWhole { \fp_use:N #1 } }
+\prgNewFunction \fpUse { M } { \expWhole { \fp_use:N #1 } }
 
-\fun@NewTwoFunctions \fpLog \FpLog { e } { \fp_log:n {#1} }
+\prgNewFunction \fpLog { e } { \fp_log:n {#1} }
 
-\fun@NewTwoFunctions \fpVarLog \FpVarLog { M } { \fp_log:N #1 }
+\prgNewFunction \fpVarLog { M } { \fp_log:N #1 }
 
-\fun@NewTwoFunctions \fpShow \FpShow { e } { \fp_show:n {#1} }
+\prgNewFunction \fpShow { e } { \fp_show:n {#1} }
 
-\fun@NewTwoFunctions \fpVarShow \FpVarShow { M } { \fp_show:N #1 }
+\prgNewFunction \fpVarShow { M } { \fp_show:N #1 }
 
-\fun@NewTwoFunctions \fpSet \FpSet { M e }
+\prgNewFunction \fpSet { M e }
   {
     \__fun_do_assignment:Nnn #1 { \fp_gset:Nn #1 {#2} } { \fp_set:Nn #1 {#2} }
   }
 
-\fun@NewTwoFunctions \fpSetEq \FpSetEq { M M }
+\prgNewFunction \fpSetEq { M M }
   {
     \__fun_do_assignment:Nnn #1 { \fp_gset_eq:NN #1 #2 } { \fp_set_eq:NN #1 #2 }
   }
 
-\fun@NewTwoFunctions \fpZero \FpZero { M }
+\prgNewFunction \fpZero { M }
   {
     \__fun_do_assignment:Nnn #1 { \fp_gzero:N #1 } { \fp_zero:N #1 }
   }
 
-\fun@NewTwoFunctions \fpZeroNew \FpZeroNew { M }
+\prgNewFunction \fpZeroNew { M }
   {
     \__fun_do_assignment:Nnn #1 { \fp_gzero_new:N #1 } { \fp_zero_new:N #1 }
   }
 
-\fun@NewTwoFunctions \fpAdd \FpAdd { M e }
+\prgNewFunction \fpAdd { M e }
   {
     \__fun_do_assignment:Nnn #1 { \fp_gadd:Nn #1 {#2} } { \fp_add:Nn #1 {#2} }
   }
 
-\fun@NewTwoFunctions \fpSub \FpSub { M e }
+\prgNewFunction \fpSub { M e }
   {
     \__fun_do_assignment:Nnn #1 { \fp_gsub:Nn #1 {#2} } { \fp_sub:Nn #1 {#2} }
   }
 
-\fun@NewTwoFunctions \fpStepInline \FpStepInline { e e e n }
+\prgNewFunction \fpStepInline { e e e n }
   {
     \fp_step_inline:nnnn {#1} {#2} {#3} {#4}
   }
 
-\fun@NewTwoFunctions \fpStepVariable \FpStepVariable { e e e M n }
+\prgNewFunction \fpStepVariable { e e e M n }
   {
     \fp_step_variable:nnnNn {#1} {#2} {#3} #4 {#5}
   }
 
-\fun@NewTwoConditionals \fpIfExist \FpIfExist { M }
+\prgNewConditional \fpIfExist { M }
   {
     \fp_if_exist:NTF #1
       { \prgReturn { \cTrueBool } } { \prgReturn { \cFalseBool } }
   }
 
-\fun@NewTwoConditionals \fpCompare \FpCompare { e N e }
+\prgNewConditional \fpCompare { e N e }
   {
     \fp_compare:nNnTF {#1} #2 {#3}
       { \prgReturn { \cTrueBool } }
@@ -1774,122 +1696,122 @@
 \dim_new:N \gTmpiDim     \dim_new:N \gTmpjDim     \dim_new:N \gTmpkDim
 \dim_new:N \g@FunTmpxDim \dim_new:N \g@FunTmpyDim \dim_new:N \g@FunTmpzDim
 
-\fun@NewTwoFunctions \dimEval \DimEval { m }
+\prgNewFunction \dimEval { m }
   {
     \prgReturn { \expWhole { \dim_eval:n { #1 } } }
   }
 
-\fun@NewTwoFunctions \dimMathAdd \DimMathAdd { m m }
+\prgNewFunction \dimMathAdd { m m }
   {
     \dim_set:Nn \l@FunTmpxDim { \dim_eval:n { (#1) + (#2) } }
     \prgReturn { \expValue \l@FunTmpxDim }
   }
 
-\fun@NewTwoFunctions \dimMathSub \DimMathSub { m m }
+\prgNewFunction \dimMathSub { m m }
   {
     \dim_set:Nn \l@FunTmpxDim { \dim_eval:n { (#1) - (#2) } }
     \prgReturn { \expValue \l@FunTmpxDim }
   }
 
-\fun@NewTwoFunctions \dimMathSign \DimMathSign { m }
+\prgNewFunction \dimMathSign { m }
   {
     \prgReturn { \expWhole { \dim_sign:n { #1 } } }
   }
 
-\fun@NewTwoFunctions \dimMathAbs \DimMathAbs { m }
+\prgNewFunction \dimMathAbs { m }
   {
     \prgReturn { \expWhole { \dim_abs:n { #1 } } }
   }
 
-\fun@NewTwoFunctions \dimMathMax \DimMathMax { m m }
+\prgNewFunction \dimMathMax { m m }
   {
     \prgReturn { \expWhole { \dim_max:nn { #1 } { #2 } } }
   }
 
-\fun@NewTwoFunctions \dimMathMin \DimMathMin { m m }
+\prgNewFunction \dimMathMin { m m }
   {
     \prgReturn { \expWhole { \dim_min:nn { #1 } { #2 } } }
   }
 
-\fun@NewTwoFunctions \dimMathRatio \DimMathRatio { m m }
+\prgNewFunction \dimMathRatio { m m }
   {
     \prgReturn { \expWhole { \dim_ratio:nn { #1 } { #2 } } }
   }
 
-\fun@NewTwoFunctions \dimNew \DimNew { M } { \dim_new:N #1 }
+\prgNewFunction \dimNew { M } { \dim_new:N #1 }
 
-\fun@NewTwoFunctions \dimConst \DimConst { M m } { \dim_const:Nn #1 {#2} }
+\prgNewFunction \dimConst { M m } { \dim_const:Nn #1 {#2} }
 
-\fun@NewTwoFunctions \dimUse \DimUse { M } { \prgReturn { \expValue #1 } }
+\prgNewFunction \dimUse { M } { \prgReturn { \expValue #1 } }
 
-\fun@NewTwoFunctions \dimLog \DimLog { m } { \dim_log:n { #1 } }
+\prgNewFunction \dimLog { m } { \dim_log:n { #1 } }
 
-\fun@NewTwoFunctions \dimVarLog \DimVarLog { M } { \dim_log:N #1 }
+\prgNewFunction \dimVarLog { M } { \dim_log:N #1 }
 
-\fun@NewTwoFunctions \dimShow \DimShow { m } { \dim_show:n { #1 } }
+\prgNewFunction \dimShow { m } { \dim_show:n { #1 } }
 
-\fun@NewTwoFunctions \dimVarShow \DimVarShow { M } { \dim_show:N #1 }
+\prgNewFunction \dimVarShow { M } { \dim_show:N #1 }
 
-\fun@NewTwoFunctions \dimSet \DimSet { M m }
+\prgNewFunction \dimSet { M m }
   {
     \__fun_do_assignment:Nnn #1 { \dim_gset:Nn #1 {#2} } { \dim_set:Nn #1 {#2} }
   }
 
-\fun@NewTwoFunctions \dimSetEq \DimSetEq { M M }
+\prgNewFunction \dimSetEq { M M }
   {
     \__fun_do_assignment:Nnn #1
       { \dim_gset_eq:NN #1 #2 } { \dim_set_eq:NN #1 #2 }
   }
 
-\fun@NewTwoFunctions \dimZero \DimZero { M }
+\prgNewFunction \dimZero { M }
   {
     \__fun_do_assignment:Nnn #1 { \dim_gzero:N #1 } { \dim_zero:N #1 }
   }
 
-\fun@NewTwoFunctions \dimZeroNew \DimZeroNew { M }
+\prgNewFunction \dimZeroNew { M }
   {
     \__fun_do_assignment:Nnn #1 { \dim_gzero_new:N #1 } { \dim_zero_new:N #1 }
   }
 
-\fun@NewTwoFunctions \dimAdd \DimAdd { M m }
+\prgNewFunction \dimAdd { M m }
   {
     \__fun_do_assignment:Nnn #1 { \dim_gadd:Nn #1 {#2} } { \dim_add:Nn #1 {#2} }
   }
 
-\fun@NewTwoFunctions \dimSub \DimSub { M m }
+\prgNewFunction \dimSub { M m }
   {
     \__fun_do_assignment:Nnn #1 { \dim_gsub:Nn #1 {#2} } { \dim_sub:Nn #1 {#2} }
   }
 
-\fun@NewTwoFunctions \dimStepInline \DimStepInline { m m m n }
+\prgNewFunction \dimStepInline { m m m n }
   {
     \dim_step_inline:nnnn { #1 } { #2 } { #3 } { #4 }
   }
 
-\fun@NewTwoFunctions \dimStepVariable \DimStepVariable { m m m M n }
+\prgNewFunction \dimStepVariable { m m m M n }
   {
     \dim_step_variable:nnnNn { #1 } { #2 } { #3 } #4 { #5 }
   }
 
-\fun@NewTwoConditionals \dimIfExist \DimIfExist { M }
+\prgNewConditional \dimIfExist { M }
   {
     \dim_if_exist:NTF #1
       { \prgReturn { \cTrueBool } } { \prgReturn { \cFalseBool } }
   }
 
-\fun@NewTwoConditionals \dimCompare \DimCompare { m N m }
+\prgNewConditional \dimCompare { m N m }
   {
     \dim_compare:nNnTF {#1} #2 {#3}
       { \prgReturn { \cTrueBool } } { \prgReturn { \cFalseBool } }
   }
 
-\fun@NewTwoFunctions \dimCase \DimCase { m m }
+\prgNewFunction \dimCase { m m }
   { \dim_case:nn {#1} {#2} }
-\fun@NewTwoFunctions \dimCaseT \DimCaseT { m m n }
+\prgNewFunction \dimCaseT { m m n }
   { \dim_case:nnT {#1} {#2} {#3} }
-\fun@NewTwoFunctions \dimCaseF \DimCaseF { m m n }
+\prgNewFunction \dimCaseF { m m n }
   { \dim_case:nnF {#1} {#2} {#3} }
-\fun@NewTwoFunctions \dimCaseTF \DimCaseTF { m m n n }
+\prgNewFunction \dimCaseTF { m m n n }
   { \dim_case:nnTF {#1} {#2} {#3} {#4} }
 
 %%% --------------------------------------------------------
@@ -1915,214 +1837,211 @@
 
 \clist_set_eq:NN \cEmptyClist \c_empty_clist
 
-\fun@NewTwoFunctions \clistNew \ClistNew { M } { \clist_new:N #1 }
+\prgNewFunction \clistNew { M } { \clist_new:N #1 }
 
-\fun@NewTwoFunctions \clistLog \ClistLog { m } { \clist_log:n { #1 } }
+\prgNewFunction \clistLog { m } { \clist_log:n { #1 } }
 
-\fun@NewTwoFunctions \clistVarLog \ClistVarLog { M } { \clist_log:N #1 }
+\prgNewFunction \clistVarLog { M } { \clist_log:N #1 }
 
-\fun@NewTwoFunctions \clistShow \ClistShow { m } { \clist_show:n { #1 } }
+\prgNewFunction \clistShow { m } { \clist_show:n { #1 } }
 
-\fun@NewTwoFunctions \clistVarShow \ClistVarShow { M } { \clist_show:N #1 }
+\prgNewFunction \clistVarShow { M } { \clist_show:N #1 }
 
-\fun@NewTwoFunctions \clistVarJoin \ClistVarJoin { M m }
+\prgNewFunction \clistVarJoin { M m }
   {
     \expWhole { \clist_use:Nn #1 { #2 } }
   }
 
-\fun@NewTwoFunctions \clistVarJoinExtended \ClistVarJoinExtended { M m m m }
+\prgNewFunction \clistVarJoinExtended { M m m m }
   {
     \expWhole { \clist_use:Nnnn #1 { #2 } { #3 } { #4 } }
   }
 
-\fun@NewTwoFunctions \clistJoin \ClistJoin { m m }
+\prgNewFunction \clistJoin { m m }
   {
     \expWhole { \clist_use:nn { #1 } { #2 } }
   }
 
-\fun@NewTwoFunctions \clistJoinExtended \ClistJoinExtended { m m m m }
+\prgNewFunction \clistJoinExtended { m m m m }
   {
     \expWhole { \clist_use:nnnn { #1 } { #2 } { #3 } { #4 } }
   }
 
-\fun@NewTwoFunctions \clistConst \ClistConst { M m }
+\prgNewFunction \clistConst { M m }
   { \clist_const:Nn #1 { #2 } }
 
-\fun@NewTwoFunctions \clistSet \ClistSet { M m }
+\prgNewFunction \clistSet { M m }
   {
     \__fun_do_assignment:Nnn #1
       { \clist_gset:Nn #1 {#2} } { \clist_set:Nn #1 {#2} }
   }
 
-\fun@NewTwoFunctions \clistSetEq \ClistSetEq { M M }
+\prgNewFunction \clistSetEq { M M }
   {
     \__fun_do_assignment:Nnn #1
       { \clist_gset_eq:NN #1 #2 } { \clist_set_eq:NN #1 #2 }
   }
 
-\fun@NewTwoFunctions \clistSetFromSeq \ClistSetFromSeq { M M }
+\prgNewFunction \clistSetFromSeq { M M }
   {
     \__fun_do_assignment:Nnn #1
       { \clist_gset_from_seq:NN #1 #2 } { \clist_set_from_seq:NN #1 #2 }
   }
 
-\fun@NewTwoFunctions \clistConcat \ClistConcat { M M M }
+\prgNewFunction \clistConcat { M M M }
   {
     \__fun_do_assignment:Nnn #1
       { \clist_gconcat:NNN #1 #2 #3 } { \clist_concat:NNN #1 #2 #3 }
   }
 
-\fun@NewTwoFunctions \clistClear \ClistClear { M }
+\prgNewFunction \clistClear { M }
   {
     \__fun_do_assignment:Nnn #1 { \clist_gclear:N #1 } { \clist_clear:N #1 }
   }
 
-\fun@NewTwoFunctions \clistClearNew \ClistClearNew { M }
+\prgNewFunction \clistClearNew { M }
   {
     \__fun_do_assignment:Nnn #1
       { \clist_gclear_new:N #1 } { \clist_clear_new:N #1 }
   }
 
-\fun@NewTwoFunctions \clistPutLeft \ClistPutLeft { M m }
+\prgNewFunction \clistPutLeft { M m }
   {
     \__fun_do_assignment:Nnn #1
       { \clist_gput_left:Nn #1 {#2} } { \clist_put_left:Nn #1 {#2} }
   }
 
-\fun@NewTwoFunctions \clistPutRight \ClistPutRight { M m }
+\prgNewFunction \clistPutRight { M m }
   {
     \__fun_do_assignment:Nnn #1
       { \clist_gput_right:Nn #1 {#2} } { \clist_put_right:Nn #1 {#2} }
   }
 
-\fun@NewTwoFunctions \clistVarRemoveDuplicates \ClistVarRemoveDuplicates { M }
+\prgNewFunction \clistVarRemoveDuplicates { M }
   {
     \__fun_do_assignment:Nnn #1
       { \clist_gremove_duplicates:N #1 } { \clist_remove_duplicates:N #1 }
   }
 
-\fun@NewTwoFunctions \clistVarRemoveAll \ClistVarRemoveAll { M m }
+\prgNewFunction \clistVarRemoveAll { M m }
   {
     \__fun_do_assignment:Nnn #1
       { \clist_gremove_all:Nn #1 {#2} } { \clist_remove_all:Nn #1 {#2} }
   }
 
-\fun@NewTwoFunctions \clistVarReverse \ClistVarReverse { M }
+\prgNewFunction \clistVarReverse { M }
   {
     \__fun_do_assignment:Nnn #1 { \clist_greverse:N #1 } { \clist_reverse:N #1 }
   }
 
-\fun@NewTwoFunctions \clistVarSort \ClistVarSort { M m }
+\prgNewFunction \clistVarSort { M m }
   {
     \__fun_do_assignment:Nnn #1
       { \clist_gsort:Nn #1 {#2} } { \clist_sort:Nn #1 {#2} }
   }
 
-\fun@NewTwoFunctions \clistCount \ClistCount { m }
+\prgNewFunction \clistCount { m }
   { \expWhole { \clist_count:n { #1 } } }
 
-\fun@NewTwoFunctions \clistVarCount \ClistVarCount { M }
+\prgNewFunction \clistVarCount { M }
   { \expWhole { \clist_count:N #1 } }
 
-\fun@NewTwoFunctions \clistGet \ClistGet { M M }
+\prgNewFunction \clistGet { M M }
   {
     \clist_get:NN #1 #2
     \__fun_quark_upgrade_no_value:N #2
   }
-\fun@NewTwoFunctions \clistGetT \ClistGetT { M M n }
-  { \clist_get:NNT #1 #2 {#3} }
-\fun@NewTwoFunctions \clistGetF \ClistGetF { M M n }
-  { \clist_get:NNF #1 #2 {#3} }
-\fun@NewTwoFunctions \clistGetTF \ClistGetTF { M M n n }
-  { \clist_get:NNTF #1 #2 {#3} {#4} }
+\prgNewFunction \clistGetT { M M n } { \clist_get:NNT #1 #2 {#3} }
+\prgNewFunction \clistGetF { M M n } { \clist_get:NNF #1 #2 {#3} }
+\prgNewFunction \clistGetTF { M M n n } { \clist_get:NNTF #1 #2 {#3} {#4} }
 
-\fun@NewTwoFunctions \clistPop \ClistPop { M M }
+\prgNewFunction \clistPop { M M }
   {
     \__fun_do_assignment:Nnn #1
       { \clist_gpop:NN #1 #2 } { \clist_pop:NN #1 #2 }
     \__fun_quark_upgrade_no_value:N #2
   }
-\fun@NewTwoFunctions \clistPopT \ClistPopT { M M n }
+\prgNewFunction \clistPopT { M M n }
   {
     \__fun_do_assignment:Nnn #1
       { \clist_gpop:NNT #1 #2 {#3} } { \clist_pop:NNT #1 #2 {#3} }
   }
-\fun@NewTwoFunctions \clistPopF \ClistPopF { M M n }
+\prgNewFunction \clistPopF { M M n }
   {
     \__fun_do_assignment:Nnn #1
       { \clist_gpop:NNF #1 #2 {#3} } { \clist_pop:NNF #1 #2 {#3} }
   }
-\fun@NewTwoFunctions \clistPopTF \ClistPopTF { M M n n }
+\prgNewFunction \clistPopTF { M M n n }
   {
     \__fun_do_assignment:Nnn #1
       { \clist_gpop:NNTF #1 #2 {#3} {#4} } { \clist_pop:NNTF #1 #2 {#3} {#4} }
   }
 
-\fun@NewTwoFunctions \clistPush \ClistPush { M m }
+\prgNewFunction \clistPush { M m }
   {
     \__fun_do_assignment:Nnn #1
       { \clist_gpush:Nn #1 {#2} } { \clist_push:Nn #1 {#2} }
   }
 
-\fun@NewTwoFunctions \clistItem \ClistItem { m m }
+\prgNewFunction \clistItem { m m }
   { \expWhole { \clist_item:nn {#1} {#2} } }
 
-\fun@NewTwoFunctions \clistVarItem \ClistVarItem { M m }
+\prgNewFunction \clistVarItem { M m }
   { \expWhole { \clist_item:Nn #1 {#2} } }
 
-\fun@NewTwoFunctions \clistRandItem \ClistRandItem { m }
+\prgNewFunction \clistRandItem { m }
   { \expWhole { \clist_rand_item:n {#1} } }
 
-\fun@NewTwoFunctions \clistVarRandItem \ClistVarRandItem { M }
+\prgNewFunction \clistVarRandItem { M }
   { \expWhole { \clist_rand_item:N #1 } }
 
-\fun@NewTwoFunctions \clistMapInline \ClistMapInline { m n }
+\prgNewFunction \clistMapInline { m n }
   {
     \clist_map_inline:nn {#1} {#2}
   }
 
-\fun@NewTwoFunctions \clistVarMapInline \ClistVarMapInline { M n }
+\prgNewFunction \clistVarMapInline { M n }
   {
     \clist_map_inline:Nn #1 {#2}
   }
 
-\fun@NewTwoFunctions \clistMapVariable \ClistMapVariable { m M n }
+\prgNewFunction \clistMapVariable { m M n }
   {
     \clist_map_variable:nNn {#1} #2 {#3}
   }
 
-\fun@NewTwoFunctions \clistVarMapVariable \ClistVarMapVariable { M M n }
+\prgNewFunction \clistVarMapVariable { M M n }
   {
     \clist_map_variable:NNn #1 #2 {#3}
   }
 
 \cs_set_eq:NN \clistMapBreak \clist_map_break:
 
-\fun@NewTwoConditionals \clistIfExist \ClistIfExist { M }
+\prgNewConditional \clistIfExist { M }
   {
     \clist_if_exist:NTF #1
       { \prgReturn { \cTrueBool } }  { \prgReturn { \cFalseBool } }
   }
 
-\fun@NewTwoConditionals \clistIfEmpty \ClistIfEmpty { m }
+\prgNewConditional \clistIfEmpty { m }
   {
     \clist_if_empty:nTF {#1}
       { \prgReturn { \cTrueBool } }  { \prgReturn { \cFalseBool } }
   }
 
-\fun@NewTwoConditionals \clistVarIfEmpty \ClistVarIfEmpty { M }
+\prgNewConditional \clistVarIfEmpty { M }
   {
     \clist_if_empty:NTF #1
       { \prgReturn { \cTrueBool } }  { \prgReturn { \cFalseBool } }
   }
 
-\fun@NewTwoConditionals \clistIfIn \ClistIfIn { m m }
+\prgNewConditional \clistIfIn { m m }
   {
     \clist_if_in:nnTF {#1} {#2}
       { \prgReturn { \cTrueBool } }  { \prgReturn { \cFalseBool } }
   }
 
-\fun@NewTwoConditionals \clistVarIfIn \ClistVarIfIn { M m }
+\prgNewConditional \clistVarIfIn { M m }
   {
     \clist_if_in:NnTF #1 {#2}
       { \prgReturn { \cTrueBool } }  { \prgReturn { \cFalseBool } }
@@ -2142,248 +2061,248 @@
 
 \seq_set_eq:NN \cEmptySeq \c_empty_seq
 
-\fun@NewTwoFunctions \seqNew \SeqNew { M } { \seq_new:N #1 }
+\prgNewFunction \seqNew { M } { \seq_new:N #1 }
 
-\fun@NewTwoFunctions \seqVarLog \SeqVarLog { M } { \seq_log:N #1 }
+\prgNewFunction \seqVarLog { M } { \seq_log:N #1 }
 
-\fun@NewTwoFunctions \seqVarShow \SeqVarShow { M } { \seq_show:N #1 }
+\prgNewFunction \seqVarShow { M } { \seq_show:N #1 }
 
-\fun@NewTwoFunctions \seqVarJoin \SeqVarJoin { M m }
+\prgNewFunction \seqVarJoin { M m }
   {
     \expWhole { \seq_use:Nn #1 { #2 } }
   }
 
-\fun@NewTwoFunctions \seqVarJoinExtended \SeqVarJoinExtended { M m m m }
+\prgNewFunction \seqVarJoinExtended { M m m m }
   {
     \expWhole { \seq_use:Nnnn #1 { #2 } { #3 } { #4 } }
   }
 
-\fun@NewTwoFunctions \seqJoin \SeqJoin { m m }
+\prgNewFunction \seqJoin { m m }
   {
     \expWhole { \seq_use:nn { #1 } { #2 } }
   }
 
-\fun@NewTwoFunctions \seqJoinExtended \SeqJoinExtended { m m m m }
+\prgNewFunction \seqJoinExtended { m m m m }
   {
     \expWhole { \seq_use:nnnn { #1 } { #2 } { #3 } { #4 } }
   }
 
-\fun@NewTwoFunctions \seqConstFromClist \SeqConstFromClist { M m }
+\prgNewFunction \seqConstFromClist { M m }
   { \seq_const_from_clist:Nn #1 { #2 } }
 
-\fun@NewTwoFunctions \seqSetFromClist \SeqSetFromClist { M m }
+\prgNewFunction \seqSetFromClist { M m }
   {
     \__fun_do_assignment:Nnn #1
       { \seq_gset_from_clist:Nn #1 {#2} } { \seq_set_from_clist:Nn #1 {#2} }
   }
 
-\fun@NewTwoFunctions \seqSetEq \SeqSetEq { M M }
+\prgNewFunction \seqSetEq { M M }
   {
     \__fun_do_assignment:Nnn #1
       { \seq_gset_eq:NN #1 #2 } { \seq_set_eq:NN #1 #2 }
   }
 
-\fun@NewTwoFunctions \seqSetSplit \SeqSetSplit { M m m }
+\prgNewFunction \seqSetSplit { M m m }
   {
     \__fun_do_assignment:Nnn #1
       { \seq_gset_split:Nnn #1 {#2} {#3} } { \seq_set_split:Nnn #1 {#2} {#3} }
   }
 
-\fun@NewTwoFunctions \seqConcat \SeqConcat { M M M }
+\prgNewFunction \seqConcat { M M M }
   {
     \__fun_do_assignment:Nnn #1
       { \seq_gconcat:NNN #1 #2 #3 } { \seq_concat:NNN #1 #2 #3 }
   }
 
-\fun@NewTwoFunctions \seqClear \SeqClear { M }
+\prgNewFunction \seqClear { M }
   {
     \__fun_do_assignment:Nnn #1 { \seq_gclear:N #1 } { \seq_clear:N #1 }
   }
 
-\fun@NewTwoFunctions \seqClearNew \SeqClearNew { M }
+\prgNewFunction \seqClearNew { M }
   {
     \__fun_do_assignment:Nnn #1 { \seq_gclear_new:N #1 } { \seq_clear_new:N #1 }
   }
 
-\fun@NewTwoFunctions \seqPutLeft \SeqPutLeft { M m }
+\prgNewFunction \seqPutLeft { M m }
   {
     \__fun_do_assignment:Nnn #1
       { \seq_gput_left:Nn #1 {#2} } { \seq_put_left:Nn #1 {#2} }
   }
 
-\fun@NewTwoFunctions \seqPutRight \SeqPutRight { M m }
+\prgNewFunction \seqPutRight { M m }
   {
     \__fun_do_assignment:Nnn #1
       { \seq_gput_right:Nn #1 {#2} } { \seq_put_right:Nn #1 {#2} }
   }
 
-\fun@NewTwoFunctions \seqVarRemoveDuplicates \SeqVarRemoveDuplicates { M }
+\prgNewFunction \seqVarRemoveDuplicates { M }
   {
     \__fun_do_assignment:Nnn #1
       { \seq_gremove_duplicates:N #1 } { \seq_remove_duplicates:N #1 }
   }
 
-\fun@NewTwoFunctions \seqVarRemoveAll \SeqVarRemoveAll { M m }
+\prgNewFunction \seqVarRemoveAll { M m }
   {
     \__fun_do_assignment:Nnn #1
       { \seq_gremove_all:Nn #1 {#2} } { \seq_remove_all:Nn #1 {#2} }
   }
 
-\fun@NewTwoFunctions \seqVarReverse \SeqVarReverse { M }
+\prgNewFunction \seqVarReverse { M }
   {
     \__fun_do_assignment:Nnn #1 { \seq_greverse:N #1 } { \seq_reverse:N #1 }
   }
 
-\fun@NewTwoFunctions \seqVarSort \SeqVarSort { M m }
+\prgNewFunction \seqVarSort { M m }
   {
     \__fun_do_assignment:Nnn #1
       { \seq_gsort:Nn #1 {#2} } { \seq_sort:Nn #1 {#2} }
   }
 
-\fun@NewTwoFunctions \seqVarCount \SeqVarCount { M }
+\prgNewFunction \seqVarCount { M }
   { \expWhole { \seq_count:N #1 } }
 
-\fun@NewTwoFunctions \seqGet \SeqGet { M M }
+\prgNewFunction \seqGet { M M }
   {
     \seq_get:NN #1 #2
     \__fun_quark_upgrade_no_value:N #2
   }
-\fun@NewTwoFunctions \seqGetT \SeqGetT { M M n }
+\prgNewFunction \seqGetT { M M n }
   { \seq_get:NNT #1 #2 {#3} }
-\fun@NewTwoFunctions \seqGetF \SeqGetF { M M n }
+\prgNewFunction \seqGetF { M M n }
   { \seq_get:NNF #1 #2 {#3} }
-\fun@NewTwoFunctions \seqGetTF \SeqGetTF { M M n n }
+\prgNewFunction \seqGetTF { M M n n }
   { \seq_get:NNTF #1 #2 {#3} {#4} }
 
-\fun@NewTwoFunctions \seqPop \SeqPop { M M }
+\prgNewFunction \seqPop { M M }
   {
     \__fun_do_assignment:Nnn #1
       { \seq_gpop:NN #1 #2 } { \seq_pop:NN #1 #2 }
     \__fun_quark_upgrade_no_value:N #2
   }
-\fun@NewTwoFunctions \seqPopT \SeqPopT { M M n }
+\prgNewFunction \seqPopT { M M n }
   {
     \__fun_do_assignment:Nnn #1
       { \seq_gpop:NNT #1 #2 {#3} } { \seq_pop:NNT #1 #2 {#3} }
   }
-\fun@NewTwoFunctions \seqPopF \SeqPopF { M M n }
+\prgNewFunction \seqPopF { M M n }
   {
     \__fun_do_assignment:Nnn #1
       { \seq_gpop:NNF #1 #2 {#3} } { \seq_pop:NNF #1 #2 {#3} }
   }
-\fun@NewTwoFunctions \seqPopTF \SeqPopTF { M M n n }
+\prgNewFunction \seqPopTF { M M n n }
   {
     \__fun_do_assignment:Nnn #1
       { \seq_gpop:NNTF #1 #2 {#3} {#4} } { \seq_pop:NNTF #1 #2 {#3} {#4} }
   }
 
-\fun@NewTwoFunctions \seqPush \SeqPush { M m }
+\prgNewFunction \seqPush { M m }
   {
     \__fun_do_assignment:Nnn #1
       { \seq_gpush:Nn #1 {#2} } { \seq_push:Nn #1 {#2} }
   }
 
-\fun@NewTwoFunctions \seqGetLeft \SeqGetLeft { M M }
+\prgNewFunction \seqGetLeft { M M }
   {
     \seq_get_left:NN #1 #2
     \__fun_quark_upgrade_no_value:N #2
   }
-\fun@NewTwoFunctions \seqGetLeftT \SeqGetLeftT { M M n }
+\prgNewFunction \seqGetLeftT { M M n }
   { \seq_get_left:NNT #1 #2 {#3} }
-\fun@NewTwoFunctions \seqGetLeftF \SeqGetLeftF { M M n }
+\prgNewFunction \seqGetLeftF { M M n }
   { \seq_get_left:NNF #1 #2 {#3} }
-\fun@NewTwoFunctions \seqGetLeftTF \SeqGetLeftTF { M M n n }
+\prgNewFunction \seqGetLeftTF { M M n n }
   { \seq_get_left:NNTF #1 #2 {#3} {#4} }
 
-\fun@NewTwoFunctions \seqGetRight \SeqGetRight { M M }
+\prgNewFunction \seqGetRight { M M }
   {
     \seq_get_right:NN #1 #2
     \__fun_quark_upgrade_no_value:N #2
   }
-\fun@NewTwoFunctions \seqGetRightT \SeqGetRightT { M M n }
+\prgNewFunction \seqGetRightT { M M n }
   { \seq_get_right:NNT #1 #2 {#3} }
-\fun@NewTwoFunctions \seqGetRightF \SeqGetRightF { M M n }
+\prgNewFunction \seqGetRightF { M M n }
   { \seq_get_right:NNF #1 #2 {#3} }
-\fun@NewTwoFunctions \seqGetRightTF \SeqGetRightTF { M M n n }
+\prgNewFunction \seqGetRightTF { M M n n }
   { \seq_get_right:NNTF #1 #2 {#3} {#4} }
 
-\fun@NewTwoFunctions \seqPopLeft \SeqPopLeft { M M }
+\prgNewFunction \seqPopLeft { M M }
   {
     \__fun_do_assignment:Nnn #1
       { \seq_gpop_left:NN #1 #2 } { \seq_pop_left:NN #1 #2 }
     \__fun_quark_upgrade_no_value:N #2
   }
-\fun@NewTwoFunctions \seqPopLeftT \SeqPopLeftT { M M n }
+\prgNewFunction \seqPopLeftT { M M n }
   {
     \__fun_do_assignment:Nnn #1
       { \seq_gpop_left:NNT #1 #2 {#3} } { \seq_pop_left:NNT #1 #2 {#3} }
   }
-\fun@NewTwoFunctions \seqPopLeftF \SeqPopLeftF { M M n }
+\prgNewFunction \seqPopLeftF { M M n }
   {
     \__fun_do_assignment:Nnn #1
       { \seq_gpop_left:NNF #1 #2 {#3} } { \seq_pop_left:NNF #1 #2 {#3} }
   }
-\fun@NewTwoFunctions \seqPopLeftTF \SeqPopLeftTF { M M n n }
+\prgNewFunction \seqPopLeftTF { M M n n }
   {
     \__fun_do_assignment:Nnn #1
       { \seq_gpop_left:NNTF #1 #2 {#3} {#4} }
       { \seq_pop_left:NNTF #1 #2 {#3} {#4} }
   }
 
-\fun@NewTwoFunctions \seqPopRight \SeqPopRight { M M }
+\prgNewFunction \seqPopRight { M M }
   {
     \__fun_do_assignment:Nnn #1
       { \seq_gpop_right:NN #1 #2 } { \seq_pop_right:NN #1 #2 }
     \__fun_quark_upgrade_no_value:N #2
   }
-\fun@NewTwoFunctions \seqPopRightT \SeqPopRightT { M M n }
+\prgNewFunction \seqPopRightT { M M n }
   {
     \__fun_do_assignment:Nnn #1
       { \seq_gpop_right:NNT #1 #2 {#3} } { \seq_pop_right:NNT #1 #2 {#3} }
   }
-\fun@NewTwoFunctions \seqPopRightF \SeqPopRightF { M M n }
+\prgNewFunction \seqPopRightF { M M n }
   {
     \__fun_do_assignment:Nnn #1
       { \seq_gpop_right:NNF #1 #2 {#3} } { \seq_pop_right:NNF #1 #2 {#3} }
   }
-\fun@NewTwoFunctions \seqPopRightTF \SeqPopRightTF { M M n n }
+\prgNewFunction \seqPopRightTF { M M n n }
   {
     \__fun_do_assignment:Nnn #1
       { \seq_gpop_right:NNTF #1 #2 {#3} {#4} }
       { \seq_pop_right:NNTF #1 #2 {#3} {#4} }
   }
 
-\fun@NewTwoFunctions \seqVarItem \SeqVarItem { M m }
+\prgNewFunction \seqVarItem { M m }
   { \expWhole { \seq_item:Nn #1 {#2} } }
 
-\fun@NewTwoFunctions \seqVarRandItem \SeqVarRandItem { M }
+\prgNewFunction \seqVarRandItem { M }
   { \expWhole { \seq_rand_item:N #1 } }
 
-\fun@NewTwoFunctions \seqVarMapInline \SeqVarMapInline { M n }
+\prgNewFunction \seqVarMapInline { M n }
   {
     \seq_map_inline:Nn #1 {#2}
   }
 
-\fun@NewTwoFunctions \seqVarMapVariable \SeqVarMapVariable { M M n }
+\prgNewFunction \seqVarMapVariable { M M n }
   {
     \seq_map_variable:NNn #1 #2 {#3}
   }
 
 \cs_set_eq:NN \seqMapBreak \seq_map_break:
 
-\fun@NewTwoConditionals \seqIfExist \SeqIfExist { M }
+\prgNewConditional \seqIfExist { M }
   {
     \seq_if_exist:NTF #1
       { \prgReturn { \cTrueBool } }  { \prgReturn { \cFalseBool } }
   }
 
-\fun@NewTwoConditionals \seqVarIfEmpty \SeqVarIfEmpty { M }
+\prgNewConditional \seqVarIfEmpty { M }
   {
     \seq_if_empty:NTF #1
       { \prgReturn { \cTrueBool } }  { \prgReturn { \cFalseBool } }
   }
 
-\fun@NewTwoConditionals \seqVarIfIn \SeqVarIfIn { M m }
+\prgNewConditional \seqVarIfIn { M m }
   {
     \seq_if_in:NnTF #1 {#2}
       { \prgReturn { \cTrueBool } }  { \prgReturn { \cFalseBool } }
@@ -2403,131 +2322,122 @@
 
 \prop_set_eq:NN \cEmptyProp \c_empty_prop
 
-\fun@NewTwoFunctions \propNew \PropNew { M } { \prop_new:N #1 }
+\prgNewFunction \propNew { M } { \prop_new:N #1 }
 
-\fun@NewTwoFunctions \propVarLog \PropVarLog { M } { \prop_log:N #1 }
+\prgNewFunction \propVarLog { M } { \prop_log:N #1 }
 
-\fun@NewTwoFunctions \propVarShow \PropVarShow { M } { \prop_show:N #1 }
+\prgNewFunction \propVarShow { M } { \prop_show:N #1 }
 
-\fun@NewTwoFunctions \propConstFromKeyval \PropConstFromKeyval { M m }
+\prgNewFunction \propConstFromKeyval { M m }
   { \prop_const_from_keyval:Nn #1 { #2 } }
 
-\fun@NewTwoFunctions \propSetFromKeyval \PropSetFromKeyval { M m }
+\prgNewFunction \propSetFromKeyval { M m }
   {
     \__fun_do_assignment:Nnn #1
       { \prop_gset_from_keyval:Nn #1 {#2} } { \prop_set_from_keyval:Nn #1 {#2} }
   }
 
-\fun@NewTwoFunctions \propSetEq \PropSetEq { M M }
+\prgNewFunction \propSetEq { M M }
   {
     \__fun_do_assignment:Nnn #1
       { \prop_gset_eq:NN #1 #2 } { \prop_set_eq:NN #1 #2 }
   }
 
-\fun@NewTwoFunctions \propClear \PropClear { M }
+\prgNewFunction \propClear { M }
   {
     \__fun_do_assignment:Nnn #1 { \prop_gclear:N #1 } { \prop_clear:N #1 }
   }
 
-\fun@NewTwoFunctions \propClearNew \PropClearNew { M }
+\prgNewFunction \propClearNew { M }
   {
     \__fun_do_assignment:Nnn #1 { \prop_gclear_new:N #1 } { \prop_clear_new:N #1 }
   }
 
-\fun@NewTwoFunctions \propConcat \PropConcat { M M M }
+\prgNewFunction \propConcat { M M M }
   {
     \__fun_do_assignment:Nnn #1
       { \prop_gconcat:NNN #1 #2 #3 } { \prop_concat:NNN #1 #2 #3 }
   }
 
-\fun@NewTwoFunctions \propPut \PropPut { M m m }
+\prgNewFunction \propPut { M m m }
   {
     \__fun_do_assignment:Nnn #1
       { \prop_gput:Nnn #1 {#2} {#3} } { \prop_put:Nnn #1 {#2} {#3} }
   }
 
-\fun@NewTwoFunctions \propPutIfNew \PropPutIfNew { M m m }
+\prgNewFunction \propPutIfNew { M m m }
   {
     \__fun_do_assignment:Nnn #1
       { \prop_gput_if_new:Nnn #1 {#2} {#3} } { \prop_put_if_new:Nnn #1 {#2} {#3} }
   }
 
-\fun@NewTwoFunctions \propPutFromKeyval \PropPutFromKeyval { M m }
+\prgNewFunction \propPutFromKeyval { M m }
   {
     \__fun_do_assignment:Nnn #1
       { \prop_gput_from_keyval:Nn #1 {#2} } { \prop_put_from_keyval:Nn #1 {#2} }
   }
 
-\fun@NewTwoFunctions \propVarRemove \PropVarRemove { M m }
+\prgNewFunction \propVarRemove { M m }
   {
     \__fun_do_assignment:Nnn #1
       { \prop_gremove:Nn #1 {#2} } { \prop_remove:Nn #1 {#2} }
   }
 
-\fun@NewTwoFunctions \propVarCount \PropVarCount { M }
-  { \expWhole { \prop_count:N #1 } }
+\prgNewFunction \propVarCount { M } { \expWhole { \prop_count:N #1 } }
 
-\fun@NewTwoFunctions \propVarItem \PropVarItem { M m }
-  { \expWhole { \prop_item:Nn #1 {#2} } }
+\prgNewFunction \propVarItem { M m } { \expWhole { \prop_item:Nn #1 {#2} } }
 
-\fun@NewTwoFunctions \propToKeyval \PropToKeyval { M }
-  { \expWhole { \prop_to_keyval:N #1 } }
+\prgNewFunction \propToKeyval { M } { \expWhole { \prop_to_keyval:N #1 } }
 
-\fun@NewTwoFunctions \propGet \PropGet { M m M }
+\prgNewFunction \propGet { M m M }
   {
     \prop_get:NnN #1 {#2} #3
     \__fun_quark_upgrade_no_value:N #3
   }
-\fun@NewTwoFunctions \propGetT \PropGetT { M m M n }
-  { \prop_get:NnNT #1 {#2} #3 {#4} }
-\fun@NewTwoFunctions \propGetF \PropGetF { M m M n }
-  { \prop_get:NnNF #1 {#2} #3 {#4} }
-\fun@NewTwoFunctions \propGetTF \PropGetTF { M m M n n }
-  { \prop_get:NnNTF #1 {#2} #3 {#4} {#5} }
+\prgNewFunction \propGetT { M m M n } { \prop_get:NnNT #1 {#2} #3 {#4} }
+\prgNewFunction \propGetF { M m M n } { \prop_get:NnNF #1 {#2} #3 {#4} }
+\prgNewFunction \propGetTF { M m M n n } { \prop_get:NnNTF #1 {#2} #3 {#4} {#5} }
 
-\fun@NewTwoFunctions \propPop \PropPop { M m M }
+\prgNewFunction \propPop { M m M }
   {
     \__fun_do_assignment:Nnn #1
       { \prop_gpop:NnN #1 {#2} #3 } { \prop_pop:NnN #1 {#2} #3 }
     \__fun_quark_upgrade_no_value:N #3
   }
-\fun@NewTwoFunctions \propPopT \PropPopT { M m M n }
+\prgNewFunction \propPopT { M m M n }
   {
     \__fun_do_assignment:Nnn #1
       { \prop_gpop:NnNT #1 {#2} #3 {#4} } { \prop_pop:NnNT #1 {#2} #3 {#4} }
   }
-\fun@NewTwoFunctions \propPopF \PropPopF { M m M n }
+\prgNewFunction \propPopF { M m M n }
   {
     \__fun_do_assignment:Nnn #1
       { \prop_gpop:NnNF #1 {#2} #3 {#4} } { \prop_pop:NnNF #1 {#2} #3 {#4} }
   }
-\fun@NewTwoFunctions \propPopTF \PropPopTF { M m M n n }
+\prgNewFunction \propPopTF { M m M n n }
   {
     \__fun_do_assignment:Nnn #1
       { \prop_gpop:NnNTF #1 {#2} #3 {#4} {#5} }
       { \prop_pop:NnNTF #1 {#2} #3 {#4} {#5} }
   }
 
-\fun@NewTwoFunctions \propVarMapInline \PropVarMapInline { M n }
-  {
-    \prop_map_inline:Nn #1 {#2}
-  }
+\prgNewFunction \propVarMapInline { M n } { \prop_map_inline:Nn #1 {#2} }
 
 \cs_set_eq:NN \propMapBreak \prop_map_break:
 
-\fun@NewTwoConditionals \propIfExist \PropIfExist { M }
+\prgNewConditional \propIfExist { M }
   {
     \prop_if_exist:NTF #1
       { \prgReturn { \cTrueBool } }  { \prgReturn { \cFalseBool } }
   }
 
-\fun@NewTwoConditionals \propVarIfEmpty \PropVarIfEmpty { M }
+\prgNewConditional \propVarIfEmpty { M }
   {
     \prop_if_empty:NTF #1
       { \prgReturn { \cTrueBool } }  { \prgReturn { \cFalseBool } }
   }
 
-\fun@NewTwoConditionals \propVarIfIn \PropVarIfIn { M m }
+\prgNewConditional \propVarIfIn { M m }
   {
     \prop_if_in:NnTF #1 {#2}
       { \prgReturn { \cTrueBool } }  { \prgReturn { \cFalseBool } }
@@ -2547,263 +2457,257 @@
 \regex_new:N \l@FunTmpyRegex  \regex_new:N \g@FunTmpyRegex
 \regex_new:N \l@FunTmpzRegex  \regex_new:N \g@FunTmpzRegex
 
-\fun@NewTwoFunctions \regexNew \RegexNew { M } { \regex_new:N #1 }
+\prgNewFunction \regexNew { M } { \regex_new:N #1 }
 
-\fun@NewTwoFunctions \regexSet \RegexSet { M m }
+\prgNewFunction \regexSet { M m }
   {
     \__fun_do_assignment:Nnn #1
      { \regex_gset:Nn #1 {#2} } { \regex_set:Nn #1 {#2} }
   }
 
-\fun@NewTwoFunctions \regexConst \RegexConst { M m } { \regex_const:Nn #1 {#2} }
+\prgNewFunction \regexConst { M m } { \regex_const:Nn #1 {#2} }
 
-\fun@NewTwoFunctions \regexLog \RegexLog { m } { \regex_log:n {#1} }
+\prgNewFunction \regexLog { m } { \regex_log:n {#1} }
 
-\fun@NewTwoFunctions \regexVarLog \RegexVarLog { M } { \regex_log:N #1 }
+\prgNewFunction \regexVarLog { M } { \regex_log:N #1 }
 
-\fun@NewTwoFunctions \regexShow \RegexShow { m } { \regex_show:n {#1} }
+\prgNewFunction \regexShow { m } { \regex_show:n {#1} }
 
-\fun@NewTwoFunctions \regexVarShow \RegexVarShow { M } { \regex_show:N #1 }
+\prgNewFunction \regexVarShow { M } { \regex_show:N #1 }
 
-\fun@NewTwoConditionals \regexMatch \RegexMatch { m m }
+\prgNewConditional \regexMatch { m m }
   {
     \regex_match:nnTF {#1} {#2}
       { \prgReturn { \cTrueBool } }  { \prgReturn { \cFalseBool } }
   }
 
-\fun@NewTwoConditionals \regexVarMatch \RegexVarMatch { M m }
+\prgNewConditional \regexVarMatch { M m }
   {
     \regex_match:NnTF #1 {#2}
       { \prgReturn { \cTrueBool } }  { \prgReturn { \cFalseBool } }
   }
 
-\fun@NewTwoFunctions \regexCount \RegexCount { m m M }
-  {
-    \regex_count:nnN {#1} {#2} #3
-  }
+\prgNewFunction \regexCount { m m M } { \regex_count:nnN {#1} {#2} #3 }
 
-\fun@NewTwoFunctions \regexVarCount \RegexVarCount { M m M }
-  {
-    \regex_count:NnN #1 {#2} #3
-  }
+\prgNewFunction \regexVarCount { M m M } { \regex_count:NnN #1 {#2} #3 }
 
-\fun@NewTwoFunctions \regexMatchCase \RegexMatchCase { m m }
+\prgNewFunction \regexMatchCase { m m }
   {
     \regex_match_case:nn {#1} {#2}
   }
-\fun@NewTwoFunctions \regexMatchCaseT \RegexMatchCaseT { m m n }
+\prgNewFunction \regexMatchCaseT { m m n }
   {
     \regex_match_case:nnT {#1} {#2} {#3}
   }
-\fun@NewTwoFunctions \regexMatchCaseF \RegexMatchCaseF { m m n }
+\prgNewFunction \regexMatchCaseF { m m n }
   {
     \regex_match_case:nnF {#1} {#2} {#3}
   }
-\fun@NewTwoFunctions \regexMatchCaseTF \RegexMatchCaseTF { m m n n }
+\prgNewFunction \regexMatchCaseTF { m m n n }
   {
     \regex_match_case:nnTF {#1} {#2} {#3} {#4}
   }
 
-\fun@NewTwoFunctions \regexExtractOnce \RegexExtractOnce { m m M }
+\prgNewFunction \regexExtractOnce { m m M }
   {
     \regex_extract_once:nnN {#1} {#2} #3
   }
-\fun@NewTwoFunctions \regexExtractOnceT \RegexExtractOnceT { m m M n }
+\prgNewFunction \regexExtractOnceT { m m M n }
   {
     \regex_extract_once:nnNT {#1} {#2} #3 {#4}
   }
-\fun@NewTwoFunctions \regexExtractOnceF \RegexExtractOnceF { m m M n }
+\prgNewFunction \regexExtractOnceF { m m M n }
   {
     \regex_extract_once:nnNF {#1} {#2} #3 {#4}
   }
-\fun@NewTwoFunctions \regexExtractOnceTF \RegexExtractOnceTF { m m M n n }
+\prgNewFunction \regexExtractOnceTF { m m M n n }
   {
     \regex_extract_once:nnNTF {#1} {#2} #3 {#4} {#5}
   }
 
-\fun@NewTwoFunctions \regexVarExtractOnce \RegexVarExtractOnce { M m M }
+\prgNewFunction \regexVarExtractOnce { M m M }
   {
     \regex_extract_once:NnN #1 {#2} #3
   }
-\fun@NewTwoFunctions \regexVarExtractOnceT \RegexVarExtractOnceT { M m M n }
+\prgNewFunction \regexVarExtractOnceT { M m M n }
   {
     \regex_extract_once:NnNT #1 {#2} #3 {#4}
   }
-\fun@NewTwoFunctions \regexVarExtractOnceF \RegexVarExtractOnceF { M m M n }
+\prgNewFunction \regexVarExtractOnceF { M m M n }
   {
     \regex_extract_once:NnNF #1 {#2} #3 {#4}
   }
-\fun@NewTwoFunctions \regexVarExtractOnceTF \RegexVarExtractOnceTF { M m M n n }
+\prgNewFunction \regexVarExtractOnceTF { M m M n n }
   {
     \regex_extract_once:NnNTF #1 {#2} #3 {#4} {#5}
   }
 
-\fun@NewTwoFunctions \regexExtractAll \RegexExtractAll { m m M }
+\prgNewFunction \regexExtractAll { m m M }
   {
     \regex_extract_all:nnN {#1} {#2} #3
   }
-\fun@NewTwoFunctions \regexExtractAllT \RegexExtractAllT { m m M n }
+\prgNewFunction \regexExtractAllT { m m M n }
   {
     \regex_extract_all:nnNT {#1} {#2} #3 {#4}
   }
-\fun@NewTwoFunctions \regexExtractAllF \RegexExtractAllF { m m M n }
+\prgNewFunction \regexExtractAllF { m m M n }
   {
     \regex_extract_all:nnNF {#1} {#2} #3 {#4}
   }
-\fun@NewTwoFunctions \regexExtractAllTF \RegexExtractAllTF { m m M n n }
+\prgNewFunction \regexExtractAllTF { m m M n n }
   {
     \regex_extract_all:nnNTF {#1} {#2} #3 {#4} {#5}
   }
 
-\fun@NewTwoFunctions \regexVarExtractAll \RegexVarExtractAll { M m M }
+\prgNewFunction \regexVarExtractAll { M m M }
   {
     \regex_extract_all:NnN #1 {#2} #3
   }
-\fun@NewTwoFunctions \regexVarExtractAllT \RegexVarExtractAllT { M m M n }
+\prgNewFunction \regexVarExtractAllT { M m M n }
   {
     \regex_extract_all:NnNT #1 {#2} #3 {#4}
   }
-\fun@NewTwoFunctions \regexVarExtractAllF \RegexVarExtractAllF { M m M n }
+\prgNewFunction \regexVarExtractAllF { M m M n }
   {
     \regex_extract_all:NnNF #1 {#2} #3 {#4}
   }
-\fun@NewTwoFunctions \regexVarExtractAllTF \RegexVarExtractAllTF { M m M n n }
+\prgNewFunction \regexVarExtractAllTF { M m M n n }
   {
     \regex_extract_all:NnNTF #1 {#2} #3 {#4} {#5}
   }
 
-\fun@NewTwoFunctions \regexSplit \RegexSplit { m m M }
+\prgNewFunction \regexSplit { m m M }
   {
     \regex_split:nnN {#1} {#2} #3
   }
-\fun@NewTwoFunctions \regexSplitT \RegexSplitT { m m M n }
+\prgNewFunction \regexSplitT { m m M n }
   {
     \regex_split:nnNT {#1} {#2} #3 {#4}
   }
-\fun@NewTwoFunctions \regexSplitF \RegexSplitF { m m M n }
+\prgNewFunction \regexSplitF { m m M n }
   {
     \regex_split:nnNF {#1} {#2} #3 {#4}
   }
-\fun@NewTwoFunctions \regexSplitTF \RegexSplitTF { m m M n n }
+\prgNewFunction \regexSplitTF { m m M n n }
   {
     \regex_split:nnNTF {#1} {#2} #3 {#4} {#5}
   }
 
-\fun@NewTwoFunctions \regexVarSplit \RegexVarSplit { M m M }
+\prgNewFunction \regexVarSplit { M m M }
   {
     \regex_split:NnN #1 {#2} #3
   }
-\fun@NewTwoFunctions \regexVarSplitT \RegexVarSplitT { M m M n }
+\prgNewFunction \regexVarSplitT { M m M n }
   {
     \regex_split:NnNT #1 {#2} #3 {#4}
   }
-\fun@NewTwoFunctions \regexVarSplitF \RegexVarSplitF { M m M n }
+\prgNewFunction \regexVarSplitF { M m M n }
   {
     \regex_split:NnNF #1 {#2} #3 {#4}
   }
-\fun@NewTwoFunctions \regexVarSplitTF \RegexVarSplitTF { M m M n n }
+\prgNewFunction \regexVarSplitTF { M m M n n }
   {
     \regex_split:NnNTF #1 {#2} #3 {#4} {#5}
   }
 
-\fun@NewTwoFunctions \regexReplaceOnce \RegexReplaceOnce { m m M }
+\prgNewFunction \regexReplaceOnce { m m M }
   {
     \regex_replace_once:nnN {#1} {#2} #3
   }
-\fun@NewTwoFunctions \regexReplaceOnceT \RegexReplaceOnceT { m m M n }
+\prgNewFunction \regexReplaceOnceT { m m M n }
   {
     \regex_replace_once:nnNT {#1} {#2} #3 {#4}
   }
-\fun@NewTwoFunctions \regexReplaceOnceF \RegexReplaceOnceF { m m M n }
+\prgNewFunction \regexReplaceOnceF { m m M n }
   {
     \regex_replace_once:nnNF {#1} {#2} #3 {#4}
   }
-\fun@NewTwoFunctions \regexReplaceOnceTF \RegexReplaceOnceTF { m m M n n }
+\prgNewFunction \regexReplaceOnceTF { m m M n n }
   {
     \regex_replace_once:nnNTF {#1} {#2} #3 {#4} {#5}
   }
 
-\fun@NewTwoFunctions \regexVarReplaceOnce \RegexVarReplaceOnce { M m M }
+\prgNewFunction \regexVarReplaceOnce { M m M }
   {
     \regex_replace_once:NnN #1 {#2} #3
   }
-\fun@NewTwoFunctions \regexVarReplaceOnceT \RegexVarReplaceOnceT { M m M n }
+\prgNewFunction \regexVarReplaceOnceT { M m M n }
   {
     \regex_replace_once:NnNT #1 {#2} #3 {#4}
   }
-\fun@NewTwoFunctions \regexVarReplaceOnceF \RegexVarReplaceOnceF { M m M n }
+\prgNewFunction \regexVarReplaceOnceF { M m M n }
   {
     \regex_replace_once:NnNF #1 {#2} #3 {#4}
   }
-\fun@NewTwoFunctions \regexVarReplaceOnceTF \RegexVarReplaceOnceTF { M m M n n }
+\prgNewFunction \regexVarReplaceOnceTF { M m M n n }
   {
     \regex_replace_once:NnNTF #1 {#2} #3 {#4} {#5}
   }
 
-\fun@NewTwoFunctions \regexReplaceAll \RegexReplaceAll { m m M }
+\prgNewFunction \regexReplaceAll { m m M }
   {
     \regex_replace_all:nnN {#1} {#2} #3
   }
-\fun@NewTwoFunctions \regexReplaceAllT \RegexReplaceAllT { m m M n }
+\prgNewFunction \regexReplaceAllT { m m M n }
   {
     \regex_replace_all:nnNT {#1} {#2} #3 {#4}
   }
-\fun@NewTwoFunctions \regexReplaceAllF \RegexReplaceAllF { m m M n }
+\prgNewFunction \regexReplaceAllF { m m M n }
   {
     \regex_replace_all:nnNF {#1} {#2} #3 {#4}
   }
-\fun@NewTwoFunctions \regexReplaceAllTF \RegexReplaceAllTF { m m M n n }
+\prgNewFunction \regexReplaceAllTF { m m M n n }
   {
     \regex_replace_all:nnNTF {#1} {#2} #3 {#4} {#5}
   }
 
-\fun@NewTwoFunctions \regexVarReplaceAll \RegexVarReplaceAll { M m M }
+\prgNewFunction \regexVarReplaceAll { M m M }
   {
     \regex_replace_all:NnN #1 {#2} #3
   }
-\fun@NewTwoFunctions \regexVarReplaceAllT \RegexVarReplaceAllT { M m M n }
+\prgNewFunction \regexVarReplaceAllT { M m M n }
   {
     \regex_replace_all:NnNT #1 {#2} #3 {#4}
   }
-\fun@NewTwoFunctions \regexVarReplaceAllF \RegexVarReplaceAllF { M m M n }
+\prgNewFunction \regexVarReplaceAllF { M m M n }
   {
     \regex_replace_all:NnNF #1 {#2} #3 {#4}
   }
-\fun@NewTwoFunctions \regexVarReplaceAllTF \RegexVarReplaceAllTF { M m M n n }
+\prgNewFunction \regexVarReplaceAllTF { M m M n n }
   {
     \regex_replace_all:NnNTF #1 {#2} #3 {#4} {#5}
   }
 
-\fun@NewTwoFunctions \regexReplaceCaseOnce \RegexReplaceCaseOnce { m M }
+\prgNewFunction \regexReplaceCaseOnce { m M }
   {
     \regex_replace_case_once:nN {#1} #2
   }
-\fun@NewTwoFunctions \regexReplaceCaseOnceT \RegexReplaceCaseOnceT { m M n }
+\prgNewFunction \regexReplaceCaseOnceT { m M n }
   {
     \regex_replace_case_once:nN {#1} #2 {#3}
   }
-\fun@NewTwoFunctions \regexReplaceCaseOnceF \RegexReplaceCaseOnceF { m M n }
+\prgNewFunction \regexReplaceCaseOnceF { m M n }
   {
     \regex_replace_case_once:nN {#1} #2 {#3}
   }
-\fun@NewTwoFunctions \regexReplaceCaseOnceTF \RegexReplaceCaseOnceTF { m M n n }
+\prgNewFunction \regexReplaceCaseOnceTF { m M n n }
   {
     \regex_replace_case_once:nN {#1} #2 {#3} {#4}
   }
 
-\fun@NewTwoFunctions \regexReplaceCaseAll \RegexReplaceCaseAll { m M }
+\prgNewFunction \regexReplaceCaseAll { m M }
   {
     \regex_replace_case_all:nN {#1} #2
   }
-\fun@NewTwoFunctions \regexReplaceCaseAllT \RegexReplaceCaseAllT { m M n }
+\prgNewFunction \regexReplaceCaseAllT { m M n }
   {
     \regex_replace_case_all:nN {#1} #2 {#3}
   }
-\fun@NewTwoFunctions \regexReplaceCaseAllF \ { m M n }
+\prgNewFunction \regexReplaceCaseAllF { m M n }
   {
     \regex_replace_case_all:nN {#1} #2 {#3}
   }
-\fun@NewTwoFunctions \regexReplaceCaseAllTF \RegexReplaceCaseAllTF { m M n n }
+\prgNewFunction \regexReplaceCaseAllTF { m M n n }
   {
     \regex_replace_case_all:nN {#1} #2 {#3} {#4}
   }
@@ -2812,111 +2716,75 @@
 %%> \section{Interfaces for Token Manipulation (Token)}
 %%% --------------------------------------------------------
 
-\fun@NewTwoFunctions \charLowercase \CharLowercase { M }
-  {
-    \expWhole { \char_lowercase:N #1 }
-  }
+\prgNewFunction \charLowercase { M } { \expWhole { \char_lowercase:N #1 } }
 
-\fun@NewTwoFunctions \charUppercase \CharUppercase { M }
-  {
-    \expWhole { \char_uppercase:N #1 }
-  }
+\prgNewFunction \charUppercase { M } { \expWhole { \char_uppercase:N #1 } }
 
-\fun@NewTwoFunctions \charTitlecase \CharTitlecase { M }
-  {
-    \expWhole { \char_titlecase:N #1 }
-  }
+\prgNewFunction \charTitlecase { M } { \expWhole { \char_titlecase:N #1 } }
 
-\fun@NewTwoFunctions \charFoldcase \CharFoldcase { M }
-  {
-    \expWhole { \char_foldcase:N #1 }
-  }
+\prgNewFunction \charFoldcase { M } { \expWhole { \char_foldcase:N #1 } }
 
-\fun@NewTwoFunctions \charStrLowercase \CharStrLowercase { M }
-  {
-    \expWhole { \char_str_lowercase:N #1 }
-  }
+\prgNewFunction \charStrLowercase { M } { \expWhole { \char_str_lowercase:N #1 } }
 
-\fun@NewTwoFunctions \charStrUppercase \CharStrUppercase { M }
-  {
-    \expWhole { \char_str_uppercase:N #1 }
-  }
+\prgNewFunction \charStrUppercase { M } { \expWhole { \char_str_uppercase:N #1 } }
 
-\fun@NewTwoFunctions \charStrTitlecase \CharStrTitlecase { M }
-  {
-    \expWhole { \char_str_titlecase:N #1 }
-  }
+\prgNewFunction \charStrTitlecase { M } { \expWhole { \char_str_titlecase:N #1 } }
 
-\fun@NewTwoFunctions \charStrFoldcase \CharStrFoldcase { M }
-  {
-    \expWhole { \char_str_foldcase:N #1 }
-  }
+\prgNewFunction \charStrFoldcase { M } { \expWhole { \char_str_foldcase:N #1 } }
 
-\fun@NewTwoFunctions \charSetLccode \CharSetLccode { m m }
-  {
-    \char_set_lccode:nn {#1} {#2}
-  }
+\prgNewFunction \charSetLccode { m m } { \char_set_lccode:nn {#1} {#2} }
 
-\fun@NewTwoFunctions \charValueLccode \CharValueLccode { m }
-  {
-    \expWhole { \char_value_lccode:n {#1} }
-  }
+\prgNewFunction \charValueLccode { m } { \expWhole { \char_value_lccode:n {#1} } }
 
-\fun@NewTwoFunctions \charSetUccode \CharSetUccode { m m }
-  {
-    \char_set_uccode:nn {#1} {#2}
-  }
+\prgNewFunction \charSetUccode { m m } { \char_set_uccode:nn {#1} {#2} }
 
-\fun@NewTwoFunctions \charValueUccode \CharValueUccode { m }
-  {
-    \expWhole { \char_value_uccode:n {#1} }
-  }
+\prgNewFunction \charValueUccode { m } { \expWhole { \char_value_uccode:n {#1} } }
 
 %%% --------------------------------------------------------
 %%> \section{Interfaces for Text Processing (Text)}
 %%% --------------------------------------------------------
 
-\fun@NewTwoFunctions \textExpand \TextExpand { m }
+\prgNewFunction \textExpand { m }
   {
     \expWhole { \text_expand:n {#1} }
   }
 
-\fun@NewTwoFunctions \textLowercase \TextLowercase { m }
+\prgNewFunction \textLowercase { m }
   {
     \expWhole { \text_lowercase:n {#1} }
   }
 
-\fun@NewTwoFunctions \textUppercase \TextUppercase { m }
+\prgNewFunction \textUppercase { m }
   {
     \expWhole { \text_uppercase:n {#1} }
   }
 
-\fun@NewTwoFunctions \textTitlecase \TextTitlecase { m }
+\prgNewFunction \textTitlecase { m }
   {
     \expWhole { \text_titlecase:n {#1} }
   }
 
-\fun@NewTwoFunctions \textTitlecaseFirst \TextTitlecaseFirst { m }
+\prgNewFunction \textTitlecaseFirst { m }
   {
     \expWhole { \text_titlecase_first:n {#1} }
   }
 
-\fun@NewTwoFunctions \textLangLowercase \TextLangLowercase { m m }
+\prgNewFunction \textLangLowercase { m m }
   {
     \expWhole { \text_lowercase:nn {#1} {#2} }
   }
 
-\fun@NewTwoFunctions \textLangUppercase \TextLangUppercase { m m }
+\prgNewFunction \textLangUppercase { m m }
   {
     \expWhole { \text_uppercase:nn {#1} {#2} }
   }
 
-\fun@NewTwoFunctions \textLangTitlecase \TextLangTitlecase { m m }
+\prgNewFunction \textLangTitlecase { m m }
   {
     \expWhole { \text_titlecase:nn {#1} {#2} }
   }
 
-\fun@NewTwoFunctions \textLangTitlecaseFirst \TextLangTitlecaseFirst { m m }
+\prgNewFunction \textLangTitlecaseFirst { m m }
   {
     \expWhole { \text_titlecase_first:nn {#1} {#2} }
   }
@@ -2927,7 +2795,7 @@
 
 \msg_new:nnn { functional } { file-not-found } { File ~ "#1" ~ not ~ found! }
 
-\fun@NewTwoFunctions \fileInput \FileInput { m }
+\prgNewFunction \fileInput { m }
   {
     \file_get:nnN {#1} {} \l@FunTmpxTl
     \quark_if_no_value:NTF \l@FunTmpxTl
@@ -2935,13 +2803,13 @@
       { \tlUse \l@FunTmpxTl }
   }
 
-\fun@NewTwoFunctions \fileIfExistInput \FileIfExistInput { m }
+\prgNewFunction \fileIfExistInput { m }
   {
     \file_get:nnN {#1} {} \l@FunTmpxTl
     \quark_if_no_value:NF \l@FunTmpxTl { \tlUse \l@FunTmpxTl }
   }
 
-\fun@NewTwoFunctions \fileIfExistInputF \FileIfExistInputF { m n }
+\prgNewFunction \fileIfExistInputF { m n }
   {
     \file_get:nnN {#1} {} \l@FunTmpxTl
     \quark_if_no_value:NTF \l@FunTmpxTl { #2 } { \tlUse \l@FunTmpxTl }
@@ -2949,28 +2817,28 @@
 
 \cs_set_eq:NN \fileInputStop \file_input_stop:
 
-\fun@NewTwoFunctions \fileGet \FileGet { m m M }
+\prgNewFunction \fileGet { m m M }
   {
     \file_get:nnN {#1} {#2} #3
     \__fun_quark_upgrade_no_value:N #3
   }
 
-\fun@NewTwoFunctions \fileGetT \FileGetT { m m M n }
+\prgNewFunction \fileGetT { m m M n }
   {
     \file_get:nnNT {#1} {#2} #3 {#4}
   }
 
-\fun@NewTwoFunctions \fileGetF \FileGetF { m m M n }
+\prgNewFunction \fileGetF { m m M n }
   {
     \file_get:nnNF {#1} {#2} #3 {#4}
   }
 
-\fun@NewTwoFunctions \fileGetTF \FileGetTF { m m M n n }
+\prgNewFunction \fileGetTF { m m M n n }
   {
     \file_get:nnNTF {#1} {#2} #3 {#4} {#5}
   }
 
-\fun@NewTwoConditionals \fileIfExist \FileIfExist { m }
+\prgNewConditional \fileIfExist { m }
   {
     \file_if_exist:nTF {#1}
       { \prgReturn { \cTrueBool } }  { \prgReturn { \cFalseBool } }
@@ -2987,7 +2855,7 @@
     \quark_if_no_value:NT #1 { \tl_set_eq:NN #1 \qNoValue }
   }
 
-\fun@NewTwoConditionals \quarkVarIfNoValue \QuarkVarIfNoValue { M }
+\prgNewConditional \quarkVarIfNoValue { M }
   {
     \tl_if_eq:NNTF \qNoValue #1
       { \prgReturn { \cTrueBool } }  { \prgReturn { \cFalseBool } }
@@ -2997,25 +2865,25 @@
 %%> \section{Interfaces to Legacy Concepts (Legacy)}
 %%% --------------------------------------------------------
 
-\fun@NewTwoConditionals \legacyIf \LegacyIf { m }
+\prgNewConditional \legacyIf { m }
   {
     \legacy_if:nTF {#1}
       { \prgReturn { \cTrueBool } }  { \prgReturn { \cFalseBool } }
   }
 
-\fun@NewTwoFunctions \legacyIfSetTrue \LegacyIfSetTrue { m }
+\prgNewFunction \legacyIfSetTrue { m }
   {
     \__fun_do_assignment:Nnn \c@name
       { \legacy_if_gset_true:n {#1} } { \legacy_if_set_true:n {#1} }
   }
 
-\fun@NewTwoFunctions \legacyIfSetFalse \LegacyIfSetFalse { m }
+\prgNewFunction \legacyIfSetFalse { m }
   {
     \__fun_do_assignment:Nnn \c@name
       { \legacy_if_gset_false:n {#1} } { \legacy_if_set_false:n {#1} }
   }
 
-\fun@NewTwoFunctions \legacyIfSet \LegacyIfSet { m m }
+\prgNewFunction \legacyIfSet { m m }
   {
     \__fun_do_assignment:Nnn \c@name
       { \legacy_if_gset:nn {#1} {#2} } { \legacy_if_set:nn {#1} {#2} }
