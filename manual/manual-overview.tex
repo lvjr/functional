@@ -61,8 +61,8 @@ Both examples calculate first the square of $5$ and produce $25$,
 then calculate the square of $25$ and produce $625$.
 In contrast to \verb!expl3!, this \verb!functional! package
 does evaluation of functions from inside to outside,
-which means composition of functions works like othe programming languages
-such as \verb!Lua! or \verb!JavsScript!.
+which means composition of functions works like other programming languages
+such as \verb!Lua! or \verb!JavaScript!.
 
 You can define new functions with \cs{prgNewFunction} command.
 To make composition of functions work as expected,
@@ -171,7 +171,7 @@ print(a)            ---- 1
 Same as \verb!expl3!, the names of local variables \emph{must} start with \verb!l!,
 while names of global variables \emph{must} start with \verb!g!.
 The difference is that \verb!functional! package provides only one function for setting
-both local and global varianbles of the same type,
+both local and global variables of the same type,
 by checking leading letters of their names. So for integer variables, you can write
 \verb!\intSet\lTmpaInt{1}! and \verb!\intSet\gTmpbInt{2}!.
 
@@ -335,7 +335,7 @@ and many expansion functions for expanding them, which are necessary for power u
 
 Within \verb!functional! package, there are only three variants
 (\verb!c!, \verb!e!, \verb!V!) are provided, and these variants are defined
-as functions (\cs{expName}, \cs{expWhole}, \cs{expValue}, respetively),
+as functions (\cs{expName}, \cs{expWhole}, \cs{expValue}, respectively),
 which are easier to use for regular users.
 
 \begin{demohigh}
