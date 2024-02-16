@@ -2320,7 +2320,7 @@
 \prop_new:N \gTmpiProp     \prop_new:N \gTmpjProp     \prop_new:N \gTmpkProp
 \prop_new:N \g@FunTmpxProp \prop_new:N \g@FunTmpyProp \prop_new:N \g@FunTmpzProp
 
-\prop_set_eq:NN \cEmptyProp \c_empty_prop
+\prop_const_from_keyval:Nn \cEmptyProp {}
 
 \prgNewFunction \propNew { M } { \prop_new:N #1 }
 
