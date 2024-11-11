@@ -2888,3 +2888,20 @@
     \__fun_do_assignment:Nnn \c@name
       { \legacy_if_gset:nn {#1} {#2} } { \legacy_if_set:nn {#1} {#2} }
   }
+
+%%% --------------------------------------------------------
+%%> \section{Interfaces for other packages}
+%%% --------------------------------------------------------
+
+\AddToHook{package/xcolor/after}
+  {
+    \tlNew \l@Fun@Color@Tl
+    \prgNewFunction \colorFromSpec {mm}
+      {
+        %% replace commas with vertical bars
+        \tlSet \l@Fun@Color@Tl { \clistJoin { fun | #1 | #2 } { | } }
+        %% functional library in tabularray package need global colors
+        \xglobal \definecolor { \l@Fun@Color@Tl } { #1 } { #2 }
+        \prgReturn { \expValue \l@Fun@Color@Tl }
+      }
+  }
