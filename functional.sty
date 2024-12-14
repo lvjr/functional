@@ -1602,22 +1602,14 @@
 %%> \section{Interfaces for Floating Point Numbers (Fp)}
 %%% --------------------------------------------------------
 
-\fp_new:N \cZeroFp
-\fp_new:N \cMinusZeroFp
-\fp_new:N \cOneFp
-\fp_new:N \cInfFp
-\fp_new:N \cMinusInfFp
-\fp_new:N \cEFp
-\fp_new:N \cPiFp
-\fp_new:N \cOneDegreeFp
-\fp_set_eq:NN \cZeroFp      \c_zero_fp
-\fp_set_eq:NN \cMinusZeroFp \c_minus_zero_fp
-\fp_set_eq:NN \cOneFp       \c_one_fp
-\fp_set_eq:NN \cInfFp       \c_inf_fp
-\fp_set_eq:NN \cMinusInfFp  \c_minus_inf_fp
-\fp_set_eq:NN \cEFp         \c_e_fp
-\fp_set_eq:NN \cPiFp        \c_pi_fp
-\fp_set_eq:NN \cOneDegreeFp \c_one_degree_fp
+\fp_const:Nn \cZeroFp      { \c_zero_fp }
+\fp_const:Nn \cMinusZeroFp { \c_minus_zero_fp }
+\fp_const:Nn \cOneFp       { \c_one_fp }
+\fp_const:Nn \cInfFp       { \c_inf_fp }
+\fp_const:Nn \cMinusInfFp  { \c_minus_inf_fp }
+\fp_const:Nn \cEFp         { \c_e_fp }
+\fp_const:Nn \cPiFp        { \c_pi_fp }
+\fp_const:Nn \cOneDegreeFp { \c_one_degree_fp }
 
 \fp_new:N \lTmpaFp     \fp_new:N \lTmpbFp     \fp_new:N \lTmpcFp
 \fp_new:N \lTmpiFp     \fp_new:N \lTmpjFp     \fp_new:N \lTmpkFp
@@ -1866,8 +1858,7 @@
 \clist_new:N \l@FunTmpyClist \clist_new:N \g@FunTmpyClist
 \clist_new:N \l@FunTmpzClist \clist_new:N \g@FunTmpzClist
 
-\clist_new:N \cEmptyClist
-\clist_set_eq:NN \cEmptyClist \c_empty_clist
+\clist_const:Nn \cEmptyClist {}
 
 \prgNewFunction \clistNew { M } { \clist_new:N #1 }
 
@@ -2091,8 +2082,7 @@
 \seq_new:N \gTmpiSeq     \seq_new:N \gTmpjSeq     \seq_new:N \gTmpkSeq
 \seq_new:N \g@FunTmpxSeq \seq_new:N \g@FunTmpySeq \seq_new:N \g@FunTmpzSeq
 
-\seq_new:N \cEmptySeq
-\seq_set_eq:NN \cEmptySeq \c_empty_seq
+\seq_const_from_clist:Nn \cEmptySeq {}
 
 \prgNewFunction \seqNew { M } { \seq_new:N #1 }
 
