@@ -126,5 +126,23 @@
   linkcolor=blue3,
 }
 
-\usepackage{functional}
+\makeatletter
+\ExplSyntaxOn
+\NewDocumentCommand\MyCheckLoadPackage{m}{
+  \@ifpackageloaded{docmute}{
+    \usepackage{#1}
+  }{
+    \str_if_eq:onTF{\jobname}{#1}{
+      \usepackage{#1}
+    }{
+      \debug_on:n{check-declarations}
+      \usepackage{#1}
+      \debug_off:n{check-declarations}
+    }
+  }
+}
+\ExplSyntaxOff
+\makeatother
+\MyCheckLoadPackage{functional}
+%\usepackage{functional}
 %\Functional{scoping=false,tracing=true}

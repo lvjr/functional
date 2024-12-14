@@ -19,6 +19,7 @@
 
 \cs_generate_variant:Nn \iow_log:n { V }
 \cs_generate_variant:Nn \str_set:Nn { Ne }
+\cs_generate_variant:Nn \tl_const:Nn { NV }
 \cs_generate_variant:Nn \tl_log:n { e }
 \cs_generate_variant:Nn \tl_set:Nn { Ne }
 
@@ -249,6 +250,18 @@
 
 \int_new:N \g__fun_nesting_level_int
 
+%% Create arg tl variables to avoid check-declarations errors
+\cs_new_protected:Npn \__fun_new_arg_tl_vars:
+  {
+    \tl_gclear_new:c
+      { g__fun_arguments_ \int_use:N \g__fun_nesting_level_int _tl }
+    \int_step_inline:nnn {1} {9}
+      {
+        \tl_gclear_new:c
+          { g__fun_one_argument_ \int_use:N \g__fun_nesting_level_int _ ##1 _tl }
+      }
+  }
+
 %% #1: function name; #2: argument specifications; #3 parameters tl defined
 %% Some times we need to create a function without arguments
 \cs_new_protected:Npn \__fun_new_with_arg_:Nnn #1 #2 #3
@@ -256,6 +269,7 @@
     \cs_new_protected:Npn #1 #3
       {
         \int_gincr:N \g__fun_nesting_level_int
+        \__fun_new_arg_tl_vars:
         \__fun_evaluate:Nn #1 {#2}
         \int_gdecr:N \g__fun_nesting_level_int
         \__fun_return_result:
@@ -269,6 +283,7 @@
     \cs_new_protected:Npn #1 #3
       {
         \int_gincr:N \g__fun_nesting_level_int
+        \__fun_new_arg_tl_vars:
         \__fun_one_argument_gset:nn { 1 } { ##1 }
         \__fun_evaluate:Nn #1 {#2}
         \int_gdecr:N \g__fun_nesting_level_int
@@ -283,6 +298,7 @@
     \cs_new_protected:Npn #1 #3
       {
         \int_gincr:N \g__fun_nesting_level_int
+        \__fun_new_arg_tl_vars:
         \__fun_one_argument_gset:nn { 1 } { ##1 }
         \__fun_one_argument_gset:nn { 2 } { ##2 }
         \__fun_evaluate:Nn #1 {#2}
@@ -298,6 +314,7 @@
     \cs_new_protected:Npn #1 #3
       {
         \int_gincr:N \g__fun_nesting_level_int
+        \__fun_new_arg_tl_vars:
         \__fun_one_argument_gset:nn { 1 } { ##1 }
         \__fun_one_argument_gset:nn { 2 } { ##2 }
         \__fun_one_argument_gset:nn { 3 } { ##3 }
@@ -314,6 +331,7 @@
     \cs_new_protected:Npn #1 #3
       {
         \int_gincr:N \g__fun_nesting_level_int
+        \__fun_new_arg_tl_vars:
         \__fun_one_argument_gset:nn { 1 } { ##1 }
         \__fun_one_argument_gset:nn { 2 } { ##2 }
         \__fun_one_argument_gset:nn { 3 } { ##3 }
@@ -331,6 +349,7 @@
     \cs_new_protected:Npn #1 #3
       {
         \int_gincr:N \g__fun_nesting_level_int
+        \__fun_new_arg_tl_vars:
         \__fun_one_argument_gset:nn { 1 } { ##1 }
         \__fun_one_argument_gset:nn { 2 } { ##2 }
         \__fun_one_argument_gset:nn { 3 } { ##3 }
@@ -349,6 +368,7 @@
     \cs_new_protected:Npn #1 #3
       {
         \int_gincr:N \g__fun_nesting_level_int
+        \__fun_new_arg_tl_vars:
         \__fun_one_argument_gset:nn { 1 } { ##1 }
         \__fun_one_argument_gset:nn { 2 } { ##2 }
         \__fun_one_argument_gset:nn { 3 } { ##3 }
@@ -368,6 +388,7 @@
     \cs_new_protected:Npn #1 #3
       {
         \int_gincr:N \g__fun_nesting_level_int
+        \__fun_new_arg_tl_vars:
         \__fun_one_argument_gset:nn { 1 } { ##1 }
         \__fun_one_argument_gset:nn { 2 } { ##2 }
         \__fun_one_argument_gset:nn { 3 } { ##3 }
@@ -388,6 +409,7 @@
     \cs_new_protected:Npn #1 #3
       {
         \int_gincr:N \g__fun_nesting_level_int
+        \__fun_new_arg_tl_vars:
         \__fun_one_argument_gset:nn { 1 } { ##1 }
         \__fun_one_argument_gset:nn { 2 } { ##2 }
         \__fun_one_argument_gset:nn { 3 } { ##3 }
@@ -409,6 +431,7 @@
     \cs_new_protected:Npn #1 #3
       {
         \int_gincr:N \g__fun_nesting_level_int
+        \__fun_new_arg_tl_vars:
         \__fun_one_argument_gset:nn { 1 } { ##1 }
         \__fun_one_argument_gset:nn { 2 } { ##2 }
         \__fun_one_argument_gset:nn { 3 } { ##3 }
@@ -1020,9 +1043,9 @@
 %%> \section{Interfaces for Token Lists (Tl)}
 %%% --------------------------------------------------------
 
-\tl_set_eq:NN \cEmptyTl \c_empty_tl
-\tl_set_eq:NN \cSpaceTl \c_space_tl
-\tl_set_eq:NN \cNoValueTl \c_novalue_tl
+\tl_const:NV \cEmptyTl \c_empty_tl
+\tl_const:NV \cSpaceTl \c_space_tl
+\tl_const:NV \cNoValueTl \c_novalue_tl
 
 \tl_new:N \lTmpaTl     \tl_new:N \lTmpbTl     \tl_new:N \lTmpcTl
 \tl_new:N \lTmpiTl     \tl_new:N \lTmpjTl     \tl_new:N \lTmpkTl
@@ -1246,19 +1269,19 @@
 %%> \section{Interfaces for Strings (Str)}
 %%% --------------------------------------------------------
 
-\str_set_eq:NN \cAmpersandStr  \c_ampersand_str
-\str_set_eq:NN \cAttignStr     \c_atsign_str
-\str_set_eq:NN \cBackslashStr  \c_backslash_str
-\str_set_eq:NN \cLeftBraceStr  \c_left_brace_str
-\str_set_eq:NN \cRightBraceStr \c_right_brace_str
-\str_set_eq:NN \cCircumflexStr \c_circumflex_str
-\str_set_eq:NN \cColonStr      \c_colon_str
-\str_set_eq:NN \cDollarStr     \c_dollar_str
-\str_set_eq:NN \cHashStr       \c_hash_str
-\str_set_eq:NN \cPercentStr    \c_percent_str
-\str_set_eq:NN \cTildeStr      \c_tilde_str
-\str_set_eq:NN \cUnderscoreStr \c_underscore_str
-\str_set_eq:NN \cZeroStr       \c_zero_str
+\str_const:NV \cAmpersandStr  \c_ampersand_str
+\str_const:NV \cAttignStr     \c_atsign_str
+\str_const:NV \cBackslashStr  \c_backslash_str
+\str_const:NV \cLeftBraceStr  \c_left_brace_str
+\str_const:NV \cRightBraceStr \c_right_brace_str
+\str_const:NV \cCircumflexStr \c_circumflex_str
+\str_const:NV \cColonStr      \c_colon_str
+\str_const:NV \cDollarStr     \c_dollar_str
+\str_const:NV \cHashStr       \c_hash_str
+\str_const:NV \cPercentStr    \c_percent_str
+\str_const:NV \cTildeStr      \c_tilde_str
+\str_const:NV \cUnderscoreStr \c_underscore_str
+\str_const:NV \cZeroStr       \c_zero_str
 
 \str_new:N \lTmpaStr     \str_new:N \lTmpbStr     \str_new:N \lTmpcStr
 \str_new:N \lTmpiStr     \str_new:N \lTmpjStr     \str_new:N \lTmpkStr
@@ -1579,6 +1602,14 @@
 %%> \section{Interfaces for Floating Point Numbers (Fp)}
 %%% --------------------------------------------------------
 
+\fp_new:N \cZeroFp
+\fp_new:N \cMinusZeroFp
+\fp_new:N \cOneFp
+\fp_new:N \cInfFp
+\fp_new:N \cMinusInfFp
+\fp_new:N \cEFp
+\fp_new:N \cPiFp
+\fp_new:N \cOneDegreeFp
 \fp_set_eq:NN \cZeroFp      \c_zero_fp
 \fp_set_eq:NN \cMinusZeroFp \c_minus_zero_fp
 \fp_set_eq:NN \cOneFp       \c_one_fp
@@ -1835,6 +1866,7 @@
 \clist_new:N \l@FunTmpyClist \clist_new:N \g@FunTmpyClist
 \clist_new:N \l@FunTmpzClist \clist_new:N \g@FunTmpzClist
 
+\clist_new:N \cEmptyClist
 \clist_set_eq:NN \cEmptyClist \c_empty_clist
 
 \prgNewFunction \clistNew { M } { \clist_new:N #1 }
@@ -2059,6 +2091,7 @@
 \seq_new:N \gTmpiSeq     \seq_new:N \gTmpjSeq     \seq_new:N \gTmpkSeq
 \seq_new:N \g@FunTmpxSeq \seq_new:N \g@FunTmpySeq \seq_new:N \g@FunTmpzSeq
 
+\seq_new:N \cEmptySeq
 \seq_set_eq:NN \cEmptySeq \c_empty_seq
 
 \prgNewFunction \seqNew { M } { \seq_new:N #1 }
