@@ -2919,7 +2919,7 @@
 \AddToHook{package/xcolor/after}
   {
     \tlNew \l@Fun@Color@Tl
-    \prgNewFunction \colorFromSpec {mm}
+    \prgNewFunction \funColor { m m }
       {
         %% replace commas with vertical bars
         \tlSet \l@Fun@Color@Tl { \clistJoin { fun | #1 | #2 } { | } }
